@@ -1,9 +1,25 @@
 export function StakesBand() {
   return (
-    <section className="py-20 sm:py-28 border-y border-border">
-      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 text-center">
-        <p className="text-2xl sm:text-3xl lg:text-4xl font-medium text-foreground tracking-tight text-balance">
-          No app to download. No dashboard to learn. We send you a daily text. That&apos;s it.
+    <section
+      style={{
+        padding: "5rem 0",
+        borderTop: "1px solid #27272A",
+        borderBottom: "1px solid #27272A",
+      }}
+    >
+      <div style={{ maxWidth: "64rem", margin: "0 auto", padding: "0 1.5rem", textAlign: "center" }}>
+        <p
+          style={{
+            fontSize: "clamp(1.25rem, 3vw, 2.25rem)",
+            fontWeight: 500,
+            color: "#F5F5F7",
+            letterSpacing: "-0.02em",
+            lineHeight: 1.4,
+            textWrap: "balance",
+          }}
+        >
+          No app to download. No dashboard to learn. We send you a daily text.{" "}
+          <span style={{ color: "#71717A" }}>That&apos;s it.</span>
         </p>
       </div>
     </section>

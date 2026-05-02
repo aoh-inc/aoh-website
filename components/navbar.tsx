@@ -2,69 +2,74 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   return (
     <header
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled
-          ? "bg-background/80 backdrop-blur-md border-b border-border"
-          : "bg-transparent"
-      )}
+      style={{
+        position: "fixed",
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        transition: "background 0.3s, border-color 0.3s",
+        backgroundColor: isScrolled ? "rgba(10,10,15,0.85)" : "transparent",
+        backdropFilter: isScrolled ? "blur(12px)" : "none",
+        borderBottom: isScrolled ? "1px solid #27272A" : "1px solid transparent",
+      }}
     >
-      <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+      <nav style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 1.5rem" }}>
+        <div style={{ display: "flex", height: "64px", alignItems: "center", justifyContent: "space-between" }}>
           {/* Wordmark */}
-          <Link href="/" className="flex items-center gap-1">
-            <span className="text-lg font-light text-foreground/80">AI</span>
-            <span className="text-lg font-medium text-foreground">Outsource Hub</span>
+          <Link href="/" style={{ display: "flex", alignItems: "center", gap: "4px", textDecoration: "none" }}>
+            <span style={{ fontSize: "1.125rem", fontWeight: 300, color: "rgba(245,245,247,0.7)" }}>AI</span>
+            <span style={{ fontSize: "1.125rem", fontWeight: 500, color: "#F5F5F7" }}>Outsource Hub</span>
           </Link>
 
-          {/* Center Links - Hidden on mobile */}
-          <div className="hidden md:flex items-center gap-8">
-            <Link
-              href="#services"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Services
-            </Link>
-            <Link
-              href="#about"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              About
-            </Link>
-            <Link
-              href="#faq"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              FAQ
-            </Link>
-            <Link
-              href="#contact"
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Contact
-            </Link>
+          {/* Center links — hidden on small screens via inline media would need CSS class; use a simple flex that wraps */}
+          <div className="hidden md:flex" style={{ alignItems: "center", gap: "2rem" }}>
+            {["Services", "About", "FAQ", "Contact"].map((label) => (
+              <Link
+                key={label}
+                href={`#${label.toLowerCase()}`}
+                style={{ fontSize: "0.875rem", color: "#71717A", textDecoration: "none", transition: "color 0.2s" }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#F5F5F7")}
+                onMouseLeave={(e) => (e.currentTarget.style.color = "#71717A")}
+              >
+                {label}
+              </Link>
+            ))}
           </div>
 
-          {/* CTA Button */}
+          {/* CTA */}
           <Link
             href="#diagnostic"
-            className="text-sm font-medium text-foreground border border-border px-4 py-2 rounded-lg hover:bg-card hover:border-accent/50 transition-all"
+            style={{
+              fontSize: "0.875rem",
+              fontWeight: 500,
+              color: "#F5F5F7",
+              border: "1px solid #27272A",
+              padding: "0.5rem 1rem",
+              borderRadius: "0.5rem",
+              textDecoration: "none",
+              transition: "background 0.2s, border-color 0.2s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = "#141419";
+              e.currentTarget.style.borderColor = "rgba(14,165,233,0.5)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = "transparent";
+              e.currentTarget.style.borderColor = "#27272A";
+            }}
           >
             Run free diagnostic
           </Link>

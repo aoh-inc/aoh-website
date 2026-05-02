@@ -23,28 +23,58 @@ const services = [
 
 export function Services() {
   return (
-    <section id="services" className="py-24 sm:py-32 bg-card/30">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-foreground">
+    <section id="services" style={{ padding: "6rem 0", backgroundColor: "rgba(20,20,25,0.4)" }}>
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 1.5rem" }}>
+        <div style={{ textAlign: "center", marginBottom: "4rem" }}>
+          <h2
+            style={{
+              fontSize: "clamp(1.75rem, 3vw, 2.5rem)",
+              fontWeight: 600,
+              letterSpacing: "-0.02em",
+              color: "#F5F5F7",
+              marginBottom: "1rem",
+            }}
+          >
             Four ways we run AI for you
           </h2>
-          <p className="mt-4 text-lg text-muted-foreground">
+          <p style={{ fontSize: "1.125rem", color: "#71717A" }}>
             Pick one. Add more later. We handle them all.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {services.map((service, index) => (
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: "1.5rem",
+          }}
+        >
+          {services.map((service) => (
             <div
               key={service.title}
-              className="bg-card border border-border rounded-xl p-6 hover:border-accent/30 transition-colors animate-fade-up"
-              style={{ animationDelay: `${index * 100}ms` }}
+              style={{
+                backgroundColor: "#141419",
+                border: "1px solid #27272A",
+                borderRadius: "0.75rem",
+                padding: "1.5rem",
+                transition: "border-color 0.2s",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.borderColor = "rgba(14,165,233,0.3)")}
+              onMouseLeave={(e) => (e.currentTarget.style.borderColor = "#27272A")}
             >
-              <h3 className="text-base font-semibold text-foreground uppercase tracking-wide">
+              <h3
+                style={{
+                  fontSize: "0.8125rem",
+                  fontWeight: 600,
+                  color: "#F5F5F7",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.08em",
+                  marginBottom: "1rem",
+                }}
+              >
                 {service.title}
               </h3>
-              <p className="mt-4 text-sm text-muted-foreground leading-relaxed">
+              <p style={{ fontSize: "0.875rem", color: "#71717A", lineHeight: 1.6 }}>
                 {service.description}
               </p>
             </div>

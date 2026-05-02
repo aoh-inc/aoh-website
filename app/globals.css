@@ -1,43 +1,18 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
-:root {
-  --background: #0A0A0F;
-  --foreground: #F5F5F7;
-  --muted: #71717A;
-  --muted-foreground: #A1A1AA;
-  --card: #141419;
-  --card-foreground: #F5F5F7;
-  --border: #27272A;
-  --accent: #0EA5E9;
-  --accent-foreground: #F5F5F7;
-  --radius: 0.75rem;
+html, body {
+  background-color: #0A0A0F;
+  color: #F5F5F7;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-border: var(--border);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --font-sans: var(--font-inter);
+* {
+  box-sizing: border-box;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
-}
-
-/* Custom smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
 
-/* Subtle fade-up animation */
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -53,18 +28,7 @@ html {
   animation: fade-up 0.6s ease-out forwards;
 }
 
-.animation-delay-100 {
-  animation-delay: 100ms;
-}
-
-.animation-delay-200 {
-  animation-delay: 200ms;
-}
-
-.animation-delay-300 {
-  animation-delay: 300ms;
-}
-
-.animation-delay-400 {
-  animation-delay: 400ms;
-}
+.animation-delay-100 { animation-delay: 100ms; }
+.animation-delay-200 { animation-delay: 200ms; }
+.animation-delay-300 { animation-delay: 300ms; }
+.animation-delay-400 { animation-delay: 400ms; }
