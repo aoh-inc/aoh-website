@@ -1,149 +1,134 @@
-# aoh-website
+# AOH Website (`aoh-inc/aoh-website`)
 
-Live at **[aioutsourcehub.com](https://aioutsourcehub.com)** — the marketing site for [AI Outsource Hub](https://aioutsourcehub.com), a service that runs AI tools on behalf of local businesses.
+The marketing site for **AI Outsource Hub** — a done-for-you AI services agency for local small businesses. Live at [aioutsourcehub.com](https://aioutsourcehub.com).
 
-> **Hiring devs?** Read this whole README before quoting. Half the things people pitch us are already done. Real scope is at the bottom under [What we're hiring for](#what-were-hiring-for).
+> **New developer? Read in this order:**
+> 1. This README — repo overview, deploy, conventions
+> 2. [`HIRING.md`](./HIRING.md) — Project 1 brief and scope
+> 3. [`PRODUCT.md`](./PRODUCT.md) — what AOH is, what it sells, who it serves
+> 4. [`DESIGN.md`](./DESIGN.md) — visual system, palette, typography, hero pattern
 
-## Stack
+---
 
-- **Next.js 16** (App Router, Turbopack, Server Components)
-- **React 19**
-- **TypeScript 5**
-- **Tailwind CSS v4**
-- **framer-motion** for animations
-- **Vercel** hosting (free tier, auto-deploy from GitHub `main`)
-- **V0** (premium) for AI-assisted UI generation, bidirectional GitHub sync
-- **Cloudflare Turnstile** for form spam protection
-- **GHL (GoHighLevel)** webhook for lead capture
+## Tech stack
 
-## Run locally
+| Layer | Choice | Version |
+|---|---|---|
+| Framework | Next.js (App Router) | 16.2.5 |
+| UI | React | 19.2.4 |
+| Styling | Tailwind CSS v4 | 4.x |
+| Animation | Framer Motion | 12.x |
+| Type | Geist Sans + Geist Mono | 1.7 |
+| Hosting | Vercel | — |
+| Repo host | GitHub `aoh-inc` org | — |
+| Package mgr | npm | — |
+
+One server route — `app/api/report/route.ts` — handles the homepage lead form. Validates email, verifies Cloudflare Turnstile, forwards to a GHL webhook. `middleware.ts` rate-limits it to 3/hour/IP. Env vars: `TURNSTILE_SECRET_KEY`, `GHL_WEBHOOK_URL` (both in Vercel project settings; `.env.local` for local dev). Everything else is fully static and server-rendered.
+
+## Local development
 
 ```bash
 npm install
-npm run dev          # http://localhost:3000
-npm run build        # production build
+npm run dev
+# open http://localhost:3000
+```
+
+Production build:
+
+```bash
+npm run build
+npm run start
+```
+
+Linting:
+
+```bash
 npm run lint
 ```
 
-## What's already done (don't quote for these)
+## Page architecture
 
-### Pages — 12 routes, all server-rendered + static-prerendered
-- `/` home with hero, revenue calculator, services grid, social proof, FAQ
-- `/about`, `/pricing`, `/contact`, `/faq`, `/privacy`, `/terms`
-- 5 service pages: `/reviews`, `/ai-visibility`, `/relay`, `/studio`, `/rankings`
+Multi-page site (12 routes, all server-rendered + statically prerendered).
 
-### SEO — full foundation, indexed in Google
-- `app/sitemap.ts` — programmatic sitemap of all routes
-- `app/robots.ts` + `public/llms.txt` — AI-crawler-friendly (GPTBot, ClaudeBot, PerplexityBot, etc. all explicitly allowed)
-- `app/opengraph-image.tsx` — auto-generates 1200×630 branded OG image via `next/og`
-- Per-page metadata: unique title, description, `alternates.canonical`
-- JSON-LD on every page: `Organization` + `WebSite` (root), `Service` schema (each service page), `BreadcrumbList` (sub-pages), `FAQPage` (home + `/faq`)
-- `next.config.ts` 301/308 redirects from ~150 old WordPress URLs → closest new equivalents
-- Verified domain in Google Search Console (DNS TXT)
+**Top-level routes:** `/`, `/about`, `/pricing`, `/contact`, `/faq`, `/privacy`, `/terms`
+**Service pages:** `/reviews`, `/ai-visibility`, `/relay`, `/studio`, `/rankings`
+**Server route:** `/api/report` (lead form)
 
-### Lead capture
-- `/api/report` POST endpoint: validates email, Cloudflare Turnstile check, in-memory rate-limit (3/hour/IP), forwards to GHL webhook
-- Hero form on `/` is wired end-to-end and converting
-- A/B variant logic in payload (`campaign`, `visualVariant` fields)
+Homepage sections (`app/page.tsx`):
 
-### Brand
-- Locked design system in `app/globals.css` — CSS variables for colors (cream `#F8F6F1`, navy `#0A1628`, accent green `#2D6A4F`), Geist font family
-- Components: `Navbar`, `Footer`, `PageHeader`, `PageBody` (with `PageSection`, `CtaBlock`), `RevenueCalculator`, `HeroEmailForm`, `HeroVisualAI`, `HeroVisualReviews`, `FAQ`, `SocialProof`
-- Existing animations: `hero-roll-up` and `fade-up` keyframes, `prefers-reduced-motion` respected
+1. **Navbar** (`components/Navbar.tsx`)
+2. **HeroEmailForm** (`components/hero/HeroEmailForm.tsx`) — dark exception, alternating `HeroVisualAI` / `HeroVisualReviews` per campaign variant
+3. **RevenueCalculator** (`components/RevenueCalculator.tsx`) — interactive revenue-loss calculator
+4. **Services grid** — inline in `app/page.tsx`
+5. **SocialProof** (`components/sections/SocialProof.tsx`) — placeholder until real testimonials land
+6. **FAQ** (`components/sections/FAQ.tsx`)
+7. **Footer** (`components/sections/Footer.tsx`)
 
-### Infra
-- Auto-deploy from `main` to Vercel
-- V0 bidirectional sync (V0 chats commit to per-chat branches)
-- Vercel preview URLs per branch: `aoh-website-git-<branch>-aoh-inc.vercel.app`
+Sub-pages compose `components/PageHeader` + `components/PageBody` (`PageSection`, `CtaBlock`) primitives — extend these, don't duplicate the layout.
 
-## What we're hiring for
+JSON-LD strategy: `Organization` + `WebSite` in `app/layout.tsx`; `Service` schema on each service page; `BreadcrumbList` on every sub-page (helper in `lib/seo.ts`); `FAQPage` on home + `/faq` (data in `lib/faq.ts`).
 
-**Two streams, one engineer:**
+## Design system at a glance
 
-### Stream A — Polish + finish AOH's own site (this repo)
+**Light mode default. Hero is the only dark exception.** Token definitions live in `app/globals.css` under `@theme`. Read [`DESIGN.md`](./DESIGN.md) for the why behind every choice.
 
-| Item | Scope |
-|---|---|
-| Mobile menu | Navbar has the hamburger button. Slide-out drawer logic is not built. Wire it. |
-| `/contact` form POST | UI exists. No backend handler. Add a `/api/contact` route mirroring `/api/report` (validate, Turnstile, GHL webhook). |
-| Scroll-triggered animations | Replace static blocks with framer-motion `whileInView` reveals on service pages, FAQ accordions, pricing cards. Tasteful, not casino-style. |
-| Hero visuals refinement | `HeroVisualAI` + `HeroVisualReviews` exist. Tune motion, timing, and the alternation logic. |
-| Page transitions | Optional. View-transitions API or framer-motion layout animations between routes. |
-| Lighthouse pass | Never audited. Target Lighthouse 95+ across the board. Image optimization, font loading, render-blocking JS. |
-| Accessibility pass | Full WCAG 2.1 AA sweep. Keyboard nav, focus states, ARIA on the FAQ accordion + Navbar dropdown, alt text audit. |
+| Token | Value | Used for |
+|---|---|---|
+| `--color-bg-page` | `#F8F6F1` | Page background (warm white) |
+| `--color-text-body` | `#1A1F2E` | Body text (near-black, not pure) |
+| `--color-accent` | `#2D6A4F` | Pine green — the single brand accent |
+| `--color-hero-bg` | `#0F1419` | Hero dark exception |
 
-**Stream A is one-time work. Estimated 20-40 hours.**
+Don't introduce a second accent. Don't switch to pure white or pure black. Don't add gradients beyond the hero arch.
 
-### Stream B — Recurring client website rebuilds
+## Deploy
 
-This is where the actual ongoing revenue is. AOH sells a [premium "Rebuild" tier](https://aioutsourcehub.com/ai-visibility) at **$3,499 setup + $249/month** to existing clients. Each Rebuild = a custom Next.js site built on this design system for a real local business client.
+**Branch `main` auto-deploys to production at `aioutsourcehub.com` via Vercel.** Pushes to feature branches generate Vercel preview URLs automatically.
 
-| Per-client scope | Detail |
-|---|---|
-| Effort | 25–35 hours per client |
-| Stack | This exact stack (Next.js 16, Tailwind v4, this design system) |
-| Deliverable | Hosted on Vercel, multi-page, full SEO foundation (we ship the same `sitemap.ts` + JSON-LD pattern), client-specific niche schema (`VeterinaryCare`, `FuneralHome`, etc.), Lighthouse 95+ |
-| Compensation | $60/hr (≈$1,800 per Rebuild client). Mike handles client comms + ongoing schema work; you build the site. |
-| Cadence | Project-based as Rebuild clients sign |
-| Brand handling | Each client's brand layered onto AOH's locked component primitives (PageHeader, PageBody, etc.). Don't rebuild the design system per client — extend it. |
+To check the most recent deploy: visit Vercel → AI Outsource Hub project → Deployments.
 
-**Stream B is ongoing. We expect 1-3 Rebuild client builds per quarter at first, scaling up.**
+## Branch + commit conventions
 
-### What we're NOT hiring for (already covered)
+- `main` is production. Always green. Never force-push.
+- Feature branches: `v{N+1}-{shortname}` (e.g. `v10-logo-refresh`). PR into main. Squash on merge.
+- Commit subjects: imperative, ≤72 chars. Body explains *why*, not *what*.
+- Versioned milestones: tag commits like `v9: complete redesign per locked design foundation` (see git log for the pattern).
 
-- ❌ "Build out a multi-page Next.js site" — done
-- ❌ "Add a sitemap and robots.txt" — done
-- ❌ "Set up Vercel hosting" — done
-- ❌ "Add structured data / schema markup" — done, with niche-specific subtype expansion as Pro-tier client work
-- ❌ "Set up SEO" — full foundation in place, GSC verified, sitemap submitted
-- ❌ "Migrate from WordPress" — done; 301 redirects in `next.config.ts` cover the orphans
-- ❌ "Add a contact form UI" — UI is built, only the POST handler is missing (one route file)
-- ❌ "Hook up V0 / GitHub / Vercel" — all three connected and live
-- ❌ Backend / database / auth — none of that lives in this repo. AOH's agent fleet runs on a separate VPS; this is the marketing surface.
+## What this site is NOT
 
-## How to apply
+- **Not** a SaaS dashboard. AOH sells a service, not a product.
+- **Not** a tech-bro AI agency aesthetic. No purple gradients, no neural-network illustrations, no AI-persona mascots.
+- **Not** a regional-craftsman vibe. AOH targets nationally; never anchor to a specific city or state.
+- **Not** a stock-photo site. Zero stock photography. Real founder photos only.
+- **Not** an enterprise SaaS site. No demo-request gating, no enterprise feature tables.
 
-Read the [What we're hiring for](#what-were-hiring-for) section above. Then email **support@aioutsourcehub.com** with:
+## Hard rules (don't break)
 
-1. Three Next.js + Tailwind sites you've shipped (links, not screenshots)
-2. One Lighthouse score from your favorite recent project (real, not aspirational)
-3. Your hourly rate
-4. A one-paragraph note on which Stream interests you more (A polish, B client builds, or both) and why
+- **No regional anchors anywhere.** Any city/state references in code or copy → delete.
+- **No single-niche pigeonholing.** Default to plural neutral ("local businesses", "shop owners"). Rotate niches across examples; never lead with one.
+- **No fake testimonials.** Testimonial component is intentionally honest about being placeholder until real ones land.
+- **No banned hype phrases.** "Transform your business," "revolutionize," "game-changer," "synergy," "10x," "next-level," "unleash" — all out. Voice is direct and operator-tone.
+- **No technical jargon in customer-facing copy.** No vendor names, no `place_id`, no API terminology. Use plain language: "our platform" / "your hub" / "we run it."
+- **AEO / GEO baked in.** Every visual choice respects semantic HTML, schema markup, sub-1s LCP. Don't break crawler-readability for visual flair.
 
-Don't send a generic dev-portfolio email. We read all of these and the cookie-cutter ones go in the trash.
+## Completed since v9 (2026-05-08)
 
-## Repo layout
+Project 1 in `HIRING.md` was scoped against the v9 single-page site. A lot has shipped since. Don't re-quote these:
 
-```
-app/                    # routes (App Router)
-  api/report/route.ts   # lead-capture POST endpoint
-  <route>/page.tsx      # one per route
-  layout.tsx            # root metadata + JSON-LD
-  sitemap.ts            # programmatic sitemap
-  robots.ts             # programmatic robots.txt
-  opengraph-image.tsx   # 1200×630 OG image generator
-components/             # shared UI
-  hero/                 # hero-specific
-  sections/             # page-section primitives
-lib/
-  faq.ts                # FAQ data + JSON-LD schema
-  seo.ts                # SITE_URL + breadcrumb helper
-  email-validation.ts
-public/                 # static assets, llms.txt, brand SVGs
-next.config.ts          # WP-redirect map
-middleware.ts           # rate-limit on /api/report (rename to proxy.ts in Next 16 idiomatic form — TODO)
-```
+- ✅ Multi-page IA built — `/about`, `/pricing`, `/contact`, `/faq`, `/privacy`, `/terms` + 5 service pages (`/reviews`, `/ai-visibility`, `/relay`, `/studio`, `/rankings`)
+- ✅ JSON-LD baked in per page — `Organization`, `WebSite`, `Service` per pillar, `BreadcrumbList`, `FAQPage`
+- ✅ `app/sitemap.ts`, `app/robots.ts`, `public/llms.txt` — AI crawlers explicitly allowlisted
+- ✅ `app/opengraph-image.tsx` — 1200×630 OG image generator (`next/og`)
+- ✅ Per-page metadata: unique title, description, `alternates.canonical`
+- ✅ `app/api/report` POST endpoint — Turnstile + GHL webhook + rate-limit
+- ✅ `next.config.ts` — 301/308 redirects from ~150 old WordPress URLs
+- ✅ Google Search Console verified (DNS TXT), sitemap submitted
+- ✅ Vercel auto-deploy from `main`
 
-## Conventions
+`HIRING.md` is the v9 scope and is partly stale. Active job listings live on Contra.
 
-- This is **Next.js 16** — APIs differ from 14/15. Read `node_modules/next/dist/docs/` before assuming.
-- Every page exports `metadata` with `alternates.canonical`. Don't skip canonical.
-- JSON-LD lives on the page that owns it (Service schema on the service page, not centralized).
-- FAQ data has one source of truth: `lib/faq.ts`.
-- Brand colors are CSS variables in `app/globals.css`. Don't hardcode hex.
-- No new comments unless the WHY is non-obvious.
-- Vercel auto-deploys `main`. Always work on a feature branch + open a PR.
+## Cross-refs
 
-## License
-
-Proprietary — AI Outsource Hub. All rights reserved.
+- [`HIRING.md`](./HIRING.md) — original Project 1 brief (partly superseded by what's listed above)
+- [`PRODUCT.md`](./PRODUCT.md) — product context
+- [`DESIGN.md`](./DESIGN.md) — design system
