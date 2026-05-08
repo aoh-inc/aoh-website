@@ -73,10 +73,33 @@ function resolveVariant(param: string | null): Variant {
   return "default";
 }
 
+const TRUSTED_REPORT_HOSTS = [
+  "gohighlevel.com",
+  "msgsndr.com",
+  "leadconnectorhq.com",
+  "hub360ai.com",
+  "aioutsourcehub.com",
+];
+
+function trustedReportUrl(raw: string | null): string | null {
+  if (!raw) return null;
+  try {
+    const u = new URL(raw);
+    if (u.protocol !== "https:") return null;
+    const ok = TRUSTED_REPORT_HOSTS.some(
+      (h) => u.hostname === h || u.hostname.endsWith("." + h),
+    );
+    return ok ? u.toString() : null;
+  } catch {
+    return null;
+  }
+}
+
 function HeroInner() {
   const searchParams = useSearchParams();
   const variant = resolveVariant(searchParams.get("campaign"));
   const config = variants[variant];
+  const auditUrl = trustedReportUrl(searchParams.get("audit_url"));
 
   const [email, setEmail] = useState(searchParams.get("email") ?? "");
   const [secondaryReport, setSecondaryReport] = useState(true);
@@ -177,9 +200,35 @@ function HeroInner() {
               className="hero-roll mt-6 max-w-xl text-lg text-[var(--color-hero-subtext)] md:text-xl"
               style={{ animationDelay: "400ms" }}
             >
-              {config.subheadline}
+              {auditUrl
+                ? "Your free report is ready. Click below to view it — no signup, no credit card."
+                : config.subheadline}
             </p>
 
+            {auditUrl ? (
+              <div
+                className="hero-roll mt-8 max-w-xl"
+                style={{ animationDelay: "600ms" }}
+              >
+                <a
+                  href={auditUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center justify-center gap-2 w-full sm:w-auto min-h-[64px] min-w-fit whitespace-nowrap rounded-md bg-[var(--color-accent)] px-8 py-4 text-lg font-semibold text-[var(--color-accent-text)] transition hover:bg-[var(--color-accent-hover)] hover:shadow-lg hover:shadow-[var(--color-accent)]/30 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-hero-bg)]"
+                >
+                  See My Report
+                  <span
+                    aria-hidden="true"
+                    className="text-xl transition-transform duration-200 group-hover:translate-x-0.5"
+                  >
+                    →
+                  </span>
+                </a>
+                <p className="mt-4 text-sm text-[var(--color-hero-subtext)]">
+                  Opens in a new tab. {email && <>Sent to <strong className="text-[var(--color-hero-text)]">{email}</strong>.</>}
+                </p>
+              </div>
+            ) : (
             <div
               className="hero-roll mt-8 max-w-xl"
               style={{ animationDelay: "600ms" }}
@@ -282,6 +331,7 @@ function HeroInner() {
                 </div>
               )}
             </div>
+            )}
           </div>
 
           <div
