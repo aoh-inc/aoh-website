@@ -370,22 +370,28 @@ export function RevenueCalculator() {
                       </div>
                       <div className="rounded-xl bg-green-500/10 border border-green-500/30 p-4">
                         <p className="text-[10px] uppercase tracking-wider text-green-300/80 font-bold mb-3">
-                          Recoverable
+                          With AOH plan
                         </p>
                         <div className="mb-3">
                           <p className="text-xs text-white/50 mb-1">Customers / mo</p>
                           <p className="text-2xl font-bold text-green-400">
-                            +{results.gainedCustomers}
+                            up to {results.gainedCustomers}
                           </p>
                         </div>
                         <div>
                           <p className="text-xs text-white/50 mb-1">Revenue / mo</p>
                           <p className="text-2xl font-bold text-green-400">
-                            +{results.gainedRevenue}
+                            up to {results.gainedRevenue}
                           </p>
                         </div>
                       </div>
                     </div>
+                    <p className="text-[10px] text-white/40 mb-6 leading-relaxed">
+                      Estimates based on industry benchmarks. Actual results depend on your
+                      market, response time, and review-collection consistency. We don&apos;t
+                      guarantee outcomes — your free report shows what&apos;s realistic for your
+                      specific business.
+                    </p>
 
                     <div
                       className="bg-white/5 border border-white/10 rounded-xl p-4 mb-6 text-[var(--color-hero-subtext)] leading-relaxed [&_strong]:text-white [&_strong]:font-semibold [&_em]:italic"
