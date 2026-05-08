@@ -94,12 +94,17 @@ export function RevenueCalculator() {
     else if (stars < 4.5) starPenalty = 0.04;
 
     const velocityRatio = Math.min(reviewsPerMonth / ind.velocityTarget, 1);
-    const reviewPenalty = Math.max(0, (1 - velocityRatio) * 0.40);
+    // Exponential curve — zero velocity is much worse than half velocity.
+    // pow(1-ratio, 1.5) makes "first reviews break the freeze" effect: 0->half drops penalty by 65%,
+    // half->full drops it by remaining 35%. Reflects real-world Google review-velocity impact.
+    const reviewPenalty = Math.max(0, Math.pow(1 - velocityRatio, 1.5) * 0.65);
 
     const currentTraffic = rankingTraffic[Math.min(ranking, 20)];
     const trafficLoss = 1 - currentTraffic;
 
-    const totalPenalty = Math.min(0.90, trafficLoss * 0.6 + starPenalty * 0.25 + reviewPenalty * 0.15);
+    // Weights: review velocity is now the dominant lever (0.45) since it's AOH's primary product
+    // and Whitespark 2026 research confirms velocity > total count for ranking.
+    const totalPenalty = Math.min(0.90, trafficLoss * 0.40 + starPenalty * 0.15 + reviewPenalty * 0.45);
 
     const monthlyRevenue = customerValue * ind.vol;
     const lostRevenueRaw = monthlyRevenue * totalPenalty;
