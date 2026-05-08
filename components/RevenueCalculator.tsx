@@ -93,11 +93,10 @@ export function RevenueCalculator() {
     else if (stars < 4.2) starPenalty = 0.10;
     else if (stars < 4.5) starPenalty = 0.04;
 
-    const velocityRatio = Math.min(reviewsPerMonth / ind.velocityTarget, 1);
-    // Exponential curve — zero velocity is much worse than half velocity.
-    // pow(1-ratio, 1.5) makes "first reviews break the freeze" effect: 0->half drops penalty by 65%,
-    // half->full drops it by remaining 35%. Reflects real-world Google review-velocity impact.
-    const reviewPenalty = Math.max(0, Math.pow(1 - velocityRatio, 1.5) * 0.65);
+    // Continuous exponential decay (no cap) — every +1 review reduces penalty.
+    // Target = ~75% of max benefit. Past target: diminishing returns but still moves.
+    // pow(0.5, reviews / (target * 0.5)) halves penalty every half-target step.
+    const reviewPenalty = 0.65 * Math.pow(0.5, reviewsPerMonth / (ind.velocityTarget * 0.5));
 
     const currentTraffic = rankingTraffic[Math.min(ranking, 20)];
     const trafficLoss = 1 - currentTraffic;
