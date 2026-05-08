@@ -23,16 +23,33 @@ const rankingTraffic: Record<number, number> = {
   16: 0.02, 17: 0.01, 18: 0.01, 19: 0.01, 20: 0.01
 };
 
+type AiVisibilityStatus =
+  | ""
+  | "yes-cited"
+  | "think-so"
+  | "dont-know"
+  | "tested-invisible";
+
+const aiVisibilityWeights: Record<Exclude<AiVisibilityStatus, "">, number> = {
+  "yes-cited": 0.05,
+  "think-so": 0.18,
+  "dont-know": 0.32,
+  "tested-invisible": 0.45,
+};
+
 export function RevenueCalculator() {
   const [industry, setIndustry] = useState("");
   const [reviews, setReviews] = useState(18);
   const [stars, setStars] = useState(3.8);
   const [ranking, setRanking] = useState(8);
+  const [aiVisibility, setAiVisibility] = useState<AiVisibilityStatus>("");
   const [results, setResults] = useState<{
     lostCustomers: string;
     lostRevenue: string;
+    aiRevenueAtRisk: string;
     gainRevenue: string;
     insight: string;
+    needsAiCheck: boolean;
   } | null>(null);
 
   const updateSliders = () => {
@@ -81,31 +98,43 @@ export function RevenueCalculator() {
     // Format numbers
     const fmt = (n: number) => n >= 1000 ? '$' + (n/1000).toFixed(1) + 'K' : '$' + n;
 
+    const aiWeight = aiVisibility ? aiVisibilityWeights[aiVisibility] : 0;
+    const aiRevenueAtRisk = Math.round(baseRevenue * aiWeight / 100) * 100;
+    const needsAiCheck = aiVisibility === "dont-know" || aiVisibility === "think-so";
+
     // Insight text
     let insight = '';
     const topBusiness = ind.benchmark;
 
-    if (reviewsNum < 20) {
-      insight = `<strong>Your review count is the biggest issue.</strong> The top ${ind.label} in your area average ${topBusiness}+ reviews. At ${reviewsNum}, most customers see your listing and move on — they can't tell if you're good or just new.`;
+    if (aiVisibility === "tested-invisible") {
+      insight = `<strong>You&apos;re invisible in AI search — that&apos;s the biggest issue.</strong> 25%+ of local discovery has shifted to ChatGPT, Perplexity, and Google AI Overviews. At your size, that&apos;s roughly ${fmt(aiRevenueAtRisk)}/month going to whoever IS being cited. Reviews + rankings only fix half the problem.`;
+    } else if (aiVisibility === "dont-know" && reviewsNum >= 20 && rankingNum <= 5) {
+      insight = `<strong>Your Google game is decent — but the AI gap is wide open.</strong> You&apos;re close on reviews (${reviewsNum}) and ranking (#${rankingNum}). The unknown is AI search, where most local businesses score under 20/100. Your free report includes a live ChatGPT and Perplexity check.`;
+    } else if (reviewsNum < 20) {
+      insight = `<strong>Your review count is the biggest issue.</strong> The top ${ind.label} in your area average ${topBusiness}+ reviews. At ${reviewsNum}, most customers see your listing and move on — they can&apos;t tell if you&apos;re good or just new.`;
     } else if (rankingNum > 5) {
-      insight = `<strong>Your ranking position is costing you the most.</strong> Businesses in positions #1–3 capture ${Math.round(rankingTraffic[1]*100)}% of local search clicks. At position #${rankingNum}, you're getting roughly ${Math.round(currentTraffic*100)}% of that traffic. Most customers never see you.`;
+      insight = `<strong>Your ranking position is costing you the most.</strong> Businesses in positions #1–3 capture ${Math.round(rankingTraffic[1]*100)}% of local search clicks. At position #${rankingNum}, you&apos;re getting roughly ${Math.round(currentTraffic*100)}% of that traffic. Most customers never see you.`;
     } else if (starsNum < 4.0) {
-      insight = `<strong>Your star rating is your biggest conversion killer.</strong> 94% of consumers won't consider a business under 4.0 stars. At ${starsNum.toFixed(1)}, you're visible — but customers are choosing your competitors instead.`;
+      insight = `<strong>Your star rating is your biggest conversion killer.</strong> 94% of consumers won&apos;t consider a business under 4.0 stars. At ${starsNum.toFixed(1)}, you&apos;re visible — but customers are choosing your competitors instead.`;
+    } else if (aiVisibility === "yes-cited") {
+      insight = `<strong>You&apos;re ahead of most.</strong> Strong reviews, decent ranking, AND you&apos;re cited in AI engines — rare combo for a local business. The remaining gap is mostly review velocity and freshness. ${fmt(lostRevenue + aiRevenueAtRisk)}/month is recoverable with disciplined collection.`;
     } else {
-      insight = `<strong>You're closer than most.</strong> A few targeted improvements to your review velocity and ranking could recover most of that ${fmt(lostRevenue)}/month. The gap between where you are and your potential is smaller than you think.`;
+      insight = `<strong>You&apos;re closer than most.</strong> A few targeted improvements to review velocity, ranking, and AI search visibility could recover most of that ${fmt(lostRevenue + aiRevenueAtRisk)}/month. The gap between where you are and your potential is smaller than you think.`;
     }
 
     setResults({
       lostCustomers: lostCustomers + '/mo',
       lostRevenue: fmt(lostRevenue) + '/mo',
+      aiRevenueAtRisk: aiVisibility ? fmt(aiRevenueAtRisk) + '/mo' : '—',
       gainRevenue: fmt(gainRevenue) + '/mo',
       insight,
+      needsAiCheck,
     });
   };
 
   useEffect(() => {
     calculate();
-  }, [industry, reviews, stars, ranking]);
+  }, [industry, reviews, stars, ranking, aiVisibility]);
 
   const renderStars = (rating: number) => {
     const stars = [];
@@ -220,7 +249,7 @@ export function RevenueCalculator() {
           {/* Ranking */}
           <div className="mb-8">
             <label className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
-              Where do you typically rank on Google Maps for your main service? <span className="text-xs font-normal text-[var(--color-text-muted)]">(e.g. "auto repair near me")</span>
+              Where do you typically rank on Google Maps for your main service? <span className="text-xs font-normal text-[var(--color-text-muted)]">(e.g. &quot;auto repair near me&quot;)</span>
             </label>
             <div className="flex items-center gap-4">
               <input
@@ -240,6 +269,35 @@ export function RevenueCalculator() {
               <span>#20+</span>
             </div>
           </div>
+
+          {/* AI Visibility */}
+          <div className="mb-2">
+            <label className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
+              Does ChatGPT, Perplexity, or Google AI Overviews recommend you?
+            </label>
+            <select
+              value={aiVisibility}
+              onChange={(e) => setAiVisibility(e.target.value as AiVisibilityStatus)}
+              className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-[var(--color-text-body)] bg-white focus:outline-none focus:border-[var(--color-accent)] transition-colors"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235A6072' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")`,
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'right 16px center',
+                paddingRight: '40px',
+              }}
+            >
+              <option value="">— Select —</option>
+              <option value="yes-cited">Yes — I&apos;ve tested and I&apos;m cited</option>
+              <option value="think-so">I think so, but not sure</option>
+              <option value="dont-know">I don&apos;t know — never tested</option>
+              <option value="tested-invisible">Tested and I&apos;m invisible</option>
+            </select>
+            {(aiVisibility === "dont-know" || aiVisibility === "think-so") && (
+              <p className="mt-3 text-xs text-[var(--color-accent)] leading-relaxed">
+                We&apos;ll run a live ChatGPT + Perplexity + Google AI Overviews check for your business in your free report — see exactly what they say (or don&apos;t).
+              </p>
+            )}
+          </div>
             </div>
 
             {/* Results */}
@@ -252,31 +310,40 @@ export function RevenueCalculator() {
                   <>
                     <div className="grid grid-cols-2 gap-6 mb-6">
                       <div>
-                        <p className="text-xs text-white/45 mb-1">Customers lost per month</p>
+                        <p className="text-xs text-white/45 mb-1">Customers lost / mo</p>
                         <p className="text-3xl font-bold text-red-400">{results.lostCustomers}</p>
                       </div>
                       <div>
-                        <p className="text-xs text-white/45 mb-1">Revenue left on the table</p>
+                        <p className="text-xs text-white/45 mb-1">Google revenue at risk</p>
                         <p className="text-3xl font-bold text-red-400">{results.lostRevenue}</p>
                       </div>
                       <div>
-                        <p className="text-xs text-white/45 mb-1">Potential with top rankings</p>
-                        <p className="text-3xl font-bold text-green-400">{results.gainRevenue}</p>
+                        <p className="text-xs text-white/45 mb-1">AI search revenue at risk</p>
+                        <p className="text-3xl font-bold text-orange-400">{results.aiRevenueAtRisk}</p>
                       </div>
                       <div>
-                        <p className="text-xs text-white/45 mb-1">AOH costs as little as</p>
-                        <p className="text-3xl font-bold text-green-400">$1<span className="text-base font-medium">/day</span></p>
+                        <p className="text-xs text-white/45 mb-1">Potential with full visibility</p>
+                        <p className="text-3xl font-bold text-green-400">{results.gainRevenue}</p>
                       </div>
                     </div>
                     <div
                       className="bg-white/5 border border-white/10 rounded-xl p-4 mb-6 text-[var(--color-hero-subtext)] leading-relaxed [&_strong]:text-white [&_strong]:font-semibold"
                       dangerouslySetInnerHTML={{ __html: results.insight }}
                     />
-                    <button className="w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white py-4 px-6 rounded-xl font-semibold transition-colors">
-                      Get My Free Marketing Report — No Credit Card
-                    </button>
+                    {results.needsAiCheck && (
+                      <div className="bg-[var(--color-accent)]/15 border border-[var(--color-accent)]/40 rounded-xl p-4 mb-6 text-sm text-white leading-relaxed">
+                        <strong className="block mb-1 text-white">We&apos;ll run the AI check for you.</strong>
+                        Your free report includes live ChatGPT, Perplexity, and Google AI Overviews queries for your business + niche. You&apos;ll see exactly who&apos;s being cited (and why it&apos;s not you).
+                      </div>
+                    )}
+                    <a
+                      href="/#hero-email"
+                      className="block w-full text-center bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white py-4 px-6 rounded-xl font-semibold transition-colors"
+                    >
+                      Get My Free Reviews + AI Visibility Report
+                    </a>
                     <p className="text-xs text-white/35 text-center mt-3">
-                      We'll audit your business and show you exactly what to fix first
+                      No credit card. We&apos;ll show you exactly what to fix first.
                     </p>
                   </>
                 ) : (
