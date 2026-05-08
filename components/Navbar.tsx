@@ -139,8 +139,8 @@ export function Navbar() {
             <Link href="/pricing" className="hover:text-[var(--color-hero-text)] transition-colors">
               Pricing
             </Link>
-            <Link href="/blog" className="hover:text-[var(--color-hero-text)] transition-colors">
-              Blog
+            <Link href="/resources" className="hover:text-[var(--color-hero-text)] transition-colors">
+              Resources
             </Link>
             <Link href="/about" className="hover:text-[var(--color-hero-text)] transition-colors">
               About
