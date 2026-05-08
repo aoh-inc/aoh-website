@@ -1,0 +1,42 @@
+# AI Outsource Hub
+
+AI Outsource Hub (AOH) is a service business that runs AI tools for local small businesses.
+Clients outsource the operation of AI to AOH — they never have to learn the tools themselves.
+
+## What we do
+
+### Reviews
+Automated review request campaigns sent via SMS and email to customers after service.
+AI-written responses to every review, posted in the business owner's voice within minutes.
+Google Business Profile optimization for local search rankings.
+Starting at $1/day, no contract.
+
+### AI Visibility
+Gets local businesses recommended by name when customers ask ChatGPT, Google AI, or Perplexity
+for a recommendation. Includes structured data implementation, AI search presence audit, and
+ongoing optimization. Starting at $3/day, no contract.
+
+### Relay — AI Voice Agent
+Multilingual AI receptionist that answers calls, books appointments, and handles customer
+inquiries 24/7 in 27+ languages. Fully managed — AOH handles setup, training, and operation.
+
+### Studio — AI Content
+Done-for-you AI content production — social media posts, images, carousels, and campaigns,
+created and published in the business owner's brand voice.
+
+### Custom AI Agents
+Custom-built AI agents for business owners. Example: Business Owner Briefing — a daily AI
+digest of business performance, leads, and alerts delivered automatically each morning.
+
+## Who we serve
+Local and small service businesses where reputation directly drives new customers.
+Typically: businesses where customers check reviews before choosing, service providers who
+book appointments, businesses with repeat customers, and owner-operated businesses without
+a dedicated marketing team.
+
+Examples include pet groomers, veterinary practices, auto repair shops, moving companies,
+funeral homes, senior living facilities, marketing consultants, and B2B service businesses.
+
+## Contact
+Website: https://aioutsourcehub.com
+Email: support@aioutsourcehub.com

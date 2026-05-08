@@ -1,0 +1,127 @@
+import { NextRequest, NextResponse } from "next/server";
+import { validateEmail } from "@/lib/email-validation";
+
+const TURNSTILE_VERIFY_URL =
+  "https://challenges.cloudflare.com/turnstile/v0/siteverify";
+
+async function verifyTurnstile(token: string, ip: string | null): Promise<boolean> {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  if (!secret) return true;
+  if (!token) return false;
+
+  const body = new URLSearchParams({ secret, response: token });
+  if (ip) body.set("remoteip", ip);
+
+  try {
+    const res = await fetch(TURNSTILE_VERIFY_URL, {
+      method: "POST",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      body,
+    });
+    const data = (await res.json()) as { success?: boolean };
+    return Boolean(data.success);
+  } catch {
+    return false;
+  }
+}
+
+export async function POST(req: NextRequest) {
+  const body = await req.json().catch(() => null);
+  if (!body || typeof body !== "object") {
+    return NextResponse.json({ ok: false, error: "Bad request." }, { status: 400 });
+  }
+
+  const {
+    email,
+    website,
+    turnstileToken,
+    campaign,
+    visualVariant,
+    secondaryReport,
+  } = body as {
+    email?: unknown;
+    website?: unknown;
+    turnstileToken?: unknown;
+    campaign?: unknown;
+    visualVariant?: unknown;
+    secondaryReport?: unknown;
+  };
+
+  if (typeof website === "string" && website.trim().length > 0) {
+    return NextResponse.json({ ok: true });
+  }
+
+  const v = validateEmail(email);
+  if (!v.ok) {
+    return NextResponse.json({ ok: false, error: v.error }, { status: 400 });
+  }
+
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
+  const turnstileOk = await verifyTurnstile(
+    typeof turnstileToken === "string" ? turnstileToken : "",
+    ip,
+  );
+  if (!turnstileOk) {
+    return NextResponse.json(
+      { ok: false, error: "Verification failed. Refresh and try again." },
+      { status: 400 },
+    );
+  }
+
+  const normalizedCampaign =
+    campaign === "reviews" || campaign === "ai" || campaign === "organic"
+      ? campaign
+      : "organic";
+  const normalizedVisual =
+    visualVariant === "reviews" || visualVariant === "ai"
+      ? visualVariant
+      : undefined;
+
+  await forwardToGHL({
+    email: (email as string).trim().toLowerCase(),
+    timestamp: new Date().toISOString(),
+    campaign: normalizedCampaign,
+    visualVariant: normalizedVisual,
+    source: "aioutsourcehub.com",
+    customField: {
+      campaign: normalizedCampaign,
+      visualVariant: normalizedVisual ?? "",
+      source: "aioutsourcehub.com",
+    },
+  });
+
+  void secondaryReport;
+
+  return NextResponse.json({ ok: true });
+}
+
+type GHLPayload = {
+  email: string;
+  timestamp: string;
+  campaign: "reviews" | "ai" | "organic";
+  visualVariant?: "reviews" | "ai";
+  source: string;
+  customField: {
+    campaign: "reviews" | "ai" | "organic";
+    visualVariant: "reviews" | "ai" | "";
+    source: string;
+  };
+};
+
+async function forwardToGHL(payload: GHLPayload): Promise<void> {
+  const url = process.env.GHL_WEBHOOK_URL;
+  if (!url) return;
+
+  try {
+    const res = await fetch(url, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) {
+      console.error("GHL webhook responded", res.status, await res.text().catch(() => ""));
+    }
+  } catch (err) {
+    console.error("GHL webhook failed", err);
+  }
+}
