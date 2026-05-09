@@ -2,10 +2,16 @@
 
 import { Suspense, useEffect, useRef, useState, type ReactNode } from "react";
 import Script from "next/script";
+import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
-import { HeroVisualReviews } from "./HeroVisualReviews";
-import { HeroVisualAI } from "./HeroVisualAI";
 import { validateEmail } from "@/lib/email-validation";
+
+const HeroVisualReviews = dynamic(
+  () => import("./HeroVisualReviews").then((m) => m.HeroVisualReviews),
+);
+const HeroVisualAI = dynamic(
+  () => import("./HeroVisualAI").then((m) => m.HeroVisualAI),
+);
 
 type VisualVariant = "reviews" | "ai";
 

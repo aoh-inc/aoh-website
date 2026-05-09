@@ -13,7 +13,7 @@ function clientIp(req: NextRequest): string {
   return "unknown";
 }
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const ip = clientIp(req);
   const now = Date.now();
   const recent = (buckets.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);

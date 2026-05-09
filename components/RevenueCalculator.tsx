@@ -224,10 +224,11 @@ function RevenueCalculatorInner() {
             <div>
               {/* Industry */}
               <div className="mb-8">
-                <label className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
+                <label htmlFor="industry-select" className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
                   What type of business do you run?
                 </label>
                 <select
+                  id="industry-select"
                   value={industry}
                   onChange={(e) => setIndustry(e.target.value)}
                   className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-[var(--color-text-body)] bg-white focus:outline-none focus:border-[var(--color-accent)] transition-colors"
@@ -252,7 +253,7 @@ function RevenueCalculatorInner() {
 
               {/* Customer value */}
               <div className="mb-8">
-                <label className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
+                <label htmlFor="customer-value-range" className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
                   What&apos;s an average customer worth to your business?{" "}
                   <span className="font-normal text-[var(--color-text-muted)]">
                     (${customerValue.toLocaleString()}{ind ? ` ${ind.valueLabel}` : ""})
@@ -260,6 +261,7 @@ function RevenueCalculatorInner() {
                 </label>
                 <div className="flex items-center gap-4">
                   <input
+                    id="customer-value-range"
                     type="range"
                     min={ind ? ind.valueMin : 25}
                     max={ind ? ind.valueMax : 15000}
@@ -281,7 +283,7 @@ function RevenueCalculatorInner() {
 
               {/* Review velocity (replaces total) */}
               <div className="mb-8">
-                <label className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
+                <label htmlFor="reviews-range" className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
                   How many new Google reviews do you get each month?{" "}
                   <span className="font-normal text-[var(--color-text-muted)]">
                     ({reviewsPerMonth}/mo)
@@ -289,6 +291,7 @@ function RevenueCalculatorInner() {
                 </label>
                 <div className="flex items-center gap-4">
                   <input
+                    id="reviews-range"
                     type="range"
                     min="0"
                     max="20"
@@ -319,11 +322,12 @@ function RevenueCalculatorInner() {
 
               {/* Star Rating */}
               <div className="mb-8">
-                <label className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
+                <label htmlFor="stars-range" className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
                   What&apos;s your current average star rating?
                 </label>
                 <div className="flex items-center gap-4">
                   <input
+                    id="stars-range"
                     type="range"
                     min="1"
                     max="5"
@@ -345,7 +349,7 @@ function RevenueCalculatorInner() {
 
               {/* Ranking */}
               <div className="mb-8">
-                <label className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
+                <label htmlFor="ranking-range" className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
                   Where do you typically rank on Google Maps for your main service?{" "}
                   <span className="text-xs font-normal text-[var(--color-text-muted)]">
                     (e.g. &quot;auto repair near me&quot;)
@@ -353,6 +357,7 @@ function RevenueCalculatorInner() {
                 </label>
                 <div className="flex items-center gap-4">
                   <input
+                    id="ranking-range"
                     type="range"
                     min="1"
                     max="20"
@@ -372,10 +377,11 @@ function RevenueCalculatorInner() {
 
               {/* AI Visibility */}
               <div className="mb-2">
-                <label className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
+                <label htmlFor="ai-visibility-select" className="block text-sm font-semibold text-[var(--color-text-body)] mb-3">
                   Does ChatGPT, Perplexity, or Google AI Overviews recommend you?
                 </label>
                 <select
+                  id="ai-visibility-select"
                   value={aiVisibility}
                   onChange={(e) => setAiVisibility(e.target.value as AiVisibilityStatus)}
                   className="w-full px-4 py-3 border border-[var(--color-border)] rounded-xl text-[var(--color-text-body)] bg-white focus:outline-none focus:border-[var(--color-accent)] transition-colors"
@@ -422,30 +428,30 @@ function RevenueCalculatorInner() {
                   <>
                     <div className="grid grid-cols-2 gap-4 mb-6">
                       <div className="rounded-xl bg-red-500/10 border border-red-500/30 p-4">
-                        <p className="text-[10px] uppercase tracking-wider text-red-300/80 font-bold mb-3">
+                        <p className="text-[10px] uppercase tracking-wider text-red-200 font-bold mb-3">
                           Current Gap
                         </p>
                         <div className="mb-3">
-                          <p className="text-xs text-white/50 mb-1">Customers / mo</p>
+                          <p className="text-xs text-white/80 mb-1">Customers / mo</p>
                           <p className="text-2xl font-bold text-red-400">{results.lostCustomers}</p>
                         </div>
                         <div>
-                          <p className="text-xs text-white/50 mb-1">Revenue / mo</p>
+                          <p className="text-xs text-white/80 mb-1">Revenue / mo</p>
                           <p className="text-2xl font-bold text-red-400">{results.lostRevenue}</p>
                         </div>
                       </div>
                       <div className="rounded-xl bg-green-500/10 border border-green-500/30 p-4">
-                        <p className="text-[10px] uppercase tracking-wider text-green-300/80 font-bold mb-3">
+                        <p className="text-[10px] uppercase tracking-wider text-green-200 font-bold mb-3">
                           With Our Help
                         </p>
                         <div className="mb-3">
-                          <p className="text-xs text-white/50 mb-1">Customers / mo</p>
+                          <p className="text-xs text-white/80 mb-1">Customers / mo</p>
                           <p className="text-2xl font-bold text-green-400">
                             up to {results.gainedCustomers}
                           </p>
                         </div>
                         <div>
-                          <p className="text-xs text-white/50 mb-1">Revenue / mo</p>
+                          <p className="text-xs text-white/80 mb-1">Revenue / mo</p>
                           <p className="text-2xl font-bold text-green-400">
                             up to {results.gainedRevenue}
                           </p>
