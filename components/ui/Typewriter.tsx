@@ -5,11 +5,13 @@ import { useEffect, useState } from "react";
 export type TypewriterSegment = {
   text: string;
   className?: string;
+  /** Per-segment override for typing speed (ms per character). Falls back to top-level `speed`. */
+  speed?: number;
 };
 
 export function Typewriter({
   segments,
-  speed = 45,
+  speed = 70,
   startDelay = 250,
   cursor = true,
 }: {
@@ -18,23 +20,36 @@ export function Typewriter({
   startDelay?: number;
   cursor?: boolean;
 }) {
-  const total = segments.reduce((s, seg) => s + seg.text.length, 0);
+  // Build a per-character delay map so each segment can have its own speed.
+  const charDelays: number[] = [];
+  for (const seg of segments) {
+    const segSpeed = seg.speed ?? speed;
+    for (let k = 0; k < seg.text.length; k++) charDelays.push(segSpeed);
+  }
+  const total = charDelays.length;
   const [position, setPosition] = useState(0);
   const [done, setDone] = useState(false);
 
   useEffect(() => {
+    let cancelled = false;
     let i = 0;
-    const start = setTimeout(() => {
-      const id = setInterval(() => {
-        i += 1;
-        setPosition(i);
-        if (i >= total) {
-          clearInterval(id);
-          setDone(true);
-        }
-      }, speed);
-    }, startDelay);
-    return () => clearTimeout(start);
+    let timer: ReturnType<typeof setTimeout>;
+    const step = () => {
+      if (cancelled) return;
+      i += 1;
+      setPosition(i);
+      if (i >= total) {
+        setDone(true);
+        return;
+      }
+      timer = setTimeout(step, charDelays[i] ?? speed);
+    };
+    timer = setTimeout(step, startDelay);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [total, speed, startDelay]);
 
   let consumed = 0;

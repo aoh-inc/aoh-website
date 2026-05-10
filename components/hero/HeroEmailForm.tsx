@@ -194,12 +194,13 @@ function HeroInner() {
               {variant === "default" ? (
                 <Typewriter
                   key={variant}
-                  speed={50}
-                  startDelay={250}
+                  speed={70}
+                  startDelay={300}
                   segments={[
-                    { text: "The way customers find you " },
+                    { text: "The way customers find you ", speed: 70 },
                     {
                       text: "just changed.",
+                      speed: 130,
                       className: "text-[var(--color-accent)]",
                     },
                   ]}
