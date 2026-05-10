@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -65,6 +66,18 @@ function CloseIcon({ className }: { className?: string }) {
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  // dark style only over the dark hero on home above the fold
+  const darkMode = isHome && !scrolled;
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -81,21 +94,33 @@ export function Navbar() {
   }, [mobileOpen]);
 
   return (
-    <nav className="sticky top-0 z-50 bg-[var(--color-hero-bg)] backdrop-blur-sm border-b border-[var(--color-hero-border)]">
+    <nav
+      className={[
+        "sticky top-0 z-50 transition-all duration-500",
+        darkMode
+          ? "bg-[var(--color-hero-bg)]/85 backdrop-blur-sm border-b border-[var(--color-hero-border)]"
+          : "bg-white/80 backdrop-blur-xl border-b border-slate-200 shadow-sm",
+      ].join(" ")}
+    >
       <div className="mx-auto max-w-6xl px-6 py-4">
         <div className="flex items-center justify-between gap-6">
           <Link href="/" className="shrink-0 pl-1 md:pl-2" aria-label="AI Outsource Hub home">
             <Image
-              src="/AOH-logo-dark-bg.svg"
+              src={darkMode ? "/AOH-logo-dark-bg.svg" : "/AOH-logo-light-bg.svg"}
               alt="AI Outsource Hub"
               width={200}
               height={44}
-              className="h-10 w-auto"
+              className="h-10 w-auto transition-opacity duration-300"
               priority
             />
           </Link>
 
-          <div className="hidden md:flex items-center gap-8 text-sm font-medium text-[var(--color-hero-subtext)]">
+          <div
+            className={[
+              "hidden md:flex items-center gap-8 text-sm font-medium transition-colors duration-500",
+              darkMode ? "text-[var(--color-hero-subtext)]" : "text-slate-700",
+            ].join(" ")}
+          >
             <div
               className="relative"
               onMouseEnter={() => setServicesOpen(true)}
@@ -103,7 +128,12 @@ export function Navbar() {
             >
               <button
                 type="button"
-                className="flex items-center gap-1.5 py-2 hover:text-[var(--color-hero-text)] transition-colors"
+                className={[
+                  "flex items-center gap-1.5 py-2 transition-colors",
+                  darkMode
+                    ? "hover:text-[var(--color-hero-text)]"
+                    : "hover:text-slate-950",
+                ].join(" ")}
                 aria-haspopup="true"
                 aria-expanded={servicesOpen}
                 onClick={() => setServicesOpen((v) => !v)}
@@ -120,12 +150,24 @@ export function Navbar() {
                     transition={{ duration: 0.16, ease: [0.2, 0.8, 0.2, 1] }}
                     className="absolute left-1/2 top-full -translate-x-1/2 pt-2"
                   >
-                    <div className="w-56 rounded-xl border border-[var(--color-hero-border)] bg-[var(--color-hero-bg)] p-2 shadow-2xl">
+                    <div
+                      className={[
+                        "w-56 rounded-xl border p-2 shadow-2xl",
+                        darkMode
+                          ? "border-[var(--color-hero-border)] bg-[var(--color-hero-bg)]"
+                          : "border-slate-200 bg-white",
+                      ].join(" ")}
+                    >
                       {services.map((s) => (
                         <Link
                           key={s.href}
                           href={s.href}
-                          className="block rounded-lg px-3 py-2 text-sm hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
+                          className={[
+                            "block rounded-lg px-3 py-2 text-sm transition-colors",
+                            darkMode
+                              ? "hover:bg-white/5 hover:text-[var(--color-hero-text)]"
+                              : "text-slate-700 hover:bg-slate-100 hover:text-slate-950",
+                          ].join(" ")}
                           onClick={() => setServicesOpen(false)}
                         >
                           {s.label}
@@ -136,18 +178,25 @@ export function Navbar() {
                 )}
               </AnimatePresence>
             </div>
-            <Link href="/pricing" className="hover:text-[var(--color-hero-text)] transition-colors">
-              Pricing
-            </Link>
-            <Link href="/resources" className="hover:text-[var(--color-hero-text)] transition-colors">
-              Resources
-            </Link>
-            <Link href="/about" className="hover:text-[var(--color-hero-text)] transition-colors">
-              About
-            </Link>
-            <Link href="/contact" className="hover:text-[var(--color-hero-text)] transition-colors">
-              Contact
-            </Link>
+            {[
+              { href: "/pricing", label: "Pricing" },
+              { href: "/resources", label: "Resources" },
+              { href: "/about", label: "About" },
+              { href: "/contact", label: "Contact" },
+            ].map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={[
+                  "transition-colors",
+                  darkMode
+                    ? "hover:text-[var(--color-hero-text)]"
+                    : "hover:text-slate-950",
+                ].join(" ")}
+              >
+                {l.label}
+              </Link>
+            ))}
           </div>
 
           <Link
@@ -165,7 +214,12 @@ export function Navbar() {
 
           <button
             type="button"
-            className="md:hidden text-[var(--color-hero-text)] -mr-1 p-1 rounded hover:bg-white/5 transition-colors"
+            className={[
+              "md:hidden -mr-1 p-1 rounded transition-colors",
+              darkMode
+                ? "text-[var(--color-hero-text)] hover:bg-white/5"
+                : "text-slate-900 hover:bg-slate-100",
+            ].join(" ")}
             onClick={() => setMobileOpen((v) => !v)}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
