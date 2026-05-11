@@ -78,7 +78,7 @@ const team: TeamMember[] = [
     name: "Mike Egidio",
     role: "Founder",
     niches: "Pet groomers, funeral homes, movers, marketing consultants",
-    photo: "/team/mike-cropped.jpg",
+    photo: "/team/mike-org.jpg",
     initials: "ME",
   },
   {
@@ -112,7 +112,7 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 md:grid-cols-[18rem_1fr] gap-10 md:gap-14 items-center">
             <div className="relative mx-auto md:mx-0 w-56 md:w-72 aspect-square rounded-2xl overflow-hidden ring-2 ring-[var(--color-accent)]/40 shadow-2xl">
               <Image
-                src="/team/mike-cropped.jpg"
+                src="/team/mike-org.jpg"
                 alt="Mike Egidio, founder of AI Outsource Hub"
                 fill
                 sizes="(min-width: 768px) 18rem, 14rem"
