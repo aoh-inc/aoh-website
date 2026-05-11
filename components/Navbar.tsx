@@ -6,11 +6,12 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 
 const services = [
-  { href: "/reviews", label: "Reviews" },
-  { href: "/rankings", label: "Rankings" },
-  { href: "/ai-visibility", label: "AI Visibility" },
-  { href: "/relay", label: "Relay" },
-  { href: "/studio", label: "Studio" },
+  { href: "/pricing#review-automation", label: "Review Automation" },
+  { href: "/pricing#ai-visibility", label: "AI Visibility" },
+  { href: "/pricing#reach", label: "Reach" },
+  { href: "/pricing#studio", label: "Studio" },
+  { href: "/pricing#relay", label: "Relay" },
+  { href: "/pricing#whole-stack", label: "The Whole Stack" },
 ];
 
 function ChevronDown({ className }: { className?: string }) {
@@ -224,11 +225,11 @@ export function Navbar() {
                   Pricing
                 </Link>
                 <Link
-                  href="/blog"
+                  href="/resources"
                   onClick={() => setMobileOpen(false)}
                   className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
                 >
-                  Blog
+                  Resources
                 </Link>
                 <Link
                   href="/about"
