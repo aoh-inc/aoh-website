@@ -1,69 +1,20 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { PageBody, PageSection, CtaBlock } from "@/components/PageBody";
 import { ContactForm } from "@/components/ContactForm";
-import { Reveal } from "@/components/Reveal";
 import { pageBreadcrumbs } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "AI Outsource Hub runs AI on behalf of local businesses. You run your business. We run the AI. No contracts. Free reports before you pay anything.",
+    "Built by Mike Egidio after 15 years explaining technology to non-technical buyers. AI Outsource Hub runs the AI so local businesses don't have to.",
   alternates: { canonical: "/about" },
 };
 
 const breadcrumb = pageBreadcrumbs("About", "/about");
 
-const pillars = [
-  {
-    icon: "📋",
-    title: "Free report first",
-    body: "Every client gets a free audit before paying a dollar.",
-  },
-  {
-    icon: "🔓",
-    title: "No contracts",
-    body: "Cancel anytime. We keep you by doing good work or not at all.",
-  },
-  {
-    icon: "⏱",
-    title: "Honest timelines",
-    body: "Reviews in 48 hours. Rankings move in 60–90 days. No inflated promises.",
-  },
-  {
-    icon: "✋",
-    title: "Less than 10 min of your time",
-    body: "Setup once. After that, hands-off.",
-  },
-];
-
-const stats = [
-  {
-    value: "15+ years",
-    label: "automating the work",
-    border: "border-t-green-500",
-    text: "text-green-500",
-  },
-  {
-    value: "48 hours",
-    label: "to first review",
-    border: "border-t-amber-500",
-    text: "text-amber-500",
-  },
-  {
-    value: "<10 min",
-    label: "of your time after setup",
-    border: "border-t-blue-500",
-    text: "text-blue-500",
-  },
-  {
-    value: "0",
-    label: "contracts, ever",
-    border: "border-t-gray-900",
-    text: "text-gray-900",
-  },
-];
+// Display serif (Fraunces) applied via inline className. Variable is `--font-fraunces`.
+const serif = "[font-family:var(--font-fraunces)]";
 
 type TeamMember = {
   name: string;
@@ -95,6 +46,32 @@ const team: TeamMember[] = [
   },
 ];
 
+const principles = [
+  {
+    title: "Free report first",
+    body: "Every client gets a free audit before paying a dollar. Trust comes before invoices.",
+  },
+  {
+    title: "No contracts",
+    body: "Cancel anytime. We keep you by doing good work or not at all.",
+  },
+  {
+    title: "Honest timelines",
+    body: "Reviews in 48 hours. Rankings move in 60–90 days. No inflated promises.",
+  },
+  {
+    title: "Less than 10 min of your time",
+    body: "Setup once. After that, hands-off. You run your business.",
+  },
+];
+
+const timeline = [
+  { year: "2010", label: "Started selling tech to schools" },
+  { year: "2016", label: "Built + sold an EdTech business" },
+  { year: "2023", label: "Watched AI hit the same gap" },
+  { year: "2026", label: "AOH ships to local businesses" },
+];
+
 export default function AboutPage() {
   return (
     <>
@@ -103,197 +80,259 @@ export default function AboutPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
       />
 
-      {/* HERO with photo */}
-      <section
-        aria-label="About AOH"
-        className="bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]"
+      <main
+        id="main-content"
+        tabIndex={-1}
+        className="flex flex-1 flex-col bg-[var(--color-bg-page)] text-[var(--color-text-body)] focus:outline-none"
       >
-        <div className="mx-auto max-w-6xl px-6 py-14 md:py-20">
-          <div className="grid grid-cols-1 md:grid-cols-[18rem_1fr] gap-10 md:gap-14 items-center">
-            <div className="relative mx-auto md:mx-0 w-56 md:w-72 aspect-square rounded-2xl overflow-hidden ring-2 ring-[var(--color-accent)]/40 shadow-2xl">
-              <Image
-                src="/team/mike.jpg"
-                alt="Mike Egidio, founder of AI Outsource Hub"
-                fill
-                sizes="(min-width: 768px) 18rem, 14rem"
-                className="object-cover"
-                priority
-              />
-            </div>
-
-            <div>
-              <p className="mb-3 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
-                About AOH
-              </p>
-              <h1 className="font-semibold leading-[1.05] tracking-tight text-4xl md:text-6xl mb-5">
-                You run your business. We run the AI.
-              </h1>
-              <p className="text-lg md:text-xl text-[var(--color-hero-subtext)] leading-relaxed max-w-2xl mb-6">
-                A done-for-you AI services agency for local small businesses. We operate the tools so owners never have to learn them.
-              </p>
-              <Link
-                href="/#calculator"
-                className="inline-flex items-center gap-1.5 rounded-xl bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] px-5 py-3 text-sm font-semibold transition-all hover:gap-2.5 hover:shadow-lg hover:shadow-[var(--color-accent)]/30"
-              >
-                Get your free report
-                <span aria-hidden="true">→</span>
-              </Link>
-            </div>
+        {/* ════════════════════════════════════════════
+            HERO — text-only, company-led, oversized serif
+            ════════════════════════════════════════════ */}
+        <section aria-label="About AI Outsource Hub" className="border-b border-[var(--color-border)]">
+          <div className="mx-auto max-w-5xl px-6 py-20 md:py-32">
+            <p className="mb-6 font-mono text-xs uppercase tracking-[0.3em] text-[var(--color-text-muted)]">
+              About
+            </p>
+            <h1
+              className={`${serif} text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight text-[var(--color-text-body)] mb-8 max-w-4xl`}
+              style={{ fontWeight: 600, fontVariationSettings: '"opsz" 144' }}
+            >
+              We run the AI. You run your business.
+            </h1>
+            <p className={`${serif} text-xl md:text-2xl italic text-[var(--color-text-muted)] leading-relaxed max-w-2xl`}>
+              A done-for-you AI services agency for local small businesses. Built by people who&apos;ve spent fifteen years explaining technology to non-technical buyers.
+            </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <PageBody>
-        {/* WHY AOH EXISTS — story + pull-quote sidebar */}
-        <PageSection>
-          <div className="grid grid-cols-1 lg:grid-cols-[1.5fr_1fr] gap-12 items-start">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">Why AOH exists</h2>
-              <p className="text-lg text-[var(--color-text-muted)] leading-relaxed mb-5">
-                Local business owners are being told they need to &ldquo;use AI&rdquo; — but most don&apos;t have time to learn another tool, configure another dashboard, or babysit another platform. They run businesses. They serve customers. They don&apos;t have evenings to spend training a chatbot.
+        {/* ════════════════════════════════════════════
+            FOUNDER LETTER — narrow column, drop-cap, signed
+            ════════════════════════════════════════════ */}
+        <section aria-label="Founder letter" className="border-b border-[var(--color-border)]">
+          <div className="mx-auto max-w-2xl px-6 py-20 md:py-28">
+            <p className="mb-8 font-mono text-[11px] uppercase tracking-[0.25em] text-[var(--color-accent)]">
+              A note from Mike
+            </p>
+
+            <div className={`${serif} space-y-7 text-[17px] md:text-[19px] leading-[1.7] text-[var(--color-text-body)]`}>
+              <p className="first-letter:font-bold first-letter:text-[5.5rem] first-letter:leading-[0.85] first-letter:float-left first-letter:pr-3 first-letter:mt-1 first-letter:text-[var(--color-accent)]">
+                For fifteen years I sold technology to schools — district administrators, principals, IT coordinators, mostly small operations without anyone in the building who spoke engineer. My job was to translate. I&apos;d walk in, listen to what they were actually trying to do, and explain what tools would help and how to make them work day to day. I eventually built and sold an EdTech company doing exactly that.
               </p>
-              <p className="text-lg text-[var(--color-text-muted)] leading-relaxed mb-5">
-                AOH is the layer between local businesses and the AI tools reshaping how customers find them. We operate review automation, AI voice agents, AI visibility, content production, and custom AI agents on behalf of our clients. They get the outcome. We do the work.
+              <p>
+                The pattern was always the same: smart, busy people running important operations who didn&apos;t have time to learn a new tool or hire someone to run it. They wanted the outcome — the gradebook that worked, the network that didn&apos;t go down — not a new responsibility.
               </p>
-              <p className="text-lg text-[var(--color-text-muted)] leading-relaxed">
-                Most owners stay invisible across the new channels because keeping up is a full-time job. We make that job ours.
+              <p>
+                A few years ago I started watching the same shape repeat with AI. Local businesses being told they needed to &ldquo;use AI&rdquo; but with no time to learn another platform, configure another dashboard, or train another chatbot. The tools are getting more useful fast. The gap between what&apos;s possible and what most owners can act on is widening.
+              </p>
+              <p>
+                That&apos;s the gap AOH closes. We operate the AI on your behalf. You run your business. We run the tools — reviews, AI visibility, voice, content, leads. You get the outcome. We do the work. Same job I&apos;ve been doing for fifteen years, different industry, different stack.
+              </p>
+              <p>
+                I don&apos;t pretend to have proven this yet for AOH. We&apos;re early. But I&apos;ve explained tech to non-technical buyers for a long time, and I&apos;ve shipped working software the whole way through. If that sounds like what you&apos;d want behind the AI in your business, talk to me.
               </p>
             </div>
 
-            <aside className="rounded-2xl bg-[var(--color-bg-dark-card)] text-[var(--color-hero-text)] p-7 md:p-8 ring-1 ring-[var(--color-hero-border)]">
-              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--color-accent)] mb-3">
-                The shift
-              </p>
-              <blockquote className="text-xl md:text-2xl font-semibold leading-snug">
-                &ldquo;The way customers find local businesses just changed. Most are completely invisible across the new channels. We fix that.&rdquo;
-              </blockquote>
-              <p className="mt-4 text-sm text-[var(--color-hero-subtext)]">
-                — Google · Maps · ChatGPT · Perplexity · Google AI Overviews
-              </p>
-            </aside>
+            <p className={`${serif} mt-10 text-2xl italic text-[var(--color-text-body)]`}>— Mike</p>
           </div>
-        </PageSection>
+        </section>
 
-        {/* HOW WE WORK — 2x2 icon cards */}
-        <PageSection className="border-t border-[var(--color-border)]">
-          <h2 className="text-3xl md:text-4xl font-bold mb-2">How we work</h2>
-          <p className="text-lg text-[var(--color-text-muted)] mb-8">
-            Four rules we hold ourselves to.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {pillars.map((p, i) => (
-              <Reveal
-                key={p.title}
-                delay={i * 0.08}
-                className="bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-2xl p-7 hover:shadow-lg transition-shadow"
-              >
-                <div className="mb-3 text-3xl" aria-hidden="true">
-                  {p.icon}
+        {/* ════════════════════════════════════════════
+            TIMELINE — thin editorial strip, no cards
+            ════════════════════════════════════════════ */}
+        <section aria-label="Career timeline" className="border-b border-[var(--color-border)]">
+          <div className="mx-auto max-w-5xl px-6 py-12 md:py-16">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
+              {timeline.map((t) => (
+                <div key={t.year} className="text-center md:text-left">
+                  <p className="font-mono text-2xl md:text-3xl font-bold text-[var(--color-accent)] mb-1">
+                    {t.year}
+                  </p>
+                  <p className="text-sm text-[var(--color-text-muted)] leading-snug max-w-[16ch] mx-auto md:mx-0">
+                    {t.label}
+                  </p>
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{p.title}</h3>
-                <p className="text-[var(--color-text-muted)] leading-relaxed">{p.body}</p>
-              </Reveal>
-            ))}
+              ))}
+            </div>
           </div>
-        </PageSection>
+        </section>
 
-        {/* STATS ROW — matches pricing page style */}
-        <PageSection className="border-t border-[var(--color-border)] !py-12 md:!py-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {stats.map((s) => (
-              <div
-                key={s.label}
-                className={`rounded-2xl border border-[var(--color-border)] border-t-[3px] ${s.border} bg-[var(--color-bg-elevated)] px-5 py-5 text-center`}
-              >
-                <p
-                  className={`font-mono text-xs uppercase tracking-[0.2em] mb-1 ${s.text}`}
-                >
-                  {s.value}
-                </p>
-                <p className="text-sm text-[var(--color-text-muted)] leading-snug">
-                  {s.label}
-                </p>
-              </div>
-            ))}
+        {/* ════════════════════════════════════════════
+            PULL QUOTE — oversize serif, centered
+            ════════════════════════════════════════════ */}
+        <section className="border-b border-[var(--color-border)]">
+          <div className="mx-auto max-w-3xl px-6 py-20 md:py-28 text-center">
+            <blockquote
+              className={`${serif} text-3xl md:text-5xl italic leading-[1.15] tracking-tight text-[var(--color-text-body)]`}
+              style={{ fontWeight: 400, fontVariationSettings: '"opsz" 144' }}
+            >
+              &ldquo;The way customers find local businesses just changed. Most are completely invisible across the new channels.&rdquo;
+            </blockquote>
+            <p className="mt-6 font-mono text-xs uppercase tracking-[0.25em] text-[var(--color-text-muted)]">
+              Google · Maps · ChatGPT · Perplexity · Google AI Overviews
+            </p>
           </div>
-        </PageSection>
+        </section>
 
-        {/* TEAM */}
-        <PageSection className="border-t border-[var(--color-border)]">
-          <h2 className="text-3xl md:text-4xl font-bold mb-2">The team</h2>
-          <p className="text-lg text-[var(--color-text-muted)] mb-8">
-            Three people, eight niches. We know our lanes.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {team.map((m, i) => (
-              <Reveal
-                key={m.name}
-                delay={i * 0.08}
-                className="bg-[var(--color-bg-elevated)] border border-[var(--color-border)] rounded-2xl p-6 text-center"
-              >
-                <div className="mx-auto mb-4 relative w-28 h-28 rounded-full overflow-hidden ring-2 ring-[var(--color-accent)]/30 bg-[var(--color-accent-soft)]">
-                  {m.photo ? (
+        {/* ════════════════════════════════════════════
+            PRINCIPLES — numbered, no cards
+            ════════════════════════════════════════════ */}
+        <section aria-label="How we work" className="border-b border-[var(--color-border)]">
+          <div className="mx-auto max-w-4xl px-6 py-20 md:py-28">
+            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.25em] text-[var(--color-accent)]">
+              How we work
+            </p>
+            <h2
+              className={`${serif} text-3xl md:text-5xl font-semibold tracking-tight mb-12 text-[var(--color-text-body)]`}
+            >
+              Four rules. No exceptions.
+            </h2>
+
+            <ol className="space-y-10">
+              {principles.map((p, i) => (
+                <li key={p.title} className="grid grid-cols-[3rem_1fr] md:grid-cols-[5rem_1fr] gap-4 md:gap-8 border-t border-[var(--color-border)] pt-6">
+                  <span
+                    className={`${serif} text-3xl md:text-5xl text-[var(--color-text-muted)]/40 leading-none`}
+                  >
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div>
+                    <h3 className={`${serif} text-xl md:text-2xl font-semibold text-[var(--color-text-body)] mb-2`}>
+                      {p.title}
+                    </h3>
+                    <p className="text-base md:text-lg text-[var(--color-text-muted)] leading-relaxed max-w-2xl">
+                      {p.body}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* ════════════════════════════════════════════
+            TEAM — asymmetric grid (Mike 2x, K + T 1x)
+            ════════════════════════════════════════════ */}
+        <section aria-label="The team" className="border-b border-[var(--color-border)]">
+          <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+            <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.25em] text-[var(--color-accent)]">
+              The team
+            </p>
+            <h2 className={`${serif} text-3xl md:text-5xl font-semibold tracking-tight mb-12 text-[var(--color-text-body)]`}>
+              Three people. Eight niches.
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+              {/* Mike — 2 cols */}
+              <div className="md:col-span-2">
+                <div className="relative aspect-square rounded-sm overflow-hidden mb-5 bg-[var(--color-bg-elevated)]">
+                  {team[0].photo && (
                     <Image
-                      src={m.photo}
-                      alt={`${m.name}, ${m.role}`}
+                      src={team[0].photo}
+                      alt={`${team[0].name}, ${team[0].role}`}
                       fill
-                      sizes="7rem"
+                      sizes="(min-width: 768px) 24rem, 100vw"
                       className="object-cover"
                     />
-                  ) : (
-                    <span
-                      aria-hidden="true"
-                      className="absolute inset-0 flex items-center justify-center font-mono text-2xl font-bold text-[var(--color-accent)]"
-                    >
-                      {m.initials}
-                    </span>
                   )}
                 </div>
-                <h3 className="text-lg font-semibold text-[var(--color-text-body)]">{m.name}</h3>
-                <p className="mt-1 text-sm font-medium text-[var(--color-accent)]">{m.role}</p>
-                <p className="mt-3 text-sm text-[var(--color-text-muted)] leading-relaxed">
-                  {m.niches}
+                <h3 className={`${serif} text-2xl md:text-3xl font-semibold text-[var(--color-text-body)]`}>
+                  {team[0].name}
+                </h3>
+                <p className="mt-1 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
+                  {team[0].role}
                 </p>
-              </Reveal>
-            ))}
-          </div>
-        </PageSection>
-
-        {/* TALK TO A HUMAN */}
-        <PageSection className="border-t border-[var(--color-border)]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Talk to a human.</h2>
-
-              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[var(--color-accent)]/30 bg-[var(--color-accent-soft)] px-3 py-1 text-xs font-semibold text-[var(--color-accent)]">
-                <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)] animate-pulse" />
-                Response time: usually within a few hours
+                <p className="mt-4 text-base text-[var(--color-text-muted)] leading-relaxed max-w-md">
+                  Spent 15 years explaining technology to schools without in-house tech teams. Built and sold the EdTech company that came out of it. Now does the same job for local businesses — operating the AI so owners don&apos;t have to learn it.
+                </p>
+                <p className="mt-3 text-sm text-[var(--color-text-muted)]">
+                  <span className="font-mono text-[10px] uppercase tracking-wider text-[var(--color-text-body)] mr-1.5">Covers</span>
+                  {team[0].niches}
+                </p>
               </div>
 
-              <p className="text-lg text-[var(--color-text-muted)] leading-relaxed mb-6">
-                Questions about pricing, setup, or whether AOH is right for your business? Send us a note. We answer every message.
-              </p>
-              <div className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-5">
-                <p className="text-xs uppercase tracking-wider text-[var(--color-text-muted)] font-semibold mb-1.5">
-                  Email
+              {/* Kip + Teri — 1 col each, compact */}
+              {team.slice(1).map((m) => (
+                <div key={m.name}>
+                  <div className="relative aspect-square rounded-sm overflow-hidden mb-4 bg-[var(--color-bg-elevated)] flex items-center justify-center">
+                    {m.photo ? (
+                      <Image
+                        src={m.photo}
+                        alt={`${m.name}, ${m.role}`}
+                        fill
+                        sizes="12rem"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <span
+                        aria-hidden="true"
+                        className={`${serif} text-5xl text-[var(--color-text-muted)]/50`}
+                      >
+                        {m.initials}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className={`${serif} text-xl font-semibold text-[var(--color-text-body)]`}>
+                    {m.name}
+                  </h3>
+                  <p className="mt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[var(--color-accent)]">
+                    {m.role}
+                  </p>
+                  <p className="mt-3 text-sm text-[var(--color-text-muted)] leading-snug">
+                    {m.niches}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ════════════════════════════════════════════
+            CONTACT — minimal, email-led, form below
+            ════════════════════════════════════════════ */}
+        <section aria-label="Contact" className="border-b border-[var(--color-border)]">
+          <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-start">
+              <div>
+                <p className="mb-3 font-mono text-[11px] uppercase tracking-[0.25em] text-[var(--color-accent)]">
+                  Talk to a human
                 </p>
+                <h2 className={`${serif} text-3xl md:text-5xl font-semibold tracking-tight mb-6 text-[var(--color-text-body)]`}>
+                  Easiest way to reach us is just to write.
+                </h2>
+
                 <a
                   href="mailto:support@aioutsourcehub.com"
-                  className="text-lg font-semibold text-[var(--color-accent)] hover:underline break-all"
+                  className={`${serif} block text-2xl md:text-3xl font-semibold text-[var(--color-accent)] hover:underline underline-offset-4 break-all`}
                 >
                   support@aioutsourcehub.com
                 </a>
-              </div>
-            </div>
-            <ContactForm />
-          </div>
-        </PageSection>
 
-        <CtaBlock
-          headline="Or get your free report."
-          subline="No credit card. No contract. We'll show you exactly where you stand and what to fix first."
-        />
-      </PageBody>
+                <div className="mt-5 inline-flex items-center gap-2 text-xs text-[var(--color-text-muted)]">
+                  <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)] animate-pulse" />
+                  Response time: usually within a few hours
+                </div>
+              </div>
+
+              <ContactForm />
+            </div>
+          </div>
+        </section>
+
+        {/* Bottom — quiet outro, no big CTA block */}
+        <section className="bg-[var(--color-bg-page)]">
+          <div className="mx-auto max-w-3xl px-6 py-16 md:py-20 text-center">
+            <p className={`${serif} text-xl md:text-2xl italic text-[var(--color-text-muted)] leading-relaxed`}>
+              Or if you&apos;d rather see what AOH looks like for your business —
+            </p>
+            <Link
+              href="/#calculator"
+              className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] underline underline-offset-4 transition-colors"
+            >
+              get your free report →
+            </Link>
+          </div>
+        </section>
+      </main>
     </>
   );
 }
