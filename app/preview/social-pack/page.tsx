@@ -101,21 +101,29 @@ export default function SocialPackPreview() {
   return (
     <div className="min-h-screen bg-[#0A1628] text-white">
       <div className="mx-auto max-w-6xl px-6 py-12">
-        <div className="mb-10">
+        <div className="mb-8">
           <div className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-300 mb-3">
             Internal · Not indexed
           </div>
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-3">
             Social pack — preview before posting
           </h1>
-          <p className="text-white/70 max-w-2xl leading-relaxed">
-            12 themes × 5 platforms via GHL + manual X.{" "}
-            <span className="text-amber-200">X posts</span> need manual copy/paste into x.com native scheduler — GHL dropped X integration.
-            Approve here, then say go and I'll push all 5 GHL channels via API as scheduled posts.
-          </p>
-          <div className="mt-6 rounded-xl border border-emerald-400/30 bg-emerald-400/[0.06] p-4 text-sm text-emerald-100">
-            <div className="font-bold mb-2">Cadence</div>
-            <div>1 theme per week, Wednesdays at 09:00 EST, starting 2026-05-13. 12 weeks total. Every theme posts the same week across all 6 channels.</div>
+
+          {/* Legend — how to read this page */}
+          <div className="mt-6 grid gap-3 md:grid-cols-2">
+            <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4 text-sm text-white/85 leading-relaxed">
+              <div className="font-bold mb-2 text-white">How to read this</div>
+              <ul className="list-disc pl-5 space-y-1 text-white/75">
+                <li><span className="text-white">Pick ONE image per post</span> — the variants are options, not a stack.</li>
+                <li><span className="text-white">Copy the caption</span> for the platform you're on.</li>
+                <li>Instagram works best as a carousel (image variants as slides). Other platforms = one image.</li>
+                <li>Tap a theme to expand its captions.</li>
+              </ul>
+            </div>
+            <div className="rounded-xl border border-emerald-400/30 bg-emerald-400/[0.06] p-4 text-sm text-emerald-100 leading-relaxed">
+              <div className="font-bold mb-2">Cadence</div>
+              <div>1 theme per week, Wed 09:00 EST, starting 2026-05-13.<br />X stays manual (GHL dropped X).</div>
+            </div>
           </div>
         </div>
 
@@ -126,91 +134,102 @@ export default function SocialPackPreview() {
           const isShowcase = !!theme.images && theme.images.length > 1;
 
           return (
-            <section
+            <details
               key={theme.slug}
-              className={`mb-12 rounded-2xl border p-6 ${
+              open={isShowcase}
+              className={`mb-6 rounded-2xl border ${
                 isShowcase
                   ? "border-emerald-400/40 bg-emerald-400/[0.04]"
                   : "border-white/10 bg-white/[0.02]"
               }`}
             >
-              {isShowcase && (
-                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-400/50 bg-emerald-400/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.18em] text-emerald-200">
-                  Showcase · new style
+              <summary className="cursor-pointer p-5 list-none flex items-center justify-between gap-4 flex-wrap hover:bg-white/[0.02]">
+                <div className="flex items-center gap-3 min-w-0">
+                  <span className="text-xs font-mono text-white/40 shrink-0">
+                    W{weekIdx + 1}
+                  </span>
+                  {isShowcase && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/50 bg-emerald-400/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.15em] text-emerald-200 shrink-0">
+                      Showcase
+                    </span>
+                  )}
+                  <h2 className="text-lg md:text-xl font-bold tracking-tight truncate">
+                    {theme.title}
+                  </h2>
                 </div>
-              )}
+                <div className="flex items-center gap-3 text-xs text-white/50">
+                  <span className="hidden md:inline">{scheduled}</span>
+                  <span className="font-bold text-emerald-300">Tap to expand ▾</span>
+                </div>
+              </summary>
 
-              <div className="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
-                <div>
-                  <div className="text-xs font-bold uppercase tracking-[0.2em] text-white/40 mb-1">
-                    Week {weekIdx + 1} · {scheduled}
-                  </div>
-                  <h2 className="text-2xl font-bold tracking-tight">{theme.title}</h2>
+              <div className="px-5 pb-5">
+                <div className="flex items-baseline justify-between gap-4 mb-4 flex-wrap">
                   <code className="text-xs text-white/40">{theme.slug}</code>
+                  {theme.blogPath && (
+                    <a
+                      href={theme.blogPath}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-xs text-emerald-300 hover:text-emerald-200 underline"
+                    >
+                      Matching blog post →
+                    </a>
+                  )}
                 </div>
-                {theme.blogPath && (
-                  <a
-                    href={theme.blogPath}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-xs text-emerald-300 hover:text-emerald-200 underline"
-                  >
-                    Matching blog post →
-                  </a>
-                )}
-              </div>
 
-              {/* Image gallery */}
-              <div
-                className={`mb-4 grid gap-3 ${
-                  images.length > 1 ? "md:grid-cols-3" : "md:grid-cols-1"
-                }`}
-              >
-                {images.map((img) => (
-                  <div
-                    key={img.path}
-                    className="rounded-xl overflow-hidden border border-white/10 bg-black/30"
-                  >
-                    <div className="bg-black/40 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/60 flex items-center justify-between">
-                      <span>{img.label}</span>
-                      <a
-                        href={img.path}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-emerald-300 hover:text-emerald-200"
-                      >
-                        Open →
-                      </a>
+                {/* Image gallery */}
+                <div
+                  className={`mb-4 grid gap-3 ${
+                    images.length > 1 ? "md:grid-cols-3" : "md:grid-cols-1"
+                  }`}
+                >
+                  {images.map((img) => (
+                    <div
+                      key={img.path}
+                      className="rounded-xl overflow-hidden border border-white/10 bg-black/30"
+                    >
+                      <div className="bg-black/40 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.15em] text-white/60 flex items-center justify-between">
+                        <span>{img.label}</span>
+                        <a
+                          href={img.path}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-emerald-300 hover:text-emerald-200"
+                        >
+                          Open →
+                        </a>
+                      </div>
+                      <img
+                        src={img.path}
+                        alt={`${theme.title} — ${img.label}`}
+                        className="w-full block"
+                      />
                     </div>
-                    <img
-                      src={img.path}
-                      alt={`${theme.title} — ${img.label}`}
-                      className="w-full block"
-                    />
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
 
-              {/* Per-channel copy */}
-              <div className="grid gap-3">
-                {CHANNELS.map((ch) => {
-                  const content = theme.posts[ch.key];
-                  if (!content) return null;
-                  return (
-                    <ChannelCard
-                      key={ch.key}
-                      channelKey={ch.key}
-                      channelLabel={ch.label}
-                      channelColor={ch.color}
-                      content={content}
-                      scheduled={scheduled}
-                      isXManual={ch.key === "x"}
-                      themeSlug={theme.slug}
-                    />
-                  );
-                })}
+                {/* Per-channel copy */}
+                <div className="grid gap-3">
+                  {CHANNELS.map((ch) => {
+                    const content = theme.posts[ch.key];
+                    if (!content) return null;
+                    return (
+                      <ChannelCard
+                        key={ch.key}
+                        channelKey={ch.key}
+                        channelLabel={ch.label}
+                        channelColor={ch.color}
+                        content={content}
+                        scheduled={scheduled}
+                        isXManual={ch.key === "x"}
+                        themeSlug={theme.slug}
+                      />
+                    );
+                  })}
+                </div>
               </div>
-            </section>
+            </details>
           );
         })}
 

@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 };
 
 const breadcrumb = pageBreadcrumbs("Pricing", "/pricing");
+const BOOKING_HREF = "https://link.hub360ai.com/widget/booking/fVfL3Xth5gEW9mRjZS56";
 
 const products: ProductDetailData[] = [
   {
@@ -59,6 +60,7 @@ const products: ProductDetailData[] = [
     setup: "No setup fee",
     ctaLabel: "Start at $49/mo",
     ctaHref: "https://pay.aioutsourcehub.com/checkout-review-automation-plan-page",
+    secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.star,
     mock: <MockReviewPanel />,
   },
@@ -101,6 +103,7 @@ const products: ProductDetailData[] = [
     setup: "$199 setup",
     ctaLabel: "Start AI Visibility",
     ctaHref: "https://pay.aioutsourcehub.com/checkout-ai-visibility-plan-page",
+    secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.search,
     mock: <MockAIVisibilityPanel />,
     variant: "dark",
@@ -141,7 +144,8 @@ const products: ProductDetailData[] = [
     cadenceLabel: "/mo",
     setup: "$199 setup",
     ctaLabel: "Start Reach",
-    ctaHref: "https://link.hub360ai.com/widget/booking/fVfL3Xth5gEW9mRjZS56",
+    ctaHref: BOOKING_HREF,
+    secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.target,
     mock: <MockReachPanel />,
   },
@@ -182,6 +186,7 @@ const products: ProductDetailData[] = [
     setup: "$499 setup",
     ctaLabel: "Start Relay",
     ctaHref: "https://pay.aioutsourcehub.com/checkout-relay-plan-page",
+    secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.phone,
     mock: <MockRelayPanel />,
     variant: "dark",
@@ -228,6 +233,7 @@ const products: ProductDetailData[] = [
     setup: "$299 setup",
     ctaLabel: "Start Studio",
     ctaHref: "https://pay.aioutsourcehub.com/checkout-studio-plan-page",
+    secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.studio,
     mock: <MockStudioPanel />,
   },
@@ -267,7 +273,8 @@ const products: ProductDetailData[] = [
     cadenceLabel: "/mo",
     setup: "$999 setup",
     ctaLabel: "Start Whole Stack",
-    ctaHref: "https://link.hub360ai.com/widget/booking/fVfL3Xth5gEW9mRjZS56",
+    ctaHref: BOOKING_HREF,
+    secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.dashboard,
     mock: <MockWholeStackPanel />,
     variant: "dark",
@@ -435,7 +442,11 @@ export default function PricingPage() {
                 href: `#${nextProduct.slug}`,
               }
             : undefined;
-          return <ProductDetail key={p.slug} data={p} next={next} />;
+          const sectionData: ProductDetailData = {
+            ...p,
+            variant: i % 2 === 1 ? "dark" : "light",
+          };
+          return <ProductDetail key={p.slug} data={sectionData} next={next} />;
         })}
 
         <CtaBlock
@@ -447,6 +458,5 @@ export default function PricingPage() {
     </>
   );
 }
-
 
 

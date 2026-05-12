@@ -117,9 +117,6 @@ export function Navbar() {
               <Link href="/about" className="transition-colors">
                 About
               </Link>
-              <Link href="/contact" className="transition-colors">
-                Contact
-              </Link>
             </div>
 
             <button
@@ -199,13 +196,6 @@ export function Navbar() {
                     className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
                   >
                     About
-                  </Link>
-                  <Link
-                    href="/contact"
-                    onClick={() => setMobileOpen(false)}
-                    className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
-                  >
-                    Contact
                   </Link>
                   <button
                     type="button"
