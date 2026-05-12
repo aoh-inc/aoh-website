@@ -27,6 +27,13 @@ async function verifyTurnstile(token: string, ip: string | null): Promise<boolea
   }
 }
 
+function canBypassTurnstileForInternalTest(req: NextRequest): boolean {
+  const expected = process.env.REPORT_TEST_BYPASS_TOKEN?.trim();
+  if (!expected) return false;
+  const provided = req.headers.get("x-report-test-bypass-token")?.trim();
+  return Boolean(provided && provided === expected);
+}
+
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
   if (!body || typeof body !== "object") {
@@ -68,10 +75,13 @@ export async function POST(req: NextRequest) {
   }
 
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? null;
-  const turnstileOk = await verifyTurnstile(
-    typeof turnstileToken === "string" ? turnstileToken : "",
-    ip,
-  );
+  const bypass = canBypassTurnstileForInternalTest(req);
+  const turnstileOk = bypass
+    ? true
+    : await verifyTurnstile(
+        typeof turnstileToken === "string" ? turnstileToken : "",
+        ip,
+      );
   if (!turnstileOk) {
     return NextResponse.json(
       { ok: false, error: "Verification failed. Refresh and try again." },

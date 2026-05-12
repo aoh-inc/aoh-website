@@ -80,3 +80,12 @@ If your workflow does not expose heatmap URL/timestamp yet, keep Action A only.
 - Current max grid selectable in GHL Prospecting: `7 x 7`
 - Coverage selector currently used in this account: `50 km`
 - Automation should target `7 x 7` + `50 km` for consistency with available UI options.
+
+## Internal nightly canary (automation)
+
+For unattended nightly verification, website API supports token-gated Turnstile bypass on `/api/report`:
+
+- Header: `x-report-test-bypass-token: <REPORT_TEST_BYPASS_TOKEN>`
+- Env var (Vercel): `REPORT_TEST_BYPASS_TOKEN`
+
+This is for internal automation only. Public form behavior remains Turnstile-protected.
