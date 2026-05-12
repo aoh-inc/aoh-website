@@ -3,7 +3,7 @@ title: "Getting recommended by ChatGPT beats ranking #1 on Google"
 description: "Position #1 on Google captures clicks. A ChatGPT recommendation captures the customer. Here's the difference, in plain English."
 date: "2026-05-06"
 category: "AI & Search"
-coverImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1600&q=80&auto=format&fit=crop"
+coverImage: "https://images.unsplash.com/photo-1746286721981-f4bb5be91cf5?w=1600&q=80&auto=format&fit=crop"
 author:
   name: "Mike Egidio"
   role: "Founder, AI Outsource Hub"
