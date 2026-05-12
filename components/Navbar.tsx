@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { BookMeetingModal } from "@/components/BookMeetingModal";
+import { usePathname } from "next/navigation";
 
 function MenuIcon({ className }: { className?: string }) {
   return (
@@ -39,6 +40,7 @@ function CloseIcon({ className }: { className?: string }) {
 }
 
 export function Navbar() {
+  const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
@@ -83,6 +85,15 @@ export function Navbar() {
     ? "text-[var(--color-text-muted)] hover:text-[var(--color-text-body)]"
     : "text-[var(--color-hero-subtext)] hover:text-[var(--color-hero-text)]";
 
+  const isSpanish = pathname === "/es" || pathname.startsWith("/es/");
+  const normalizedPath = (() => {
+    if (pathname === "/es") return "/";
+    if (pathname.startsWith("/es/")) return pathname.replace(/^\/es/, "") || "/";
+    return pathname;
+  })();
+  const enHref = normalizedPath;
+  const esHref = normalizedPath === "/" ? "/es" : `/es${normalizedPath}`;
+
   return (
     <>
       <motion.nav
@@ -116,6 +127,23 @@ export function Navbar() {
               </Link>
               <Link href="/about" className="transition-colors">
                 About
+              </Link>
+            </div>
+
+            <div className={`hidden md:flex items-center gap-1 rounded-full border px-1 py-0.5 text-xs font-semibold ${scrolled ? "border-[var(--color-border)] bg-white/70" : "border-white/20 bg-white/5"}`}>
+              <Link
+                href={enHref}
+                className={`rounded-full px-2 py-1 transition-colors ${!isSpanish ? "bg-[var(--color-accent)] text-[var(--color-accent-text)]" : linkColor}`}
+                aria-label="Switch language to English"
+              >
+                EN
+              </Link>
+              <Link
+                href={esHref}
+                className={`rounded-full px-2 py-1 transition-colors ${isSpanish ? "bg-[var(--color-accent)] text-[var(--color-accent-text)]" : linkColor}`}
+                aria-label="Cambiar idioma a Español"
+              >
+                ES
               </Link>
             </div>
 
@@ -176,6 +204,24 @@ export function Navbar() {
                 className="md:hidden absolute left-0 right-0 top-full z-50 border-b border-[var(--color-hero-border)] bg-[var(--color-hero-bg)] shadow-2xl"
               >
                 <div className="mx-auto max-w-6xl px-6 py-4 space-y-1 text-sm">
+                  <div className="mb-2 flex items-center gap-2 px-3 py-1">
+                    <Link
+                      href={enHref}
+                      onClick={() => setMobileOpen(false)}
+                      className={`rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${!isSpanish ? "bg-[var(--color-accent)] text-[var(--color-accent-text)]" : "bg-white/5 text-[var(--color-hero-subtext)]"}`}
+                      aria-label="Switch language to English"
+                    >
+                      EN
+                    </Link>
+                    <Link
+                      href={esHref}
+                      onClick={() => setMobileOpen(false)}
+                      className={`rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${isSpanish ? "bg-[var(--color-accent)] text-[var(--color-accent-text)]" : "bg-white/5 text-[var(--color-hero-subtext)]"}`}
+                      aria-label="Cambiar idioma a Español"
+                    >
+                      ES
+                    </Link>
+                  </div>
                   <Link
                     href="/pricing"
                     onClick={() => setMobileOpen(false)}
