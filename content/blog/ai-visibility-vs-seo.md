@@ -79,4 +79,4 @@ That's the gap.
 
 If your business runs on local discovery — and you're not visible across both traditional Google and the AI engines — you're losing the customers that ask AI first.
 
-Our [AI Visibility](/ai-visibility) service handles all of this — the schema, the structured data, the ongoing tuning, the citation tracking across ChatGPT and Perplexity. We can show you exactly where you stand first. [Get a free AI Visibility audit.](/ai-visibility)
+Our <a href="/pricing#ai-visibility" target="_blank" rel="noopener noreferrer">AI Visibility</a> service handles all of this — the schema, the structured data, the ongoing tuning, the citation tracking across ChatGPT and Perplexity. $179/mo plus a one-time $199 setup. We can show you exactly where you stand first. <a href="/pricing#ai-visibility" target="_blank" rel="noopener noreferrer">Get a free AI Visibility audit.</a>

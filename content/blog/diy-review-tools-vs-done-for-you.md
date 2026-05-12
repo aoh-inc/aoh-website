@@ -13,7 +13,7 @@ tags: ["Reviews", "Software", "Pricing"]
 
 ## The honest version of this comparison
 
-Every owner who looks at a service like ours asks the same fair question: "Why am I paying you $99 a month when I can buy software that does the same thing for $30?"
+Every owner who looks at a service like ours asks the same fair question: "Why am I paying you $49 a month when I can buy software that does the same thing for $30?"
 
 Let me give you the honest answer, including the parts that aren't in our favor.
 
@@ -32,7 +32,7 @@ The software cost is real. The hidden cost is your time and your team's time. Fo
 
 ## What "done-for-you" actually costs
 
-Our [Review Automation](/reviews) service is $99 to $199 a month depending on the offer. That's real too.
+Our <a href="/pricing#review-automation" target="_blank" rel="noopener noreferrer">Review Automation</a> is $49/mo with no setup fee. No contract. If you want SMS plus AI-drafted replies and our full AI search work, that's <a href="/pricing#ai-visibility" target="_blank" rel="noopener noreferrer">AI Visibility</a> at $179/mo plus $199 setup. Both real prices, both on the pricing page.
 
 What you get for that price is *the work happening*, not the tool. We handle:
 
@@ -44,7 +44,7 @@ What you get for that price is *the work happening*, not the tool. We handle:
 - Replying to incoming reviews (good and bad) in your voice
 - Reporting back monthly on what's working
 
-The price difference between $30 and $99 is roughly $70 a month. The work difference is roughly *all of it*.
+The price difference between $30 software and $49 done-for-you is $19 a month. The work difference is roughly *all of it*.
 
 ## The 6-month math, honestly
 
@@ -61,11 +61,11 @@ Out of pocket: $180 in software fees + roughly 8 hours of your time. Reviews add
 
 The same 6 months with done-for-you:
 
-- $594 in fees ($99 x 6)
+- $294 in fees ($49 x 6)
 - Roughly 1 hour of your time, total, for onboarding
 - Reviews added: 50 to 80, steady throughout
 
-Cost per actual new review: DIY came out to $15 per review including your time at $50/hour. Done-for-you came out to about $9.
+Cost per actual new review: DIY came out to $15 per review including your time at $50/hour. Done-for-you came out to about $5.
 
 This is the part of the comparison the software pricing pages don't show. Cheap looks cheaper until you account for *whether it actually runs*.
 
@@ -89,6 +89,6 @@ If you can't name that person — by first name — and they don't already have 
 
 If you'd rather just have it running, that's the case for done-for-you. The price is higher because the work is real and somebody is doing it.
 
-That's what we built [Review Automation](/reviews) to do — review asks, follow-ups, replies, the whole flow, run for you in the background. Same logic applies for our [Relay](/relay) AI voice agent and our [AI Visibility](/ai-visibility) service. You stay in your business. We handle the AI.
+That's what we built <a href="/pricing#review-automation" target="_blank" rel="noopener noreferrer">Review Automation</a> to do ($49/mo, no setup) — review asks, follow-ups, replies, the whole flow, run for you in the background. Same logic applies for <a href="/pricing#relay" target="_blank" rel="noopener noreferrer">Relay</a> ($499/mo + $499 setup, our AI voice agent) and <a href="/pricing#ai-visibility" target="_blank" rel="noopener noreferrer">AI Visibility</a> ($179/mo + $199 setup). You stay in your business. We handle the AI.
 
 [See our pricing](/pricing). Or [run a check](/#calculator) on what your current review pace is costing you, before you decide which path makes sense.

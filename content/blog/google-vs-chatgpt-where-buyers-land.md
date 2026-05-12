@@ -60,6 +60,6 @@ Three priorities, in this order:
 
 You don't need to chase AI like it's a new platform. You need to keep the basic, boring things in order. AI is reading the same signals Google is. The businesses that win on AI in 2026 are the ones that quietly kept doing the unglamorous work.
 
-Both halves of this — the Google Business Profile freshness through our [Review Automation](/reviews), and the AI-readable structure through our [AI Visibility](/ai-visibility) service — are exactly what we run for clients. You stay in your business. We handle both lanes.
+Both halves of this — the Google Business Profile freshness through our <a href="/pricing#review-automation" target="_blank" rel="noopener noreferrer">Review Automation</a> ($49/mo), and the AI-readable structure through our <a href="/pricing#ai-visibility" target="_blank" rel="noopener noreferrer">AI Visibility</a> service ($179/mo + $199 setup) — are exactly what we run for clients. You stay in your business. We handle both lanes.
 
-If you want to see how visible your business is to both Google and ChatGPT right now, [run a free AI Visibility check](/ai-visibility). Takes a minute. No signup.
+If you want to see how visible your business is to both Google and ChatGPT right now, <a href="/pricing#ai-visibility" target="_blank" rel="noopener noreferrer">run a free AI Visibility check</a>. Takes a minute. No signup.

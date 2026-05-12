@@ -40,7 +40,7 @@ If you run a service business where one job is worth $300, $800, $2,000 — ever
 
 I want to be honest about this because the term scares people. An AI receptionist is not a robot pretending to be you. It is not going to lie to customers. It does not "talk to your customers" in the way owners worry about.
 
-Here is what ours — we call it [Relay](/relay) — actually does:
+Here is what ours — we call it <a href="/pricing#relay" target="_blank" rel="noopener noreferrer">Relay</a> — actually does:
 
 It answers the phone. It says your business name. It asks what they need. It takes their name, number, and the basics of what they're calling about. It tells them when you'll get back to them. It sends you a text or email with the details before you've even unlocked your phone.
 
@@ -52,11 +52,11 @@ Most customers don't even know it isn't a human. The ones who figure it out don'
 
 Let's keep this simple.
 
-An AI receptionist runs about $349 to $499 a month for a local business. Call it $400.
+Our <a href="/pricing#relay" target="_blank" rel="noopener noreferrer">Relay</a> is $499/mo plus a one-time $499 setup. Round to $500 a month after the first month. Includes 750 minutes, 27+ languages, calendar booking, lead qualification, the whole thing.
 
 You need to catch *one* extra job a month to break even on most service categories. One.
 
-If you're a plumber, $400 is a single service call. If you're a moving company, $400 is half an in-town move. If you run a med spa, $400 is one Botox appointment. If you're a vet, it's a couple wellness exams.
+If you're a plumber, $500 is a single service call. If you're a moving company, $500 is half an in-town move. If you run a med spa, $500 is one Botox appointment. If you're a vet, it's a couple wellness exams.
 
 We're not talking about doubling your business. We're talking about not losing the jobs that already wanted you.
 
@@ -80,6 +80,6 @@ Voicemail is where calls go to die. Most customers won't leave one. Of those who
 
 You don't need to take my word for it. Look at your missed-call list on your business line for the last 30 days. Count how many were after-hours. Multiply by your average job size. That's the floor of what you're losing.
 
-If that number is bigger than $400, the phone is already paying for itself. You just haven't picked it up yet.
+If that number is bigger than $500, the phone is already paying for itself. You just haven't picked it up yet.
 
-If you want to see what [Relay](/relay) would look like for your business — what it would say, how it would handle your calls, what it costs — we'll set up a free walkthrough. No pressure, no contract. [Contact us](/contact).
+If you want to see what <a href="/pricing#relay" target="_blank" rel="noopener noreferrer">Relay</a> would look like for your business — what it would say, how it would handle your calls — we'll set up a free walkthrough. $499/mo, $499 one-time setup, no contract. [Contact us](/contact).

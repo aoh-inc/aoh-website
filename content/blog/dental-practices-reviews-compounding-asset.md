@@ -64,8 +64,8 @@ Done consistently, this fills a practice's profile with 50 to 80 new reviews a y
 
 ## What this actually looks like running
 
-You don't have to do any of this manually. Your front desk has enough to do. The whole sequence — text after appointment, smart link, reply nudges, owner-voice replies — is exactly what our [Review Automation](/reviews) service runs in the background once it's set up.
+You don't have to do any of this manually. Your front desk has enough to do. The whole sequence — text after appointment, smart link, reply nudges, owner-voice replies — is exactly what our <a href="/pricing#review-automation" target="_blank" rel="noopener noreferrer">Review Automation</a> runs in the background once it's set up. $49/mo, no setup fee, cancel anytime.
 
 That's most of what we do for dental practices. The result is a profile that quietly compounds while you're chairside. Reviews show up. Patients show up. You don't think about it.
 
-[See how Review Automation works for dental](/reviews). Or [run a free check](/#calculator) to see what your current pace is costing you in unbooked patients.
+<a href="/pricing#review-automation" target="_blank" rel="noopener noreferrer">See how Review Automation works for dental</a> — $49/mo, no contract. Or [run a free check](/#calculator) to see what your current pace is costing you in unbooked patients.

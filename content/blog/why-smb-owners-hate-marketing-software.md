@@ -64,7 +64,7 @@ This is what AI Outsource Hub does — we built <a href="/pricing#review-automat
 
 The trade-off is real:
 
-- Done-for-you is more expensive than the equivalent software ($79 software vs $99 to $199 done-for-you)
+- Done-for-you is more expensive than the equivalent software ($79 software vs $49/mo for our Review Automation, $179 for AI Visibility, $499 for the voice agent — pick what you need)
 - You give up some control. You're not in the dashboard. You're trusting somebody to do the work
 - The relationship matters more. You need to trust the people running it for you
 

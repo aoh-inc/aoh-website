@@ -55,7 +55,7 @@ The two biggest mistakes I see:
 
 The fix is asking *everybody*, consistently, with low friction. Not a long survey. Not "would you be willing to leave us a review please?" Just a quick post-service text with a link. People answer texts. The rating settles where it should — somewhere in the 4.6 to 4.8 range, because most people are not perfect-rating customers and don't pretend to be.
 
-This is what our [Review Automation](/reviews) service does — every customer, every job, the right ask at the right moment, run for you in the background.
+This is what our <a href="/pricing#review-automation" target="_blank" rel="noopener noreferrer">Review Automation</a> does — every customer, every job, the right ask at the right moment, run for you in the background. $49/mo. No setup fee. No contract.
 
 ## What this means for your money
 
@@ -63,4 +63,4 @@ Conversion at 4.6 vs conversion at 4.0 is roughly a 30% difference, according to
 
 You don't need to be perfect. You need to be visibly good, with enough reviews to prove it, and you need to keep them coming.
 
-If you want to know where your business actually sits on this curve, [run a free check](/#calculator). Five seconds, no signup, no pitch. Or [see how Review Automation works](/reviews) if you want it run for you start to finish.
+If you want to know where your business actually sits on this curve, [run a free check](/#calculator). Five seconds, no signup, no pitch. Or <a href="/pricing#review-automation" target="_blank" rel="noopener noreferrer">see how Review Automation works</a> if you want it run for you start to finish — starts at $49/mo, cancel anytime.
