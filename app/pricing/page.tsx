@@ -79,9 +79,9 @@ const products: ProductDetailData[] = [
       "AI-drafted replies in your voice (you approve)",
       "SMS review requests (3× higher response than email)",
       "Monthly 15-min review call + ongoing GBP work",
-      "Cited in ChatGPT, Google AI Overviews, Claude",
-      "Your website is formatted so ChatGPT and Google can understand and trust your business details",
-      "Multi-platform review monitoring",
+      "Show up when people ask ChatGPT or Google AI who to hire nearby",
+      "Website trust signals set up so AI can confidently recommend your business",
+      "Your reviews tracked across platforms so nothing important gets missed",
     ],
     useThisIf: [
       "You want reviews AND to be found in AI search.",
