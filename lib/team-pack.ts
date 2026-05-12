@@ -40,6 +40,67 @@ export type Surface = {
   notes?: string;
 };
 
+// Logo assets — single uniform set the team uses everywhere.
+// Recommend the navy-background icon for circular profile pics across all platforms.
+export type LogoAsset = {
+  filename: string;
+  url: string;
+  dimensions: string;
+  bestFor: string;
+  recommended?: boolean;
+};
+
+export const LOGOS: LogoAsset[] = [
+  {
+    filename: "aoh-icon-2048-navy.png",
+    url: "/logos/aoh-icon-2048-navy.png",
+    dimensions: "2048×2048",
+    bestFor:
+      "Profile picture, all platforms (LinkedIn personal + company, Facebook page, Instagram, X, Google Business Profile). Recommended master file — platforms downscale cleanly.",
+    recommended: true,
+  },
+  {
+    filename: "aoh-icon-1080-navy.png",
+    url: "/logos/aoh-icon-1080-navy.png",
+    dimensions: "1080×1080",
+    bestFor: "Profile picture fallback — Instagram, LinkedIn company, smaller upload limits.",
+  },
+  {
+    filename: "aoh-icon-400-navy.png",
+    url: "/logos/aoh-icon-400-navy.png",
+    dimensions: "400×400",
+    bestFor:
+      "Profile picture minimum size. Use only if platform refuses larger. Facebook & X both display at 200×200 from this.",
+  },
+  {
+    filename: "aoh-icon-2048.png",
+    url: "/logos/aoh-icon-2048.png",
+    dimensions: "2048×2048",
+    bestFor:
+      "Icon on transparent background — for embedding in slides, decks, light-colored docs where you want the icon without the navy background.",
+  },
+  {
+    filename: "aoh-icon-1080.png",
+    url: "/logos/aoh-icon-1080.png",
+    dimensions: "1080×1080",
+    bestFor: "Transparent icon, social-card embeds, OG images.",
+  },
+  {
+    filename: "aoh-wordmark-dark-h480.png",
+    url: "/logos/aoh-wordmark-dark-h480.png",
+    dimensions: "2190×480",
+    bestFor:
+      "Full wordmark for dark backgrounds. Email signatures, letterheads on dark stock, slide masters.",
+  },
+  {
+    filename: "aoh-wordmark-light-h480.png",
+    url: "/logos/aoh-wordmark-light-h480.png",
+    dimensions: "2190×480",
+    bestFor:
+      "Full wordmark for light backgrounds. Letterheads on cream/white, light slide decks.",
+  },
+];
+
 // LinkedIn About sections use Unicode bold characters for section headers
 // since LinkedIn strips real markdown. These render across browsers/devices.
 const B_WHAT_I_DO = "𝗪𝗵𝗮𝘁 𝗜 𝗱𝗼";

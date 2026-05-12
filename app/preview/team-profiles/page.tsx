@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { SURFACES, type Surface, type CopyBlock } from "@/lib/team-pack";
+import { SURFACES, LOGOS, type Surface, type CopyBlock } from "@/lib/team-pack";
 
 function CopyButton({ text }: { text: string }) {
   const [copied, setCopied] = useState(false);
@@ -197,6 +197,66 @@ export default function TeamProfilesPreview() {
                   </a>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Logos */}
+        <div className="mb-8">
+          <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-white/40 mb-3">
+            Logos — same set everywhere
+          </h2>
+          <div className="rounded-2xl border border-emerald-400/30 bg-emerald-400/[0.04] p-5">
+            <p className="text-sm text-white/85 leading-relaxed mb-4">
+              <span className="font-bold text-emerald-300">For all profile pictures</span> (LinkedIn personal + company, Facebook page, Instagram, X, GBP) — use the same navy-background icon. The 2048×2048 file downscales cleanly to every platform's display size and stays crisp.
+            </p>
+            <div className="grid gap-3 md:grid-cols-2">
+              {LOGOS.map((logo) => (
+                <div
+                  key={logo.filename}
+                  className={`rounded-xl border p-4 ${
+                    logo.recommended
+                      ? "border-emerald-400/50 bg-emerald-400/10"
+                      : "border-white/10 bg-white/[0.03]"
+                  }`}
+                >
+                  <div className="flex items-center justify-between gap-3 mb-2">
+                    <div className="flex items-center gap-2">
+                      {logo.recommended && (
+                        <span className="inline-flex items-center rounded-full border border-emerald-400/40 bg-emerald-400/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-emerald-200">
+                          Recommended
+                        </span>
+                      )}
+                      <code className="text-xs text-white/85 font-mono">
+                        {logo.filename}
+                      </code>
+                    </div>
+                    <CopyButton text={`https://aioutsourcehub.com${logo.url}`} />
+                  </div>
+                  <div className="flex items-center gap-3 mb-2">
+                    <img
+                      src={logo.url}
+                      alt={logo.filename}
+                      className="h-16 w-auto rounded-md border border-white/10 bg-black/30"
+                    />
+                    <div className="text-[11px] font-mono text-white/50">
+                      {logo.dimensions}
+                    </div>
+                  </div>
+                  <p className="text-xs text-white/70 leading-relaxed">
+                    {logo.bestFor}
+                  </p>
+                  <a
+                    href={logo.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    download
+                    className="mt-2 inline-block text-xs font-semibold text-emerald-300 hover:text-emerald-200"
+                  >
+                    Open / download →
+                  </a>
+                </div>
+              ))}
             </div>
           </div>
         </div>
