@@ -3,7 +3,7 @@ title: "After-hours calls: why an AI receptionist pays for itself in 30 days"
 description: "Most of the calls that decide whether you get the job come in at 7pm. Voicemail kills them. Here's the math on what an AI receptionist actually saves you."
 date: "2026-05-11"
 category: "Operations"
-coverImage: "https://images.unsplash.com/photo-1543269865-cbf427effbad?w=1600&q=80&auto=format&fit=crop"
+coverImage: "https://images.unsplash.com/photo-1498811008858-d95a730b2ffc?w=1600&q=80&auto=format&fit=crop"
 author:
   name: "Mike Egidio"
   role: "Founder, AI Outsource Hub"
