@@ -80,7 +80,7 @@ const products: ProductDetailData[] = [
       "SMS review requests (3× higher response than email)",
       "Monthly 15-min review call + ongoing GBP work",
       "Cited in ChatGPT, Google AI Overviews, Claude",
-      "Structured data + schema markup on your site",
+      "Your website is formatted so ChatGPT and Google can understand and trust your business details",
       "Multi-platform review monitoring",
     ],
     useThisIf: [
