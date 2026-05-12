@@ -283,9 +283,12 @@ That's the math local service businesses lose every week:
 
 For a shop like Bill at Southington Lawn Service, one missed Saturday-rush call is $200 in mowing plus a $1,800 annual contract walking next door.
 
+Run the napkin math on your own business:
+(weekly after-hours calls) × 0.7 missed × (average ticket) × 4 weeks = monthly revenue walking out the door
+
 Relay is our AI receptionist. Answers, qualifies the lead, books into your calendar. Introduces itself as an AI assistant; transfers to a human if the caller asks. $499/mo + $499 setup. Most clients break even in month one.
 
-→ Run your missed-call math: aioutsourcehub.com/#calculator
+→ See Relay: aioutsourcehub.com/pricing#relay
 
 (Industry breakdown linked in the first comment.)`,
       "linkedin-personal": `9 of 10 after-hours calls go to your competitor.
@@ -296,13 +299,16 @@ Tuesday 7:15pm in Southington, CT. A homeowner just got home from work, lawn's o
 
 Third one wins the $200 cut, the cleanup, and the $1,800 recurring contract. The first two never knew she called.
 
+Quick napkin math on your own business:
+(weekly after-hours calls) × 0.7 × (avg ticket) × 4 weeks = monthly miss
+
 I built Relay because I watched too many local-business owners lose to *availability*, not skill. Operators like Bill at Southington Lawn Service. Phones are still the buy button for lawn care, trades, vets, med spas. The buyer doesn't wait.
 
 One question that comes up in every demo: "won't customers hate that it's a bot?" Relay introduces itself as an AI assistant. If they want a human, it transfers. About 80% don't ask — they just want their question answered.
 
 $499/mo, $499 setup. Most clients break even the first month.
 
-Calculator if you want to run yours: aioutsourcehub.com/#calculator
+See Relay direct: aioutsourcehub.com/pricing#relay
 
 If you run a local service business, what does your after-hours call volume actually look like?`,
       facebook: `Tuesday 7:15pm. A homeowner in Southington, CT just got home from work. Lawn's overgrown. Daughter's graduation party Saturday. She calls 3 lawn services.
@@ -314,9 +320,11 @@ Third one wins $200 in mowing plus an $1,800 annual contract.
 
 9 of 10 after-hours calls go to your competitor. Not because your service is worse. Because nobody picked up.
 
+Napkin math on yours: weekly after-hours calls × 0.7 × your avg ticket × 4 weeks = monthly leak.
+
 This is why we built Relay. AI receptionist that catches every call, qualifies the lead, books into your calendar. Introduces itself as AI. Transfers to a human if asked. $499/mo, payback in 30 days for most.
 
-Run your missed-call math: aioutsourcehub.com/#calculator`,
+See Relay: aioutsourcehub.com/pricing#relay`,
       instagram: `Tuesday 7:15pm. She calls 3 lawn services. First two: voicemail. Third one picks up — and wins $200 + an $1,800 contract.
 
 9 of 10 after-hours calls go to your competitor.
@@ -364,18 +372,19 @@ $499/mo. Most clients break even in month 1.
 
 ---
 
-Run your missed-call math (free, 30 sec):
+Napkin math: weekly after-hours calls × 0.7 × your avg ticket × 4 weeks = monthly miss.
 
-aioutsourcehub.com/#calculator
+See Relay: aioutsourcehub.com/pricing#relay
 
 [5/5]`,
       google: `Tuesday 7:15pm. A homeowner just got home from work. Lawn is overgrown, hosting a party Saturday. She calls 3 lawn services. First two: voicemail. Third one picks up — and wins the cut, the cleanup, and the $1,800 contract.
 
 9 of 10 after-hours calls go to your competitor. Not because your service is worse. Because nobody picked up.
 
+Napkin math: weekly after-hours calls × 0.7 × your average ticket × 4 weeks = monthly revenue walking out.
+
 Relay is our AI receptionist. Catches every call, qualifies the lead, books into your calendar. Introduces itself as AI; transfers to a human if asked. $499/mo + $499 setup, 750 minutes included. Most clients break even in month one.
 
-Run your missed-call math: aioutsourcehub.com/#calculator
 See Relay: aioutsourcehub.com/pricing#relay`,
     },
   },
