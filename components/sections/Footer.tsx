@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { NewsletterForm } from "@/components/NewsletterForm";
+import { usePathname } from "next/navigation";
 
 const services = [
   { href: "/pricing#review-automation", label: "Review Automation" },
@@ -42,6 +45,14 @@ const socials = [
 ];
 
 export function Footer() {
+  const pathname = usePathname();
+  const isSpanish = pathname === "/es" || pathname.startsWith("/es/");
+  const withLocale = (path: string) => {
+    if (!isSpanish) return path;
+    if (path === "/") return "/es";
+    if (path === "/#faq") return "/es#faq";
+    return `/es${path}`;
+  };
   const year = new Date().getFullYear();
 
   return (
@@ -60,7 +71,7 @@ export function Footer() {
         <div className="grid grid-cols-2 gap-8 md:grid-cols-12">
           {/* Brand block — 4 cols on md+ */}
           <div className="col-span-2 md:col-span-4">
-            <Link href="/" className="inline-block">
+            <Link href={withLocale("/")} className="inline-block">
               <Image
                 src="/AOH-logo-dark-bg.svg"
                 alt="AI Outsource Hub"
@@ -107,7 +118,7 @@ export function Footer() {
               {services.map((s) => (
                 <li key={s.href}>
                   <Link
-                    href={s.href}
+                    href={withLocale(s.href)}
                     className="hover:text-[var(--color-hero-text)] transition-colors"
                   >
                     {s.label}
@@ -126,10 +137,16 @@ export function Footer() {
               {company.map((c) => (
                 <li key={c.href}>
                   <Link
-                    href={c.href}
+                    href={withLocale(c.href)}
                     className="hover:text-[var(--color-hero-text)] transition-colors"
                   >
-                    {c.label}
+                    {isSpanish && c.label === "What We Do"
+                      ? "Qué Hacemos"
+                      : isSpanish && c.label === "About"
+                        ? "Nosotros"
+                        : isSpanish && c.label === "Contact"
+                          ? "Contacto"
+                          : c.label}
                   </Link>
                 </li>
               ))}
@@ -146,11 +163,11 @@ export function Footer() {
         <div className="mt-8 flex flex-col items-start justify-between gap-3 border-t border-[var(--color-hero-border)] pt-5 text-xs md:flex-row md:items-center">
           <div className="flex items-center gap-4">
             <p>&copy; {year} AI Outsource Hub.</p>
-            <Link href="/privacy" className="hover:text-[var(--color-hero-text)] transition-colors">
-              Privacy
+            <Link href={withLocale("/privacy")} className="hover:text-[var(--color-hero-text)] transition-colors">
+              {isSpanish ? "Privacidad" : "Privacy"}
             </Link>
-            <Link href="/terms" className="hover:text-[var(--color-hero-text)] transition-colors">
-              Terms
+            <Link href={withLocale("/terms")} className="hover:text-[var(--color-hero-text)] transition-colors">
+              {isSpanish ? "Términos" : "Terms"}
             </Link>
           </div>
           <div className="flex items-center gap-2 text-[var(--color-hero-subtext)]/70">

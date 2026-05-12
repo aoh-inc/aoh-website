@@ -86,6 +86,11 @@ export function Navbar() {
     : "text-[var(--color-hero-subtext)] hover:text-[var(--color-hero-text)]";
 
   const isSpanish = pathname === "/es" || pathname.startsWith("/es/");
+  const withLocale = (path: string) => {
+    if (!isSpanish) return path;
+    if (path === "/") return "/es";
+    return `/es${path}`;
+  };
   const normalizedPath = (() => {
     if (pathname === "/es") return "/";
     if (pathname.startsWith("/es/")) return pathname.replace(/^\/es/, "") || "/";
@@ -107,7 +112,7 @@ export function Navbar() {
       >
         <div className="mx-auto max-w-6xl px-6">
           <div className="flex items-center justify-between gap-6">
-            <Link href="/" className="shrink-0 pl-1 md:pl-2" aria-label="AI Outsource Hub home">
+            <Link href={withLocale("/")} className="shrink-0 pl-1 md:pl-2" aria-label="AI Outsource Hub home">
               <Image
                 src={logoSrc}
                 alt="AI Outsource Hub"
@@ -119,14 +124,14 @@ export function Navbar() {
             </Link>
 
             <div className={`hidden md:flex items-center gap-8 text-sm font-medium ${linkColor} transition-colors duration-500`}>
-              <Link href="/pricing" className="transition-colors">
-                What We Do
+              <Link href={withLocale("/pricing")} className="transition-colors">
+                {isSpanish ? "Qué Hacemos" : "What We Do"}
               </Link>
-              <Link href="/blog" className="transition-colors">
+              <Link href={withLocale("/blog")} className="transition-colors">
                 Blog
               </Link>
-              <Link href="/about" className="transition-colors">
-                About
+              <Link href={withLocale("/about")} className="transition-colors">
+                {isSpanish ? "Nosotros" : "About"}
               </Link>
             </div>
 
@@ -152,7 +157,7 @@ export function Navbar() {
               onClick={() => setBookOpen(true)}
               className="group hidden md:inline-flex items-center gap-1.5 bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] px-5 py-2 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg hover:shadow-[var(--color-accent)]/30 text-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
             >
-              Book a Meeting
+              {isSpanish ? "Reserva una Llamada" : "Book a Meeting"}
               <span
                 aria-hidden="true"
                 className="transition-transform duration-200 group-hover:translate-x-0.5"
@@ -223,25 +228,25 @@ export function Navbar() {
                     </Link>
                   </div>
                   <Link
-                    href="/pricing"
+                    href={withLocale("/pricing")}
                     onClick={() => setMobileOpen(false)}
                     className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
                   >
-                    What We Do
+                    {isSpanish ? "Qué Hacemos" : "What We Do"}
                   </Link>
                   <Link
-                    href="/blog"
+                    href={withLocale("/blog")}
                     onClick={() => setMobileOpen(false)}
                     className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
                   >
                     Blog
                   </Link>
                   <Link
-                    href="/about"
+                    href={withLocale("/about")}
                     onClick={() => setMobileOpen(false)}
                     className="block px-3 py-2 rounded-lg text-[var(--color-hero-subtext)] hover:bg-white/5 hover:text-[var(--color-hero-text)] transition-colors"
                   >
-                    About
+                    {isSpanish ? "Nosotros" : "About"}
                   </Link>
                   <button
                     type="button"
@@ -251,7 +256,7 @@ export function Navbar() {
                     }}
                     className="mt-3 block w-full bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-[var(--color-accent-text)] px-4 py-3 rounded-lg font-semibold text-center transition-colors"
                   >
-                    Book a Meeting
+                    {isSpanish ? "Reserva una Llamada" : "Book a Meeting"}
                   </button>
                 </div>
               </motion.div>
