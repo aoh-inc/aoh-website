@@ -74,3 +74,9 @@ If your workflow does not expose heatmap URL/timestamp yet, keep Action A only.
 3. Send callback Action A.
 4. (Optional) Send callback Action B when heatmap finishes.
 5. Confirm `/api/report/status?runId=...` transitions correctly.
+
+## Heatmap constraint (live account)
+
+- Current max grid selectable in GHL Prospecting: `7 x 7`
+- Coverage selector currently used in this account: `50 km`
+- Automation should target `7 x 7` + `50 km` for consistency with available UI options.

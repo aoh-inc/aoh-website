@@ -66,3 +66,26 @@
 ## Open follow-ups (not blockers)
 - If true Spanish copy is desired later, translate *within* existing English component structure (do not replace with simplified layouts).
 - Optional: add hreflang alternates per page-level metadata strategy if SEO localization depth is increased.
+
+### PP report wiring + heatmap updates (added)
+- Confirmed GHL workflows in active test path:
+  - `Marketing Audit Report Ordered`
+  - `First Report Engagement Tagging`
+- Completed webhook callback pattern for website dynamic report status:
+  - Event 1: `report_ready` -> sends `runId` + `auditUrl`
+  - Event 2: `heatmap_ready` -> sends `runId` + `heatmapUrl`
+- GHL contact custom fields created for callback tracking:
+  - `PP Run ID` (`contact.pp_run_id`)
+  - `PP Heatmap URL` (`contact.pp_heatmap_url`)
+  - Existing confirmed field used: `Audit Report URL` (`contact.audit_url`)
+- Workflow sequencing captured:
+  1. Report generation / report URL available
+  2. `report_ready` webhook
+  3. Wait 7 minutes
+  4. `heatmap_ready` webhook
+- Heatmap configuration constraint confirmed from live GHL behavior:
+  - Maximum supported grid: `7 x 7`
+  - Coverage selector used in account: `50 km`
+- Heatmapper tooling updated accordingly:
+  - Location-aware selector preserved, but outputs now normalize to supported settings (`7 x 7`, `50 km`).
+  - Coverage option matcher updated to accept `km` labels.
