@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PrintButton } from "@/components/ui/PrintButton";
+import { ReportTiming } from "@/components/report/ReportTiming";
 
 export const metadata: Metadata = {
   title: "AI Visibility Report",
@@ -45,6 +46,7 @@ export default async function AIVisibilityReportPage({
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const params = await searchParams;
+  const runId = typeof params.runId === "string" ? params.runId : "";
   const emailRaw = typeof params.email === "string" ? params.email.trim().toLowerCase() : "";
   const campaign = typeof params.campaign === "string" ? params.campaign : "organic";
   const email = emailRaw || "owner@business.com";
@@ -73,6 +75,7 @@ export default async function AIVisibilityReportPage({
               Book a Call
             </Link>
           </div>
+          {runId ? <ReportTiming runId={runId} /> : null}
         </div>
       </section>
 

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateEmail } from "@/lib/email-validation";
 import { checkEmailRate } from "@/lib/rate-limit";
+import { createReportRun } from "@/lib/report-runs";
 
 const TURNSTILE_VERIFY_URL =
   "https://challenges.cloudflare.com/turnstile/v0/siteverify";
@@ -103,12 +104,17 @@ export async function POST(req: NextRequest) {
   const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host") ?? "aioutsourcehub.com";
   const proto = req.headers.get("x-forwarded-proto") ?? "https";
   const reportUrl = new URL("/report/ai-visibility", `${proto}://${host}`);
-  reportUrl.searchParams.set("email", normalizedEmail);
-  reportUrl.searchParams.set("campaign", normalizedCampaign);
+  const runId = crypto.randomUUID();
+  createReportRun({
+    runId,
+    email: normalizedEmail,
+    campaign: normalizedCampaign,
+  });
+  reportUrl.searchParams.set("runId", runId);
 
   void secondaryReport;
 
-  return NextResponse.json({ ok: true, auditUrl: reportUrl.toString() });
+  return NextResponse.json({ ok: true, auditUrl: reportUrl.toString(), runId });
 }
 
 type GHLPayload = {
