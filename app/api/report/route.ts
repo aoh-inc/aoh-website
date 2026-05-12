@@ -100,9 +100,15 @@ export async function POST(req: NextRequest) {
     },
   });
 
+  const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host") ?? "aioutsourcehub.com";
+  const proto = req.headers.get("x-forwarded-proto") ?? "https";
+  const reportUrl = new URL("/report/ai-visibility", `${proto}://${host}`);
+  reportUrl.searchParams.set("email", normalizedEmail);
+  reportUrl.searchParams.set("campaign", normalizedCampaign);
+
   void secondaryReport;
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, auditUrl: reportUrl.toString() });
 }
 
 type GHLPayload = {

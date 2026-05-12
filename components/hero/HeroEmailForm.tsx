@@ -184,9 +184,14 @@ function HeroInner() {
       const data = (await res.json().catch(() => ({}))) as {
         ok?: boolean;
         error?: string;
+        auditUrl?: string;
       };
       if (!res.ok || !data.ok) {
         setError(data.error ?? "Something went wrong. Try again.");
+        return;
+      }
+      if (data.auditUrl && trustedReportUrl(data.auditUrl)) {
+        window.location.href = data.auditUrl;
         return;
       }
       setSubmitted(true);
