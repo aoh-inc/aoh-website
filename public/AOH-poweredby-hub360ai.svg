@@ -1,18 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 600 200" width="360" height="120" role="img" aria-label="AI Outsource Hub — powered by Hub360ai">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 600 140" width="360" height="84" role="img" aria-label="AI Outsource Hub — powered by Hub360ai">
   <title>AI Outsource Hub — powered by Hub360ai</title>
 
-  <!-- AOH primary brand logo (top) -->
+  <!-- AOH primary brand logo (top) — 4px top padding -->
   <image
     href="https://aioutsourcehub.com/AOH-logo-light-bg.svg"
-    x="117.5" y="15"
+    x="117.5" y="4"
     width="365" height="85"
     preserveAspectRatio="xMidYMid meet"
   />
 
-  <!-- Powered-by row, vertically centered around y=148 -->
-  <!-- "POWERED BY" text — right-anchored so the end of the text sits at x=246 -->
+  <!-- Powered-by row, 12px below AOH; 8px bottom padding -->
   <text
-    x="246" y="155"
+    x="246" y="122"
     text-anchor="end"
     font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
     font-size="12"
@@ -22,8 +21,8 @@
     style="text-transform: uppercase;"
   >powered by</text>
 
-  <!-- Hub360ai icon — 32x32, 16px gap after "powered by" text -->
-  <g transform="translate(262, 132) scale(0.5)">
+  <!-- Hub360ai icon — 32x32, top y=100, bottom y=132 -->
+  <g transform="translate(262, 100) scale(0.5)">
     <rect x="0" y="0" width="64" height="64" rx="14" fill="#4338CA"/>
     <rect x="16" y="16" width="5.8" height="32" rx="1" fill="#FFFFFF"/>
     <rect x="42.2" y="16" width="5.8" height="32" rx="1" fill="#FFFFFF"/>
@@ -31,9 +30,9 @@
     <circle cx="48" cy="16" r="5.5" fill="#FBBF24"/>
   </g>
 
-  <!-- Hub360ai wordmark — 12px gap after icon (icon ends x=294, text starts x=306) -->
+  <!-- Hub360ai wordmark — baseline y=125, 12px gap after icon (icon ends x=294, text starts x=306) -->
   <text
-    x="306" y="158"
+    x="306" y="125"
     text-anchor="start"
     font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
     font-size="24"
