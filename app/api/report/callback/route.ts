@@ -6,6 +6,7 @@ type CallbackPayload = {
   auditUrl?: string;
   heatmapUrl?: string;
   event?: "report_ready" | "heatmap_ready";
+  [key: string]: unknown;
 };
 
 function extractRunIdFromUrl(urlValue?: string): string | null {
@@ -19,6 +20,44 @@ function extractRunIdFromUrl(urlValue?: string): string | null {
   }
 }
 
+function asRecord(value: unknown): Record<string, unknown> {
+  return value && typeof value === "object" ? (value as Record<string, unknown>) : {};
+}
+
+function pickString(record: Record<string, unknown>, keys: string[]): string | null {
+  for (const key of keys) {
+    const value = record[key];
+    if (typeof value === "string") {
+      const trimmed = value.trim();
+      if (!trimmed) continue;
+      if (trimmed.includes("{{") && trimmed.includes("}}")) continue;
+      return trimmed;
+    }
+  }
+  return null;
+}
+
+function resolveRunId(body: CallbackPayload | null): string | null {
+  if (!body) return null;
+  const root = asRecord(body);
+  const customData = asRecord(root.customData);
+
+  // GHL field-key variants we have observed across actions.
+  const runId =
+    pickString(root, ["runId", "runID", "runid", "pp_run_id", "audit_report_id"]) ??
+    pickString(customData, ["runId", "runID", "runid", "pp_run_id", "audit_report_id"]);
+  if (runId) return runId;
+
+  const auditUrl =
+    pickString(root, ["auditUrl", "auditURL", "audit_report_url"]) ??
+    pickString(customData, ["auditUrl", "auditURL", "audit_report_url"]);
+  const heatmapUrl =
+    pickString(root, ["heatmapUrl", "heatmapURL", "pp_heatmap_url"]) ??
+    pickString(customData, ["heatmapUrl", "heatmapURL", "pp_heatmap_url"]);
+
+  return extractRunIdFromUrl(auditUrl || undefined) ?? extractRunIdFromUrl(heatmapUrl || undefined);
+}
+
 export async function POST(req: NextRequest) {
   const secret = process.env.REPORT_CALLBACK_TOKEN;
   const provided = req.headers.get("x-report-callback-token");
@@ -27,10 +66,7 @@ export async function POST(req: NextRequest) {
   }
 
   const body = (await req.json().catch(() => null)) as CallbackPayload | null;
-  const resolvedRunId =
-    body?.runId?.trim() ||
-    extractRunIdFromUrl(body?.auditUrl) ||
-    extractRunIdFromUrl(body?.heatmapUrl);
+  const resolvedRunId = resolveRunId(body);
 
   if (!body || !resolvedRunId) {
     return NextResponse.json({ ok: false, error: "Missing runId" }, { status: 400 });
