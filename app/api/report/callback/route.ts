@@ -69,7 +69,30 @@ export async function POST(req: NextRequest) {
   const resolvedRunId = resolveRunId(body);
 
   if (!body || !resolvedRunId) {
-    return NextResponse.json({ ok: false, error: "Missing runId" }, { status: 400 });
+    const root = asRecord(body);
+    const customData = asRecord(root.customData);
+    return NextResponse.json(
+      {
+        ok: false,
+        error: "Missing runId",
+        debug: {
+          rootKeys: Object.keys(root).slice(0, 20),
+          customDataKeys: Object.keys(customData).slice(0, 20),
+          runCandidates: {
+            runId: pickString(root, ["runId", "runID", "runid"]),
+            pp_run_id: pickString(root, ["pp_run_id", "audit_report_id"]),
+            customDataRunId: pickString(customData, ["runId", "runID", "runid", "pp_run_id", "audit_report_id"]),
+          },
+          urlCandidates: {
+            auditUrl: pickString(root, ["auditUrl", "auditURL", "audit_report_url"]),
+            heatmapUrl: pickString(root, ["heatmapUrl", "heatmapURL", "pp_heatmap_url"]),
+            customDataAuditUrl: pickString(customData, ["auditUrl", "auditURL", "audit_report_url"]),
+            customDataHeatmapUrl: pickString(customData, ["heatmapUrl", "heatmapURL", "pp_heatmap_url"]),
+          },
+        },
+      },
+      { status: 400 },
+    );
   }
 
   const now = Date.now();
