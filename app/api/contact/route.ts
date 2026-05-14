@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
   }
 
   const normalizedEmail = (email as string).trim().toLowerCase();
-  const rate = checkEmailRate(normalizedEmail, 3);
+  const rate = await checkEmailRate(normalizedEmail, 3);
   if (!rate.ok) {
     return NextResponse.json(
       { ok: false, error: "You've sent us a few messages today already. We'll reply soon." },

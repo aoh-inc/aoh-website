@@ -55,11 +55,11 @@ function resolveRunId(body: CallbackPayload | null): string | null {
   if (runId) return runId;
 
   const auditUrl =
-    pickString(root, ["auditUrl", "auditURL", "audit_report_url"]) ??
-    pickString(customData, ["auditUrl", "auditURL", "audit_report_url"]);
+    pickString(root, ["auditUrl", "auditURL", "audit_report_url", "marketingReportUrl", "marketing_report_url"]) ??
+    pickString(customData, ["auditUrl", "auditURL", "audit_report_url", "marketingReportUrl", "marketing_report_url"]);
   const heatmapUrl =
-    pickString(root, ["heatmapUrl", "heatmapURL", "pp_heatmap_url"]) ??
-    pickString(customData, ["heatmapUrl", "heatmapURL", "pp_heatmap_url"]);
+    pickString(root, ["heatmapUrl", "heatmapURL", "pp_heatmap_url", "mapsVisibilityUrl", "maps_visibility_url"]) ??
+    pickString(customData, ["heatmapUrl", "heatmapURL", "pp_heatmap_url", "mapsVisibilityUrl", "maps_visibility_url"]);
 
   return extractRunIdFromUrl(auditUrl || undefined) ?? extractRunIdFromUrl(heatmapUrl || undefined);
 }
@@ -143,10 +143,10 @@ export async function POST(req: NextRequest) {
             customDataRunId: pickString(customData, ["runId", "runID", "runid", "pp_run_id", "audit_report_id"]),
           },
           urlCandidates: {
-            auditUrl: pickString(root, ["auditUrl", "auditURL", "audit_report_url"]),
-            heatmapUrl: pickString(root, ["heatmapUrl", "heatmapURL", "pp_heatmap_url"]),
-            customDataAuditUrl: pickString(customData, ["auditUrl", "auditURL", "audit_report_url"]),
-            customDataHeatmapUrl: pickString(customData, ["heatmapUrl", "heatmapURL", "pp_heatmap_url"]),
+            auditUrl: pickString(root, ["auditUrl", "auditURL", "audit_report_url", "marketingReportUrl", "marketing_report_url"]),
+            heatmapUrl: pickString(root, ["heatmapUrl", "heatmapURL", "pp_heatmap_url", "mapsVisibilityUrl", "maps_visibility_url"]),
+            customDataAuditUrl: pickString(customData, ["auditUrl", "auditURL", "audit_report_url", "marketingReportUrl", "marketing_report_url"]),
+            customDataHeatmapUrl: pickString(customData, ["heatmapUrl", "heatmapURL", "pp_heatmap_url", "mapsVisibilityUrl", "maps_visibility_url"]),
           },
         },
       },

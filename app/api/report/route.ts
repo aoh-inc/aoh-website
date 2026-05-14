@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateEmail } from "@/lib/email-validation";
-import { checkEmailRate } from "@/lib/rate-limit";
+import { checkEmailRate, checkReportDedupe } from "@/lib/rate-limit";
 import { createReportRun, updateReportRun } from "@/lib/report-runs";
 import { verifyReportToken } from "@/lib/report-token";
 
@@ -92,11 +92,19 @@ export async function POST(req: NextRequest) {
   }
 
   const normalizedEmail = effectiveEmail;
-  const rate = checkEmailRate(normalizedEmail, 2);
+  const rate = await checkEmailRate(normalizedEmail, 2);
   if (!rate.ok) {
     return NextResponse.json(
       { ok: false, error: "We already have your request. Check your inbox in 10 minutes." },
       { status: 429, headers: rate.retryAfterSec ? { "Retry-After": String(rate.retryAfterSec) } : undefined },
+    );
+  }
+
+  const dedupe = await checkReportDedupe(normalizedEmail, effectiveBusinessName);
+  if (!dedupe.ok) {
+    return NextResponse.json(
+      { ok: false, error: "We already have your request for this business. Check your inbox in 10 minutes." },
+      { status: 429, headers: dedupe.retryAfterSec ? { "Retry-After": String(dedupe.retryAfterSec) } : undefined },
     );
   }
 

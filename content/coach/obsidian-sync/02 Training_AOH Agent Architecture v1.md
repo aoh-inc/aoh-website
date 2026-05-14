@@ -98,7 +98,9 @@ The technical stuff below (Docker, Langfuse, AutoGen, code pattern names) — th
 
 ## 2. CTO/oversight — Auditor (narrow scope)
 
-**Atlantis is the operator console** (chat surface, admin password, lives at `atlantis.srv1530955.hstgr.cloud`). It's where Mike *talks to* the system. It does NOT proactively monitor agents.
+**Atlantis is the operator console** (chat surface, admin password). Primary VPS host is now `srv1587689.hstgr.cloud` (`2.24.198.207`) and is accessed via SSH alias `atlantis`. It's where Mike *talks to* the system. It does NOT proactively monitor agents.
+
+**Migration note (2026-05-14):** Previous Atlantis host `srv1530955.hstgr.cloud` (`187.124.244.13`) is legacy and pending retirement after migration validation.
 
 **OpenClaw Mission Control covers basic monitoring** — heartbeat checks, gateway health, system resources, cron job tracking, agent up/down status. So Auditor's scope is NARROWER than originally drafted: not "watch everything," but "the smart-judgment layer that Mission Control can't do."
 

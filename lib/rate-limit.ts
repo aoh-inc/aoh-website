@@ -1,33 +1,90 @@
-// In-memory email-based rate limiter.
-// Tradeoff: state lost on serverless cold-start. Acceptable pre-launch (low volume).
-// Migrate to Upstash Redis (Vercel Marketplace) once volume justifies it.
+type RateResult = { ok: boolean; retryAfterSec?: number };
 
-const buckets = new Map<string, number[]>();
-const WINDOW_MS = 24 * 60 * 60 * 1000;
+const memoryBuckets = new Map<string, number[]>();
 
-export function checkEmailRate(email: string, limit: number): { ok: boolean; retryAfterSec?: number } {
-  const key = email.trim().toLowerCase();
-  if (!key) return { ok: true };
+async function incrWithTtl(
+  key: string,
+  windowSec: number,
+): Promise<{ count: number; ttlSec: number } | null> {
+  const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+  if (!url || !token) return null;
 
+  const endpoint = `${url}/pipeline`;
+  const body = JSON.stringify([
+    ["INCR", key],
+    ["EXPIRE", key, String(windowSec), "NX"],
+    ["TTL", key],
+  ]);
+
+  const res = await fetch(endpoint, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+    },
+    body,
+    cache: "no-store",
+  }).catch(() => null);
+
+  if (!res?.ok) return null;
+  const data = (await res.json().catch(() => null)) as
+    | Array<{ result?: number | string }>
+    | null;
+  if (!data || data.length < 3) return null;
+
+  const count = Number(data[0]?.result ?? 0);
+  const ttlRaw = Number(data[2]?.result ?? -1);
+  const ttlSec = ttlRaw > 0 ? ttlRaw : windowSec;
+  if (!Number.isFinite(count) || count <= 0) return null;
+  return { count, ttlSec };
+}
+
+function incrInMemory(
+  key: string,
+  windowMs: number,
+): { count: number; ttlSec: number } {
   const now = Date.now();
-  const recent = (buckets.get(key) ?? []).filter((t) => now - t < WINDOW_MS);
-
-  if (recent.length >= limit) {
-    const oldestInWindow = recent[0];
-    const retryAfterSec = Math.max(1, Math.ceil((oldestInWindow + WINDOW_MS - now) / 1000));
-    return { ok: false, retryAfterSec };
-  }
-
+  const recent = (memoryBuckets.get(key) ?? []).filter((t) => now - t < windowMs);
   recent.push(now);
-  buckets.set(key, recent);
+  memoryBuckets.set(key, recent);
 
-  if (Math.random() < 0.01) {
-    for (const [k, v] of buckets) {
-      const fresh = v.filter((t) => now - t < WINDOW_MS);
-      if (fresh.length === 0) buckets.delete(k);
-      else buckets.set(k, fresh);
-    }
+  const oldestInWindow = recent[0] ?? now;
+  const retryAfterSec = Math.max(1, Math.ceil((oldestInWindow + windowMs - now) / 1000));
+  return { count: recent.length, ttlSec: retryAfterSec };
+}
+
+async function checkRate({
+  key,
+  limit,
+  windowSec,
+}: {
+  key: string;
+  limit: number;
+  windowSec: number;
+}): Promise<RateResult> {
+  if (!key.trim()) return { ok: true };
+
+  const redis = await incrWithTtl(key, windowSec);
+  if (redis) {
+    if (redis.count > limit) return { ok: false, retryAfterSec: redis.ttlSec };
+    return { ok: true };
   }
 
+  const mem = incrInMemory(key, windowSec * 1000);
+  if (mem.count > limit) return { ok: false, retryAfterSec: mem.ttlSec };
   return { ok: true };
 }
+
+export async function checkEmailRate(email: string, limit: number): Promise<RateResult> {
+  const key = `ratelimit:email:${email.trim().toLowerCase()}`;
+  return checkRate({ key, limit, windowSec: 24 * 60 * 60 });
+}
+
+export async function checkReportDedupe(email: string, businessName: string): Promise<RateResult> {
+  const emailNorm = email.trim().toLowerCase();
+  const businessNorm = businessName.trim().toLowerCase().replace(/\s+/g, " ");
+  const key = `dedupe:report:${emailNorm}:${businessNorm}`;
+  return checkRate({ key, limit: 1, windowSec: 24 * 60 * 60 });
+}
+

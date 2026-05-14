@@ -23,7 +23,14 @@ The marketing site for **AI Outsource Hub** — a done-for-you AI services agenc
 | Repo host | GitHub `aoh-inc` org | — |
 | Package mgr | npm | — |
 
-One server route — `app/api/report/route.ts` — handles the homepage lead form. Validates email, verifies Cloudflare Turnstile, forwards to a GHL webhook. `middleware.ts` rate-limits it to 3/hour/IP. Env vars: `TURNSTILE_SECRET_KEY`, `GHL_WEBHOOK_URL` (both in Vercel project settings; `.env.local` for local dev). Everything else is fully static and server-rendered.
+One server route — `app/api/report/route.ts` — handles the homepage lead form + token links. Validates requests, verifies Cloudflare Turnstile (or signed token), forwards to a GHL webhook, and applies server-side rate/dedupe controls. Env vars:
+
+- `TURNSTILE_SECRET_KEY`
+- `GHL_WEBHOOK_URL`
+- `REPORT_LINK_SECRET` (required for `/r/{token}` outbound links)
+- Optional durable limits: `UPSTASH_REDIS_REST_URL`, `UPSTASH_REDIS_REST_TOKEN`
+
+(Set in Vercel project settings; `.env.local` for local dev). Everything else is fully static and server-rendered.
 
 ## Lead capture routes + env
 
