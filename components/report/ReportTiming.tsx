@@ -5,6 +5,10 @@ import { useEffect, useMemo, useState } from "react";
 type TimingResponse = {
   ok: boolean;
   stage?: "submitted" | "report_ready" | "heatmap_ready";
+  run?: {
+    auditUrl?: string;
+    heatmapUrl?: string;
+  };
   timing?: {
     secondsSinceSubmit: number;
     reportSeconds: number | null;
@@ -64,8 +68,35 @@ export function ReportTiming({ runId }: { runId: string }) {
           <div>Heatmap: {state.timing.heatmapSeconds ?? "pending"}</div>
         </div>
       ) : null}
+      {state?.ok ? (
+        <div className="mt-3 flex flex-wrap gap-3 text-xs">
+          {state.run?.auditUrl ? (
+            <a
+              href={state.run.auditUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="underline text-[var(--color-accent)]"
+            >
+              Open report
+            </a>
+          ) : (
+            <span className="text-[var(--color-hero-subtext)]">Report link pending</span>
+          )}
+          {state.run?.heatmapUrl ? (
+            <a
+              href={state.run.heatmapUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="underline text-[var(--color-accent)]"
+            >
+              Open heatmap
+            </a>
+          ) : (
+            <span className="text-[var(--color-hero-subtext)]">Heatmap link pending</span>
+          )}
+        </div>
+      ) : null}
       {error ? <p className="mt-2 text-xs text-red-300">{error}</p> : null}
     </div>
   );
 }
-

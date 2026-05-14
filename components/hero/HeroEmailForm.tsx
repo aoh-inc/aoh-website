@@ -15,6 +15,7 @@ const HeroVisualAI = dynamic(
 );
 
 type VisualVariant = "reviews" | "ai";
+type ReportType = "marketing" | "ai_visibility";
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY;
 
@@ -125,6 +126,9 @@ function HeroInner() {
 
   const [email, setEmail] = useState(searchParams.get("email") ?? "");
   const [secondaryReport, setSecondaryReport] = useState(true);
+  const [reportType, setReportType] = useState<ReportType>(
+    variant === "ai" ? "ai_visibility" : "marketing",
+  );
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
@@ -178,6 +182,7 @@ function HeroInner() {
           turnstileToken: turnstileTokenRef.current,
           campaign: variant === "default" ? "organic" : variant,
           visualVariant,
+          reportType,
           secondaryReport,
         }),
       });
@@ -188,10 +193,6 @@ function HeroInner() {
       };
       if (!res.ok || !data.ok) {
         setError(data.error ?? "Something went wrong. Try again.");
-        return;
-      }
-      if (data.auditUrl && trustedReportUrl(data.auditUrl)) {
-        window.location.href = data.auditUrl;
         return;
       }
       setSubmitted(true);
@@ -301,6 +302,35 @@ function HeroInner() {
                   {pending ? "Sending…" : config.buttonText}
                 </button>
               </form>
+              <fieldset className="mt-4 rounded-md border border-[var(--color-hero-border)] bg-white/5 p-3">
+                <legend className="px-1 text-xs font-mono uppercase tracking-[0.16em] text-[var(--color-hero-subtext)]">
+                  Report Type
+                </legend>
+                <div className="mt-1 grid gap-2 sm:grid-cols-2">
+                  <label className="flex items-center gap-2 text-sm text-[var(--color-hero-text)]">
+                    <input
+                      type="radio"
+                      name="report-type"
+                      value="marketing"
+                      checked={reportType === "marketing"}
+                      onChange={() => setReportType("marketing")}
+                      className="accent-[var(--color-accent)]"
+                    />
+                    Marketing Report
+                  </label>
+                  <label className="flex items-center gap-2 text-sm text-[var(--color-hero-text)]">
+                    <input
+                      type="radio"
+                      name="report-type"
+                      value="ai_visibility"
+                      checked={reportType === "ai_visibility"}
+                      onChange={() => setReportType("ai_visibility")}
+                      className="accent-[var(--color-accent)]"
+                    />
+                    AI Visibility Report
+                  </label>
+                </div>
+              </fieldset>
 
               {error && (
                 <p

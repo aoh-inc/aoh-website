@@ -4,6 +4,8 @@ export type ReportRun = {
   runId: string;
   email: string;
   campaign: "reviews" | "ai" | "organic";
+  reportType: "marketing" | "ai_visibility";
+  secondaryReport: boolean;
   submittedAt: number;
   reportReadyAt?: number;
   heatmapReadyAt?: number;
@@ -17,11 +19,15 @@ export function createReportRun(input: {
   runId: string;
   email: string;
   campaign: "reviews" | "ai" | "organic";
+  reportType: "marketing" | "ai_visibility";
+  secondaryReport: boolean;
 }): ReportRun {
   const run: ReportRun = {
     runId: input.runId,
     email: input.email,
     campaign: input.campaign,
+    reportType: input.reportType,
+    secondaryReport: input.secondaryReport,
     submittedAt: Date.now(),
   };
   runs.set(run.runId, run);
@@ -56,6 +62,8 @@ export function upsertReportRunFromCallback(input: {
     runId: input.runId,
     email: "unknown@unknown.local",
     campaign: "organic",
+    reportType: "marketing",
+    secondaryReport: false,
     submittedAt: Date.now(),
     ...input.patch,
   };

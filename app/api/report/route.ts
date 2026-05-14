@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateEmail } from "@/lib/email-validation";
 import { checkEmailRate } from "@/lib/rate-limit";
-import { createReportRun } from "@/lib/report-runs";
+import { createReportRun, updateReportRun } from "@/lib/report-runs";
 
 const TURNSTILE_VERIFY_URL =
   "https://challenges.cloudflare.com/turnstile/v0/siteverify";
@@ -46,6 +46,7 @@ export async function POST(req: NextRequest) {
     turnstileToken,
     campaign,
     visualVariant,
+    reportType,
     secondaryReport,
   } = body as {
     email?: unknown;
@@ -53,6 +54,7 @@ export async function POST(req: NextRequest) {
     turnstileToken?: unknown;
     campaign?: unknown;
     visualVariant?: unknown;
+    reportType?: unknown;
     secondaryReport?: unknown;
   };
 
@@ -97,15 +99,24 @@ export async function POST(req: NextRequest) {
     visualVariant === "reviews" || visualVariant === "ai"
       ? visualVariant
       : undefined;
+  const normalizedReportType =
+    reportType === "ai_visibility" || reportType === "marketing"
+      ? reportType
+      : "marketing";
+  const normalizedSecondaryReport = Boolean(secondaryReport);
 
   const host = req.headers.get("x-forwarded-host") ?? req.headers.get("host") ?? "aioutsourcehub.com";
   const proto = req.headers.get("x-forwarded-proto") ?? "https";
-  const reportUrl = new URL("/report/ai-visibility", `${proto}://${host}`);
+  const reportPath: "/report/marketing" | "/report/ai-visibility" =
+    normalizedReportType === "ai_visibility" ? "/report/ai-visibility" : "/report/marketing";
+  const reportUrl = new URL(reportPath, `${proto}://${host}`);
   const runId = crypto.randomUUID();
   createReportRun({
     runId,
     email: normalizedEmail,
     campaign: normalizedCampaign,
+    reportType: normalizedReportType,
+    secondaryReport: normalizedSecondaryReport,
   });
   reportUrl.searchParams.set("runId", runId);
 
@@ -114,19 +125,26 @@ export async function POST(req: NextRequest) {
     timestamp: new Date().toISOString(),
     campaign: normalizedCampaign,
     visualVariant: normalizedVisual,
+    reportType: normalizedReportType,
     runId,
     source: "aioutsourcehub.com",
     auditUrl: reportUrl.toString(),
     customField: {
       campaign: normalizedCampaign,
       visualVariant: normalizedVisual ?? "",
+      reportType: normalizedReportType,
+      secondaryReport: normalizedSecondaryReport,
       source: "aioutsourcehub.com",
       runId,
       auditUrl: reportUrl.toString(),
     },
   });
-
-  void secondaryReport;
+  maybeSimulateReportLifecycle({
+    runId,
+    reportPath,
+    host,
+    proto,
+  });
 
   return NextResponse.json({ ok: true, auditUrl: reportUrl.toString(), runId });
 }
@@ -136,12 +154,15 @@ type GHLPayload = {
   timestamp: string;
   campaign: "reviews" | "ai" | "organic";
   visualVariant?: "reviews" | "ai";
+  reportType: "marketing" | "ai_visibility";
   runId: string;
   source: string;
   auditUrl: string;
   customField: {
     campaign: "reviews" | "ai" | "organic";
     visualVariant: "reviews" | "ai" | "";
+    reportType: "marketing" | "ai_visibility";
+    secondaryReport: boolean;
     source: string;
     runId: string;
     auditUrl: string;
@@ -164,4 +185,35 @@ async function forwardToGHL(payload: GHLPayload): Promise<void> {
   } catch (err) {
     console.error("GHL webhook failed", err);
   }
+}
+
+function maybeSimulateReportLifecycle(input: {
+  runId: string;
+  reportPath: "/report/marketing" | "/report/ai-visibility";
+  host: string;
+  proto: string;
+}): void {
+  const hasWebhook = Boolean(process.env.GHL_WEBHOOK_URL?.trim());
+  const isProd = process.env.NODE_ENV === "production";
+  if (hasWebhook || isProd) return;
+
+  // Local dev fallback: if GHL webhook is not configured, simulate the
+  // downstream report + heatmap readiness so the UI flow can be tested end-to-end.
+  const base = `${input.proto}://${input.host}`;
+  const auditUrl = `${base}${input.reportPath}?runId=${encodeURIComponent(input.runId)}`;
+  const heatmapUrl = `${base}${input.reportPath}?runId=${encodeURIComponent(input.runId)}#heatmap`;
+
+  setTimeout(() => {
+    updateReportRun(input.runId, {
+      reportReadyAt: Date.now(),
+      auditUrl,
+    });
+  }, 2500);
+
+  setTimeout(() => {
+    updateReportRun(input.runId, {
+      heatmapReadyAt: Date.now(),
+      heatmapUrl,
+    });
+  }, 5500);
 }
