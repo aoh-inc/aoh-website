@@ -287,7 +287,7 @@ AI Outsource Hub runs done-for-you AI services — Review Automation, AI Visibil
     fields: [
       { field: "Primary category", value: "Marketing Agency" },
       { field: "Additional categories", value: "Internet Marketing Service, Software Company, Business Management Consultant, Telephone Answering Service" },
-      { field: "Services to list", value: "Review Automation ($99/mo) · AI Visibility ($199/mo) · Reach Lead Engine ($299/mo) · Studio Content ($349/mo) · Relay AI Receptionist ($349/mo) · Whole Stack ($999/mo)" },
+      { field: "Services to list", value: "Review Automation ($99/mo) · AI Visibility ($299/mo) · Reach Lead Engine ($449/mo) · Studio Content ($599/mo) · Relay AI Receptionist ($399/mo) · Whole Stack ($999/mo)" },
       { field: "Website", value: "https://aioutsourcehub.com" },
       { field: "Appointment URL", value: "https://link.hub360ai.com/widget/booking/fVfL3Xth5gEW9mRjZS56" },
     ],
