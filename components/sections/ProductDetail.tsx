@@ -42,6 +42,8 @@ export function ProductDetail({
   data: ProductDetailData;
   next?: NextRef;
 }) {
+  const isExternalCta =
+    data.ctaHref.startsWith("http://") || data.ctaHref.startsWith("https://");
   const dark = data.variant === "dark";
 
   const sectionBg = dark
