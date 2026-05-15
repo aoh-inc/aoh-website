@@ -58,7 +58,7 @@ const products: ProductDetailData[] = [
     cadenceLabel: "/mo",
     setup: "No setup fee",
     ctaLabel: "Start at $49/mo",
-    ctaHref: "/checkout/review-automation",
+    ctaHref: "https://pay.aioutsourcehub.com/review-automation-plan",
     iconPaths: ICON_PATHS.star,
     mock: <MockReviewPanel />,
   },
@@ -382,7 +382,7 @@ export default function PricingPage() {
                 </p>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                   <Link
-                    href="/checkout/review-automation"
+                    href="https://pay.aioutsourcehub.com/review-automation-plan"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-green-600 hover:bg-green-500 text-white px-6 py-3.5 text-sm font-semibold transition-all hover:gap-3 hover:shadow-lg hover:shadow-green-600/30"
                   >
                     Start at $49/mo

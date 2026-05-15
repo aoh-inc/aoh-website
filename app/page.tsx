@@ -45,7 +45,7 @@ const teaserCards: TeaserCard[] = [
       "Google Business Profile audit",
       "Cancel anytime · no setup fee",
     ],
-    href: "https://pay.aioutsourcehub.com/checkout-review-automation-plan-page",
+    href: "https://pay.aioutsourcehub.com/review-automation-plan",
     cta: "Start Review Automation",
     iconPaths: ICON_PATHS.star,
   },

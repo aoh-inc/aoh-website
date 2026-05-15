@@ -26,7 +26,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
       "Monthly digest email — what was sent, what came in",
       "Cancel anytime · no contract",
     ],
-    ctaUrl: "https://pay.aioutsourcehub.com/checkout-review-automation-plan-page",
+    ctaUrl: "https://pay.aioutsourcehub.com/review-automation-plan",
     ctaKind: "subscribe",
   },
   {

@@ -22,7 +22,7 @@ const SERVICES: Service[] = [
     oneLiner: "Reviews on autopilot after every job.",
     monthly: 49,
     setup: 0,
-    href: "/checkout/review-automation",
+    href: "https://pay.aioutsourcehub.com/review-automation-plan",
     iconPaths: ICON_PATHS.star,
   },
   {
