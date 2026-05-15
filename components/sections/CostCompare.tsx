@@ -127,11 +127,11 @@ function ScanLine() {
 
 export function CostCompare() {
   return (
-    <section className="relative py-20 md:py-28 bg-[var(--color-bg-page)] overflow-hidden">
+    <section className="relative py-14 md:py-20 bg-[var(--color-bg-page)] overflow-hidden">
       <GridBackground />
 
       <div className="relative mx-auto max-w-5xl px-6">
-        <div className="mb-12 text-center">
+        <div className="mb-8 text-center">
           <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-[var(--color-accent)] align-middle mr-2 animate-pulse" />
             The math
@@ -389,7 +389,7 @@ export function CostCompare() {
           </p>
         </div>
 
-        <div className="mt-10 flex flex-col items-center gap-4">
+        <div className="mt-6 flex flex-col items-center gap-4">
           <Link
             href="/#calculator"
             className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-8 py-4 text-base font-semibold text-[var(--color-accent-text)] transition hover:bg-[var(--color-accent-hover)] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[var(--color-accent)]/25"
@@ -404,7 +404,7 @@ export function CostCompare() {
           </p>
         </div>
 
-        <p className="mt-10 text-center text-xs text-[var(--color-text-muted)] max-w-3xl mx-auto leading-relaxed">
+        <p className="mt-6 text-center text-xs text-[var(--color-text-muted)] max-w-3xl mx-auto leading-relaxed">
           Prices reflect publicly listed rates as of 2026: Birdeye Standard ($349/mo), Yext Essential / BrightLocal ($37–$39/mo), Profound Starter ($99/mo, ChatGPT-only tier), and typical small-business marketing-assistant labor. Voice answering (Relay) and content production (Studio) are separate AOH products — add as you scale.
         </p>
       </div>

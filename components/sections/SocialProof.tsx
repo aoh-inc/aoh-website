@@ -44,7 +44,7 @@ export function SocialProof() {
   return (
     <section
       aria-label="Key stats"
-      className="relative overflow-hidden bg-[var(--color-bg-dark-card)] py-20 md:py-28 text-[var(--color-hero-text)]"
+      className="relative overflow-hidden bg-[var(--color-bg-dark-card)] py-14 md:py-20 text-[var(--color-hero-text)]"
     >
       {/* Subtle grid pattern */}
       <div
@@ -65,7 +65,7 @@ export function SocialProof() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="mb-12 md:mb-14 text-center"
+          className="mb-8 md:mb-10 text-center"
         >
           <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
             How customers find you

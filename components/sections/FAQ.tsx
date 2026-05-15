@@ -2,9 +2,9 @@ import { FAQ_ITEMS } from "@/lib/faq";
 
 export function FAQ() {
   return (
-    <section id="faq" className="bg-[var(--color-bg-page)] py-20 md:py-28">
+    <section id="faq" className="bg-[var(--color-bg-page)] py-14 md:py-20">
       <div className="mx-auto max-w-3xl px-6">
-        <div className="mb-12 text-center">
+        <div className="mb-8 text-center">
           <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
             FAQ
           </p>

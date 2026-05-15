@@ -95,9 +95,9 @@ export default function Home() {
       >
         <HeroEmailForm />
 
-        <section className="py-20 md:py-28 bg-[var(--color-bg-page)]">
+        <section className="py-14 md:py-20 bg-[var(--color-bg-page)]">
           <div className="mx-auto max-w-6xl px-6">
-            <div className="mb-12 text-center">
+            <div className="mb-8 text-center">
               <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
                 What we run for you
               </p>

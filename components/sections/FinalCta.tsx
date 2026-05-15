@@ -7,7 +7,7 @@ export function FinalCta() {
   return (
     <section
       aria-label="Final call to action"
-      className="relative overflow-hidden bg-[var(--color-bg-dark-card)] py-20 md:py-28"
+      className="relative overflow-hidden bg-[var(--color-bg-dark-card)] py-14 md:py-20"
     >
       {/* Soft accent glow corners */}
       <span
@@ -52,7 +52,7 @@ export function FinalCta() {
             <span className="hidden md:inline"> </span>
             <span className="text-[var(--color-accent)]">See where you stand.</span>
           </h2>
-          <p className="text-base md:text-lg text-[var(--color-hero-subtext)] leading-relaxed mb-10 max-w-xl mx-auto">
+          <p className="text-base md:text-lg text-[var(--color-hero-subtext)] leading-relaxed mb-6 max-w-xl mx-auto">
             Two minutes for a free report on your reviews, ranking, and AI visibility. No card. We&apos;ll show you exactly what&apos;s costing you customers.
           </p>
 

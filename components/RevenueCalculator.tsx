@@ -203,11 +203,11 @@ function RevenueCalculatorInner() {
   return (
     <section
       id="calculator"
-      className="py-20 md:py-28 bg-[var(--color-bg-page)] scroll-mt-24"
+      className="py-14 md:py-20 bg-[var(--color-bg-page)] scroll-mt-24"
     >
       <div className="mx-auto max-w-6xl px-4 md:px-6">
         <div className="bg-white border border-[var(--color-border)] rounded-2xl md:rounded-3xl p-5 md:p-10 shadow-sm">
-          <div className="text-center mb-8 md:mb-10">
+          <div className="text-center mb-6 md:mb-8">
             <p className="text-xs md:text-sm font-bold uppercase tracking-wider text-[var(--color-accent)] mb-2 md:mb-3">
               Free Estimate · No email required
             </p>

@@ -2,7 +2,7 @@ export function WhyLess() {
   return (
     <section
       aria-label="Why we can charge less"
-      className="border-y border-[var(--color-border)] bg-[var(--color-bg-elevated)] py-20 md:py-28"
+      className="border-y border-[var(--color-border)] bg-[var(--color-bg-elevated)] py-12 md:py-16"
     >
       <div className="mx-auto max-w-3xl px-6 text-center">
         <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">

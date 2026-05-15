@@ -205,9 +205,9 @@ const STEPS: Step[] = [
 
 export function HowItWorks() {
   return (
-    <section className="relative py-20 md:py-28 bg-[var(--color-bg-page)] overflow-hidden">
+    <section className="relative py-14 md:py-20 bg-[var(--color-bg-page)] overflow-hidden">
       <div className="relative mx-auto max-w-6xl px-6">
-        <div className="mb-12 md:mb-16 text-center">
+        <div className="mb-8 md:mb-10 text-center">
           <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
             How it works
           </p>
@@ -266,7 +266,7 @@ export function HowItWorks() {
         </div>
 
         {/* CTA below steps */}
-        <div className="mt-12 flex flex-col items-center gap-3">
+        <div className="mt-8 flex flex-col items-center gap-3">
           <Link
             href="/#calculator"
             className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-8 py-4 text-base font-semibold text-[var(--color-accent-text)] transition hover:bg-[var(--color-accent-hover)] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[var(--color-accent)]/25"
