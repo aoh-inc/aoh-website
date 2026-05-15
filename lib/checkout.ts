@@ -64,7 +64,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
       "750 minutes/month included",
       "Fully managed — we build it, run it, tune it",
     ],
-    ctaUrl: "https://pay.aioutsourcehub.com/checkout-relay-plan-page",
+    ctaUrl: "https://pay.aioutsourcehub.com/checkout-relay-plan",
     ctaKind: "subscribe",
   },
   {
