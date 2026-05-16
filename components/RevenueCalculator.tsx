@@ -240,11 +240,11 @@ function RevenueCalculatorInner() {
               Free Estimate · No email required
             </p>
             <h2 className="text-2xl md:text-4xl font-bold text-[var(--color-text-body)] mb-3 md:mb-4 leading-tight">
-              See what your reviews are costing you every month
+              See what your visibility — and missed calls — cost you every month
             </h2>
             <p className="text-[var(--color-text-muted)] text-sm md:text-lg leading-relaxed max-w-2xl mx-auto">
               Enter your business details. We&apos;ll show you the customers and revenue your
-              current visibility is leaving on the table.
+              reviews, ranking, AI presence, and after-hours phone are leaving on the table.
             </p>
           </div>
 
@@ -594,8 +594,8 @@ function RevenueCalculatorInner() {
                   </>
                 ) : (
                   <div className="py-12 text-center text-[var(--color-hero-subtext)] leading-relaxed">
-                    Select your industry to see how much revenue your current reviews and ranking
-                    are costing you each month.
+                    Select your industry to see how much revenue your current visibility
+                    and missed calls are costing you each month.
                   </div>
                 )}
               </div>
