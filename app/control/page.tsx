@@ -7,7 +7,7 @@ import {
 } from "@/components/control/ControlPrimitives";
 
 export const metadata: Metadata = {
-  title: "Mission Control",
+  title: "The Hub",
   description: "AOH operator console.",
   robots: { index: false, follow: false },
 };
@@ -43,10 +43,10 @@ export default function ControlPage() {
       <header className="mb-8 flex flex-col gap-3 border-b border-zinc-800/60 pb-6 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-emerald-400/70">
-            AOH · Mission Control
+            AOH · Operator
           </p>
           <h1 className="mt-2 text-3xl font-semibold tracking-tight text-zinc-50 md:text-4xl">
-            Your workforce, at a glance.
+            The Hub
           </h1>
           <p className="mt-1.5 text-sm text-zinc-400">
             {dateLine} · Last refresh {MOCK.refreshedAgo}
