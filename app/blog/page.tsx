@@ -310,7 +310,7 @@ export default async function BlogIndexPage() {
             The Hub<span className="text-[var(--color-accent)]">.</span>
           </h1>
           <p className="mt-4 max-w-2xl text-base md:text-lg text-[var(--color-hero-subtext)] leading-relaxed">
-            What we&rsquo;re seeing, learning, and shipping for local businesses.
+            Practical notes on getting found, finding customers, and running a business in 2026 — what we&rsquo;re seeing, learning, and shipping for local owners.
           </p>
         </div>
       </section>
