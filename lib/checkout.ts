@@ -70,11 +70,11 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
   {
     slug: "reach",
     name: "Reach — Lead Engine",
-    price: "$449",
+    price: "$299",
     cadence: "/month",
     setup: "$299 setup",
     summary:
-      "Done-for-you cold outreach. We find your ideal prospects, write the messages, and book qualified appointments.",
+      "Done-for-you outreach. We find your ideal prospects, write the messages, and book qualified appointments.",
     whatYouGet: [
       "Curated prospect list built for your niche",
       "Cold email + LinkedIn outreach in your voice",
