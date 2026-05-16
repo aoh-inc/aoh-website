@@ -1,5 +1,5 @@
 /**
- * Server-only data fetchers for /control (The Hub).
+ * Server-only data fetchers for /mike-mc (The Hub).
  * Each fetcher returns `T | null` — null means "credentials missing or upstream errored,
  * fall back to mock". Caller decides how to surface that.
  *
@@ -231,7 +231,7 @@ export async function getCalendarEventsRange(
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Aggregated /control payload
+// Aggregated /mike-mc payload
 // ─────────────────────────────────────────────────────────────────────────────
 
 export type ControlData = {

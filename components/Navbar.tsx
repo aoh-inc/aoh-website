@@ -41,7 +41,11 @@ function CloseIcon({ className }: { className?: string }) {
 
 export function Navbar() {
   const pathname = usePathname();
-  const isOperator = pathname === "/control" || pathname.startsWith("/control/");
+  const isOperator =
+    pathname === "/mike-mc" ||
+    pathname.startsWith("/mike-mc/") ||
+    pathname === "/control" ||
+    pathname.startsWith("/control/");
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);

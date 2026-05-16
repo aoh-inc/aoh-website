@@ -14,6 +14,16 @@ import {
   pipelineFunnel,
   type ControlData,
 } from "@/lib/control/fetchers";
+import {
+  AGENT_SKILLS,
+  BOARD_COLUMNS,
+  BOARD_TASKS,
+  SCHEDULED_WORK,
+  SERVICES,
+  type BoardStatus,
+  type BoardTask,
+  type MissionTone,
+} from "@/lib/control/mission";
 
 export const metadata: Metadata = {
   title: "The Hub",
@@ -22,6 +32,9 @@ export const metadata: Metadata = {
 };
 
 export const revalidate = 60;
+
+const OPENCLAW_HREF =
+  process.env.NEXT_PUBLIC_OPENCLAW_URL ?? "http://localhost:3333";
 
 /**
  * SLICE 2 — LIVE DATA WIRING
@@ -89,7 +102,15 @@ export default async function ControlPage() {
             {dateLine} · Refreshes every 60s
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <a
+            href={OPENCLAW_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="rounded-md border border-emerald-500/40 bg-emerald-500/10 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-emerald-300 transition hover:bg-emerald-500/20"
+          >
+            Open OpenClaw
+          </a>
           {allSourcesLive ? (
             <Pill tone="accent">live · {liveSources}/4 sources</Pill>
           ) : liveSources > 0 ? (
@@ -102,7 +123,7 @@ export default async function ControlPage() {
 
       {/* Fleet KPI strip */}
       <section className="mb-8">
-        <FleetStrip active={2} total={9} doneToday={14} queued={23} />
+        <FleetStrip active={2} total={10} doneToday={14} queued={23} />
       </section>
 
       {/* Agent cards — workforce view */}
@@ -111,6 +132,7 @@ export default async function ControlPage() {
         <ScoutCard data={data} />
         <ManagerCard data={data} />
         <GhlExpertCard data={data} />
+        <ProfileCard />
         <EditorCard data={data} />
         <PressCard data={data} />
         <CoachCard />
@@ -118,9 +140,14 @@ export default async function ControlPage() {
         <AuditorCard />
       </section>
 
+      <ServiceMapSection />
+      <MissionBoardSection />
+      <AgentSkillsSection />
+      <ScheduledWorkSection />
+
       <footer className="mt-12 border-t border-zinc-800/60 pt-5 text-center">
         <p className="font-mono text-[10px] uppercase tracking-wider text-zinc-600">
-          AOH · The Hub · slice 2 · {liveSources}/4 sources live · Vercel /
+          AOH · The Hub · slice 3 · {liveSources}/4 sources live · Vercel /
           GitHub / GHL
         </p>
       </footer>
@@ -395,7 +422,28 @@ function GhlExpertCard({ data }: { data: ControlData }) {
   );
 }
 
-function EditorCard({ data: _data }: { data: ControlData }) {
+function ProfileCard() {
+  return (
+    <AgentCard
+      name="Profile"
+      role="GBP + local visibility specialist"
+      status="planned"
+      cadence="build after Coach"
+      activity={{
+        doingNow: "Not yet built - job definition added to Mission Control",
+        upNext: "AOH Google Business Profile audit as client zero",
+      }}
+      ownedTitle="Will own"
+      ownedRows={[
+        { primary: "Google Business Profile audit/fix", secondary: "categories, services, hours, photos, description", badge: { tone: "accent", label: "core" } },
+        { primary: "Citation/NAP consistency", secondary: "name, address, phone, website drift checks", badge: { tone: "default", label: "weekly" } },
+        { primary: "AI visibility signals", secondary: "reviews, trust signals, local proof, monthly benchmark", badge: { tone: "warm", label: "soon" } },
+      ]}
+    />
+  );
+}
+
+function EditorCard({}: { data: ControlData }) {
   return (
     <AgentCard
       name="Editor v0"
@@ -543,4 +591,252 @@ function AuditorCard() {
       }
     />
   );
+}
+
+function ServiceMapSection() {
+  return (
+    <section className="mt-12">
+      <SectionHeader
+        eyebrow="Services"
+        title="Offerings -> agents -> skills"
+        sub="Built as client x service x task so this can scale past 50 clients without one giant board."
+      />
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        {SERVICES.map((service) => (
+          <article
+            key={service.slug}
+            className="rounded-2xl border border-zinc-800/60 bg-gradient-to-br from-zinc-900/70 to-zinc-950 p-5 shadow-xl shadow-black/30"
+          >
+            <div className="mb-4 flex items-start justify-between gap-4">
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-400">
+                  {service.job}
+                </p>
+                <h2 className="mt-1 text-lg font-semibold text-zinc-50">
+                  {service.name}
+                </h2>
+              </div>
+              <div className="flex gap-1.5">
+                <Pill tone={service.blocked > 0 ? "warn" : "accent"}>
+                  {service.openTasks} open
+                </Pill>
+                <Pill tone="muted">{service.activeClients} clients</Pill>
+              </div>
+            </div>
+            <p className="mb-4 text-sm leading-relaxed text-zinc-400">
+              {service.outcome}
+            </p>
+            <LabelList label="Agents" items={service.agents} />
+            <LabelList label="Skills" items={service.skills} muted />
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function MissionBoardSection() {
+  const grouped = new Map<BoardStatus, BoardTask[]>();
+  for (const column of BOARD_COLUMNS) grouped.set(column, []);
+  for (const task of BOARD_TASKS) {
+    grouped.get(task.status)?.push(task);
+  }
+
+  return (
+    <section className="mt-12">
+      <SectionHeader
+        eyebrow="Mission board"
+        title="Trello-style work queue"
+        sub="Mission Control owns task state. Slack should create, move, query, and alert from this board."
+      />
+      <div className="grid grid-cols-1 gap-4 xl:grid-cols-6">
+        {BOARD_COLUMNS.map((column) => (
+          <div
+            key={column}
+            className="min-h-48 rounded-2xl border border-zinc-800/60 bg-black/20 p-3"
+          >
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-400">
+                {column}
+              </h3>
+              <Pill tone="muted">{grouped.get(column)?.length ?? 0}</Pill>
+            </div>
+            <div className="space-y-2">
+              {(grouped.get(column) ?? []).map((task) => (
+                <TaskCard key={task.title} task={task} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function AgentSkillsSection() {
+  return (
+    <section className="mt-12">
+      <SectionHeader
+        eyebrow="Skill loadout"
+        title="What each agent must know"
+        sub="These are the initial skill profiles to load into agent identities before real client work starts."
+      />
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+        {AGENT_SKILLS.map((profile) => (
+          <article
+            key={profile.agent}
+            className="rounded-2xl border border-zinc-800/60 bg-zinc-950/80 p-5"
+          >
+            <div className="mb-3 flex items-start justify-between gap-3">
+              <div>
+                <h3 className="font-mono text-base font-bold uppercase tracking-wider text-zinc-50">
+                  {profile.agent}
+                </h3>
+                <p className="mt-1 text-sm text-zinc-500">{profile.role}</p>
+              </div>
+              <Pill tone="default">{profile.skills.length}</Pill>
+            </div>
+            <LabelList label="Services" items={profile.serviceOwners} />
+            <LabelList label="Skills" items={profile.skills} muted />
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ScheduledWorkSection() {
+  return (
+    <section className="mt-12">
+      <SectionHeader
+        eyebrow="Scheduled work"
+        title="Recurring checks to keep 50+ clients sane"
+        sub="These are the boring-but-vital tasks agents should run before problems reach Mike."
+      />
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        {SCHEDULED_WORK.map((item) => (
+          <article
+            key={`${item.cadence}-${item.title}`}
+            className="rounded-2xl border border-zinc-800/60 bg-gradient-to-br from-zinc-900/60 to-zinc-950 p-5"
+          >
+            <div className="mb-3 flex items-center justify-between gap-3">
+              <div>
+                <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-400">
+                  {item.cadence}
+                </p>
+                <h3 className="mt-1 text-base font-semibold text-zinc-50">
+                  {item.title}
+                </h3>
+              </div>
+              <Pill tone="accent">{item.owner}</Pill>
+            </div>
+            <p className="mb-3 text-sm leading-relaxed text-zinc-500">
+              {item.reason}
+            </p>
+            <LabelList label="Checks" items={item.checks} muted />
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function TaskCard({ task }: { task: BoardTask }) {
+  const tone = priorityTone(task.priority);
+
+  return (
+    <article className="rounded-xl border border-zinc-800/70 bg-zinc-950 p-3">
+      <div className="mb-2 flex items-start justify-between gap-2">
+        <h4 className="text-sm font-medium leading-snug text-zinc-100">
+          {task.title}
+        </h4>
+        <Pill tone={tone}>{task.priority}</Pill>
+      </div>
+      <div className="space-y-1 text-xs text-zinc-500">
+        <p>
+          <span className="font-mono uppercase tracking-wider text-zinc-600">Client</span>{" "}
+          {task.client}
+        </p>
+        <p>
+          <span className="font-mono uppercase tracking-wider text-zinc-600">Owner</span>{" "}
+          {task.agent}
+        </p>
+        <p>
+          <span className="font-mono uppercase tracking-wider text-zinc-600">Due</span>{" "}
+          {task.due}
+        </p>
+      </div>
+      <div className="mt-2 flex flex-wrap gap-1">
+        {task.tags.map((tag) => (
+          <span
+            key={tag}
+            className="rounded border border-zinc-800 bg-zinc-900 px-1.5 py-0.5 font-mono text-[10px] text-zinc-500"
+          >
+            {tag}
+          </span>
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function SectionHeader({
+  eyebrow,
+  title,
+  sub,
+}: {
+  eyebrow: string;
+  title: string;
+  sub: string;
+}) {
+  return (
+    <header className="mb-5 max-w-3xl">
+      <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-emerald-400/80">
+        {eyebrow}
+      </p>
+      <h2 className="mt-1 text-2xl font-semibold tracking-tight text-zinc-50 md:text-3xl">
+        {title}
+      </h2>
+      <p className="mt-2 text-sm leading-relaxed text-zinc-500">{sub}</p>
+    </header>
+  );
+}
+
+function LabelList({
+  label,
+  items,
+  muted,
+}: {
+  label: string;
+  items: string[];
+  muted?: boolean;
+}) {
+  return (
+    <div className="mb-3 last:mb-0">
+      <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.18em] text-zinc-600">
+        {label}
+      </p>
+      <div className="flex flex-wrap gap-1.5">
+        {items.map((item) => (
+          <span
+            key={item}
+            className={`rounded-md border px-2 py-1 text-xs ${
+              muted
+                ? "border-zinc-800 bg-zinc-900/50 text-zinc-500"
+                : "border-emerald-500/30 bg-emerald-500/10 text-emerald-300"
+            }`}
+          >
+            {item}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function priorityTone(priority: BoardTask["priority"]): MissionTone {
+  if (priority === "P0") return "danger";
+  if (priority === "P1") return "warm";
+  if (priority === "P2") return "accent";
+  return "muted";
 }
