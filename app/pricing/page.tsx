@@ -204,6 +204,33 @@ const chips = products.map((p) => ({
   label: p.name.split(" — ")[0],
 }));
 
+type JobKey = "get-found" | "find-customers" | "run-business";
+
+const jobBySlug: Record<string, JobKey> = {
+  "review-automation": "get-found",
+  "ai-visibility": "get-found",
+  "reach": "find-customers",
+  "relay": "run-business",
+};
+
+const jobGroupCopy: Record<JobKey, { index: string; label: string; intro: string }> = {
+  "get-found": {
+    index: "Job 1 of 3",
+    label: "Get found.",
+    intro: "When customers search — Google, ChatGPT, Maps — your name comes up first. 80% of your future customers find you this way.",
+  },
+  "find-customers": {
+    index: "Job 2 of 3",
+    label: "Find customers.",
+    intro: "When customers don't know you exist yet, we reach out in your voice and book the calls on your calendar.",
+  },
+  "run-business": {
+    index: "Job 3 of 3",
+    label: "Run your business.",
+    intro: "When your phone rings while you're with a customer, we pick up — so you stay in the work and never lose a lead.",
+  },
+};
+
 export default function PricingPage() {
   return (
     <>
@@ -353,7 +380,7 @@ export default function PricingPage() {
           </div>
         </div>
 
-        {/* Product detail blocks */}
+        {/* Product detail blocks, grouped by job */}
         {products.map((p, i) => {
           const nextProduct = products[i + 1];
           const next = nextProduct
@@ -366,7 +393,35 @@ export default function PricingPage() {
             ...p,
             variant: i % 2 === 1 ? "dark" : "light",
           };
-          return <ProductDetail key={p.slug} data={sectionData} next={next} />;
+
+          const currentJob = jobBySlug[p.slug];
+          const prevJob = i > 0 ? jobBySlug[products[i - 1].slug] : null;
+          const isFirstInJob = currentJob && currentJob !== prevJob;
+          const groupCopy = currentJob ? jobGroupCopy[currentJob] : null;
+
+          return (
+            <div key={p.slug}>
+              {isFirstInJob && groupCopy && (
+                <section
+                  id={`job-${currentJob}`}
+                  className="bg-[var(--color-hero-bg)] text-white scroll-mt-32"
+                >
+                  <div className="mx-auto max-w-6xl px-6 py-12 md:py-16 text-center">
+                    <p className="mb-3 font-mono text-xs uppercase tracking-[0.25em] text-[var(--color-accent)]">
+                      {groupCopy.index}
+                    </p>
+                    <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
+                      {groupCopy.label}
+                    </h2>
+                    <p className="text-base md:text-lg text-white/75 leading-relaxed max-w-2xl mx-auto">
+                      {groupCopy.intro}
+                    </p>
+                  </div>
+                </section>
+              )}
+              <ProductDetail data={sectionData} next={next} />
+            </div>
+          );
         })}
 
         <CtaBlock
