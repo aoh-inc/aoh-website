@@ -23,7 +23,7 @@ const MOCK = {
   refreshedAgo: "2m ago",
   fleet: {
     active: 2,
-    total: 8,
+    total: 9,
     doneToday: 14,
     queued: 23,
   },
@@ -169,10 +169,61 @@ export default function ControlPage() {
           ownedTitle="Fleet state"
           ownedRows={[
             { primary: "Live agents", secondary: "Scout · Manager", badge: { tone: "accent", label: "2" } },
-            { primary: "Manual today", secondary: "Scheduler · Editor v0 · Press v0", badge: { tone: "warm", label: "3" } },
+            { primary: "Manual today", secondary: "Scheduler · GHL Expert · Editor v0 · Press v0", badge: { tone: "warm", label: "4" } },
             { primary: "Building", secondary: "Coach (ship May 25)", badge: { tone: "warm", label: "1" } },
             { primary: "Planned", secondary: "Sender · Auditor + 4 more", badge: { tone: "muted", label: "6" } },
           ]}
+        />
+
+        {/* GHL EXPERT — manual today, workflow watchdog */}
+        <AgentCard
+          name="GHL Expert"
+          role="Workflow watchdog · monitors every GHL automation"
+          status="manual"
+          cadence="manual today · continuous when live"
+          activity={{
+            lastDone: "9:00am today — Mike confirmed Review Automation workflow firing",
+            doingNow: "Manual via Hub360ai admin",
+            upNext: "When live: continuous webhook + workflow monitoring",
+          }}
+          ownedTitle="GHL surfaces · 4 active campaigns"
+          ownedRows={[
+            {
+              primary: "Review Automation workflow",
+              secondary: "fired 12× today · no errors · webhook healthy",
+              badge: { tone: "accent", label: "healthy" },
+            },
+            {
+              primary: "AI Visibility outreach pipeline",
+              secondary: "91 enrolled · last send 8:00am",
+              badge: { tone: "accent", label: "healthy" },
+            },
+            {
+              primary: "Reviews outreach pipeline",
+              secondary: "182 enrolled · last send 8:00am",
+              badge: { tone: "accent", label: "healthy" },
+            },
+            {
+              primary: "Custom fields sync",
+              secondary: "place_id · rating · review_count — all current",
+              badge: { tone: "ok", label: "in sync" },
+            },
+            {
+              primary: "Webhooks (last 24h)",
+              secondary: "248 fired · 0 errors · avg latency 340ms",
+              badge: { tone: "accent", label: "0 errors" },
+            },
+          ]}
+          ownedFooter={
+            <div className="flex gap-2">
+              <button className="flex-1 rounded-md border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-wider text-emerald-300 hover:bg-emerald-500/20">
+                view workflow log
+              </button>
+              <button className="flex-1 rounded-md border border-zinc-800 bg-zinc-900/50 px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-wider text-zinc-400 hover:bg-zinc-900">
+                open Hub360 admin
+              </button>
+            </div>
+          }
         />
 
         {/* EDITOR v0 — manual via Claude */}
