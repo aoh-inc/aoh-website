@@ -283,34 +283,42 @@ You're catching about 1 in 10 after-hours calls. Nine in ten are gone before you
 
 If one job is worth $300–$2,000, three missed jobs a month is $2,400+ walking out the door.
 
-A 24/7 phone answering service at $299/month needs to catch *one* extra job to break even. That's a single service call.
+Run your own numbers in 30 seconds: aioutsourcehub.com/#calculator
+
+Relay, our 24/7 phone answering service, is $299/month — $99 your first month. Needs to catch *one* extra job to break even. That's a single service call.
 
 In most local businesses I look at, that payback lands inside 30 days.
 
-aioutsourcehub.com
+Relay → aioutsourcehub.com/pricing#relay
 
 ### Facebook
 You catch about 1 in 10 after-hours calls. Nine in ten are gone before you knew they existed.
 
 Most local businesses get 15–30 a week. 60–70% go to voicemail. Most customers won't leave one.
 
-If one job is worth $500, a 24/7 phone answering service that catches one extra call a month already paid for itself. Most pay back in 30 days.
+Run yours in 30 seconds: aioutsourcehub.com/#calculator
+
+Relay (our 24/7 phone answering service, $299/mo, first month $99) catches them. One extra job a month and it pays for itself. Most do in 30 days.
+
+aioutsourcehub.com/pricing#relay
 
 ### Instagram
 You catch 1 in 10 after-hours calls.
 
 The other 9 went to your competitor.
 
-A 24/7 phone answering service that catches just ONE extra job a month pays for itself in 30 days.
+Relay = 24/7 phone answering, $299/mo ($99 first month). Catches just ONE extra job a month and it pays for itself.
+
+See your loss: aioutsourcehub.com/#calculator
 
 #LocalBusiness #SmallBusinessTips #AIReceptionist #HVAC #Plumbing #LocalServices
 
 ### X
 You catch 1 in 10 after-hours calls. The other 9 went to your competitor.
 
-15–30 calls a week outside hours. 60–70% to voicemail. Most won't leave one.
+Relay = 24/7 phone answering, $299/mo. One extra job pays for it.
 
-A 24/7 phone answering service that catches ONE extra job a month pays for itself. Most do in 30 days.
+See your loss: aioutsourcehub.com/#calculator
 
 ---
 

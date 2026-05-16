@@ -413,8 +413,7 @@ That's the math local service businesses lose every week:
 
 For a shop like Bill at Southington Lawn Service, one missed Saturday-rush call is $200 in mowing plus a $1,800 annual contract walking next door.
 
-Quick napkin math on your own business:
-weekly after-hours calls Ã— average sale Ã— 4 weeks = monthly revenue walking out the door
+Run your own numbers in 30 seconds: https://aioutsourcehub.com/#calculator
 
 Relay is our phone answering service. Answers, qualifies the lead, books into your calendar. Introduces itself as an AI assistant; transfers to a human if the caller asks. $299/mo + $299 setup. Most clients break even in month one.
 
@@ -429,8 +428,7 @@ Tuesday 7:15pm in Southington, CT. A homeowner just got home from work, lawn's o
 
 Third one wins the $200 cut, the cleanup, and the $1,800 recurring contract. The first two never knew she called.
 
-Quick napkin math on your own business:
-weekly after-hours calls Ã— average sale Ã— 4 weeks = monthly miss
+Run your own numbers in 30 seconds: https://aioutsourcehub.com/#calculator
 
 I built Relay because I watched too many local-business owners lose to *availability*, not skill. Operators like Bill at Southington Lawn Service. Phones are still the buy button for lawn care, trades, vets, med spas. The buyer doesn't wait.
 
@@ -450,7 +448,7 @@ Third one wins $200 in mowing plus an $1,800 annual contract.
 
 9 of 10 after-hours calls go to your competitor. Not because your service is worse. Because nobody picked up.
 
-Napkin math on yours: weekly after-hours calls Ã— your average sale Ã— 4 weeks = monthly leak.
+Run yours in 30 seconds: https://aioutsourcehub.com/#calculator
 
 This is why we built Relay. A phone answering service that catches every call, qualifies the lead, books into your calendar. Introduces itself as AI. Transfers to a human if asked. $299/mo, payback in 30 days for most.
 
@@ -459,7 +457,7 @@ See Relay: https://aioutsourcehub.com/pricing#relay`,
 
 9 of 10 after-hours calls go to your competitor.
 
-Tap bio â†’ "Relay pricing." See if it pays for itself.
+See your monthly loss: aioutsourcehub.com/#calculator
 
 #LocalBusiness #LawnCare #SmallBusinessOwner #LocalServices`,
       x: `9 of 10 after-hours calls go to your competitor.
@@ -468,14 +466,14 @@ Not because your service is worse. Because nobody picked up.
 
 Tuesday 7:15pm. Homeowner calls 3 lawn services. Two: voicemail. Third picks up â€” wins $200 + an $1,800 contract.
 
-Relay (phone answering service) catches every call. $299/mo. Payback in month 1.
+Relay (phone answering service) catches every call. $299/mo.
 
-See if it pays for itself â†’ https://aioutsourcehub.com/pricing#relay`,
+See your loss â†’ aioutsourcehub.com/#calculator`,
       google: `Tuesday 7:15pm. A homeowner just got home from work. Lawn is overgrown, hosting a party Saturday. She calls 3 lawn services. First two: voicemail. Third one picks up â€” and wins the cut, the cleanup, and the $1,800 contract.
 
 9 of 10 after-hours calls go to your competitor. Not because your service is worse. Because nobody picked up.
 
-Napkin math: weekly after-hours calls Ã— your average sale Ã— 4 weeks = monthly revenue walking out.
+Run yours in 30 seconds: https://aioutsourcehub.com/#calculator
 
 Relay is our phone answering service. Catches every call, qualifies the lead, books into your calendar. Introduces itself as AI; transfers to a human if asked. $299/mo + $299 setup, 750 minutes included. Most clients break even in month one.
 
