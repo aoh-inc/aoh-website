@@ -9,7 +9,7 @@ export function ControlShell({
 }) {
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-200">
-      <div className={`mx-auto px-4 py-8 md:px-8 md:py-12 ${wide ? "max-w-[96rem]" : "max-w-7xl"}`}>
+      <div className={`mx-auto px-4 py-8 md:px-8 md:py-12 ${wide ? "w-full max-w-none" : "max-w-7xl"}`}>
         {children}
       </div>
     </main>

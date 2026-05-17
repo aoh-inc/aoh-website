@@ -67,7 +67,7 @@ export default function JobsPage() {
             <p className="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">
               Cost source
             </p>
-            <p className="mt-1 max-w-4xl text-base leading-relaxed text-zinc-400">
+            <p className="mt-1 max-w-none text-base leading-relaxed text-zinc-400">
               These are operating estimates, not live vendor bills yet. The page is shaped so real OpenClaw,
               GHL, enrichment, email, and model usage can replace the estimates once telemetry is wired.
             </p>
@@ -88,7 +88,7 @@ export default function JobsPage() {
 function ReachWorkflowHero({ job }: { job: ScheduledJobCost }) {
   return (
     <section className="mb-8 rounded-2xl border border-emerald-500/30 bg-gradient-to-br from-emerald-950/30 via-zinc-950 to-zinc-950 p-5 shadow-2xl shadow-black/30 md:p-6">
-      <div className="grid gap-6 xl:grid-cols-[0.85fr_1.15fr]">
+      <div className="grid gap-6 xl:grid-cols-[0.7fr_1.3fr]">
         <div>
           <div className="mb-3 flex flex-wrap items-center gap-2">
             <Pill tone="accent">Reach product</Pill>
@@ -97,10 +97,10 @@ function ReachWorkflowHero({ job }: { job: ScheduledJobCost }) {
           <h2 className="text-2xl font-semibold tracking-tight text-zinc-50 md:text-3xl">
             What Reach does
           </h2>
-          <p className="mt-3 max-w-3xl text-base leading-relaxed text-zinc-300">
+          <p className="mt-3 max-w-none text-base leading-relaxed text-zinc-300">
             {job.reachPart ?? job.overview}
           </p>
-          <p className="mt-4 max-w-3xl text-base leading-relaxed text-zinc-500">
+          <p className="mt-4 max-w-none text-base leading-relaxed text-zinc-500">
             The company buying Reach is buying a managed outbound system: prospect selection,
             enrichment, outreach, reply handling, booking, and cost review.
           </p>
@@ -185,7 +185,7 @@ function JobCostCard({
           <p className="mt-1 text-base text-zinc-500">
             {job.service} - {job.owner}
           </p>
-          <p className="mt-3 max-w-4xl text-base leading-relaxed text-zinc-400">
+          <p className="mt-3 max-w-none text-base leading-relaxed text-zinc-400">
             {job.notes}
           </p>
         </div>
@@ -202,7 +202,7 @@ function JobCostCard({
         </div>
       </div>
 
-      <div className="mt-5 grid grid-cols-1 gap-4 xl:grid-cols-[0.8fr_1.2fr]">
+      <div className="mt-5 grid grid-cols-1 gap-4 xl:grid-cols-[0.7fr_1.3fr]">
         <section className="rounded-xl border border-zinc-800/70 bg-black/20 p-4">
           <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-500">
             Job overview
