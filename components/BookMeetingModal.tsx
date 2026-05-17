@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
 
-const BOOKING_URL = "https://link.hub360ai.com/widget/booking/fVfL3Xth5gEW9mRjZS56";
+const BOOKING_URL = "https://app.gohighlevel.com/widget/booking/talk";
 
 export function BookMeetingModal({
   open,

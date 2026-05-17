@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 };
 
 const breadcrumb = pageBreadcrumbs("Pricing", "/pricing");
-const BOOKING_HREF = "https://link.hub360ai.com/widget/booking/fVfL3Xth5gEW9mRjZS56";
+const BOOKING_HREF = "https://app.gohighlevel.com/widget/booking/talk";
 
 const products: ProductDetailData[] = [
   {

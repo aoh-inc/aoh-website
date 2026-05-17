@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const BOOK_URL = "https://link.hub360ai.com/widget/booking/fVfL3Xth5gEW9mRjZS56";
+const BOOK_URL = "https://app.gohighlevel.com/widget/booking/talk";
 
 function buildFallbackReport(businessName: string, city: string): AIVisibilityReport {
   const prospect: ScoredBusiness = {
