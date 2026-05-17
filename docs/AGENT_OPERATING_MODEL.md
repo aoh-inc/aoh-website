@@ -94,6 +94,15 @@ Owns verification and drift checks.
 
 Auditor checks that the setup works, reviews are syncing, workflows fire correctly, and post-launch monitoring is healthy.
 
+Auditor also owns security drift. Before deploys and during daily checks, Auditor should look for:
+
+- tokens or credentials in URLs
+- hardcoded secrets in source code
+- secret-like values in screenshots or public docs
+- `NEXT_PUBLIC_*` variables that contain token, secret, password, API key, or private key material
+- stale or exposed tokens that need rotation
+- public operator pages that should require auth
+
 ## Handoff Rules
 
 - Profile hands off to GHL Expert only after AOH has GBP manager access or a clear blocker is recorded.
@@ -116,6 +125,18 @@ Auditor checks that the setup works, reviews are syncing, workflows fire correct
 - next expected action
 - launch readiness
 - post-launch monitoring status
+
+## Auditor Security Checklist
+
+Run this before pushing operator/security-sensitive changes:
+
+```powershell
+npm run audit:security
+npm run lint
+npm run build
+```
+
+If the sweep fails, fix the exposure before deploy. If a token was already visible in a URL, screenshot, browser history, or git history, move it to an env var and rotate the token at the source system.
 
 ## Sources To Keep Attached To Skills
 

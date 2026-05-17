@@ -185,6 +185,40 @@ The Hub page is here:
 
 - `app/mike-mc/page.tsx`
 
+The internal operator pages are:
+
+- `https://mc.aioutsourcehub.com`
+  - rewrites to `/mike-mc`
+  - intended home for Mission Control
+- `https://mc.aioutsourcehub.com/ops`
+  - rewrites to `/mike-mc/ops`
+  - public-safe operations index
+- `https://hubgateway.aioutsourcehub.com`
+  - OpenClaw gateway
+  - opened from the Mission Control top button through `/api/openclaw/login`
+
+Current security note:
+
+- `mc.aioutsourcehub.com` is separated from the public website, but subdomain separation is not full access control.
+- The OpenClaw gateway token belongs in Vercel as `OPENCLAW_TOKEN`, not in source code.
+- The exposed OpenClaw gateway token must be rotated in OpenClaw/gateway because it was visible in a browser URL.
+- Next security step: add real auth/password protection in front of Mission Control.
+
+## Auditor Security Sweep
+
+Auditor now has a concrete pre-deploy sweep:
+
+- script: `scripts/auditor-security-sweep.mjs`
+- command: `npm run audit:security`
+
+The sweep checks for:
+
+- hardcoded secret assignments
+- token/secret/password URL parameters
+- secret-like `NEXT_PUBLIC_*` env names
+- private key blocks
+- common GitHub and Stripe secret token formats
+
 ## Public Offer Alignment Work
 
 The public offer was corrected so Review Automation is not accidentally described as including SMS or replies.

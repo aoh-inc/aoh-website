@@ -13,6 +13,8 @@ Purpose: quick recurring check that AOH can survive laptop loss.
 | Client/training docs | Google Drive + Obsidian | Medium until sync is confirmed |
 | Agent architecture notes | Repo docs + Obsidian sync | Medium |
 | OpenClaw/Atlantis | VPS | Medium until access is tested |
+| Mission Control | Vercel at `mc.aioutsourcehub.com` | Medium until auth is added |
+| OpenClaw gateway token | Vercel env var `OPENCLAW_TOKEN` | Medium until exposed token is rotated |
 | Passwords/secrets | Password manager | Unknown until Mike confirms |
 | Local `.env.*` files | Laptop only unless recreated | Low by design |
 | Uncommitted work | Laptop only | Low |
@@ -26,6 +28,8 @@ Purpose: quick recurring check that AOH can survive laptop loss.
 - Google Drive training/client folders are accessible.
 - password manager includes all critical accounts.
 - VPS/OpenClaw can be reached without relying on cached laptop-only credentials.
+- `npm run audit:security` passes before operator/security-sensitive deploys.
+- OpenClaw gateway token is stored in Vercel env vars and not in source code.
 
 ## Red Flags
 
@@ -35,6 +39,8 @@ Purpose: quick recurring check that AOH can survive laptop loss.
 - Obsidian vault is local-only
 - Drive files are downloaded locally but not uploaded
 - GitHub/Vercel/GHL/Stripe recovery depends on a device you no longer have
+- token, password, or API key appears in a browser URL or screenshot
+- `NEXT_PUBLIC_*` env var name contains token, secret, password, API key, or private key
 
 ## 10-Minute Monthly Drill
 
