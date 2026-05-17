@@ -352,6 +352,20 @@ function GhlExpertCard({ data }: { data: ControlData }) {
   );
 
   const realRows: OwnedRow[] = [];
+  const activeTask = BOARD_TASKS.find(
+    (task) =>
+      task.agent === "GHL Expert" &&
+      task.status === "In Progress" &&
+      task.title.includes("/talk"),
+  );
+
+  if (activeTask) {
+    realRows.push({
+      primary: activeTask.title,
+      secondary: `${activeTask.service} · reviewer: ${activeTask.reviewer ?? "Auditor"} · due ${activeTask.due}`,
+      badge: { tone: "warm", label: "working" },
+    });
+  }
 
   if (data.pipelines) {
     realRows.push({
@@ -403,7 +417,9 @@ function GhlExpertCard({ data }: { data: ControlData }) {
         lastDone: data.pipelines
           ? `Polled GHL · ${data.pipelines.length} pipelines mapped`
           : "9:00am today — Mike confirmed Review Automation workflow firing",
-        doingNow: data.pipelines ? "Watching pipeline stages + opportunity flow" : "Manual via Hub360ai admin",
+        doingNow: activeTask
+          ? "Working on AOH /talk Discovery Round Robin calendar"
+          : data.pipelines ? "Watching pipeline stages + opportunity flow" : "Manual via Hub360ai admin",
         upNext: "Agent build slot 5c — add workflow exec count + webhook latency tracking",
       }}
       ownedTitle={data.pipelines ? "GHL pipeline health · live" : "GHL surfaces · MOCK (needs GHL_PIT_TOKEN)"}
