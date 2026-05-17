@@ -217,7 +217,7 @@ export const REACH_INTERNAL_FLOW: ReachInternalStep[] = [
     status: "manual",
     description:
       "For Review Automation clients, GHL Expert loads the approved snapshot, updates custom values, connects GBP, configures Reputation, and keeps base review automation email-only unless upgraded.",
-    verification: "Agent SOP exists. Live snapshot load against Review Boost subaccount hVTckp5FcGL9Ja3GvC3R has not been verified here.",
+    verification: "Agent SOP exists. Live snapshot load against AOH Client Template Lab subaccount hVTckp5FcGL9Ja3GvC3R has not been verified here.",
   },
   {
     title: "Complete client onboarding and access",
@@ -279,7 +279,7 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
     verification: "Report request flow exists; outbound campaign link generation still needs finishing.",
   },
   {
-    title: "Review Boost subaccount check",
+    title: "AOH Client Template Lab subaccount check",
     owner: "GHL Expert + Auditor",
     status: "manual",
     description:
