@@ -201,7 +201,8 @@ Current security note:
 
 - `mc.aioutsourcehub.com` is separated from the public website, but subdomain separation is not full access control.
 - The OpenClaw gateway token belongs in Vercel as `OPENCLAW_TOKEN`, not in source code.
-- The exposed OpenClaw gateway token must be rotated in OpenClaw/gateway because it was visible in a browser URL.
+- The exposed OpenClaw gateway token was rotated on 2026-05-17 in the VPS OpenClaw env/config and in Vercel `OPENCLAW_TOKEN`.
+- Stale OpenClaw config backups on the VPS were scrubbed of the exposed token value.
 - Next security step: add real auth/password protection in front of Mission Control.
 
 ## Auditor Security Sweep

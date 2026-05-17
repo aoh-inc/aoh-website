@@ -277,6 +277,7 @@ export const BOARD_COLUMNS: BoardStatus[] = [
   "Waiting on Human",
   "Review",
   "Blocked / Later",
+  "Done",
 ];
 
 export const BOARD_TASKS: BoardTask[] = [
@@ -305,9 +306,9 @@ export const BOARD_TASKS: BoardTask[] = [
     client: "AOH",
     service: "Mission Control",
     agent: "Auditor",
-    status: "Assigned",
+    status: "Done",
     priority: "P0",
-    due: "Now",
+    due: "Completed 2026-05-17",
     tags: ["security", "secrets", "openclaw"],
   },
   {

@@ -14,7 +14,7 @@ Purpose: quick recurring check that AOH can survive laptop loss.
 | Agent architecture notes | Repo docs + Obsidian sync | Medium |
 | OpenClaw/Atlantis | VPS | Medium until access is tested |
 | Mission Control | Vercel at `mc.aioutsourcehub.com` | Medium until auth is added |
-| OpenClaw gateway token | Vercel env var `OPENCLAW_TOKEN` | Medium until exposed token is rotated |
+| OpenClaw gateway token | Vercel env var `OPENCLAW_TOKEN` + VPS `/docker/openclaw-dntw/.env` | Medium; rotated 2026-05-17, keep in password manager |
 | Passwords/secrets | Password manager | Unknown until Mike confirms |
 | Local `.env.*` files | Laptop only unless recreated | Low by design |
 | Uncommitted work | Laptop only | Low |
@@ -30,6 +30,7 @@ Purpose: quick recurring check that AOH can survive laptop loss.
 - VPS/OpenClaw can be reached without relying on cached laptop-only credentials.
 - `npm run audit:security` passes before operator/security-sensitive deploys.
 - OpenClaw gateway token is stored in Vercel env vars and not in source code.
+- OpenClaw gateway token in Vercel matches the VPS `OPENCLAW_GATEWAY_TOKEN`.
 
 ## Red Flags
 
