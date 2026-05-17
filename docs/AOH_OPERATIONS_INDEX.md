@@ -203,7 +203,8 @@ Current security note:
 - The OpenClaw gateway token belongs in Vercel as `OPENCLAW_TOKEN`, not in source code.
 - The exposed OpenClaw gateway token was rotated on 2026-05-17 in the VPS OpenClaw env/config and in Vercel `OPENCLAW_TOKEN`.
 - Stale OpenClaw config backups on the VPS were scrubbed of the exposed token value.
-- The Hostinger OpenClaw wrapper on the VPS is intentionally patched so login redirects to `/` instead of `/#token=...`.
+- The Hostinger OpenClaw wrapper on the VPS is intentionally patched so login redirects to `/__aoh-token-bootstrap` instead of `/#token=...`.
+- The bootstrap page stores the dashboard token in browser storage for `wss://hubgateway.aioutsourcehub.com`, then redirects to `/`.
 - The wrapper patch is persisted by `/docker/openclaw-dntw/docker-compose.yml`, which bind-mounts `/docker/openclaw-dntw/server.mjs` over `/hostinger/server.mjs`.
 - Next security step: add real auth/password protection in front of Mission Control.
 
