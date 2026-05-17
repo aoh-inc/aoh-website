@@ -134,10 +134,10 @@ export const REACH_INTERNAL_FLOW: ReachInternalStep[] = [
   {
     title: "Prepare GHL prospect records",
     owner: "GHL Expert",
-    status: "partial",
+    status: "verified",
     description:
-      "GHL needs fields for campaign, report type, run ID, report URL, heatmap URL, competitor notes, pipeline stage, and email status.",
-    verification: "Website sends report fields to a GHL webhook if configured; specific GHL field mapping still needs live verification.",
+      "AOH Client Template Lab now has the verified Reach fields, AOH custom values, and routing tags needed before workflow planning can continue.",
+    verification: "Live GHL audit verified 9 Reach custom fields, 6 AOH custom values, and 4 Reach tags in hVTckp5FcGL9Ja3GvC3R.",
   },
   {
     title: "Website report handoff endpoints",
@@ -172,12 +172,20 @@ export const REACH_INTERNAL_FLOW: ReachInternalStep[] = [
     verification: "Report submit/status/callback routes are built; campaign link generation is not complete.",
   },
   {
+    title: "Draft workflow skeleton",
+    owner: "GHL Expert + Auditor",
+    status: "partial",
+    description:
+      "The Reach Campaign - Draft Skeleton workflow exists in Draft mode with a reach_enrolled tag trigger, safety gate, route branches, waits, and note placeholders. It must stay unpublished.",
+    verification: "Mike visually confirmed Draft mode, no Send Email nodes, no enrolled contacts, and Auditor approved the draft structure with blockers.",
+  },
+  {
     title: "Write/send dynamic outreach email",
     owner: "Sender + Coach",
     status: "missing",
     description:
-      "The email must merge prospect name, business, area, niche, competitor/report signals, and a CTA to view the report. It should not read like a generic cold email.",
-    verification: "Final email template and sending workflow are not built yet.",
+      "The email must merge prospect name, business, area, niche, competitor/report signals, and a CTA to view the report. It should not read like a generic cold email, and Send Email nodes remain blocked.",
+    verification: "Draft copy exists from Sender/Coach, but real GHL email nodes are blocked until address, logo, calendar, unsubscribe, and Auditor QA pass.",
   },
   {
     title: "Track opens, clicks, replies, and booked calls",
@@ -281,10 +289,10 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
   {
     title: "Final dynamic email template",
     owner: "Sender + Coach",
-    status: "missing",
+    status: "partial",
     description:
-      "Need the real first email and follow-ups with merge fields for business, niche, competitor, report CTA, and unsubscribe/compliance language.",
-    verification: "Not present as a finished template in the repo.",
+      "Draft first-touch/follow-up copy exists, but it still needs final GHL merge-field validation, real footer values, unsubscribe proof, and Auditor approval before any Send Email node is added.",
+    verification: "Sender and Coach drafts reviewed; not approved for live GHL send nodes.",
   },
   {
     title: "Live GHL report + heatmap workflow",
@@ -305,10 +313,10 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
   {
     title: "AOH Client Template Lab subaccount check",
     owner: "GHL Expert + Auditor",
-    status: "manual",
+    status: "partial",
     description:
-      "Need to inspect hVTckp5FcGL9Ja3GvC3R against the Review Automation checklist: snapshot, custom values, Reputation, GBP, templates, workflows, test contact, and QA proof.",
-    verification: "Not verified from this repo/session.",
+      "Fields, values, tags, and a Draft-only Reach workflow skeleton exist in hVTckp5FcGL9Ja3GvC3R. Placeholder values, email nodes, canary testing, and snapshot/reputation QA remain blocked.",
+    verification: "Live GHL setup was verified manually/visually; still needs final placeholder replacement and Auditor QA before launch.",
   },
   {
     title: "Prospect list filter before spending",
