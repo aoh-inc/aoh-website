@@ -24,6 +24,29 @@ export const metadata: Metadata = {
 
 export const revalidate = 60;
 
+const REACH_REVIEW_GATE = [
+  {
+    label: "Owner",
+    value: "GHL Expert",
+    detail: "Inspects live HighLevel, documents exact fields, and prepares the workflow plan.",
+  },
+  {
+    label: "Reviewer",
+    value: "Auditor",
+    detail: "Checks merge fields, unsubscribe behavior, report URLs, DNS, and launch safety.",
+  },
+  {
+    label: "Orchestrator",
+    value: "Manager",
+    detail: "Confirms proof, blockers, model choice, and whether the work is ready for Mike.",
+  },
+  {
+    label: "Mike needed",
+    value: "Not yet",
+    detail: "Mike only approves final decisions or access changes after agents finish review.",
+  },
+];
+
 export default function JobsPage() {
   const now = new Date();
   const totalDaily = SCHEDULED_JOB_COSTS.reduce((sum, job) => sum + job.dailyCostUsd, 0);
@@ -65,6 +88,7 @@ export default function JobsPage() {
       </section>
 
       {reachJob ? <ReachWorkflowHero job={reachJob} /> : null}
+      <ReachReviewGateSection />
       <ReachInternalFlowSection />
       <TomorrowReadinessSection />
 
@@ -125,6 +149,41 @@ function ReachWorkflowHero({ job }: { job: ScheduledJobCost }) {
             </div>
           ))}
         </div>
+      </div>
+    </section>
+  );
+}
+
+function ReachReviewGateSection() {
+  return (
+    <section className="mb-8 rounded-2xl border border-sky-500/25 bg-sky-500/5 p-5 md:p-6">
+      <div className="mb-4 flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-sky-300">
+            Agent review gate
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
+            Agents work and review before Mike approves
+          </h2>
+          <p className="mt-2 max-w-none text-base leading-relaxed text-zinc-400">
+            Reach is blocked from live sending until GHL Expert verifies HighLevel, Auditor reviews
+            the risk, and Manager decides the work is ready to escalate. Mike should not be asked
+            to gather technical details unless no agent or tool access exists.
+          </p>
+        </div>
+        <Pill tone="warn">blocked until live GHL verification</Pill>
+      </div>
+
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+        {REACH_REVIEW_GATE.map((item) => (
+          <div key={item.label} className="rounded-xl border border-sky-500/20 bg-black/25 p-4">
+            <p className="font-mono text-xs uppercase tracking-wider text-sky-300">
+              {item.label}
+            </p>
+            <p className="mt-2 text-lg font-semibold text-zinc-100">{item.value}</p>
+            <p className="mt-2 text-sm leading-relaxed text-zinc-400">{item.detail}</p>
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -354,6 +413,33 @@ function JobCostCard({
           ))}
         </div>
       </section>
+
+      {job.slug === "reviews-outreach" ? (
+        <section className="mt-4 rounded-xl border border-sky-500/25 bg-sky-500/5 p-4">
+          <div className="flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between">
+            <div>
+              <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-sky-300">
+                Current review gate
+              </h3>
+              <p className="mt-2 text-base leading-relaxed text-zinc-400">
+                This job should not reach Mike as raw technical work. GHL Expert verifies,
+                Auditor reviews, Manager decides, then Mike approves only if needed.
+              </p>
+            </div>
+            <Pill tone="warn">Mike not needed yet</Pill>
+          </div>
+          <div className="mt-4 grid gap-2 md:grid-cols-2 xl:grid-cols-4">
+            {REACH_REVIEW_GATE.map((item) => (
+              <div key={`${job.slug}-gate-${item.label}`} className="rounded-lg border border-zinc-800/70 bg-zinc-950/70 p-3">
+                <p className="font-mono text-xs uppercase tracking-wider text-zinc-500">
+                  {item.label}
+                </p>
+                <p className="mt-1 text-sm font-semibold text-zinc-200">{item.value}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+      ) : null}
 
       <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-[1fr_1fr] 2xl:grid-cols-[1.15fr_0.85fr]">
         <div className="rounded-xl border border-zinc-800/70 bg-black/20 p-4">
