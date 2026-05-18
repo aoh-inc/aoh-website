@@ -15,6 +15,13 @@ type GhlContactResponse = {
   };
 };
 
+const GHL_CALLBACK_FIELDS = {
+  auditReportId: "JKPbbyPcfOj7txgfLmf7",
+  ppRunId: "geldiMOzEdDWrKq0S4v5",
+  auditUrl: "MtlBT8xoZZOWoK58XnpR",
+  heatmapUrl: "Gpup0b6SBHYb768NOPuk",
+} as const;
+
 function extractRunIdFromUrl(urlValue?: string): string | null {
   if (!urlValue) return null;
   try {
@@ -84,6 +91,34 @@ function resolveContactId(body: CallbackPayload | null): string | null {
   );
 }
 
+function resolveEvent(body: CallbackPayload | null): "report_ready" | "heatmap_ready" | null {
+  if (!body) return null;
+  const root = asRecord(body);
+  const customData = asRecord(root.customData);
+  const value = pickString(root, ["event"]) ?? pickString(customData, ["event"]);
+  return value === "report_ready" || value === "heatmap_ready" ? value : null;
+}
+
+function resolveAuditUrl(body: CallbackPayload | null): string | null {
+  if (!body) return null;
+  const root = asRecord(body);
+  const customData = asRecord(root.customData);
+  return (
+    pickString(root, ["auditUrl", "auditURL", "audit_report_url", "marketingReportUrl", "marketing_report_url", "audit_url"]) ??
+    pickString(customData, ["auditUrl", "auditURL", "audit_report_url", "marketingReportUrl", "marketing_report_url", "audit_url"])
+  );
+}
+
+function resolveHeatmapUrl(body: CallbackPayload | null): string | null {
+  if (!body) return null;
+  const root = asRecord(body);
+  const customData = asRecord(root.customData);
+  return (
+    pickString(root, ["heatmapUrl", "heatmapURL", "pp_heatmap_url", "mapsVisibilityUrl", "maps_visibility_url", "heatmap_url"]) ??
+    pickString(customData, ["heatmapUrl", "heatmapURL", "pp_heatmap_url", "mapsVisibilityUrl", "maps_visibility_url", "heatmap_url"])
+  );
+}
+
 async function resolveRunIdFromGhlContact(contactId: string): Promise<string | null> {
   const token = process.env.GHL_PIT_TOKEN?.trim();
   if (!token) return null;
@@ -111,6 +146,40 @@ async function resolveRunIdFromGhlContact(contactId: string): Promise<string | n
   }
 }
 
+async function persistCallbackToGhlContact(input: {
+  contactId: string | null;
+  runId: string;
+  auditUrl: string | null;
+  heatmapUrl: string | null;
+}): Promise<void> {
+  if (!input.contactId) return;
+  const token = process.env.GHL_PIT_TOKEN?.trim();
+  if (!token) return;
+
+  const customFields = [
+    { id: GHL_CALLBACK_FIELDS.auditReportId, field_value: input.runId },
+    { id: GHL_CALLBACK_FIELDS.ppRunId, field_value: input.runId },
+    input.auditUrl ? { id: GHL_CALLBACK_FIELDS.auditUrl, field_value: input.auditUrl } : null,
+    input.heatmapUrl ? { id: GHL_CALLBACK_FIELDS.heatmapUrl, field_value: input.heatmapUrl } : null,
+  ].filter(Boolean);
+
+  try {
+    await fetch(`https://services.leadconnectorhq.com/contacts/${encodeURIComponent(input.contactId)}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Version: "2021-07-28",
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ customFields }),
+      cache: "no-store",
+    });
+  } catch {
+    // Callback success should not depend on best-effort GHL persistence.
+  }
+}
+
 export async function POST(req: NextRequest) {
   const secret = process.env.REPORT_CALLBACK_TOKEN;
   const provided = req.headers.get("x-report-callback-token");
@@ -120,8 +189,8 @@ export async function POST(req: NextRequest) {
 
   const body = (await req.json().catch(() => null)) as CallbackPayload | null;
   let resolvedRunId = resolveRunId(body);
+  const contactId = resolveContactId(body);
   if (!resolvedRunId) {
-    const contactId = resolveContactId(body);
     if (contactId) {
       resolvedRunId = await resolveRunIdFromGhlContact(contactId);
     }
@@ -162,18 +231,29 @@ export async function POST(req: NextRequest) {
     heatmapUrl?: string;
   } = {};
 
-  if (body.auditUrl) patch.auditUrl = body.auditUrl;
-  if (body.heatmapUrl) patch.heatmapUrl = body.heatmapUrl;
+  const event = resolveEvent(body);
+  const auditUrl = resolveAuditUrl(body);
+  const heatmapUrl = resolveHeatmapUrl(body);
 
-  if (body.event === "report_ready") patch.reportReadyAt = now;
-  if (body.event === "heatmap_ready") patch.heatmapReadyAt = now;
+  if (auditUrl) patch.auditUrl = auditUrl;
+  if (heatmapUrl) patch.heatmapUrl = heatmapUrl;
 
-  // If event omitted but auditUrl is present, treat as report-ready.
-  if (!body.event && body.auditUrl) patch.reportReadyAt = now;
+  if (event === "report_ready") patch.reportReadyAt = now;
+  if (event === "heatmap_ready") patch.heatmapReadyAt = now;
+
+  // If event omitted, infer readiness from whichever URL HighLevel sent.
+  if (!event && auditUrl) patch.reportReadyAt = now;
+  if (!event && heatmapUrl) patch.heatmapReadyAt = now;
 
   const run = upsertReportRunFromCallback({
     runId: resolvedRunId,
     patch,
+  });
+  await persistCallbackToGhlContact({
+    contactId,
+    runId: resolvedRunId,
+    auditUrl,
+    heatmapUrl,
   });
 
   return NextResponse.json({ ok: true, runId: run.runId });

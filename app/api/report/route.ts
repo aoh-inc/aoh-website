@@ -12,6 +12,7 @@ const GHL_API_VERSION = "2021-07-28";
 const GHL_REPORT_FIELDS = {
   reportTypeRequested: "GfL56AsuzoA6UECd9OM2",
   auditReportId: "JKPbbyPcfOj7txgfLmf7",
+  ppRunId: "geldiMOzEdDWrKq0S4v5",
   leadSource: "LIILv8zU5JGSYxmRsbsB",
   auditUrl: "MtlBT8xoZZOWoK58XnpR",
   websiteSource: "PyUyFjg6Ug24wZQHz58P",
@@ -339,6 +340,7 @@ async function forwardToGHLViaApi(payload: GHLPayload): Promise<GHLForwardResult
         source: payload.source,
         customFields: [
           { id: GHL_REPORT_FIELDS.auditReportId, field_value: payload.runId },
+          { id: GHL_REPORT_FIELDS.ppRunId, field_value: payload.runId },
           { id: GHL_REPORT_FIELDS.auditUrl, field_value: payload.auditUrl },
           { id: GHL_REPORT_FIELDS.reportTypeRequested, field_value: payload.reportType },
           { id: GHL_REPORT_FIELDS.leadSource, field_value: payload.source },

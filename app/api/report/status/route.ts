@@ -6,6 +6,7 @@ const GHL_API_VERSION = "2021-07-28";
 
 const GHL_STATUS_FIELDS = {
   auditReportId: "JKPbbyPcfOj7txgfLmf7",
+  ppRunId: "geldiMOzEdDWrKq0S4v5",
   auditUrl: "MtlBT8xoZZOWoK58XnpR",
   heatmapUrl: "Gpup0b6SBHYb768NOPuk",
 } as const;
@@ -94,7 +95,9 @@ async function getReportRunFromGHL(input: {
     );
     if (!contact) return null;
     const customFields = contact.customFields ?? [];
-    const storedRunId = getCustomFieldValue(customFields, GHL_STATUS_FIELDS.auditReportId);
+    const storedRunId =
+      getCustomFieldValue(customFields, GHL_STATUS_FIELDS.auditReportId) ??
+      getCustomFieldValue(customFields, GHL_STATUS_FIELDS.ppRunId);
     if (storedRunId !== input.runId) return null;
 
     const auditUrl = getCustomFieldValue(customFields, GHL_STATUS_FIELDS.auditUrl);
