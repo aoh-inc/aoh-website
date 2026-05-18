@@ -108,19 +108,9 @@ Manager green-light checklist:
 - spreadsheet row action succeeds
 - update contact field action succeeds
 - marketing callback succeeds
-- AI visibility/heatmap callback succeeds if the map/report URL is available
-- marketing report URL is present on the contact
+- AI visibility/heatmap callback succeeds
+- report URLs are present on the contact
 - no red workflow errors remain
-
-Launch gate for 2026-05-19 email campaign:
-
-- Use reply-first outreach only.
-- Do not promise that both reports are instantly ready.
-- Treat the marketing/review report as the required first deliverable.
-- Treat the AI visibility/map link as a bonus deliverable until GHL reliably
-  writes `PP Heatmap URL` for real businesses.
-- If a prospect replies `send`, generate/send the working report first and add
-  the AI visibility check only when enough business/location data exists.
 
 Weekly team routine:
 

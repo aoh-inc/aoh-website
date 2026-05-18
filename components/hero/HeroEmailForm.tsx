@@ -88,9 +88,9 @@ const variants: Record<Variant, VariantConfig> = {
     subheadline:
       "We handle your reviews, rankings, and online presence — so more customers find you, and choose you.",
     priceLine: "Limited time · from $49/mo · cancel anytime",
-    formHeadline: "Get your free Reviews + AI Visibility snapshot.",
-    formDescription: "We check your reviews, rankings, and visibility signals across Google and AI search. You'll get the first report in about 10 minutes. Free, no card needed.",
-    buttonText: "Get My Free Snapshot",
+    formHeadline: "Get your free Reviews + AI Visibility report.",
+    formDescription: "We check your reviews, rankings, and AI visibility across Google, ChatGPT, and more. You'll get both reports in about 10 minutes. Free, no card needed.",
+    buttonText: "Get My Free Reviews + AI Visibility Report",
   },
 };
 
@@ -462,7 +462,7 @@ function HeroInner() {
               Check your inbox in 10 minutes.
             </h2>
             <p className="mt-3 text-base text-[var(--color-text-muted)]">
-              Your free review snapshot is on the way. If enough visibility data is available, we will include that too.
+              Your free Reviews + AI Visibility reports are on the way.
             </p>
             <button
               type="button"

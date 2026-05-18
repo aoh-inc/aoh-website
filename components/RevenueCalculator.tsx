@@ -578,8 +578,9 @@ function RevenueCalculatorInner() {
                         <strong className="block mb-1 text-white">
                           We&apos;ll run the AI check for you.
                         </strong>
-                        Your free snapshot checks review and visibility signals first. When enough
-                        business data is available, we&apos;ll add the AI visibility check too.
+                        Your free report includes live ChatGPT, Claude, and Google AI Overviews
+                        queries for your business + niche. See exactly who&apos;s being cited (and
+                        why it&apos;s not you).
                       </div>
                     )}
 
@@ -587,7 +588,7 @@ function RevenueCalculatorInner() {
                       href="/#hero-email"
                       className="block w-full text-center bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white py-4 px-6 rounded-xl font-semibold transition-colors"
                     >
-                      Get My Free Snapshot
+                      Get My Free Reviews + AI Visibility Report
                     </a>
                     <p className="text-xs text-white/35 text-center mt-3">
                       No credit card. We&apos;ll show you exactly what to fix first.
