@@ -61,14 +61,14 @@ export const REACH_COMMERCIAL_DEMO: ReachCommercialItem[] = [
       "Reach can focus by area, niche, service type, review gap, visibility weakness, competitor pressure, and buying fit instead of blasting a generic list.",
   },
   {
-    title: "Send a dynamic report-led email",
+    title: "Send a dynamic reply-first email",
     description:
-      "The email should plug in client data, local competitors, review/visibility signals, and a CTA that sends the prospect to view their own report.",
+      "The email should plug in client data, local competitors, review/visibility signals, and a low-friction CTA asking the prospect to reply `send` for the report or `book` for the calendar link.",
   },
   {
-    title: "Use reports as the reason to click",
+    title: "Use reports as the reason to reply",
     description:
-      "Instead of asking for a meeting immediately, Reach can show the prospect what is slipping first: reviews, map visibility, AI visibility, or missed lead flow.",
+      "Instead of asking for a meeting immediately, Reach offers to send the prospect a specific report after they raise their hand. Full report spend waits for reply intent unless Mike approves a direct-link test.",
   },
   {
     title: "Turn replies into booked calls",
@@ -152,8 +152,8 @@ export const REACH_INTERNAL_FLOW: ReachInternalStep[] = [
     owner: "GHL Expert",
     status: "partial",
     description:
-      "The GHL workflow must generate the marketing audit report, run the heatmap where available, store the URLs, and call the website callback when ready.",
-    verification: "Website callback/status endpoints are built. GHL report + heatmap workflow is documented but not verified complete.",
+      "After a warm campaign reply or website form request, the GHL workflow must generate the marketing audit report, run the map visibility report where available, store the URLs, and call the website callback when ready.",
+    verification: "Website callback/status endpoints are built. GHL report + map visibility workflow is documented but not verified complete.",
   },
   {
     title: "Create AI Visibility report",
@@ -164,12 +164,12 @@ export const REACH_INTERNAL_FLOW: ReachInternalStep[] = [
     verification: "The AI Visibility report route exists. Direct live profile scan coverage is limited and can fall back to baseline estimates.",
   },
   {
-    title: "Generate prospect report link",
+    title: "Generate warm-reply report delivery",
     owner: "GHL Expert + Website",
     status: "partial",
     description:
-      "Each email needs a report CTA link that opens the right report for that prospect. Token verification exists, but the full token/link generator for campaigns still needs to be finished.",
-    verification: "Report submit/status/callback routes are built; campaign link generation is not complete.",
+      "Campaign prospects should receive report delivery only after a warm signal such as reply `send`, reply `book`, or a manually approved test segment. Direct report links remain a test variant, not the default.",
+    verification: "Report submit/status/callback routes are built; warm-reply campaign automation is not complete.",
   },
   {
     title: "Draft workflow skeleton",
@@ -184,15 +184,15 @@ export const REACH_INTERNAL_FLOW: ReachInternalStep[] = [
     owner: "Sender + Coach",
     status: "missing",
     description:
-      "The email must merge prospect name, business, area, niche, competitor/report signals, and a CTA to view the report. It should not read like a generic cold email, and Send Email nodes remain blocked.",
+      "The email must merge prospect name, business, area, niche, competitor/report signals, and a reply-first CTA such as `reply send` or `reply book`. It should not read like a generic cold email, and Send Email nodes remain blocked.",
     verification: "Draft copy exists from Sender/Coach, but real GHL email nodes are blocked until address, logo, calendar, unsubscribe, and Auditor QA pass.",
   },
   {
-    title: "Track opens, clicks, replies, and booked calls",
+    title: "Track replies, report requests, and booked calls",
     owner: "GHL Expert + Sorter",
     status: "partial",
     description:
-      "GHL should track report clicks, replies, opportunity stages, booked calls, and no-response follow-up windows.",
+      "GHL should track replies, `send` requests, `book` requests, report delivery, opportunity stages, booked calls, and no-response follow-up windows.",
     verification: "Mission Control can read some GHL pipeline data; campaign tracking workflow is not fully verified.",
   },
   {
@@ -299,16 +299,16 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
     owner: "GHL Expert",
     status: "partial",
     description:
-      "Need to confirm GHL generates the marketing report and heatmap, stores URLs, and calls the website callback with the right runId.",
+      "Need to confirm GHL generates the marketing report and map visibility report after a website request or warm campaign reply, stores URLs, and calls the website callback with the right runId.",
     verification: "Website side is built; GHL workflow completion is not verified.",
   },
   {
-    title: "Campaign report-link generation",
+    title: "Campaign reply-to-report automation",
     owner: "GHL Expert + Website",
     status: "partial",
     description:
-      "Need a reliable way to create each prospect's report link before the email goes out.",
-    verification: "Report request flow exists; outbound campaign link generation still needs finishing.",
+      "Need a reliable way to turn `send` replies into report generation/delivery and `book` replies into AOH Talk booking handoff.",
+    verification: "Report request flow exists; outbound reply-to-report automation still needs finishing.",
   },
   {
     title: "AOH Client Template Lab subaccount check",

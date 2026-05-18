@@ -11,14 +11,17 @@ Important distinction:
 - `GHL_WEBSITE_REPORT_WEBHOOK_URL` is the website-to-GHL receiving endpoint for
   the public homepage report route.
 - `GHL_CAMPAIGN_REPORT_WEBHOOK_URL` is the website-to-GHL receiving endpoint for
-  campaign/token report routes.
+  warm campaign report requests after a prospect replies `send` or `book`, or
+  after a manually approved campaign test.
 - `GHL_WEBHOOK_URL` is only a legacy fallback.
 - `https://aioutsourcehub.com/api/report/callback` is the GHL-to-website
   callback after a report is generated.
 - A GHL trigger named "Marketing Audit Request Form" may be campaign-specific.
   Do not assume it receives public homepage visitor submissions without proof.
+- Cold email campaigns are reply-first by default as of 2026-05-18. Direct
+  personalized report links are a test variant only.
 
-## Current site flow (already implemented)
+## Current public website flow (already implemented)
 
 1. Visitor submits report form (`/api/report`).
 2. Site creates `runId` + redirects user to `/report/ai-visibility?runId=...`.
@@ -27,6 +30,16 @@ Important distinction:
    - report_ready
    - heatmap_ready
 4. GHL workflow should POST callbacks to `/api/report/callback` to mark readiness.
+
+## Current campaign flow (active operating plan)
+
+1. Sender emails a specific, low-friction first touch with a reply CTA:
+   - reply `send` for the report
+   - reply `book` for the booking link
+2. Sorter or GHL automation classifies replies.
+3. GHL Expert/Reporter generates or sends the report only after a warm signal.
+4. Booker handles `book` replies and routes them to AOH Talk.
+5. Auditor tracks cost per reply, report request, and booked call.
 
 ## Required env vars (Vercel)
 

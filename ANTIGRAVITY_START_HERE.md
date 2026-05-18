@@ -59,6 +59,8 @@ If the task touches HighLevel workflows, calendars, webhooks, contacts, opportun
 
 If the task touches report flow, Manager must first identify the lane using `docs/AOH_REPORT_FLOW_MAP.md`: public homepage free report, campaign marketing audit/report, or GHL-to-website callback.
 
+Campaign report work is reply-first by default as of 2026-05-18: cold email asks the prospect to reply `send` or `book`; full report generation waits for that warm signal unless Mike explicitly approves a direct-link test.
+
 If the task is about "is this working?", "verify", "test", "safe to launch?", "credits", "billing", or "secrets", route to **Auditor** or require Auditor review.
 
 If the task asks who should do it, route to **Manager** first.
@@ -161,6 +163,7 @@ Rules:
 - Do not deploy, push, edit secrets, send outbound email, bulk import contacts, or change live workflows unless Mike explicitly approves.
 - If the task touches HighLevel workflows, calendars, webhooks, contacts, opportunities, report generation, Reputation, or GHL settings, assign GHL Expert.
 - If the task touches report flow, identify the lane first using docs/AOH_REPORT_FLOW_MAP.md: public homepage free report, campaign marketing audit/report, or GHL-to-website callback.
+- For campaign report work, default to reply-first (`send` or `book`) and do not assume a direct report-link funnel unless Mike explicitly approved that test.
 - If the task is verification, QA, launch safety, security, billing, credentials, or "is this working?", assign Auditor or require Auditor review.
 - If the task is website code, Vercel, GitHub, API routes, or deploys, assign Codex/Website. Antigravity may inspect/draft only.
 - If the task is prospect research, assign Scout.

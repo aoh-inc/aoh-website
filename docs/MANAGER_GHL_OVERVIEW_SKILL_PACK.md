@@ -261,8 +261,12 @@ For AOH report/heatmap flow, Manager should know:
 - Public homepage free report intake is not automatically the same as a
   campaign workflow named "Marketing Audit Report Ordered" or a trigger named
   "Marketing Audit Request Form".
+- Cold email campaigns are reply-first by default as of 2026-05-18. A prospect
+  replying `send` or `book` is the warm signal that justifies report generation
+  or booking handoff.
+- Direct report links from cold email are a test variant only.
 - `GHL_WEBSITE_REPORT_WEBHOOK_URL` is public homepage website-to-GHL intake.
-- `GHL_CAMPAIGN_REPORT_WEBHOOK_URL` is campaign/token website-to-GHL intake.
+- `GHL_CAMPAIGN_REPORT_WEBHOOK_URL` is warm campaign reply-to-report intake.
 - `GHL_WEBHOOK_URL` is only a legacy fallback.
 - `https://aioutsourcehub.com/api/report/callback` is GHL-to-website callback
   after a report is generated.
@@ -276,6 +280,7 @@ Proof Manager requires:
 - test report request created
 - correct report lane identified
 - website-to-GHL intake endpoint verified
+- campaign warm signal recorded before full report spend
 - GHL workflow generated a report URL
 - callback hit `/api/report/callback`
 - `/api/report/status?runId=...` moved to the expected stage

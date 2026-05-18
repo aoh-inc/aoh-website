@@ -62,7 +62,7 @@ Reason:
 
 **Active test exception (2026-05-08):**
 - AOH is running a cold-email **$3/day AI Visibility** test lane.
-- Treat as controlled experiment: use report + form + booked-call flow, and keep explicit permission for any site changes.
+- Superseded 2026-05-18: use reply-first campaign CTA by default. Ask the prospect to reply `send` for the report or `book` for the booking link. Direct report-link or form-first variants require explicit Mike approval as tests.
 
 ## Core sales talk track
 

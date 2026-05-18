@@ -39,7 +39,7 @@ Examples:
 - Mission Control changes
 - Vercel deploys
 - security fixes
-- report-link generation
+- report flow and delivery wiring
 
 Default owner: Codex / Website builder
 Reviewer: Auditor for security-sensitive work; Mike for public offer/pricing changes
@@ -108,7 +108,7 @@ Examples:
 - prospect filtering
 - enrichment
 - dynamic email template
-- report CTA links
+- reply-first report CTAs
 - reply sorting
 - booked-call routing
 
@@ -123,6 +123,8 @@ Proof required:
 - prefilter applied before expensive scans
 - merge fields checked
 - unsubscribe/compliance language present
+- first-touch CTA is reply-first by default (`send` or `book`)
+- full report generation is gated by a warm signal unless Mike approves a test
 - test email sent to internal contact before real send
 
 ### Client Onboarding / Setup

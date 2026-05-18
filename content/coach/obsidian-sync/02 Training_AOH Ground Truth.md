@@ -464,13 +464,21 @@ The diagnostic itself, framing, and 4-button structure are unchanged from 2026-0
 
 ---
 
-### Cold-email funnel design — locked 2026-04-30 (expert-backed)
+### Cold-email funnel design - superseded 2026-05-18 (expert-backed)
 
 **Q (2026-04-30):** What's the highest-converting cold-email funnel for AOH's specific context (zero customers, 8 niches, founding-client mode, $79-499/mo, mobile-heavy SMB owners, 60-70% mobile open rate)?
 
 **Method:** Mike asked for expert research with AOH-specific context, not generic advice. Comparative data pulled from Apollo State of Outbound 2024, Lemlist 2024 benchmark (1.4B emails), Mailshake 2023, Cognism 2024, CXL Institute 2022, OptinMonster 2023, Unbounce Conversion Benchmark 2024, Hyperise 2024, Smartwriter.ai 2023 (n=2,400 campaigns), Reply.io 2024, Litmus 2024, GlockApps 2023, HubSpot SMB Marketing 2023, plus public commentary from Joanna Wiebe (Copyhackers), Peep Laja (CXL), Chris Walker (Refine Labs).
 
-**Captured fact — locked funnel design (Model #4: Personalized Token URL):**
+**2026-05-18 active default - reply-first campaign CTA:**
+
+1. **Cold email contains:** offer text + one simple reply CTA, usually "reply send and I will send the report" or "reply book and I will send the booking link." No PDF attachment.
+2. **The reply is the warm signal.** AOH does not spend full report-generation effort on every cold prospect by default. Full report generation waits for reply `send`, reply `book`, a qualified manual decision, or a Mike-approved test segment.
+3. **Website visitors remain form-first.** Organic visitors use the homepage/free-report form with anti-abuse checks and email-on-completion.
+4. **Campaign prospects are not sent to the generic homepage.** If they reply `send`, AOH sends or generates the relevant report for that business. If they reply `book`, Booker routes them to AOH Talk.
+5. **Direct report links are a test variant only.** Personalized report links can still be tested in controlled batches, but they are not the default campaign journey.
+
+**Historical test variant - Model #4: Personalized Token URL:**
 
 1. **Cold email contains:** offer text + single CTA link to a personalized URL like `aoh.com/r/{token}`. **No PDF attachment** (deliverability + mobile penalty).
 2. **The token URL identifies the prospect.** No email gate. AOH already has their email (that's how the cold email was sent). Asking again costs 15-22% of clickers per CXL/OptinMonster data.
@@ -511,9 +519,9 @@ The diagnostic itself, framing, and 4-button structure are unchanged from 2026-0
 **Honest gap from research:** No primary-source GHL-practitioner case study with this exact "GHL prospecting report → token URL" pattern surfaced. Mike will be partly pioneering the implementation pattern in the GHL ecosystem. Directional benchmarks (token URL lift, mobile penalty, gate friction) are rock-solid across multiple independent sources.
 
 **Implication for Coach + reps:**
-- When asked "how does the cold email funnel work?" — explain: cold email → click personalized link → see your business's **Google Maps visibility report** → book call. No attachments, no email gate.
-- When asked "what if a prospect emails us asking for a Google Maps visibility report directly?" — direct them to `/audit` (organic flow with email-on-completion).
-- When asked "did they enter their email to view the report?" — no, the URL identifies them; we already have their email from the original cold-send list.
+- When asked "how does the cold email funnel work?" - explain: cold email -> prospect replies `send` for the report or `book` for the booking link -> AOH sends the relevant report or calendar link -> interested prospects book AOH Talk. No attachments, no homepage form for campaign prospects.
+- When asked "what if a prospect emails us asking for a Google Maps visibility report directly?" - treat that as a warm `send` request and route it through the campaign report flow.
+- When asked "did they enter their email to view the report?" - no for campaign replies; AOH already has the email from the original send. Yes for organic website visitors, who use the homepage form.
 
 ---
 

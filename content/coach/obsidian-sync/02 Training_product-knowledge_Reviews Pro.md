@@ -208,12 +208,12 @@ Why: SMS + A2P fees scale with volume. With intro pricing and no cap, a high-vol
 
 ## Cold-email funnel (per Ground Truth)
 
-Reviews Pro cold emails follow AOH's locked funnel design:
-- Cold email contains offer + single CTA link to a personalized URL like `aoh.com/r/{token}`
+Reviews Pro cold emails follow AOH's reply-first campaign default as of 2026-05-18:
+- Cold email contains offer + one simple reply CTA: reply `send` for the report or `book` for the booking link
 - **Lead magnet:** Google Maps visibility report + reputation snapshot (recent review velocity + response gaps)
-- **Landing page:** Google Maps visibility report + recent-review summary + visible response gaps
-- **CTA:** "Book a setup call" (forced — SMS-carrier registration + GBP optimization can't be self-serve)
-- **No PDF attachment, no email gate** (per cold-email funnel research)
+- **Report delivery:** only after a warm reply or a Mike-approved direct-link test segment
+- **CTA after reply/report:** book a setup call (SMS-carrier registration + GBP optimization cannot be fully self-serve)
+- **No PDF attachment, no homepage form for campaign prospects**
 - **Niche fit:** all 8 niches (no exclusion)
 
 ### Sales-call deliverable: "AI Visibility Snapshot" (NOT a public lead magnet)
@@ -330,7 +330,7 @@ Coach quotes these only if a client asks; otherwise keep focus on the pillar off
 - ✓ A2P 10DLC explanation added (was implicit)
 - ✓ 100 review-ask cap clause added
 - ✓ Setup time corrected (was "5-7 business days" — now 30-60 min call + 2-4 week A2P wait)
-- ✓ Cold-email funnel reference (heatmap + reputation snapshot, book setup call)
+- ✓ Cold-email funnel reference (reply-first default; map visibility + reputation snapshot after warm signal)
 - ✓ Niche fit clarified (all 8 niches for Pro, no auto-repair exclusion)
 - ✓ Internal add-on menu cross-referenced
 - ✓ Reframed Pro from "everything in Starter PLUS" to its own tier (since Starter is email-only)

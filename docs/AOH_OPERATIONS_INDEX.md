@@ -1,7 +1,7 @@
 # AOH Operations Index
 
 Status: active
-Last updated: 2026-05-17
+Last updated: 2026-05-18
 Purpose: one place to find the backup plan, agent operating model, agent skills, and Review Automation onboarding work.
 
 ## What Was Solved
@@ -94,13 +94,20 @@ Important offer boundary:
 
 For the Reach outbound email campaigns (Reviews + AI Visibility targeting), the following agent skills were loaded on 2026-05-17:
 
+2026-05-18 strategy update:
+
+- Default campaign CTA is now reply-first: prospect replies `send` for the report or `book` for the booking link.
+- Direct personalized report links are a controlled test variant only.
+- Full report generation should wait for a warm signal unless Mike explicitly approves a test segment.
+- Website visitors remain form-first through the homepage report form.
+
 - **Scout**: `cheap-prefilter`
   - Pre-score prospects before deep GBP scanning to control acquisition cost
   - Blocks the "Prospect list filter before spending" blocker
 
 - **Sender**: `dynamic-email-template`, `report-cta-generation`
   - Build personalized emails with merge fields for business/niche/competitor data
-  - Embed prospect-specific report CTA links
+  - Use reply-first report CTAs by default: `send` or `book`
   - Blocks the "Final dynamic email template" blocker (execution)
 
 - **Coach**: `email-draft-approval`, `template-merge-field-validation`
@@ -109,7 +116,7 @@ For the Reach outbound email campaigns (Reviews + AI Visibility targeting), the 
   - Blocks the "Final dynamic email template" blocker (review + validation)
 
 - **GHL Expert**: `report-generation-workflow`
-  - Trigger and monitor GHL workflow to generate marketing report + heatmap
+  - Trigger and monitor GHL workflow to generate reports after website requests or warm campaign replies
   - Blocks the "Live GHL report + heatmap workflow" blocker
 
 All 5 REACH_TOMORROW_BLOCKERS now have agent skill coverage. See `lib/control/job-costs.ts` REACH_TOMORROW_BLOCKERS for current status of each blocker.

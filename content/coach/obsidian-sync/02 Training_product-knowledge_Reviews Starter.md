@@ -138,13 +138,13 @@ No annual contract. Month-to-month. Cancel anytime.
 
 ## Cold-email funnel (per Ground Truth)
 
-Reviews Launch cold emails follow AOH's locked funnel design:
-- Cold email contains offer + single CTA link to a personalized URL like `aoh.com/r/{token}`
+Reviews Launch cold emails follow AOH's reply-first campaign default as of 2026-05-18:
+- Cold email contains offer + one simple reply CTA: reply `send` for the report or `book` for the booking link
 - **No PDF attachment** (deliverability + mobile penalty)
-- **No email gate on landing page** (the URL identifies the prospect via token)
-- Pre-built per-prospect Google Maps visibility report stored on our platform, served instantly when prospect clicks
-- Sticky **"Start at $1/day"** CTA throughout the report view (Stripe checkout impulse-buy — Reviews Launch is the only AOH offer that's impulse-buy, not book-a-call)
-- Niche targeting handled at the Scout/Apollo filter layer (rules adjusted as we learn — not documented per-offer)
+- **No homepage form for campaign prospects** (AOH already has their email from the send list)
+- Full Google Maps visibility report generation waits for a warm signal such as reply `send`, reply `book`, or a Mike-approved test segment
+- Direct personalized report links are a controlled test variant only, not the default
+- Niche targeting handled at the Scout/Apollo filter layer (rules adjusted as we learn, not documented per-offer)
 
 ## Common questions
 
@@ -226,4 +226,4 @@ Specific sequence is per-prospect — Coach should ask the rep about the prospec
 - ✓ Upsell path (now "not set in stone, Pro+Website pair, ad creation future" per Mike's feedback)
 - ✓ Promise framing (was specific numbers — now "industry norms suggest" + "real client data will set verified numbers")
 - ✓ Niche fit (auto-repair excluded from cold-email per Ground Truth)
-- ✓ Cold-email funnel reference (token URL, no gate, pre-built reports)
+- ✓ Cold-email funnel reference (reply-first default; direct report link is test-only)
