@@ -149,6 +149,7 @@ export const AGENT_SKILLS: AgentSkillProfile[] = [
       "docs/MANAGER_GHL_OVERVIEW_SKILL_PACK.md",
       "docs/REVIEW_AUTOMATION_AGENT_SKILLS.md",
       "docs/AOH_REACH_CAMPAIGN_OFFERS.md",
+      "docs/AOH_REACH_CAMPAIGN_COPY.md",
     ],
   },
   {
@@ -357,6 +358,7 @@ export const BOARD_TASKS: BoardTask[] = [
       "AI Visibility lane offers a free snapshot/report and keeps premium positioning",
       "Third domain is limited to beta/testimonial replies using `beta`",
       "Each lane has one clear CTA and daily send cap before launch",
+      "Draft copy is taken from docs/AOH_REACH_CAMPAIGN_COPY.md and adapted only after Coach review",
       "Auditor confirms no scaled send happens before reply router QA",
     ],
   },

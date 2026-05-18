@@ -291,8 +291,8 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
     owner: "Sender + Coach",
     status: "partial",
     description:
-      "Draft first-touch/follow-up copy exists. The approved strategy now separates three lanes: Reviews $1 first month, AI Visibility free snapshot/report, and a tiny beta/testimonial lane. Each lane still needs final GHL merge-field validation, real footer values, unsubscribe proof, daily cap, and Auditor approval before any scaled send.",
-    verification: "Sender, Coach, and Auditor pressure-tested the offer structure on 2026-05-18; not approved for scaled live send nodes until reply router QA passes.",
+      "Draft first-touch/follow-up copy exists in docs/AOH_REACH_CAMPAIGN_COPY.md. The approved strategy separates three lanes: Reviews $1 first month, AI Visibility free snapshot/report, and a tiny beta/testimonial lane. Each lane still needs final GHL merge-field validation, real footer values, unsubscribe proof, daily cap, and Auditor approval before any scaled send.",
+    verification: "Sender, Coach, and Auditor pressure-tested the offer structure on 2026-05-18; copy is drafted but not approved for scaled live send nodes until reply router QA passes.",
   },
   {
     title: "Live GHL report + heatmap workflow",

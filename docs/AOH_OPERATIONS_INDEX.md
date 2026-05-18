@@ -59,6 +59,7 @@ Manager routing doc:
 - `docs/MANAGER_ROUTING_SKILL_PACK.md`
 - `docs/MANAGER_GHL_OVERVIEW_SKILL_PACK.md`
 - `docs/AOH_REACH_CAMPAIGN_OFFERS.md`
+- `docs/AOH_REACH_CAMPAIGN_COPY.md`
 
 This defines how Manager chooses the right agent, model/tool tier, reviewer, proof requirement, and Mike escalation path. It also defines the Antigravity + VS Code parallel operating rule:
 
@@ -119,6 +120,10 @@ For the Reach outbound email campaigns (Reviews + AI Visibility targeting), the 
   reply, not a deep discount.
 - The third warmed/burner domain is for a small beta/testimonial lane only, with
   `beta` as the reply keyword.
+- Draft campaign copy for the three lanes lives in
+  `docs/AOH_REACH_CAMPAIGN_COPY.md`. It is not approved for scaled sending until
+  GHL reply routing, suppression, unsubscribe, footer, merge-field, and Auditor
+  checks pass.
 - Website visitor reports are live-tested in production: marketing intake,
   AI visibility intake, and one combined delivery workflow are published and
   passed a smoke test.
