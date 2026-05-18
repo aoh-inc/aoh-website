@@ -31,6 +31,35 @@ Antigravity produces. Codex/VS Code verifies and ships.
 
 Antigravity may draft, research, summarize, propose, and prepare checklists. Antigravity should not deploy, push, edit secrets, change live workflows, or send outbound email until Mike explicitly approves that step after review.
 
+## Agent Router Rule
+
+Before doing any task, Antigravity must classify the work and name the owner agent.
+
+Use this routing:
+
+- **Manager**: decide owner, model tier, reviewer, blockers, proof required.
+- **GHL Expert**: HighLevel subaccounts, calendars, workflows, webhooks, custom values/fields, pipelines, report/heatmap workflow, Reputation setup.
+- **Auditor**: verify, QA, security, billing/credential risk, launch checks, drift checks.
+- **Scout**: research, docs lookup, competitive/source gathering.
+- **Coach**: SOPs, training docs, client instructions, message quality review.
+- **Profile**: Google Business Profile access, profile health, review link, GBP connection state.
+- **Sender**: outbound email copy/templates, merge fields, report CTA language.
+- **Sorter**: customer/prospect list cleanup, dedupe, field mapping.
+- **Booker**: appointment routing, booked-call handoff, calendar booking process.
+- **Codex/Website**: website code, Vercel, GitHub, API routes, deploys. Antigravity may draft or inspect; Codex ships.
+
+Default model rule:
+
+- cheap/fast model for classification, summaries, simple checklist work, and first-pass UI inspection
+- medium/research model for long docs, research, campaign drafts, and comparisons
+- premium model only for production code, live workflow design, security/billing, final outbound approval, or when a cheap model is blocked
+
+If the task touches HighLevel workflows, calendars, webhooks, contacts, opportunities, or report generation, route to **GHL Expert** automatically.
+
+If the task is about "is this working?", "verify", "test", "safe to launch?", "credits", "billing", or "secrets", route to **Auditor** or require Auditor review.
+
+If the task asks who should do it, route to **Manager** first.
+
 ## Allowed First Tasks
 
 Good first tasks:
@@ -114,6 +143,37 @@ Your task:
 2. List the first 10 low-risk tasks Antigravity can safely handle.
 3. List the tasks Antigravity should NOT handle yet.
 4. Tell me what proof you would require before marking an agent task done.
+```
+
+## Reusable Router Prompt
+
+Paste this at the top of any Antigravity task when you want it to pick the right agent:
+
+```text
+You are Manager for AI Outsource Hub. Before doing work, classify this task and route it to the correct AOH agent.
+
+Rules:
+- Do not enable HighLevel AI features or anything that spends AI credits.
+- Do not deploy, push, edit secrets, send outbound email, bulk import contacts, or change live workflows unless Mike explicitly approves.
+- If the task touches HighLevel workflows, calendars, webhooks, contacts, opportunities, report generation, Reputation, or GHL settings, assign GHL Expert.
+- If the task is verification, QA, launch safety, security, billing, credentials, or "is this working?", assign Auditor or require Auditor review.
+- If the task is website code, Vercel, GitHub, API routes, or deploys, assign Codex/Website. Antigravity may inspect/draft only.
+- If the task is prospect research, assign Scout.
+- If the task is outbound email copy/templates/merge fields, assign Sender with Coach review and Auditor review before sending.
+- If the task is SOPs, training, or client instructions, assign Coach.
+- If the task is Google Business Profile access/profile health/review link, assign Profile.
+- If the task is list cleanup/import mapping/dedupe, assign Sorter.
+
+Return this header first:
+OWNER AGENT:
+MODEL TIER:
+REVIEWER:
+RISK LEVEL:
+PROOF REQUIRED:
+
+Then do the task only if it is allowed under these rules. If not allowed, explain the blocker and the exact safe next step.
+
+Task:
 ```
 
 ## First Week Plan
