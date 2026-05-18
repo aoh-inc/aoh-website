@@ -53,6 +53,7 @@ Manager risk rule:
 Proof Manager requires:
 
 - correct client/location/subaccount name or ID
+- source used to identify the target location: GitHub/docs, Vercel/Mission Control env, Obsidian, VPS docs when relevant, and live HighLevel UI proof
 - what was changed
 - whether the change was agency-level or subaccount-level
 - whether Auditor reviewed it
@@ -60,6 +61,8 @@ Proof Manager requires:
 ### Subaccounts
 
 A subaccount is the client workspace/location inside HighLevel.
+
+For AOH internal work, do not treat the template lab as the live workspace. `AOH Client Template Lab` is for reusable fields, values, tags, snapshots, draft workflow patterns, and QA. Live campaign/report/calendar work belongs in the active AOH/Hub360AI production location, which must be verified before changes.
 
 For AOH client work, Manager must confirm:
 

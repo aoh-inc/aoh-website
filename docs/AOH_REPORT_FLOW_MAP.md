@@ -16,6 +16,12 @@ report link.
 Before changing, testing, or wiring reports, Manager must identify which lane is
 being discussed.
 
+Manager and GHL Expert must also identify the actual HighLevel target
+location/workspace before inspecting or changing workflows. Do not default to
+`AOH Client Template Lab`; that location is for reusable template/snapshot
+assets unless Mike explicitly says the task is template-lab QA. Report lanes
+below are customer-facing AOH/Hub360AI production-location concerns.
+
 ## Current Default
 
 As of 2026-05-18, cold email campaigns are reply-first by default.

@@ -72,10 +72,17 @@ Preferred model tier: premium or strong reasoning model for workflow design; che
 Proof required:
 
 - GHL link/name/id recorded
+- actual target location/workspace verified from GitHub/docs, Vercel/Mission Control env, Obsidian, VPS docs when relevant, and HighLevel UI proof
 - test contact or test booking completed
 - webhook/status proof captured
 - no broken merge fields
 - Auditor QA checklist passed
+
+Location rule:
+
+- Do not assume `AOH Client Template Lab` is the live target. Use it only for reusable snapshot/template setup or when Mike explicitly assigns a template-lab task.
+- For customer-facing report, campaign, booking, calendar, and workflow work, first prove the active AOH/Hub360AI production location/workspace and record its name/ID.
+- If the agent is not sure which HighLevel location it is in, stop and ask for location proof before changing workflows.
 
 ### Profile / GBP / AI Visibility
 

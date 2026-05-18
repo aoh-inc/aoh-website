@@ -68,6 +68,8 @@ This defines how Manager chooses the right agent, model/tool tier, reviewer, pro
 
 The GHL overview pack gives Manager enough HighLevel supervision knowledge to route and audit GHL work without becoming GHL Expert. It covers subaccounts, snapshots, custom values/fields, workflows, calendars, pipelines, Reputation/GBP connection, webhooks, report/heatmap proof, and launch gates.
 
+HighLevel location rule: agents must not default customer-facing work to `AOH Client Template Lab`. The template lab is for reusable setup, snapshots, draft patterns, fields, values, and tags. Live report, campaign, calendar, booking, and visitor flows must first prove the active AOH/Hub360AI production location from GitHub/docs, Vercel/Mission Control env, Obsidian notes, VPS docs when relevant, and the HighLevel UI.
+
 ## Review Automation Agent Skills
 
 Main doc:

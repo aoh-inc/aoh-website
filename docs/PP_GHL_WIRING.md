@@ -8,6 +8,11 @@ Read first:
 
 Important distinction:
 
+- HighLevel target location must be verified before any workflow work. Do not point
+  report-flow agents at `AOH Client Template Lab` unless the task is explicitly
+  about templates, snapshots, reusable fields, or draft workflow QA. Public
+  website report intake and campaign reply routing are live AOH/Hub360AI
+  production-location concerns.
 - `GHL_WEBSITE_REPORT_WEBHOOK_URL` is the website-to-GHL receiving endpoint for
   the public homepage report route.
 - `GHL_CAMPAIGN_REPORT_WEBHOOK_URL` is the website-to-GHL receiving endpoint for

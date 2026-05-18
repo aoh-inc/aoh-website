@@ -57,6 +57,16 @@ Default model rule:
 
 If the task touches HighLevel workflows, calendars, webhooks, contacts, opportunities, or report generation, route to **GHL Expert** automatically.
 
+Before any live HighLevel work, Manager and GHL Expert must identify the **actual target location/workspace** from current sources. Check, in this order:
+
+1. GitHub repo docs and code in `aoh-website`
+2. Vercel/Mission Control env names and configured `GHL_LOCATION_ID`
+3. Obsidian AOH source-of-truth notes
+4. VPS/OpenClaw docs only when the task touches server operations
+5. HighLevel UI proof from the current logged-in account
+
+Do **not** default to `AOH Client Template Lab`. That location is for reusable fields, values, tags, snapshots, and template QA unless Mike explicitly says the task is a template-lab task. Live campaign, calendar, visitor-report, or customer-facing workflow work must be verified in the active AOH/Hub360AI production location before making changes.
+
 If the task touches report flow, Manager must first identify the lane using `docs/AOH_REPORT_FLOW_MAP.md`: public homepage free report, campaign marketing audit/report, or GHL-to-website callback.
 
 Campaign report work is reply-first by default as of 2026-05-18: cold email asks the prospect to reply `send` or `book`; full report generation waits for that warm signal unless Mike explicitly approves a direct-link test.

@@ -134,10 +134,10 @@ export const REACH_INTERNAL_FLOW: ReachInternalStep[] = [
   {
     title: "Prepare GHL prospect records",
     owner: "GHL Expert",
-    status: "verified",
+    status: "partial",
     description:
-      "AOH Client Template Lab now has the verified Reach fields, AOH custom values, and routing tags needed before workflow planning can continue.",
-    verification: "Live GHL audit verified 9 Reach custom fields, 6 AOH custom values, and 4 Reach tags in hVTckp5FcGL9Ja3GvC3R.",
+      "Template-lab Reach fields, AOH custom values, and routing tags have been verified, but live campaign records must be confirmed in the active AOH/Hub360AI production location before launch.",
+    verification: "Template lab audit verified 9 Reach custom fields, 6 AOH custom values, and 4 Reach tags in hVTckp5FcGL9Ja3GvC3R. Do not treat that template location as the live campaign/report workspace.",
   },
   {
     title: "Website report handoff endpoints",
@@ -299,8 +299,8 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
     owner: "GHL Expert",
     status: "partial",
     description:
-      "Need to confirm GHL generates the marketing report and map visibility report after a website request or warm campaign reply, stores URLs, and calls the website callback with the right runId.",
-    verification: "Website side is built; GHL workflow completion is not verified.",
+      "Need to confirm the active AOH/Hub360AI production location generates the marketing report and map visibility report after a website request or warm campaign reply, stores URLs, and calls the website callback with the right runId.",
+    verification: "Website side is built; live production-location GHL workflow completion is not verified. Do not verify this against AOH Client Template Lab unless Mike explicitly asks for template QA.",
   },
   {
     title: "Campaign reply-to-report automation",
@@ -311,12 +311,12 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
     verification: "Report request flow exists; outbound reply-to-report automation still needs finishing.",
   },
   {
-    title: "AOH Client Template Lab subaccount check",
+    title: "AOH Client Template Lab template check",
     owner: "GHL Expert + Auditor",
     status: "partial",
     description:
-      "Fields, values, tags, and a Draft-only Reach workflow skeleton exist in hVTckp5FcGL9Ja3GvC3R. Placeholder values, email nodes, canary testing, and snapshot/reputation QA remain blocked.",
-    verification: "Live GHL setup was verified manually/visually; still needs final placeholder replacement and Auditor QA before launch.",
+      "Fields, values, tags, and a Draft-only Reach workflow skeleton exist in the template lab. This is reusable setup only, not proof that live AOH campaigns/report workflows are wired.",
+    verification: "Template-lab setup was verified manually/visually; active production-location workflow proof is still required before launch.",
   },
   {
     title: "Prospect list filter before spending",
