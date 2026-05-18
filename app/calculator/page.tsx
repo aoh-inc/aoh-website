@@ -3,7 +3,7 @@ import Link from "next/link";
 import { RevenueCalculator } from "@/components/RevenueCalculator";
 import { pageBreadcrumbs } from "@/lib/seo";
 
-const BOOK_URL = "https://app.gohighlevel.com/widget/booking/talk";
+const BOOK_URL = "https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY";
 
 export const metadata: Metadata = {
   title: "Lost-Revenue Calculator",

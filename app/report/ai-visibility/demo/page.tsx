@@ -3,7 +3,7 @@ import { DownloadButton } from "./DownloadButton";
 
 const CHECKOUT_URL = "https://pay.aioutsourcehub.com/ai-visibility-page";
 
-const BOOK_URL = "https://app.gohighlevel.com/widget/booking/talk";
+const BOOK_URL = "https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY";
 
 const prospect = {
   name: "Joe's Plumbing",

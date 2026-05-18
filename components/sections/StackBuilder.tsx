@@ -54,7 +54,7 @@ const SERVICES: Service[] = [
   },
 ];
 
-const BOOKING_HREF = "https://app.gohighlevel.com/widget/booking/talk";
+const BOOKING_HREF = "https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY";
 
 function money(n: number) {
   return `$${n.toLocaleString("en-US")}`;

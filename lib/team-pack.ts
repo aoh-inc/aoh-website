@@ -191,7 +191,7 @@ We run it. You don't learn another app.
     fields: [
       { field: "Website", value: "https://aioutsourcehub.com" },
       { field: "CTA button", value: "Book Now" },
-      { field: "CTA button URL", value: "https://app.gohighlevel.com/widget/booking/talk" },
+      { field: "CTA button URL", value: "https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY" },
       { field: "Contact email", value: "support@aioutsourcehub.com" },
       { field: "Page category", value: "Marketing Agency" },
     ],
@@ -287,7 +287,7 @@ AI Outsource Hub runs done-for-you growth services â€” Review Automation, A
       { field: "Additional categories", value: "Internet Marketing Service, Software Company, Business Management Consultant, Telephone Answering Service" },
       { field: "Services to list", value: "Review Automation ($49/mo) Â· AI Visibility ($199/mo) Â· Reach Lead Engine ($299/mo) Â· Relay Phone Answering ($299/mo)" },
       { field: "Website", value: "https://aioutsourcehub.com" },
-      { field: "Appointment URL", value: "https://app.gohighlevel.com/widget/booking/talk" },
+      { field: "Appointment URL", value: "https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY" },
     ],
   },
 

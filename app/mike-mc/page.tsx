@@ -34,6 +34,7 @@ export const metadata: Metadata = {
 export const revalidate = 60;
 
 const OPENCLAW_HREF = "/api/openclaw/login";
+const DISCOVERY_BOOKING_HREF = "https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY";
 
 /**
  * SLICE 2 — LIVE DATA WIRING
@@ -172,9 +173,10 @@ export default async function ControlPage() {
 
 function SchedulerCard({ data }: { data: ControlData }) {
   const events = data.todaysEvents;
+  const calendar = data.discoveryCalendar;
   const realRows: OwnedRow[] = [];
 
-  if (events && events.length > 0) {
+  if (events) {
     const upcoming = events
       .filter((e) => new Date(e.startTimeIso) > new Date())
       .slice(0, 3);
@@ -188,8 +190,11 @@ function SchedulerCard({ data }: { data: ControlData }) {
       });
     }
     realRows.push({
-      primary: "This week",
-      secondary: `${events.length} events today`,
+      primary: calendar?.name ?? "Discovery calendar",
+      secondary:
+        events.length > 0
+          ? `${events.length} events today`
+          : "Connected to GHL - no discovery calls on today's calendar",
       badge: { tone: "accent", label: "live" },
     });
   } else {
@@ -217,23 +222,30 @@ function SchedulerCard({ data }: { data: ControlData }) {
       name="Scheduler"
       role="Time defender · books demos · briefs you before calls"
       status="manual"
-      cadence={events ? "live · Google Cal + GHL" : "manual today · via Google Cal + GHL"}
+      cadence={events ? "live - AOH Discovery + GHL" : "manual today - via Google Cal + GHL"}
       activity={{
-        lastDone: events && events.length > 0
-          ? `Most recent event ${fmtTime(events[0].startTimeIso)}`
+        lastDone: events
+          ? events.length > 0
+            ? `Most recent discovery event ${fmtTime(events[0].startTimeIso)}`
+            : `${calendar?.name ?? "Discovery calendar"} connected`
           : "9:00am today — confirmed Cherrydale demo for 11:00am",
-        doingNow: events && events.length > 0
+        doingNow: events
           ? `${events.length} events on the calendar today`
           : "Manual via Google Cal + GHL",
         upNext: "When agent ships (slot 5b): defends focus blocks + auto-briefs",
       }}
-      ownedTitle={events ? "Today's events · GHL live" : "Today's agenda · MOCK (needs GHL_PIT_TOKEN)"}
+      ownedTitle={events ? "AOH Discovery calendar - GHL live" : "Today's agenda - MOCK (needs GHL_PIT_TOKEN)"}
       ownedRows={realRows}
       ownedFooter={
         <div className="flex gap-2">
-          <button className="flex-1 rounded-md border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-wider text-emerald-300 hover:bg-emerald-500/20">
-            pre-meeting brief
-          </button>
+          <a
+            href={DISCOVERY_BOOKING_HREF}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 rounded-md border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-1.5 text-center font-mono text-[10px] uppercase tracking-wider text-emerald-300 hover:bg-emerald-500/20"
+          >
+            open booking page
+          </a>
           <a
             href="https://calendar.google.com"
             target="_blank"
@@ -362,7 +374,7 @@ function GhlExpertCard({ data }: { data: ControlData }) {
     (task) =>
       task.agent === "GHL Expert" &&
       task.status === "In Progress" &&
-      task.title.includes("/talk"),
+      task.title.includes("aoh-talk"),
   );
 
   if (activeTask) {
@@ -424,7 +436,7 @@ function GhlExpertCard({ data }: { data: ControlData }) {
           ? `Polled GHL · ${data.pipelines.length} pipelines mapped`
           : "9:00am today — Mike confirmed Review Automation workflow firing",
         doingNow: activeTask
-          ? "Working on AOH /talk Discovery Round Robin calendar"
+          ? "Working on AOH /aoh-talk Discovery Round Robin calendar"
           : data.pipelines ? "Watching pipeline stages + opportunity flow" : "Manual via Hub360ai admin",
         upNext: "Agent build slot 5c — add workflow exec count + webhook latency tracking",
       }}
