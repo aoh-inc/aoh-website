@@ -307,8 +307,8 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
     owner: "GHL Expert + Website",
     status: "partial",
     description:
-      "Need a reliable way to turn `send` replies into report generation/delivery and `book` replies into AOH Talk booking handoff.",
-    verification: "Website/report delivery flow is live; outbound reply classification and campaign-specific GHL routing still need final build/QA before scaled sends.",
+      "Need a reliable Campaign Reply Router: `send` replies trigger report generation/delivery, `book` replies trigger AOH Talk booking handoff, unclear replies become tasks, and unsubscribe/not-interested replies stop safely.",
+    verification: "Website/report delivery flow is live. Live API shows first-touch workflows published and warm-lead/tagging workflows still draft; reply classification and campaign-specific routing still need final build/QA before scaled sends.",
   },
   {
     title: "AOH Client Template Lab template check",

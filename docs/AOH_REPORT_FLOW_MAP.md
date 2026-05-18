@@ -194,6 +194,38 @@ Proof required:
 - Auditor can measure cost per reply, cost per report requested, and cost per
   booked call
 
+Campaign Reply Router target behavior:
+
+- `send` reply:
+  - classify as warm report request
+  - add/report-request tags for the campaign lane
+  - generate the right report only after this warm signal
+  - deliver the report through the approved combined delivery path
+  - move/update the opportunity to a report-requested or warm stage
+- `book` reply:
+  - classify as booking intent
+  - send the AOH Talk booking link:
+    `https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY`
+  - move/update the opportunity to a booking-requested or warm stage
+- unclear positive reply:
+  - create a task for Sorter/Mike review
+  - do not auto-generate a full report until intent is clear
+- unsubscribe/stop/not interested:
+  - honor DND/unsubscribe behavior
+  - do not generate reports
+  - move/tag as not interested where appropriate
+
+Campaign Reply Router QA before scaled sends:
+
+- test contact replies `send`
+- test contact replies `book`
+- test contact replies with a vague positive answer
+- test contact replies unsubscribe/stop/not interested
+- confirm no duplicate customer emails
+- confirm no report is generated for unclear or not-interested replies
+- confirm GHL execution logs are green
+- confirm opportunity stage and tags match the reply outcome
+
 ## Lane 3: Direct Report-Link Test Variant
 
 Purpose:

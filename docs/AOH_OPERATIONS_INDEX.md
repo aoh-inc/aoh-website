@@ -136,6 +136,8 @@ For the Reach outbound email campaigns (Reviews + AI Visibility targeting), the 
   - Website visitor report generation/delivery is verified
   - Blocks the remaining campaign reply-routing workflow until `send` and
     `book` replies are tested
+  - Campaign Reply Router build spec:
+    `docs/AOH_CAMPAIGN_REPLY_ROUTER.md`
 
 All REACH_TOMORROW_BLOCKERS have agent skill coverage, but they are not all
 green. See `lib/control/job-costs.ts` REACH_TOMORROW_BLOCKERS for current
