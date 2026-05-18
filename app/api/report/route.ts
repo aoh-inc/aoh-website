@@ -310,12 +310,20 @@ async function forwardToGHLViaApi(payload: GHLPayload): Promise<GHLForwardResult
     payload.reportLane === "website_free_report"
       ? "aoh_website_report_requested"
       : "aoh_campaign_report_requested";
+  const reportTags =
+    payload.reportType === "ai_visibility"
+      ? [
+          "aoh_generate_ai_visibility_report",
+          ...(payload.customField.secondaryReport ? ["aoh_generate_marketing_report"] : []),
+        ]
+      : [
+          "aoh_generate_marketing_report",
+          ...(payload.customField.secondaryReport ? ["aoh_generate_ai_visibility_report"] : []),
+        ];
   const tags = [
     reportRequestTag,
     "aoh_report_requested",
-    payload.reportType === "ai_visibility"
-      ? "aoh_generate_ai_visibility_report"
-      : "aoh_generate_marketing_report",
+    ...reportTags,
     payload.customField.secondaryReport ? "aoh_secondary_report_requested" : "",
   ].filter(Boolean);
 

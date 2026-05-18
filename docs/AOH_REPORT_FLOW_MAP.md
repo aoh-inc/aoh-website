@@ -66,7 +66,10 @@ What GHL Expert must find:
 - The exact GHL receiving mechanism for public homepage report submissions.
 - Preferred no-premium option while proving the flow: website API creates or
   updates the GHL contact, writes report fields, and adds
-  `aoh_website_report_requested`; GHL starts from a `Contact Tag` trigger.
+  `aoh_website_report_requested` plus report-specific generator tags. GHL starts
+  report workflows from `Contact Tag` triggers:
+  - `aoh_generate_marketing_report`
+  - `aoh_generate_ai_visibility_report`
 - Paid/premium option: an Inbound Webhook trigger URL.
 - Other possible option: a GHL form endpoint.
 - Do not guess from workflow names. Verify the actual receiving mechanism.

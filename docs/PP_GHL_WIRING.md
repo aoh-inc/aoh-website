@@ -39,7 +39,9 @@ Important distinction:
    writes existing report custom fields, and adds:
    - `aoh_website_report_requested`
    - `aoh_report_requested`
-   - `aoh_generate_marketing_report` or `aoh_generate_ai_visibility_report`
+   - `aoh_generate_marketing_report` for marketing reports
+   - `aoh_generate_ai_visibility_report` for AI visibility reports
+   - both generator tags when the visitor requested both reports
    - `aoh_secondary_report_requested` when both reports were requested
 5. Report page polls `/api/report/status?runId=...` and shows:
    - submitted
@@ -81,8 +83,10 @@ Recommended while proving the flow:
    - `campaign_source` (`contact.campaign_source`)
    - `Offer Lane` (`contact.offer_lane`)
 3. Website adds the `aoh_website_report_requested` tag.
-4. GHL workflow trigger is `Contact Tag` added:
+4. GHL intake/visibility workflow triggers are `Contact Tag` added:
    - `aoh_website_report_requested`
+   - `aoh_generate_marketing_report`
+   - `aoh_generate_ai_visibility_report`
 
 This replaces the need for a premium Inbound Webhook trigger for homepage
 visitor requests.
