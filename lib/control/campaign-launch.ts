@@ -120,6 +120,8 @@ export const ROUTER_BRANCHES: RouterBranch[] = [
 
 export const LAUNCH_GATES = [
   "Reviews, AI Visibility, and Beta are kept as separate sender lanes.",
+  "Vercel has CAMPAIGN_REPLY_ROUTER_TOKEN and GHL workflow sends it as x-campaign-reply-router-token.",
+  "GHL Customer Replied action POSTs contactId, replyText, and campaignLane to /api/campaign/reply-router.",
   "GHL Campaign Reply Router is built in production location tRbczwt6oJsXK4tjuzOI.",
   "Reply send generates or queues exactly one correct report path.",
   "Reply book sends AOH Talk and does not accidentally generate a report.",

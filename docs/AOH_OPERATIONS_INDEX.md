@@ -130,6 +130,12 @@ For the Reach outbound email campaigns (Reviews + AI Visibility targeting), the 
 - The remaining campaign blocker is reply routing: `send` replies must trigger
   report generation/delivery, and `book` replies must trigger the AOH Talk
   booking handoff.
+- The AOH-owned reply router endpoint is:
+  `POST /api/campaign/reply-router`. It is protected by
+  `CAMPAIGN_REPLY_ROUTER_TOKEN` and is designed for a simple GHL Customer
+  Replied workflow to call with `contactId`, `replyText`, and `campaignLane`.
+  Until the token is configured and GHL QA passes, scaled sending remains
+  blocked.
 
 - **Scout**: `cheap-prefilter`
   - Pre-score prospects before deep GBP scanning to control acquisition cost

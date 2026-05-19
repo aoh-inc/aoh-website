@@ -57,6 +57,33 @@ Trigger:
 - Filter to the active campaign lanes/mailboxes only.
 - Do not trigger from website visitor forms.
 
+Preferred AOH-controlled route:
+
+- GHL workflow action: Custom Webhook
+- URL: `https://aioutsourcehub.com/api/campaign/reply-router`
+- Method: `POST`
+- Header: `x-campaign-reply-router-token: <CAMPAIGN_REPLY_ROUTER_TOKEN>`
+- Required body fields:
+  - `contactId`
+  - `replyText`
+  - `campaignLane` (`reviews`, `ai`, or `beta`)
+
+Why:
+
+- HighLevel's public workflow API is not a safe full workflow-builder API.
+- The AOH endpoint keeps reply classification, duplicate checks, and tag routing
+  in testable code.
+- GHL only needs a simple Customer Replied trigger that calls the endpoint.
+- The endpoint adds tags such as `aoh_reply_send`, `aoh_reply_book`,
+  `aoh_reply_beta`, `aoh_campaign_duplicate_blocked`, and the correct report
+  generator tag.
+
+Endpoint safety:
+
+- Production will reject calls until `CAMPAIGN_REPLY_ROUTER_TOKEN` is set.
+- The endpoint does not enable any HighLevel AI features.
+- Use `?dryRun=1` during tests to classify without adding tags.
+
 First safety branch:
 
 1. Opt-out / not interested

@@ -132,6 +132,9 @@ Domain plan:
 No scaled campaign send until all of these are true:
 
 - `send` reply generates or queues exactly one appropriate report/delivery.
+- the GHL Customer Replied workflow sends `contactId`, `replyText`, and
+  `campaignLane` to `https://aioutsourcehub.com/api/campaign/reply-router` with
+  the protected router token.
 - duplicate `send` replies do not create duplicate report jobs.
 - `book` reply sends the approved AOH Talk booking link:
   `https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY`
