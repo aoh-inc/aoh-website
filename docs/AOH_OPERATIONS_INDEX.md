@@ -106,8 +106,23 @@ Important offer boundary:
 
 For the Reach outbound email campaigns (Reviews + AI Visibility targeting), the following agent skills were loaded on 2026-05-17:
 
-2026-05-18 strategy update:
+2026-05-19 strategy update:
 
+- Reach launch source of truth:
+  `docs/AOH_REACH_LAUNCH_RUNBOOK.md`.
+- Dedicated domain warmup ladder per sending domain:
+  - Days 1-3: `10-20` emails/day
+  - Days 4-6: `40-50` emails/day
+  - Days 7-9: `80-100` emails/day
+  - Check warmup level, bounces, spam placement, replies, unsubscribes,
+    complaints, and workflow logs after Day 9 before increasing again.
+- Current dedicated domains:
+  - Reviews: `mail.aioutsourcehubs.com`
+  - AI Visibility: `mail.getaioutsourcehub.com`
+  - Relay: `mail.myaioutsourcehub.com`
+- Manual operating model until agents are wired: Mike chooses lane, industry,
+  area, and limit; the launcher previews prospects; Mike approves; the launcher
+  imports/updates GHL contacts and adds the correct start tag.
 - Default campaign CTA is now reply-first: prospect replies `send` for the report or `book` for the booking link.
 - Direct personalized report links are a controlled test variant only.
 - Full report generation should wait for a warm signal unless Mike explicitly approves a test segment.
@@ -118,8 +133,8 @@ For the Reach outbound email campaigns (Reviews + AI Visibility targeting), the 
   happy result. Do not broadly headline `$1 for first 2 months`.
 - AI Visibility should stay premium: offer a free snapshot/report after a warm
   reply, not a deep discount.
-- The third warmed/burner domain is for a small beta/testimonial lane only, with
-  `beta` as the reply keyword.
+- The third warmed/burner domain is now the Relay missed-call lane, with `send`
+  as the reply keyword.
 - Draft campaign copy for the three lanes lives in
   `docs/AOH_REACH_CAMPAIGN_COPY.md`. It is not approved for scaled sending until
   GHL reply routing, suppression, unsubscribe, footer, merge-field, and Auditor

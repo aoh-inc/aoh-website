@@ -1,28 +1,36 @@
 # AOH Reach Campaign Offers
 
-Status: draft for controlled launch
+Status: controlled launch
 Owner: Manager
 Specialists: Sender, Coach, Scout, GHL Expert
 Reviewer: Auditor
-Last updated: 2026-05-18
+Last updated: 2026-05-19
 
 ## Decision
 
-Do not treat tomorrow as a scaled send day.
+Today can be a controlled pilot day, not a scaled-send day.
 
-The campaign can move forward only as a controlled launch after the Campaign
-Reply Router passes QA. The website visitor report lane is live and tested, but
-outbound replies still need their own routing proof before volume.
+The website visitor report lane is live and tested. Campaign traffic remains
+reply-first: prospects raise their hand before AOH sends details, generates a
+report, or spends on deeper analysis.
 
-Default CTA remains reply-first:
+Default CTA:
 
-- reply `send` for the report/details
-- reply `book` for the AOH Talk booking link
-- reply `beta` for the small beta/testimonial lane
+- reply `send`
 
-Do not send prospects directly to generated report links as the default.
+Safety handling:
+
+- reply `book` sends the AOH Talk booking link
+- unclear replies go to human review
+- STOP, unsubscribe, remove me, no thanks, and not interested suppress safely
+
+Do not send prospects directly to generated report links as the cold email CTA.
 
 ## Lane 1: Reviews Special
+
+Domain:
+
+- `mail.aioutsourcehubs.com`
 
 Purpose:
 
@@ -52,16 +60,11 @@ Primary CTA:
 
 - Reply `send` and I will send the short report/details.
 
-Secondary CTA:
-
-- Reply `book` if you want to talk through setup.
-
-Domain plan:
-
-- Use the main reviews sender lane/domain.
-- Keep volume low until replies, deliverability, and router handling are stable.
-
 ## Lane 2: AI Visibility
+
+Domain:
+
+- `mail.getaioutsourcehub.com`
 
 Purpose:
 
@@ -89,65 +92,53 @@ Primary CTA:
 
 - Reply `send` and I will send the snapshot.
 
-Secondary CTA:
+## Lane 3: Relay
 
-- Reply `book` and I will send a time to review it together.
+Domain:
 
-Domain plan:
-
-- Use the AI Visibility sender lane/domain.
-- Start smaller than Reviews because the offer is more consultative.
-
-## Lane 3: Beta / Testimonial
+- `mail.myaioutsourcehub.com`
 
 Purpose:
 
-- Use the third warmed/burner domain for a small, honest beta/testimonial lane.
-- Learn from real replies without risking the main offer positioning.
+- Test missed-call / AI receptionist demand without needing a prebuilt report.
+- Use a simple calculator/details delivery after warm reply.
 
 Recommended offer:
 
-- A few local businesses can try the review system at a special beta rate in
-  exchange for honest feedback.
-- A testimonial or case study can be requested only if they are happy with the
-  work.
+- Missed-call estimate or calculator after a `send` reply.
+- Quick walkthrough if the math makes sense for the business.
 
 Avoid:
 
-- Do not use this as a scale channel.
-- Do not require a positive testimonial.
-- Do not mix beta copy with the main Reviews or AI Visibility lane.
+- Do not imply AOH knows the prospect's exact missed-call rate.
+- Do not overstate revenue recovery.
+- Do not use a fake per-prospect report URL.
+
+Positioning:
+
+- Missed calls are hidden revenue leakage.
+- Relay helps local businesses respond when calls are missed after hours or
+  during jobs.
 
 Primary CTA:
 
-- Reply `beta` if you want me to include you.
-
-Domain plan:
-
-- Keep this lane intentionally tiny.
-- Auditor watches reply quality before any expansion.
+- Reply `send` and I will send the estimate/details.
 
 ## Hard Gates Before Sending
 
 No scaled campaign send until all of these are true:
 
-- `send` reply generates or queues exactly one appropriate report/delivery.
-- the GHL Customer Replied workflow sends `contactId`, `replyText`, and
-  `campaignLane` to `https://aioutsourcehub.com/api/campaign/reply-router` with
-  the protected router token.
-- duplicate `send` replies do not create duplicate report jobs.
+- `send` reply generates or queues exactly one appropriate delivery.
+- duplicate `send` replies do not create duplicate report jobs or duplicate
+  emails.
 - `book` reply sends the approved AOH Talk booking link:
   `https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY`
-- the `book` path is explicitly approved for whether it also queues a report or
-  waits for the meeting.
-- `beta` reply routes to the beta/testimonial lane and does not generate a full
-  report by default.
 - unclear positive replies create a Sorter/human task and do not spend on full
   reports.
 - STOP, unsubscribe, remove me, wrong person, and not interested replies are
   suppressed safely.
-- Reviews and AI Visibility are tested separately.
-- campaign copy keeps Reviews, AI Visibility, and Beta promises separate.
+- Reviews, AI Visibility, and Relay are tested separately.
+- campaign copy keeps Reviews, AI Visibility, and Relay promises separate.
 - daily send caps are set per domain/mailbox.
 - someone owns the first-hour watch.
 
@@ -157,7 +148,7 @@ No scaled campaign send until all of these are true:
 - domain/mailbox for each lane
 - daily send cap per lane
 - live offer version
-- CTA keyword routes: `send`, `book`, `beta`, unclear, unsubscribe
+- CTA keyword routes: `send`, `book`, unclear, unsubscribe
 - report generation count by campaign
 - duplicate-prevention status
 - booking link used

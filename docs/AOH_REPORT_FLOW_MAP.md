@@ -200,7 +200,7 @@ Campaign Reply Router target behavior:
   - Reviews: `$1` first month, optional second `$1` month only as a
     testimonial/case-study condition after a happy result
   - AI Visibility: free snapshot/report after a warm reply, no deep discount
-  - Beta/testimonial: small third-domain test lane using reply `beta`
+  - Relay: missed-call estimate/details after a warm reply, no fake report URL
 - `send` reply:
   - classify as warm report request
   - add/report-request tags for the campaign lane
@@ -212,6 +212,10 @@ Campaign Reply Router target behavior:
   - send the AOH Talk booking link:
     `https://link.hub360ai.com/widget/booking/1Xq9XMNFjvxgxQj9kNLY`
   - move/update the opportunity to a booking-requested or warm stage
+- Relay `send` reply:
+  - classify as missed-call details request
+  - send the calculator/details email
+  - do not generate a full report by default
 - unclear positive reply:
   - create a task for Sorter/Mike review
   - do not auto-generate a full report until intent is clear

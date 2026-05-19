@@ -291,7 +291,7 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
     owner: "Sender + Coach",
     status: "partial",
     description:
-      "Draft first-touch/follow-up copy exists in docs/AOH_REACH_CAMPAIGN_COPY.md. The approved strategy separates three lanes: Reviews $1 first month, AI Visibility free snapshot/report, and a tiny beta/testimonial lane. Each lane still needs final GHL merge-field validation, real footer values, unsubscribe proof, daily cap, and Auditor approval before any scaled send.",
+      "Draft first-touch/follow-up copy exists in docs/AOH_REACH_CAMPAIGN_COPY.md. The approved strategy separates three lanes: Reviews $1 first month, AI Visibility free snapshot/report, and Relay missed-call details. Each lane still needs final GHL merge-field validation, real footer values, unsubscribe proof, daily cap, and Auditor approval before any scaled send.",
     verification: "Sender, Coach, and Auditor pressure-tested the offer structure on 2026-05-18; copy is drafted but not approved for scaled live send nodes until reply router QA passes.",
   },
   {
@@ -307,7 +307,7 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
     owner: "GHL Expert + Website",
     status: "partial",
     description:
-      "Need a reliable Campaign Reply Router: `send` replies trigger the correct lane's report generation/delivery, `book` replies trigger AOH Talk booking handoff, `beta` replies enter the small testimonial lane, unclear replies become tasks, and unsubscribe/not-interested replies stop safely.",
+      "Need reliable campaign reply automations: Reviews/AI `send` replies trigger the correct report generation/delivery, Relay `send` replies send missed-call details, `book` replies trigger AOH Talk booking handoff, unclear replies become tasks, and unsubscribe/not-interested replies stop safely.",
     verification: "Website/report delivery flow is live. Live MC diagnostics see production GHL location tRbczwt6oJsXK4tjuzOI and the Reach - Reviews / Reach - AI pipelines. docs/AOH_CAMPAIGN_REPLY_ROUTER.md now defines the exact router blueprint. GHL UI build and QA still need to pass before scaled sends.",
   },
   {
@@ -329,10 +329,10 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
   {
     title: "Controlled launch caps and first-hour watch",
     owner: "Auditor + Manager",
-    status: "missing",
+    status: "partial",
     description:
-      "Tomorrow must be treated as a controlled launch, not a scale day. Mission Control needs lane status, domain/mailbox, daily cap, offer version, CTA route, suppression count, duplicate prevention status, failures, and first-hour watch owner.",
-    verification: "Offer plan is documented in docs/AOH_REACH_CAMPAIGN_OFFERS.md; live MC telemetry and first-hour watch are not fully automated yet.",
+      "The dedicated-domain warmup ladder is documented: 10-20 emails/day for 3 days, then 40-50/day for 3 days, then 80-100/day for 3 days, followed by a Day 9 warmup/status check before any increase. Mission Control still needs automated live telemetry for lane status, daily cap, suppression count, duplicate prevention status, failures, and first-hour watch owner.",
+    verification: "Launch runbook is documented in docs/AOH_REACH_LAUNCH_RUNBOOK.md; live MC telemetry and first-hour watch are not fully automated yet.",
   },
 ];
 

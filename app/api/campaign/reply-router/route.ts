@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   classifyCampaignReply,
   normalizeCampaignLane,
-  type CampaignLane,
 } from "@/lib/campaign-reply-router";
 
 const GHL_API_BASE = "https://services.leadconnectorhq.com";

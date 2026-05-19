@@ -338,7 +338,7 @@ export const BOARD_TASKS: BoardTask[] = [
     reviewChecks: [
       "Reply `send` triggers report request and exactly one delivery",
       "Reply `book` sends the AOH Talk booking link without unintended report generation",
-      "Reply `beta` routes to the beta/testimonial lane without default report generation",
+      "Relay reply `send` sends missed-call details without default report generation",
       "Unclear replies create a Sorter review task and do not spend on reports",
       "Unsubscribe/STOP replies suppress follow-up and do not generate reports",
       "Duplicate guard blocks repeat report generation for the same contact",
@@ -354,11 +354,11 @@ export const BOARD_TASKS: BoardTask[] = [
     status: "Review",
     priority: "P0",
     due: "Before first campaign send",
-    tags: ["reach", "offers", "reviews", "ai-visibility", "beta", "deliverability"],
+    tags: ["reach", "offers", "reviews", "ai-visibility", "relay", "deliverability"],
     reviewChecks: [
       "Reviews lane uses $1 first month, not a broad $1 for 2 months headline",
       "AI Visibility lane offers a free snapshot/report and keeps premium positioning",
-      "Third domain is limited to beta/testimonial replies using `beta`",
+      "Third domain is limited to Relay missed-call replies using `send`",
       "Each lane has one clear CTA and daily send cap before launch",
       "Draft copy is taken from docs/AOH_REACH_CAMPAIGN_COPY.md and adapted only after Coach review",
       "Auditor confirms no scaled send happens before reply router QA",

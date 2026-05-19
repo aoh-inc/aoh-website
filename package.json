@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "eslint",
     "smoke:report": "node tools/smoke-report.mjs",
+    "reach:launch": "node scripts/launch-reach-campaign.mjs",
     "audit:security": "node scripts/auditor-security-sweep.mjs"
   },
   "dependencies": {

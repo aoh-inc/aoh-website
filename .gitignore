@@ -47,12 +47,17 @@ lighthouse-*.report.html
 lighthouse-*.report.json
 lighthouse-local-*
 
-# moved to dedicated tooling repos (aoh-tooling, laudy-tooling) + vault
-/scripts/
+# moved to dedicated tooling repos (aoh-tooling, laudy-tooling) + vault.
+# Keep explicit website-owned operational scripts below.
+/scripts/*
+!/scripts/launch-reach-campaign.mjs
+!/scripts/auditor-security-sweep.mjs
 /data/
 
 # tmp / scratch artifacts (dev logs, ad-hoc scan outputs, pids)
 .tmp_*
+tmp-reach*.json
+CTempcustomfields.json
 
 # accidentally-cloned aoh-tooling — belongs in its own repo
 UsersmichaDocumentsaoh-tooling-scan/

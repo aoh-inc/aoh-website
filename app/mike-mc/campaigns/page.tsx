@@ -4,7 +4,9 @@ import { ControlShell, Pill } from "@/components/control/ControlPrimitives";
 import {
   CAMPAIGN_LANES,
   CAMPAIGN_SOURCE_DOCS,
+  DEDICATED_DOMAIN_WARMUP,
   LAUNCH_GATES,
+  MANUAL_LAUNCH_MODEL,
   ROUTER_BRANCHES,
 } from "@/lib/control/campaign-launch";
 
@@ -28,7 +30,7 @@ export default function CampaignLaunchPage() {
             Campaign Launch Room
           </h1>
           <p className="mt-1.5 max-w-3xl text-base leading-relaxed text-zinc-400">
-            Reviews, AI Visibility, and beta/testimonial campaigns are drafted. Scaled sending stays blocked until the reply router and launch QA pass.
+            Reviews, AI Visibility, and Relay campaigns are drafted. Scaled sending stays blocked until reply handling and launch QA pass.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -51,8 +53,42 @@ export default function CampaignLaunchPage() {
       <section className="mb-8 grid gap-3 md:grid-cols-4">
         <Metric label="Campaign status" value="QA" tone="warm" />
         <Metric label="Lanes" value="3" />
-        <Metric label="Hard blocker" value="Router" tone="warn" />
+        <Metric label="Hard blocker" value="QA" tone="warn" />
         <Metric label="Launch mode" value="Controlled" tone="accent" />
+      </section>
+
+      <section className="mb-8 grid gap-4 lg:grid-cols-2">
+        <div className="rounded-2xl border border-sky-500/25 bg-sky-500/5 p-5 md:p-6">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-sky-300">
+            Domain warmup
+          </p>
+          <h2 className="mt-1 text-2xl font-semibold tracking-tight text-zinc-50">
+            Per dedicated sending domain
+          </h2>
+          <div className="mt-4 space-y-2">
+            {DEDICATED_DOMAIN_WARMUP.map((item) => (
+              <div key={item} className="rounded-lg border border-zinc-800/70 bg-black/25 px-3 py-2 text-sm leading-relaxed text-zinc-400">
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-emerald-500/25 bg-emerald-500/5 p-5 md:p-6">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-emerald-300">
+            Mike's role
+          </p>
+          <h2 className="mt-1 text-2xl font-semibold tracking-tight text-zinc-50">
+            Pick target, then approve
+          </h2>
+          <div className="mt-4 space-y-2">
+            {MANUAL_LAUNCH_MODEL.map((item) => (
+              <div key={item} className="rounded-lg border border-zinc-800/70 bg-black/25 px-3 py-2 text-sm leading-relaxed text-zinc-400">
+                {item}
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       <section className="mb-8 rounded-2xl border border-emerald-500/25 bg-emerald-500/5 p-5 md:p-6">
@@ -77,6 +113,7 @@ export default function CampaignLaunchPage() {
                 </Pill>
               </div>
               <Info label="Domain" value={lane.domainRole} />
+              <Info label="From email" value={lane.fromEmail} />
               <Info label="Offer" value={lane.offer} />
               <Info label="CTA" value={lane.cta} />
               <Info label="Positioning" value={lane.positioning} />

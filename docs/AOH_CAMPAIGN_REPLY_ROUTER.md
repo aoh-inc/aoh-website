@@ -4,7 +4,9 @@ Status: build spec for GHL Expert + Auditor
 Owner: Manager
 Specialist: GHL Expert
 Reviewer: Auditor
-Last updated: 2026-05-18
+Last updated: 2026-05-19
+
+Launch runbook: `docs/AOH_REACH_LAUNCH_RUNBOOK.md`
 
 ## Purpose
 
@@ -46,15 +48,22 @@ report generation until they raise their hand.
 
 Build this as campaign reply routing, not as another public website form flow.
 
-Recommended workflow name:
+Recommended workflow shape for today's pilot:
 
-- `Campaign Reply Router - Reviews + AI + Beta`
+- Three simple workflows:
+  - `Campaign Reply - Reviews Send`
+  - `Campaign Reply - AI Visibility Send`
+  - `Campaign Reply - Relay Send`
+
+Earlier AOH-controlled router endpoint still exists and can be used later, but
+the fast pilot build uses native GHL `Customer Replied` triggers cloned from
+the already-proven website workflows.
 
 Trigger:
 
-- Customer Replied or the equivalent HighLevel reply trigger used by the active
-  Reach campaigns.
-- Filter to the active campaign lanes/mailboxes only.
+- Customer Replied.
+- Filter reply body to `send`.
+- Filter to the active campaign lane/mailbox when GHL allows it.
 - Do not trigger from website visitor forms.
 
 Preferred AOH-controlled route:
@@ -63,10 +72,10 @@ Preferred AOH-controlled route:
 - URL: `https://aioutsourcehub.com/api/campaign/reply-router`
 - Method: `POST`
 - Header: `x-campaign-reply-router-token: <CAMPAIGN_REPLY_ROUTER_TOKEN>`
-- Required body fields:
+- If using the AOH-controlled endpoint later, required body fields:
   - `contactId`
   - `replyText`
-  - `campaignLane` (`reviews`, `ai`, or `beta`)
+  - `campaignLane` (`reviews`, `ai`, or `relay`)
 
 Why:
 
@@ -75,7 +84,7 @@ Why:
   in testable code.
 - GHL only needs a simple Customer Replied trigger that calls the endpoint.
 - The endpoint adds tags such as `aoh_reply_send`, `aoh_reply_book`,
-  `aoh_reply_beta`, `aoh_campaign_duplicate_blocked`, and the correct report
+  `aoh_campaign_duplicate_blocked`, and the correct report
   generator tag.
 
 Endpoint safety:
@@ -89,7 +98,7 @@ First safety branch:
 1. Opt-out / not interested
 2. Duplicate already handled
 3. Booking intent
-4. Beta intent
+4. Relay details intent
 5. Report/details intent
 6. Unclear positive or everything else
 
@@ -97,7 +106,7 @@ Reason:
 
 - Opt-outs must win before any other action.
 - Duplicate guard must run before report generation.
-- `book` and `beta` are more specific than generic `send`.
+- `book` is more specific than generic `send`.
 
 ## Tags
 
@@ -109,13 +118,12 @@ Campaign/source tags:
 - `aoh_campaign_reply`
 - `aoh_campaign_reviews`
 - `aoh_campaign_ai_visibility`
-- `aoh_campaign_beta`
+- `aoh_campaign_relay`
 
 Intent tags:
 
 - `aoh_reply_send`
 - `aoh_reply_book`
-- `aoh_reply_beta`
 - `aoh_reply_unclear`
 - `aoh_reply_optout`
 
@@ -124,7 +132,7 @@ Guard/completion tags:
 - `aoh_campaign_report_requested`
 - `aoh_campaign_report_delivered`
 - `aoh_campaign_booking_link_sent`
-- `aoh_campaign_beta_details_sent`
+- `aoh_campaign_relay_details_sent`
 - `aoh_campaign_reply_needs_human`
 - `aoh_campaign_duplicate_blocked`
 
@@ -142,13 +150,18 @@ Reviews campaign:
 - Pipeline: `Reach - Reviews`
 - `send`: move/create opportunity in `Warm Leads`
 - `book`: move/create opportunity in `Warm Leads`
-- `beta`: only use this if beta is running from the reviews lane; otherwise use
-  the beta lane process
 - opt-out/not interested: move/create opportunity in `Nurture / Closed`
 
 AI Visibility campaign:
 
 - Pipeline: `Reach - AI`
+- `send`: move/create opportunity in `Warm Leads`
+- `book`: move/create opportunity in `Warm Leads`
+- opt-out/not interested: move/create opportunity in `Nurture / Closed`
+
+Relay campaign:
+
+- Pipeline: `Reach - Relay`
 - `send`: move/create opportunity in `Warm Leads`
 - `book`: move/create opportunity in `Warm Leads`
 - opt-out/not interested: move/create opportunity in `Nurture / Closed`
@@ -187,10 +200,10 @@ Booking branch:
 - Add `aoh_campaign_booking_link_sent`
 - Create/update opportunity
 
-Beta branch:
+Relay branch:
 
-- Send beta details or create a Sorter task if the beta copy is not approved.
-- Add `aoh_campaign_beta_details_sent` only after the beta details are sent.
+- Send missed-call calculator/details email.
+- Add `aoh_campaign_relay_details_sent` only after the details are sent.
 
 Report/details branch:
 
@@ -253,23 +266,6 @@ Actions:
 - Create a Booker task if needed.
 - Do not generate a report unless Mike explicitly approves that behavior.
 
-### Reply Contains Beta Intent
-
-Examples:
-
-- `beta`
-- `include me`
-- `test group`
-- `I will try it`
-
-Actions:
-
-- Stop normal no-reply follow-up for that contact.
-- Add `aoh_campaign_reply`, `aoh_reply_beta`, and `aoh_campaign_beta`.
-- Send beta details only if the beta email has passed Coach/Auditor review.
-- Otherwise create a Sorter task.
-- Do not generate a full report by default.
-
 ### Unclear Positive Reply
 
 Examples:
@@ -315,8 +311,8 @@ Test contacts must prove:
 - `send please` routes to report request.
 - `book` routes to AOH Talk and does not generate a report.
 - `send booking link` routes to AOH Talk.
-- `beta` routes to the beta/testimonial lane and does not generate a report by
-  default.
+- Relay `send` sends missed-call details/calculator and does not generate a
+  report by default.
 - `what is this?` creates a human-review task and no report.
 - `how much?` creates a human-review or objection task and no report.
 - `unsubscribe` stops follow-up and no report.
@@ -339,3 +335,45 @@ Go for a tiny seeded pilot only after:
 - report generation happens only after a warm signal
 
 No-go for scaled sending until all items pass.
+
+## Scraper-To-Drip Launch Bridge
+
+The manual tag step is now replaceable by the local launcher:
+
+```powershell
+npm run reach:launch -- --lane reviews --industry "pet groomer" --area "Madison CT" --limit 10
+```
+
+By default this is a dry run. It scrapes/enriches prospects, normalizes fields,
+and writes a local JSON file without touching GHL.
+
+To import/update contacts in GHL without starting the drip:
+
+```powershell
+npm run reach:launch -- --lane reviews --csv prospects.csv --limit 10 --commit
+```
+
+To import/update contacts and start the drip:
+
+```powershell
+npm run reach:launch -- --lane reviews --csv prospects.csv --limit 10 --commit --start-drip
+```
+
+Live start tags:
+
+- Reviews: `aoh_campaign_reviews_start`
+- AI Visibility: `aoh_campaign_ai_visibility_start`
+- Relay: `aoh_campaign_relay_start`
+
+The launcher maps Outscraper fields into GHL contact fields including business
+name, website, city/state, niche, GBP rating, GBP review count, competitor
+fields when present, campaign source, and offer lane. It does not enable any
+HighLevel AI features.
+
+Dedicated sending domain ladder is documented in
+`docs/AOH_REACH_LAUNCH_RUNBOOK.md`:
+
+- Days 1-3: `10-20` emails/day per dedicated domain
+- Days 4-6: `40-50` emails/day per dedicated domain
+- Days 7-9: `80-100` emails/day per dedicated domain
+- Check warmup level/status after Day 9 before increasing again

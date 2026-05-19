@@ -1,10 +1,9 @@
-export type CampaignLane = "reviews" | "ai" | "beta" | "unknown";
+export type CampaignLane = "reviews" | "ai" | "relay" | "unknown";
 
 export type ReplyIntent =
   | "optout"
   | "duplicate"
   | "book"
-  | "beta"
   | "send"
   | "unclear";
 
@@ -31,7 +30,7 @@ export function normalizeCampaignLane(value: unknown): CampaignLane {
   const lane = value.trim().toLowerCase();
   if (["reviews", "review", "reach_reviews", "reach - reviews"].includes(lane)) return "reviews";
   if (["ai", "ai_visibility", "visibility", "reach_ai", "reach - ai"].includes(lane)) return "ai";
-  if (["beta", "testimonial", "test"].includes(lane)) return "beta";
+  if (["relay", "missed_call", "missed calls", "ai receptionist", "voice"].includes(lane)) return "relay";
   return "unknown";
 }
 
@@ -77,26 +76,19 @@ export function classifyCampaignReply(input: {
     });
   }
 
-  if (matchesAny(text, BETA_PATTERNS)) {
-    return decision({
-      intent: "beta",
-      lane: "beta",
-      tags: ["aoh_reply_beta", "aoh_campaign_beta"],
-      reason: "Reply matched beta/testimonial intent.",
-    });
-  }
-
   if (matchesAny(text, SEND_PATTERNS)) {
     const laneTags =
       input.lane === "ai"
         ? ["aoh_campaign_ai_visibility", "aoh_generate_ai_visibility_report"]
-        : ["aoh_campaign_reviews", "aoh_generate_marketing_report"];
+        : input.lane === "relay"
+          ? ["aoh_campaign_relay", "aoh_campaign_relay_details_sent"]
+          : ["aoh_campaign_reviews", "aoh_generate_marketing_report"];
     return decision({
       intent: "send",
       lane: input.lane,
       tags: ["aoh_reply_send", "aoh_campaign_report_requested", "aoh_report_requested", ...laneTags],
-      shouldGenerateReport: true,
-      reason: "Reply matched report/details intent.",
+      shouldGenerateReport: input.lane !== "relay",
+      reason: input.lane === "relay" ? "Reply matched Relay details intent." : "Reply matched report/details intent.",
     });
   }
 
@@ -105,7 +97,7 @@ export function classifyCampaignReply(input: {
     lane: input.lane,
     tags: ["aoh_reply_unclear", "aoh_campaign_reply_needs_human"],
     shouldCreateHumanTask: true,
-    reason: "Reply did not clearly match send, book, beta, or opt-out.",
+    reason: "Reply did not clearly match send, book, or opt-out.",
   });
 }
 
@@ -123,8 +115,8 @@ function decision(input: {
       ? "aoh_campaign_reviews"
       : input.lane === "ai"
         ? "aoh_campaign_ai_visibility"
-        : input.lane === "beta"
-          ? "aoh_campaign_beta"
+        : input.lane === "relay"
+          ? "aoh_campaign_relay"
           : "";
   return {
     intent: input.intent,
@@ -159,14 +151,6 @@ const BOOK_PATTERNS = [
   /\bcall\b/i,
   /\bschedule\b/i,
   /\bbooking link\b/i,
-];
-
-const BETA_PATTERNS = [
-  /\bbeta\b/i,
-  /\binclude me\b/i,
-  /\btest group\b/i,
-  /\bi'?ll try\b/i,
-  /\bi will try\b/i,
 ];
 
 const SEND_PATTERNS = [
