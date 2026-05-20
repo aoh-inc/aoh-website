@@ -1,6 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  outputFileTracingIncludes: {
+    "/api/agent/slack": [
+      "./docs/client-ops-ledger/agent-jobs.csv",
+      "./docs/client-ops-ledger/sending-domain-readiness.csv",
+      "./docs/client-ops-ledger/daily-brief-current.md",
+    ],
+  },
   async redirects() {
     return [
       { source: "/control", destination: "/mike-mc", permanent: true },
