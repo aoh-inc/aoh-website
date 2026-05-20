@@ -1,7 +1,7 @@
 # Daily Agent Brief Template
 
 Date: YYYY-MM-DD
-Prepared by: Chief of Staff
+Prepared by: Manager
 
 ## 1. Needs Mike Today
 

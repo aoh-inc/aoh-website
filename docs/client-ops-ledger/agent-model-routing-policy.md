@@ -19,7 +19,7 @@ The default rule is:
 | Model tier for a specific job step | Manager |
 | Campaign strategy risk | Sales Manager |
 | Technical workflow risk | GHL Expert and Systems Director |
-| Budget escalation or risky live action | Chief of Staff prepares for Mike |
+| Budget escalation or risky live action | Manager prepares for Mike |
 | Final approval for live prospect/client-facing action | Mike |
 
 ## Model Tiers
@@ -84,11 +84,11 @@ Suggested defaults:
 | 100 prospect campaign prep | $10 |
 | 500 prospect batch | $25 |
 | 1,000 prospect batch | $50 |
-| Client-facing or workflow-risk review | Chief of Staff sets cap before work starts |
+| Client-facing or workflow-risk review | Manager sets cap before work starts |
 
 If the job hits 80% of budget, the agent warns Manager.
 
-If the job hits 100% of budget, the job stops and Chief of Staff decides whether Mike needs to approve more spend.
+If the job hits 100% of budget, the job stops and Manager decides whether Mike needs to approve more spend.
 
 ## Campaign Model Routing
 
@@ -102,7 +102,7 @@ If the job hits 100% of budget, the job stops and Chief of Staff decides whether
 | Score uncertain prospects | Sales Manager | 1 first, 2 if unclear |
 | Check campaign copy and claims | Coach | 2 |
 | Check GHL tags/workflow risk | GHL Expert | 2 or 3 |
-| Prepare approval packet | Chief of Staff | 2 |
+| Prepare approval packet | Manager | 2 |
 | Approve import or drip start | Mike | 4 |
 
 ## Cost Log

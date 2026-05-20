@@ -1,2 +1,2 @@
 job_id,created_date,job_type,campaign_lane,target_niche,target_geography,owner_agent,status,budget_cap_usd,model_tier,approval_required,approval_owner,approved_action,source_file,result_file,next_action,next_action_owner,next_action_due,risk_status,notes
-JOB-YYYYMMDD-001,YYYY-MM-DD,reach_campaign_prep,reviews,pet boarding,Connecticut,Manager,recommended,2,cheap,yes,Mike,prep_only,,,,Create campaign approval packet,Chief of Staff,YYYY-MM-DD,watch,Template row. Duplicate and replace placeholders.
+JOB-YYYYMMDD-001,YYYY-MM-DD,reach_campaign_prep,reviews,pet boarding,Connecticut,Manager,recommended,2,cheap,yes,Mike,prep_only,,,,Create campaign approval packet,Manager,YYYY-MM-DD,watch,Template row. Duplicate and replace placeholders.

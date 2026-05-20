@@ -530,7 +530,7 @@ export const BOARD_TASKS: BoardTask[] = [
     due: "Command router wired 2026-05-20",
     tags: ["slack", "commands"],
     reviewChecks: [
-      "Manager status and Chief of Staff brief commands generate Slack-ready responses",
+      "Manager status and brief commands generate Slack-ready responses",
       "GHL Expert readiness command runs read-only checks only",
       "Sales Manager QA command summarizes review flags before Mike approval",
       "Approval commands produce exact Reach launch commands without live execution by default",

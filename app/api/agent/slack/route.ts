@@ -22,7 +22,6 @@ type GhlResult = { ok: boolean; lines: string[]; cacheAgeSeconds?: number };
 
 type LaneKey = "reviews" | "ai" | "relay";
 type AgentKey =
-  | "chief-of-staff"
   | "general-manager"
   | "scheduler"
   | "systems-director"
@@ -98,29 +97,20 @@ const AGENTS: Record<
     safety?: string;
   }
 > = {
-  "chief-of-staff": {
-    title: "Chief of Staff",
-    persona: "Indra Nooyi",
-    aliases: ["chief of staff", "cos", "indra"],
-    reportsTo: "President",
-    job: "Turns noisy agent findings into a clean approval queue for Mike.",
-    canDo: ["prepare the daily brief", "summarize blockers", "turn recommendations into approval asks"],
-    nextStep: "Ask: `Chief of Staff, brief` or `Chief of Staff, what needs Mike today`.",
-  },
   "general-manager": {
     title: "General Manager",
     persona: "Elon Musk",
     aliases: ["general manager", "manager", "gm", "elon"],
-    reportsTo: "Chief of Staff",
-    job: "Runs the agent company day to day, assigns owners, tracks blockers, and escalates to Mike.",
-    canDo: ["run Reach Cold Email Campaign", "route work to agents", "show status", "explain blockers"],
+    reportsTo: "President",
+    job: "Runs the agent company day to day, prepares the brief, filters noise, owns the approval queue, assigns owners, tracks blockers, and escalates to Mike.",
+    canDo: ["prepare the daily brief", "run Reach Cold Email Campaign", "route work to agents", "show status", "explain blockers"],
     nextStep: "Ask: `Manager, run Reach Cold Email Campaign` or `Manager, status`.",
   },
   scheduler: {
     title: "Scheduler",
     persona: "Tim Ferriss",
     aliases: ["scheduler", "tim ferriss", "tim"],
-    reportsTo: "Chief of Staff",
+    reportsTo: "General Manager",
     job: "Protects calendars, booking availability, reminders, and meeting context.",
     canDo: ["check calendar readiness", "prepare meeting context", "watch booking handoffs"],
     nextStep: "Ask: `Scheduler, what meetings or booking issues need attention`.",
@@ -409,7 +399,6 @@ ${buildManagerStatus(actor)}`;
   const addressedAgent = findAddressedAgent(normalized);
   if (addressedAgent) {
     if (addressedAgent === "general-manager" && mentionsBrief(normalized)) return buildManagerStatus(actor);
-    if (addressedAgent === "chief-of-staff" && mentionsBrief(normalized)) return buildManagerStatus(actor);
     return buildAgentRoleResponse(addressedAgent, actor);
   }
 
@@ -513,8 +502,8 @@ pause all campaign live actions
 
 function buildAgentListResponse(actor: UserContext) {
   const groups = [
-    ["Executive Office", ["chief-of-staff", "scheduler"]],
-    ["Company Operations", ["general-manager", "coach"]],
+    ["Executive Office", ["general-manager", "scheduler"]],
+    ["Company Operations", ["coach"]],
     ["Systems and IT", ["systems-director", "ghl-expert"]],
     ["Sales", ["sales-manager", "scout", "sender", "sorter", "booker", "engagement-scout"]],
     ["Client Success", ["client-success-manager", "hub", "reporter"]],
@@ -537,7 +526,7 @@ Examples:
 
 \`\`\`text
 General Manager, run Reach Cold Email Campaign
-Chief of Staff, brief
+Manager, brief
 GHL Expert, check Reach readiness
 Sales Manager, review Reach QA
 Coach, review this copy
@@ -1011,7 +1000,7 @@ function asArray(value: unknown): unknown[] {
 }
 
 function mentionsBrief(normalized: string) {
-  return normalized.includes("manager status") || normalized.includes("status") || normalized.includes("chief of staff brief") || normalized.includes("brief");
+  return normalized.includes("manager status") || normalized.includes("status") || normalized.includes("brief");
 }
 
 function mentionsAgentList(normalized: string) {

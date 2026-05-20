@@ -1,7 +1,7 @@
 # Daily Agent Brief
 
 Date: 2026-05-20
-Prepared by: Chief of Staff
+Prepared by: Manager
 
 ## 1. Needs Mike Today
 
@@ -26,7 +26,7 @@ Prepared by: Chief of Staff
 | Confirm Relay sending subdomain and daily send limit | GHL Expert | Waiting |
 | Confirm each start tag triggers only intended workflow | GHL Expert | API metadata passed; visual sender-domain check still required |
 | Confirm no HighLevel AI feature is enabled | GHL Expert | Required before approval |
-| Generate approval packet per lane | Chief of Staff | Ready after preflight |
+| Generate approval packet per lane | Manager | Ready after preflight |
 | Review personal email / duplicate-contact QA flags | Sales Manager | Waiting |
 
 GHL Expert read-only API result:
@@ -71,7 +71,7 @@ Recommended path:
 
 1. Sales Manager reviews QA flags and removes questionable personal/duplicate contacts if needed.
 2. GHL Expert completes visual sender-domain/warmup/AI-toggle checks in GHL.
-3. Chief of Staff regenerates preflight packet for the final approved CSV.
+3. Manager regenerates preflight packet for the final approved CSV.
 4. Approve one lane import-only if the domain is still warming.
 5. Approve one lane start-drip only when the lane's sending subdomain is confirmed ready.
 6. Keep each first warmup batch to the lane's allowed daily send volume.

@@ -27,8 +27,7 @@ Tag behavior:
 
 | Role | Responsibility |
 |---|---|
-| Manager | Creates the campaign job, assigns agents, watches budget/status, escalates blockers |
-| Chief of Staff | Turns recommendations into a clean approval packet for Mike |
+| Manager | Creates the campaign job, assigns agents, watches budget/status, prepares the approval packet, and escalates blockers |
 | Sales Manager | Owns campaign strategy, target niche, offer lane, and go/no-go recommendation |
 | Scout | Finds prospects, removes obvious bad fits, notes fit signals |
 | Sender | Cleans CSVs, checks merge fields, verifies emails, prepares import file |
@@ -197,7 +196,7 @@ Review checklist:
 | Start tag triggers intended workflow only | GHL Expert |
 | No HighLevel AI features are enabled | GHL Expert |
 | Job is within budget | Systems Director |
-| Approval packet is plain English | Chief of Staff |
+| Approval packet is plain English | Manager |
 
 GHL Expert read-only API check:
 
@@ -207,9 +206,9 @@ npm run reach:ghl-check
 
 This checks known dedicated sending domains from the Reach runbook, GHL location access, Reach pipelines, workflow metadata when exposed by the API, and configured custom field IDs. It does not change GHL.
 
-## Stage 5 - Chief of Staff Approval Packet
+## Stage 5 - Manager Approval Packet
 
-Chief of Staff gives Mike one clean packet.
+Manager gives Mike one clean packet.
 
 ```text
 Campaign approval request
@@ -320,7 +319,7 @@ Sorter then watches replies and routes:
 | objection | Sales Manager or Coach |
 | opt-out | Sender |
 | bad fit | Sorter |
-| angry/confused | Chief of Staff / Mike |
+| angry/confused | Manager / Mike |
 
 ## Cost Guardrails
 

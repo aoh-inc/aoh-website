@@ -29,7 +29,7 @@ Use these channels as the first operating split:
 
 | Channel | Role |
 |---|---|
-| `#04-aoh-ops` | Primary Manager / Chief of Staff command channel for briefs, approvals, blockers, and status. |
+| `#04-aoh-ops` | Primary Manager command channel for briefs, approvals, blockers, and status. |
 | `#04-aoh-ghl-feed` | GHL feed and system-event channel. Keep noisy automation proof here instead of the approval channel. |
 | `#04-aoh-prospects` | Prospect and campaign-list work. Keep raw prospect discussion out of the main ops brief. |
 
@@ -41,7 +41,7 @@ Mike should be able to talk in plain text.
 Manager, status
 Manager, list agents
 Manager, run Reach Cold Email Campaign
-Chief of Staff, brief
+Manager, brief
 GHL Expert, check Reach readiness
 Sales Manager, review Reach QA
 Coach, review this copy
@@ -215,7 +215,7 @@ Mike should be able to speak to any agent in the org chart by starting the Slack
 Examples:
 
 ```text
-Chief of Staff, what needs Mike today?
+Manager, what needs Mike today?
 General Manager, run Reach Cold Email Campaign
 Systems Director, check risks before this campaign
 GHL Expert, check Reach readiness
@@ -263,7 +263,7 @@ Before any live campaign action:
 | Source CSV exists and is fresh | Sender |
 | Email verification complete | Sender |
 | QA flags reviewed | Sales Manager |
-| Approval packet prepared | Chief of Staff |
+| Approval packet prepared | Manager |
 | Pipeline, workflow, tags, fields verified | GHL Expert |
 | Exact sender/from domain visually confirmed | GHL Expert |
 | Dedicated sending domain warmup status confirmed | GHL Expert |

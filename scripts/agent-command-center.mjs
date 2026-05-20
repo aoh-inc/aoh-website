@@ -84,6 +84,10 @@ function routeCommand(command, args) {
     return buildGhlCheckResponse();
   }
 
+  if (mentionsAgentList(normalized)) {
+    return buildAgentListResponse();
+  }
+
   if (mentionsQaReview(normalized)) {
     return buildQaResponse();
   }
@@ -105,8 +109,9 @@ ${command}
 Supported commands:
 
 - \`Manager, status\`
+- \`Manager, list agents\`
 - \`Manager, run Reach Cold Email Campaign\`
-- \`Chief of Staff, brief\`
+- \`Manager, brief\`
 - \`GHL Expert, check Reach readiness\`
 - \`Sales Manager, review Reach QA\`
 - \`approve reviews import only\`
@@ -116,6 +121,40 @@ Supported commands:
 - \`approve ai start drip\`
 - \`approve relay start drip\`
 - \`pause all campaign live actions\`
+`,
+  };
+}
+
+function buildAgentListResponse() {
+  const groups = [
+    ["Executive Office", ["General Manager", "Scheduler"]],
+    ["Company Operations", ["Coach"]],
+    ["Systems and IT", ["Systems Director", "GHL Expert"]],
+    ["Sales", ["Sales Manager", "Scout", "Sender", "Sorter", "Booker", "Engagement Scout"]],
+    ["Client Success", ["Client Success Manager", "Hub", "Reporter"]],
+    ["Client Delivery", ["Local Visibility Manager", "Reviews Manager", "Relay Manager"]],
+    ["Marketing", ["Editor", "Press"]],
+  ];
+
+  return {
+    kind: "agent-directory",
+    text: `*AOH agent directory - ${today()}*
+
+Manager owns the brief, approval queue, routing, blockers, and escalations to Mike.
+
+${groups.map(([department, agents]) => `- ${department}: ${agents.join(", ")}`).join("\n")}
+
+Examples:
+
+\`\`\`text
+Manager, status
+Manager, run Reach Cold Email Campaign
+GHL Expert, check Reach readiness
+Sales Manager, review Reach QA
+Coach, review this copy
+Reporter, verify report delivery status
+Press, what is ready to publish
+\`\`\`
 `,
   };
 }
@@ -148,7 +187,7 @@ Agent gates before live action:
 
 - Sales Manager: review personal email and duplicate-contact QA flags.
 - GHL Expert: visually confirm sender/from domain, warmup status, workflow sender nodes, and HighLevel AI toggles OFF.
-- Chief of Staff: regenerate/confirm the approval packet for the final CSV.
+- Manager: regenerate/confirm the approval packet for the final CSV.
 - Mike: approve import-only and start-drip as separate commands.
 
 Mike can say:
@@ -574,8 +613,16 @@ function mentionsBrief(normalized) {
   return (
     normalized.includes("manager status") ||
     normalized.includes("status") ||
-    normalized.includes("chief of staff brief") ||
     normalized.includes("brief")
+  );
+}
+
+function mentionsAgentList(normalized) {
+  return (
+    normalized.includes("list agents") ||
+    normalized.includes("show agents") ||
+    normalized.includes("agent directory") ||
+    normalized.includes("who can i talk to")
   );
 }
 

@@ -7,7 +7,6 @@ Use these as inspiration-label candidates only. Public figures are not affiliate
 | Role | Option 1 | Option 2 | Option 3 | Option 4 |
 |---|---|---|---|---|
 | President | Mike Egidio | Mike Egidio, final approver | Mike Egidio, owner/operator | Mike Egidio, command seat |
-| Chief of Staff | Indra Nooyi | Anne Wojcicki | Susan Wojcicki | Ursula Burns |
 | Scheduler | Walt Mossberg | Kara Swisher | Tim Ferriss | David Allen |
 
 ## Company Operations
@@ -65,8 +64,7 @@ This is the set I would try first if you want the chart to feel less random-cele
 | Role | Pick |
 |---|---|
 | President | Mike Egidio |
-| Chief of Staff | Indra Nooyi |
-| General Manager | Andrew Grove |
+| General Manager | Elon Musk |
 | Systems Director | Grace Hopper |
 | Sales Manager | Chet Holmes |
 | Client Success Manager | Danny Meyer |

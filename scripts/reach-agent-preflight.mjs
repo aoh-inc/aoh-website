@@ -103,7 +103,7 @@ function buildPacket({ laneKey, args, outDir }) {
   const packet = `# Reach Campaign Approval Packet
 
 Date: ${today()}
-Prepared by: Chief of Staff
+Prepared by: Manager
 Lane: ${lane.label} (${laneKey})
 Requested action: ${requestedAction}
 

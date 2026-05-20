@@ -33,22 +33,12 @@ const ROLES: OrgRole[] = [
     image: "/team/mje.png",
   },
   {
-    title: "Chief of Staff",
-    persona: "Indra Nooyi",
-    status: "planned",
-    summary: "Prepares the morning brief, filters noise, and turns recommendations into a clean approval queue.",
-    owns: ["morning brief", "approval queue", "daily agenda"],
-    reportsTo: "President",
-    tone: "executive",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Indra_Nooyi_-_World_Economic_Forum_Annual_Meeting_2010.jpg/330px-Indra_Nooyi_-_World_Economic_Forum_Annual_Meeting_2010.jpg",
-  },
-  {
     title: "General Manager",
     persona: "Elon Musk",
     status: "live",
-    summary: "Runs the agent company day to day, assigns owners, tracks blockers, and escalates to Mike.",
-    owns: ["job routing", "client risk triage", "fleet priorities"],
-    reportsTo: "Chief of Staff",
+    summary: "Runs the agent company day to day, prepares the brief, filters noise, owns the approval queue, assigns owners, tracks blockers, and escalates to Mike.",
+    owns: ["daily brief", "approval queue", "job routing", "blocker triage"],
+    reportsTo: "President",
     tone: "ops",
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Elon_Musk_-_54820081119_%28cropped%29.jpg/330px-Elon_Musk_-_54820081119_%28cropped%29.jpg",
   },
@@ -228,7 +218,7 @@ const ROLES: OrgRole[] = [
     status: "live",
     summary: "Protects calendars, booking availability, reminders, and meeting context.",
     owns: ["AOH Talk", "calendar blocks", "meeting briefs"],
-    reportsTo: "Chief of Staff",
+    reportsTo: "General Manager",
     tone: "ops",
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Tim_Ferriss.jpg/330px-Tim_Ferriss.jpg",
   },
@@ -237,13 +227,13 @@ const ROLES: OrgRole[] = [
 const DEPARTMENTS = [
   {
     title: "Executive Office",
-    lead: "Chief of Staff",
-    support: ["Scheduler"],
+    lead: "Scheduler",
+    support: [],
   },
   {
     title: "Company Operations",
-    lead: "General Manager",
-    support: ["Coach"],
+    lead: "Coach",
+    support: [],
   },
   {
     title: "Systems and IT",
@@ -369,9 +359,8 @@ export default function OrgChartPage() {
         <div className="flex flex-col items-center">
           <OrgBox role={findRole("President")} size="large" />
           <Connector />
-          <div className="grid w-full max-w-6xl grid-cols-1 gap-4 md:grid-cols-2">
-            <OrgBox role={findRole("Chief of Staff")} />
-            <OrgBox role={findRole("General Manager")} />
+          <div className="w-full max-w-3xl">
+            <OrgBox role={findRole("General Manager")} size="large" />
           </div>
           <Connector />
           <div className="grid w-full grid-cols-1 gap-5 xl:grid-cols-2 2xl:grid-cols-3">
@@ -409,12 +398,16 @@ function DepartmentBox({ department }: { department: { title: string; lead: stri
         {department.title}
       </div>
       <OrgBox role={findRole(department.lead)} compact />
-      <div className="mx-auto h-4 w-px bg-slate-600" />
-      <div className="grid grid-cols-1 gap-3">
-        {department.support.map((title) => (
-          <OrgBox key={title} role={findRole(title)} compact />
-        ))}
-      </div>
+      {department.support.length > 0 && (
+        <>
+          <div className="mx-auto h-4 w-px bg-slate-600" />
+          <div className="grid grid-cols-1 gap-3">
+            {department.support.map((title) => (
+              <OrgBox key={title} role={findRole(title)} compact />
+            ))}
+          </div>
+        </>
+      )}
     </section>
   );
 }

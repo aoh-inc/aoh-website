@@ -4,7 +4,7 @@ Use this before approving any Reach campaign start-drip action.
 
 ## Per-Lane Readiness
 
-Fill `sending-domain-readiness.csv` before Chief of Staff asks Mike for start-drip approval.
+Fill `sending-domain-readiness.csv` before Manager asks Mike for start-drip approval.
 
 | Check | Required before import | Required before start drip |
 |---|---|---|
@@ -44,4 +44,4 @@ Checked at:
 
 ## Hard Rule
 
-If the sending subdomain is still warming, Chief of Staff may ask Mike for import-only approval, but should not ask for start-drip approval unless GHL Expert marks the lane ready for drip.
+If the sending subdomain is still warming, Manager may ask Mike for import-only approval, but should not ask for start-drip approval unless GHL Expert marks the lane ready for drip.

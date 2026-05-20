@@ -1,6 +1,6 @@
 ---
 name: AOH Agent Company Operating Model
-description: Canonical operating model for running AOH as an agent-led company with Mike as President, Manager/Secretary oversight, specialist agents, client job queues, and human approval gates.
+description: Canonical operating model for running AOH as an agent-led company with Mike as President, General Manager oversight, specialist agents, client job queues, and human approval gates.
 type: operating-model
 status: active
 date-created: 2026-05-20
@@ -24,12 +24,11 @@ AOH should replicate a practical company hierarchy:
 
 ```text
 Mike / President
-  -> Secretary / Chief of Staff
-      -> Manager
-          -> Department leads
-              -> Specialist agents
-              -> Delivery jobs
-                  -> Client records and reports
+  -> General Manager
+      -> Department leads
+          -> Specialist agents
+          -> Delivery jobs
+              -> Client records and reports
 ```
 
 The system should make Mike's day simpler, not make Mike manage every agent directly.
@@ -39,8 +38,7 @@ The system should make Mike's day simpler, not make Mike manage every agent dire
 | Role | Plain-English job |
 |---|---|
 | President | Mike. Reviews recommendations, approves client-facing or risky actions, makes business decisions. |
-| Secretary / Chief of Staff | Prepares the morning brief, filters noise, groups recommendations, and gives Mike a clean approval queue. |
-| Manager | Scans the company, finds work that may need doing, asks specialist agents to investigate, and creates recommendations. |
+| General Manager | Scans the company, prepares the morning brief, filters noise, groups recommendations, owns the approval queue, asks specialist agents to investigate, and escalates clean decisions to Mike. |
 | Sales Manager | Owns the revenue pipeline, campaign strategy, prospecting priorities, reply follow-up, and booked-call handoffs. |
 | Client Success Manager | Owns onboarding health, client check-ins, retention risk, reporting cadence, and making sure sold clients are not ignored. |
 | GHL Expert | Scans GHL/hub360ai client accounts, workflows, reviews, contacts, opportunities, tags, and account health. |
@@ -63,7 +61,7 @@ Use this as the practical org chart inside Mission Control:
 
 | Department | Lead | Direct reports / owned roles |
 |---|---|---|
-| Executive Office | Chief of Staff | Scheduler |
+| Executive Office | General Manager | Scheduler |
 | Company Operations | General Manager | Coach |
 | Systems and IT | Systems Director | GHL Expert |
 | Sales Department | Sales Manager | Scout, Sender, Sorter, Booker, Engagement Scout |
@@ -82,8 +80,7 @@ Mission Control may use business or field-associated public figures as inspirati
 | Role | Inspiration persona | Responsibility |
 |---|---|---|
 | President | Mike Egidio | Approves direction, client-facing risk, pricing, tool changes, and final go/no-go calls. |
-| Chief of Staff | Indra Nooyi | Prepares the morning brief and turns recommendations into a clean approval queue. |
-| General Manager | Elon Musk | Runs the agent company day to day, assigns owners, tracks blockers, and escalates to Mike. |
+| General Manager | Elon Musk | Runs the agent company day to day, prepares the morning brief, turns recommendations into a clean approval queue, assigns owners, tracks blockers, and escalates to Mike. |
 | Systems Director | Bill Gates | Owns IT, tool stack health, access, security, backups, costs, and tool decisions. |
 | Sales Manager | Gary Vaynerchuk | Owns campaign strategy, revenue pipeline, reply follow-up, and booked-call handoffs. |
 | Client Success Manager | TBD | Owns onboarding health, client check-ins, renewals, retention risk, and reporting cadence. |
@@ -131,9 +128,7 @@ Examples:
 - Engagement Scout scans social conversations and drafts comments or DMs, but does not post without approval.
 - Systems Director checks stack health, security, cost, risk, and failure patterns.
 
-Then Manager creates recommendations.
-
-Secretary turns those recommendations into a clean morning brief for Mike.
+Then Manager creates recommendations and turns them into a clean morning brief for Mike.
 
 ## Recommendation vs Job
 
@@ -144,7 +139,7 @@ Use this distinction:
 | Item | Meaning | Permanent? |
 |---|---|---|
 | Recommendation | An agent thinks work might need to be done. Mike has not approved it yet. | Temporary |
-| Job | Mike, Secretary, or Manager approved/assigned the work. | Permanent until completed |
+| Job | Mike or Manager approved/assigned the work. | Permanent until completed |
 | Log entry | Work is completed and written back to the client profile/ledger. | Permanent |
 
 This prevents the system from creating hundreds of fake tasks.
@@ -165,7 +160,7 @@ detected -> recommended -> dismissed
 
 ## Morning Brief Format
 
-Secretary should prepare a daily brief with these sections:
+Manager should prepare a daily brief with these sections:
 
 1. Needs Mike today
 2. Client risks
@@ -206,7 +201,7 @@ Default posture:
 | GHL workflow risk, final approval packet, ambiguous business decision support | Strong model only when justified |
 | Import approval, drip start, billing, AI feature changes | Human |
 
-Systems Director owns the current provider/model mapping and budget caps. Manager chooses the job tier using the policy. Chief of Staff escalates over-budget or risky recommendations to Mike.
+Systems Director owns the current provider/model mapping and budget caps. Manager chooses the job tier using the policy and escalates over-budget or risky recommendations to Mike.
 
 Reach campaign work must follow `reach-campaign-agent-runbook.md`.
 
@@ -262,7 +257,7 @@ It records:
 
 Langfuse is not the operating interface. It is the debugging and accountability layer.
 
-Keep Langfuse on the roadmap, but do not let it block the Manager/Secretary/GHL Expert framework.
+Keep Langfuse on the roadmap, but do not let it block the Manager/GHL Expert framework.
 
 Install Langfuse when AOH starts asking:
 
@@ -302,9 +297,9 @@ HighLevel AI features must remain OFF unless Mike explicitly authorizes them man
 - [ ] Add one client profile note template per real client.
 - [ ] Define stable `client_id` format.
 - [ ] Add `human_approval_required` gates to the ledger.
-- [ ] Create a daily Morning Brief format for Secretary.
+- [ ] Create a daily Morning Brief format for Manager.
 - [x] Wire a Slack-ready command router for Morning Brief, status, GHL checks, QA review, approvals, and pause commands.
-- [x] Define `#04-aoh-ops` as the first Manager / Chief of Staff command channel.
+- [x] Define `#04-aoh-ops` as the first Manager command channel.
 
 ### Phase 2 - Manager and Specialist Scans
 
@@ -318,7 +313,7 @@ HighLevel AI features must remain OFF unless Mike explicitly authorizes them man
 - [ ] Build Engagement Scout social opportunity scan.
 - [ ] Build Systems Director exception and tech-stack scan.
 - [ ] Have Manager convert findings into recommendations.
-- [ ] Have Secretary convert recommendations into the daily brief.
+- [ ] Have Manager convert recommendations into the daily brief.
 
 ### Phase 3 - Job Queue
 
@@ -374,4 +369,4 @@ The ledger and client profiles update.
 
 Systems Director watches the stack, access, cost, and risk.
 
-Secretary prepares the next brief.
+Manager prepares the next brief.

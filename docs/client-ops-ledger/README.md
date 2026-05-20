@@ -20,14 +20,14 @@ The ledger is intentionally spreadsheet-first. Mike should be able to open it, s
 | `client-ops-ledger-data-dictionary.md` | Explains every column and allowed values. |
 | `client-profile-template.md` | Per-client profile template for Obsidian. Use one note per client. |
 | `client-ops-ledger-runbook.md` | How Mike, Manager, Auditor, Hub, and delivery agents should use the ledger. |
-| `aoh-agent-company-operating-model.md` | Canonical company hierarchy: Mike as President, Secretary, Manager, specialist agents, recommendations, jobs, approvals. |
+| `aoh-agent-company-operating-model.md` | Canonical company hierarchy: Mike as President, General Manager, specialist agents, recommendations, jobs, approvals. |
 | `agent-model-routing-policy.md` | Cost-control policy for choosing no LLM, cheap, standard, strong, or human decision tiers. |
 | `reach-campaign-agent-runbook.md` | Safe agent workflow for Reach email campaign prep, approval, import, drip start, and logging. |
-| `slack-agent-command-runbook.md` | How Mike talks to Manager, Chief of Staff, GHL Expert, Sales Manager, and approval gates through Slack-ready commands. |
+| `slack-agent-command-runbook.md` | How Mike talks to Manager, GHL Expert, Sales Manager, and approval gates through Slack-ready commands. |
 | `agent-jobs-template.csv` | Starter job queue format for agent work, budgets, approvals, and next actions. |
 | `agent-jobs.csv` | Current working job queue for agent work. |
-| `daily-brief-template.md` | Chief of Staff daily brief format for Mike approvals and status. |
-| `daily-brief-current.md` | Current Chief of Staff brief for today's campaign readiness work. |
+| `daily-brief-template.md` | Manager daily brief format for Mike approvals and status. |
+| `daily-brief-current.md` | Current Manager brief for today's campaign readiness work. |
 | `sending-domain-readiness.csv` | Per-lane subdomain warmup/readiness checklist. |
 | `sending-domain-readiness-checklist.md` | GHL Expert signoff checklist before approving start-drip. |
 
@@ -46,7 +46,7 @@ The ledger is intentionally spreadsheet-first. Mike should be able to open it, s
 
 Before building more client ops automation, read `aoh-agent-company-operating-model.md`. The ledger is one part of a larger company operating model:
 
-Mike reviews and approves. Secretary prepares the brief. Manager scans the company. Specialist agents investigate. Approved recommendations become jobs. Completed jobs update the ledger and client profiles.
+Mike reviews and approves. Manager scans the company, prepares the brief, and routes specialist agents to investigate. Approved recommendations become jobs. Completed jobs update the ledger and client profiles.
 
 For outreach campaigns, the extra rule is:
 

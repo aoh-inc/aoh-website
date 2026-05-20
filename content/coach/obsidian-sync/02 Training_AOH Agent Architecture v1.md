@@ -90,7 +90,7 @@ The technical stuff below (Docker, Langfuse, AutoGen, code pattern names) — th
 
 **Why not pure swarm:** Gives up the global view Director needs to brief Mike each morning.
 
-**Why not Chief of Staff (the new pattern):** Just hierarchical orchestration with a marketing label. Director already does this.
+**Why not a separate staff layer:** Just hierarchical orchestration with a marketing label. Director or Manager already does this.
 
 **Vibe shift to know about:** As of late 2025/early 2026, Anthropic and OpenAI both published research showing single agents with better tools + longer context often beat multi-agent systems. Marketing pendulum is swinging back toward "fewer, sharper agents." Build multi-agent only when parallelism, separation of concerns, or context isolation actually pays for itself. AOH's case (specialized roles, sequential pipeline, multi-tenant clients) does justify it — but resist agent sprawl.
 
