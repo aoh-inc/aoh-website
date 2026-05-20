@@ -23,8 +23,9 @@ Slack is the human command surface. Mission Control and the ledger remain the so
 | Production listener secrets | Wired | Production has the Slack signing secret and bot token configured in Vercel. |
 | Slack posting | Env-gated | `npm run agent:slack` posts only if `SLACK_MISSION_CONTROL_WEBHOOK_URL` or `SLACK_WEBHOOK_URL` is set. |
 | Slack HTTP listener | Wired in code | `/api/agent/slack` verifies Slack requests and routes `Manager, ...` commands. Normal channel commands answer in the channel; threaded commands answer in the thread. |
+| `/manager` slash command | Wired in code | Slack should point `/manager` to `https://aioutsourcehub.com/api/agent/slack` for near-instant replies. |
 | Slack polling fallback | Wired | `/api/agent/slack?poll=1` lets Vercel Cron scan `#04-aoh-ops` once per minute and catch commands if Slack Events are not delivering. |
-| `#04-aoh-ops` bot membership | Needs one manual Slack invite | The bot user is `openclaw`. Invite it once in `#04-aoh-ops` so Slack can deliver messages and the bot can post replies. |
+| `#04-aoh-ops` bot membership | Done | Manager is in `#04-aoh-ops` and can post replies. |
 
 ## Slack Channels
 
@@ -147,11 +148,21 @@ SLACK_MISSION_CONTROL_WEBHOOK_URL=...
 
 ## How This Should Work In Slack
 
-1. Manager posts the daily brief in the Mission Control channel.
-2. Mike replies with a command such as `approve relay import only` or `GHL Expert, check Reach readiness`.
-3. Slack sends the message to `/api/agent/slack`.
-4. The command center answers with status, blockers, or the exact next command.
-5. Live GHL execution only happens after the separate live-action guard is intentionally opened.
+Fast path:
+
+1. Mike types a slash command such as `/manager what is status of Reach Cold Email Campaign`.
+2. Slack sends the command to `/api/agent/slack`.
+3. The command center answers immediately when the work is quick.
+4. For slower checks, Slack gets an acknowledgement first and a follow-up result after the check finishes.
+
+Plain-message path:
+
+1. Mike types a channel message such as `manager what is status of Reach Cold Email Campaign`.
+2. Slack Events sends the message to `/api/agent/slack`.
+3. The command center answers in the channel.
+4. If Slack Events is not delivering, the Vercel Cron fallback catches the message within about one minute.
+
+Live GHL execution only happens after the separate live-action guard is intentionally opened.
 
 ## One-Time Slack Step For Mike
 
@@ -203,11 +214,24 @@ Required environment variables:
 
 Slack app configuration:
 
+- Add a slash command:
+  - Command: `/manager`
+  - Request URL: `https://aioutsourcehub.com/api/agent/slack`
+  - Short description: `Talk to the AOH Manager and agent team`
+  - Usage hint: `what is status of Reach Cold Email Campaign`
 - Set the Events API Request URL to `https://aioutsourcehub.com/api/agent/slack`.
-- Subscribe to channel message events for `#04-aoh-ops` if Mike wants to type plain `Manager, ...` messages.
+- Subscribe to bot message events:
+  - `message.channels`
+  - `message.groups` if private channels are used
 - Add bot scopes needed to read channel messages and post replies, such as `channels:history` and `chat:write`.
-- Invite bot user `openclaw` into `#04-aoh-ops`, or add `channels:join` / `chat:write.public` and reinstall if automatic channel access is preferred.
+- Confirm Manager is present in `#04-aoh-ops`, or invite it if a new channel is added.
 - Keep the app limited to AOH internal channels.
+
+The matching app manifest lives at:
+
+```text
+docs/client-ops-ledger/slack-app-manifest.yml
+```
 
 Fallback polling:
 
@@ -215,11 +239,15 @@ Fallback polling:
 - The route checks `CRON_SECRET`, reads recent `#04-aoh-ops` messages, and posts Manager responses for commands that do not already have a later bot reply.
 - This is a backup for Slack Event Subscription gaps. Slack Events should still be configured for instant responses.
 
-Optional slash-command style:
+Slash-command style:
 
-- Create a command such as `/manager`.
-- Point the slash command Request URL to the same endpoint.
-- Then Mike can type `/manager run Reach Cold Email Campaign`.
+```text
+/manager what is status of Reach Cold Email Campaign
+/manager run Reach Cold Email Campaign
+/manager list agents
+/manager Sales Manager, review Reach QA
+/manager GHL Expert, check Reach readiness
+```
 
 ## Reach Cold Email Campaign Default
 
