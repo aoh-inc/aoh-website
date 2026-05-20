@@ -119,6 +119,7 @@ Wired locally today:
 ```bash
 npm run agent:brief
 npm run agent:command -- --command "Manager, status"
+npm run agent:command -- --command "Manager, run Reach Cold Email Campaign"
 npm run agent:command -- --command "GHL Expert, check Reach readiness"
 npm run agent:command -- --command "Sales Manager, review Reach QA"
 ```
@@ -126,5 +127,7 @@ npm run agent:command -- --command "Sales Manager, review Reach QA"
 Slack posting is env-gated through `SLACK_MISSION_CONTROL_WEBHOOK_URL` or `SLACK_WEBHOOK_URL`.
 
 Default command channel: `#04-aoh-ops`.
+
+Default daily campaign command: `Manager, run Reach Cold Email Campaign`.
 
 The command center will not import contacts or start a drip unless a separate live execution guard is intentionally opened.

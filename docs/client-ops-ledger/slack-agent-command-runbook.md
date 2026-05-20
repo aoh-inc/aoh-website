@@ -11,6 +11,7 @@ Slack is the human command surface. Mission Control and the ledger remain the so
 | Layer | Status | Notes |
 |---|---|---|
 | Manager status brief | Wired | `npm run agent:brief` reads the current job queue, domain readiness, QA counts, and daily brief. |
+| Reach Cold Email Campaign command | Wired | `Manager, run Reach Cold Email Campaign` runs today's safe QA/readiness routine and reports approval needs. |
 | Slack-ready command router | Wired | `npm run agent:command -- --command "Manager, status"` returns the same kind of message a Slack bot should post. |
 | GHL Expert readiness command | Wired | `GHL Expert, check Reach readiness` runs the read-only GHL checker. |
 | Sales Manager QA command | Wired | `Sales Manager, review Reach QA` summarizes current QA risk counts. |
@@ -34,6 +35,7 @@ Mike should be able to talk in plain text.
 
 ```text
 Manager, status
+Manager, run Reach Cold Email Campaign
 Chief of Staff, brief
 GHL Expert, check Reach readiness
 Sales Manager, review Reach QA
@@ -58,6 +60,7 @@ Route a command:
 
 ```bash
 npm run agent:command -- --command "Manager, status"
+npm run agent:command -- --command "Manager, run Reach Cold Email Campaign"
 npm run agent:command -- --command "GHL Expert, check Reach readiness"
 npm run agent:command -- --command "approve relay import only"
 ```
@@ -81,6 +84,30 @@ SLACK_MISSION_CONTROL_WEBHOOK_URL=...
 3. The Slack bot or OpenClaw backend sends that text into `scripts/agent-command-center.mjs`.
 4. The command center answers with status, blockers, or the exact next command.
 5. Live GHL execution only happens after the separate live-action guard is intentionally opened.
+
+## Reach Cold Email Campaign Default
+
+Mike does not need to name a batch for the normal daily run.
+
+This command:
+
+```text
+Manager, run Reach Cold Email Campaign
+```
+
+means:
+
+- use today's active prepared Reach jobs
+- check all current lanes
+- summarize QA risk
+- run the GHL Expert read-only readiness check
+- recommend the safest next approval
+- do not import contacts
+- do not start drip
+- do not change GHL settings
+- do not enable or toggle HighLevel AI features
+
+Use batch names only when Mike explicitly wants a historical or special run.
 
 ## Live Action Guard
 

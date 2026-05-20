@@ -76,6 +76,10 @@ function routeCommand(command, args) {
     return buildApprovalResponse(approval, args);
   }
 
+  if (mentionsReachColdEmailCampaign(normalized)) {
+    return buildReachColdEmailCampaignResponse();
+  }
+
   if (mentionsGhlReadiness(normalized)) {
     return buildGhlCheckResponse();
   }
@@ -101,6 +105,7 @@ ${command}
 Supported commands:
 
 - \`Manager, status\`
+- \`Manager, run Reach Cold Email Campaign\`
 - \`Chief of Staff, brief\`
 - \`GHL Expert, check Reach readiness\`
 - \`Sales Manager, review Reach QA\`
@@ -150,6 +155,7 @@ Mike can say:
 
 \`\`\`text
 Manager, status
+Manager, run Reach Cold Email Campaign
 GHL Expert, check Reach readiness
 Sales Manager, review Reach QA
 approve relay import only
@@ -160,6 +166,59 @@ pause all campaign live actions
 Recommendation:
 
 ${dailySignals.recommendation || "Do not start all three live drips at once. Import only after review, and start drip only after the lane domain is ready."}
+`,
+  };
+}
+
+function buildReachColdEmailCampaignResponse() {
+  const ghlResult = runNpm(["run", "reach:ghl-check"]);
+  const data = loadData();
+  const summaries = getReachJobs(data.jobs).map((job) => laneSummary(job, data.domains));
+  const dailySignals = parseDailyBriefSignals(data.dailyBrief);
+
+  return {
+    kind: "agent-reach-cold-email-campaign",
+    text: `*Reach Cold Email Campaign - ${today()}*
+
+Manager ran today's active Reach Cold Email Campaign routine.
+
+What ran:
+
+- Sales Manager QA summary from the current verified CSVs.
+- GHL Expert read-only readiness check.
+- Manager approval gate review.
+
+GHL Expert result: ${ghlResult.ok ? "read-only API check passed" : "read-only API check failed"}
+
+Current lanes:
+
+${summaries.map(renderLaneBullet).join("\n")}
+
+What still needs approval or review:
+
+- Sales Manager must decide what to do with QA-flagged rows before live outreach.
+- GHL Expert must visually confirm sender/from domains, domain warmup status, workflow email sender nodes, and HighLevel AI toggles OFF.
+- Mike must approve import-only before contacts are imported.
+- Mike must approve start-drip separately, and only after the lane is marked \`ready_for_drip=yes\`.
+
+Recommended next approval, if Mike wants to move today:
+
+\`\`\`text
+approve relay import only
+\`\`\`
+
+Do not start drip yet.
+
+Safety:
+
+- No contacts were imported.
+- No drip was started.
+- No GHL workflows or settings were changed.
+- No HighLevel AI features were enabled or toggled.
+
+Plain-English recommendation:
+
+${dailySignals.recommendation || "Relay is the cleanest small lane right now. Use import-only first; wait on start-drip until domain readiness is confirmed."}
 `,
   };
 }
@@ -305,7 +364,7 @@ ${recorded}
 function parseApproval(normalized) {
   if (!normalized.includes("approve")) return null;
 
-  const laneKey = Object.entries(LANES).find(([, lane]) => lane.aliases.some((alias) => normalized.includes(alias)))?.[0];
+  const laneKey = Object.entries(LANES).find(([, lane]) => lane.aliases.some((alias) => containsAlias(normalized, alias)))?.[0];
   if (!laneKey) return null;
 
   if (normalized.includes("start") || normalized.includes("drip")) {
@@ -520,6 +579,19 @@ function mentionsBrief(normalized) {
   );
 }
 
+function containsAlias(normalized, alias) {
+  const escaped = alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`(^|\\s)${escaped}(\\s|$)`).test(normalized);
+}
+
+function mentionsReachColdEmailCampaign(normalized) {
+  return (
+    normalized.includes("run reach cold email campaign") ||
+    normalized.includes("start reach cold email campaign") ||
+    normalized.includes("reach cold email campaign")
+  );
+}
+
 function mentionsGhlReadiness(normalized) {
   return (
     normalized.includes("ghl") &&
@@ -653,6 +725,7 @@ Agent command center for Mission Control and Slack-ready manager replies.
 Examples:
   npm run agent:brief
   npm run agent:command -- --command "Manager, status"
+  npm run agent:command -- --command "Manager, run Reach Cold Email Campaign"
   npm run agent:command -- --command "GHL Expert, check Reach readiness"
   npm run agent:command -- --command "approve relay import only"
   npm run agent:slack
