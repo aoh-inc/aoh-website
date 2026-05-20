@@ -766,9 +766,22 @@ npm run reach:quality -- --lane ${laneKey} --csv ${sourceFile}
   const okRows = qa.okRows;
   const rowWord = heldRows.length === 1 ? "row" : "rows";
   const okWord = okRows.length === 1 ? "row" : "rows";
+  const importCompleted = String(job.status ?? "").includes("import_only_completed");
   const decision = heldRows.length
-    ? `Hold/remove the ${heldRows.length} flagged ${rowWord}. Use the ${okRows.length} OK ${okWord} for import-only after GHL visual checks clear.`
+    ? importCompleted
+      ? `Hold/remove the ${heldRows.length} flagged ${rowWord}. The ${okRows.length} OK ${okWord} were already imported/tagged import-only.`
+      : `Hold/remove the ${heldRows.length} flagged ${rowWord}. Use the ${okRows.length} OK ${okWord} for import-only after GHL visual checks clear.`
     : `All ${okRows.length} ${okWord} are OK from this QA pass.`;
+  const nextStepText = importCompleted
+    ? `Relay import-only is already complete. Do not approve import-only again. Wait for \`ready_for_drip=yes\` before any separate start-drip approval.`
+    : `Recommended next command after GHL visual sender-domain/warmup/AI-toggle review clears:
+
+\`\`\`text
+/manager approve ${laneKey} import only
+\`\`\``;
+  const importInstruction = importCompleted
+    ? "Import-only already used the QA file with OK rows only."
+    : "Import-only should use the QA file with OK rows only, not the original unfiltered verified file.";
 
   return `*Sales Manager ${lane.label} QA decision - ${today()}*
 
@@ -778,7 +791,7 @@ Decision:
 
 - ${decision}
 - Do not start drip yet.
-- Import-only should use the QA file with OK rows only, not the original unfiltered verified file.
+- ${importInstruction}
 
 OK to keep for import-only:
 
@@ -788,17 +801,13 @@ Hold/remove before live outreach:
 
 ${formatQaRows(heldRows)}
 
-Recommended next command after GHL visual sender-domain/warmup/AI-toggle review clears:
-
-\`\`\`text
-/manager approve ${laneKey} import only
-\`\`\`
+${nextStepText}
 
 Safety:
 
 - Personal-email and duplicate-business rows stay out of the import path.
 - This does not approve start-drip.
-- No contacts, tags, workflows, settings, or HighLevel AI features were changed.`;
+- ${importCompleted ? "The earlier import-only step imported/tagged the OK rows. This QA check changed nothing." : "No contacts, tags, workflows, settings, or HighLevel AI features were changed."}`;
 }
 
 function buildApprovalResponse(
