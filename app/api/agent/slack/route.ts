@@ -15,6 +15,27 @@ const GHL_API_VERSION = "2021-07-28";
 type CsvRow = Record<string, string>;
 
 type LaneKey = "reviews" | "ai" | "relay";
+type AgentKey =
+  | "chief-of-staff"
+  | "general-manager"
+  | "scheduler"
+  | "systems-director"
+  | "ghl-expert"
+  | "sales-manager"
+  | "scout"
+  | "sender"
+  | "sorter"
+  | "booker"
+  | "engagement-scout"
+  | "client-success-manager"
+  | "hub"
+  | "reporter"
+  | "local-visibility-manager"
+  | "reviews-manager"
+  | "relay-manager"
+  | "coach"
+  | "editor"
+  | "press";
 
 const LANES: Record<
   LaneKey,
@@ -46,6 +67,206 @@ const LANES: Record<
     pipeline: "Reach - Relay",
     coldWorkflow: "Relay - Pilot Drip",
     replyWorkflow: "Campaign Reply - Relay Send",
+  },
+};
+
+const AGENTS: Record<
+  AgentKey,
+  {
+    title: string;
+    persona: string;
+    aliases: string[];
+    reportsTo: string;
+    job: string;
+    canDo: string[];
+    nextStep: string;
+    safety?: string;
+  }
+> = {
+  "chief-of-staff": {
+    title: "Chief of Staff",
+    persona: "Indra Nooyi",
+    aliases: ["chief of staff", "cos", "indra"],
+    reportsTo: "President",
+    job: "Turns noisy agent findings into a clean approval queue for Mike.",
+    canDo: ["prepare the daily brief", "summarize blockers", "turn recommendations into approval asks"],
+    nextStep: "Ask: `Chief of Staff, brief` or `Chief of Staff, what needs Mike today`.",
+  },
+  "general-manager": {
+    title: "General Manager",
+    persona: "Elon Musk",
+    aliases: ["general manager", "manager", "gm", "elon"],
+    reportsTo: "Chief of Staff",
+    job: "Runs the agent company day to day, assigns owners, tracks blockers, and escalates to Mike.",
+    canDo: ["run Reach Cold Email Campaign", "route work to agents", "show status", "explain blockers"],
+    nextStep: "Ask: `Manager, run Reach Cold Email Campaign` or `Manager, status`.",
+  },
+  scheduler: {
+    title: "Scheduler",
+    persona: "Tim Ferriss",
+    aliases: ["scheduler", "tim ferriss", "tim"],
+    reportsTo: "Chief of Staff",
+    job: "Protects calendars, booking availability, reminders, and meeting context.",
+    canDo: ["check calendar readiness", "prepare meeting context", "watch booking handoffs"],
+    nextStep: "Ask: `Scheduler, what meetings or booking issues need attention`.",
+  },
+  "systems-director": {
+    title: "Systems Director",
+    persona: "Bill Gates",
+    aliases: ["systems director", "system director", "systems", "bill gates", "bill"],
+    reportsTo: "General Manager",
+    job: "Owns IT, security, access, backups, costs, and cross-agent risk.",
+    canDo: ["check tool/access risk", "explain model cost routing", "review live-action safety"],
+    nextStep: "Ask: `Systems Director, check risks before this campaign`.",
+    safety: "Will not approve billing/tool changes without Mike approval.",
+  },
+  "ghl-expert": {
+    title: "GHL Expert",
+    persona: "Paul Allen",
+    aliases: ["ghl expert", "ghl", "paul allen", "paul"],
+    reportsTo: "Systems Director",
+    job: "Owns hub360ai/GHL workflows, pipelines, tags, callbacks, reports, and automation health.",
+    canDo: ["run read-only Reach readiness", "verify pipelines/workflows", "explain GHL blockers"],
+    nextStep: "Ask: `GHL Expert, check Reach readiness`.",
+    safety: "Will not change GHL workflows, import contacts, start drips, or enable HighLevel AI without approval.",
+  },
+  "sales-manager": {
+    title: "Sales Manager",
+    persona: "Gary Vaynerchuk",
+    aliases: ["sales manager", "sales", "gary v", "gary"],
+    reportsTo: "General Manager",
+    job: "Owns campaign strategy, pipeline quality, reply follow-up, and booked-call handoffs.",
+    canDo: ["review Reach QA", "recommend lane priority", "call out list quality risk"],
+    nextStep: "Ask: `Sales Manager, review Reach QA`.",
+  },
+  scout: {
+    title: "Scout",
+    persona: "TBD",
+    aliases: ["scout"],
+    reportsTo: "Sales Manager",
+    job: "Finds prospects, weak profiles, review gaps, niche signals, and cheap prefilter evidence.",
+    canDo: ["suggest prospect niches", "explain fit signals", "flag list quality issues"],
+    nextStep: "Ask: `Scout, what prospect lane should we test next`.",
+  },
+  sender: {
+    title: "Sender",
+    persona: "TBD",
+    aliases: ["sender"],
+    reportsTo: "Sales Manager",
+    job: "Prepares outreach, watches deliverability, validates merge fields, and keeps campaigns reply-first.",
+    canDo: ["explain import/start commands", "check send-lane guardrails", "prepare campaign send plan"],
+    nextStep: "Ask: `Sender, prepare the next import-only plan`.",
+    safety: "Will not import or start drip from Slack by default.",
+  },
+  sorter: {
+    title: "Sorter",
+    persona: "TBD",
+    aliases: ["sorter"],
+    reportsTo: "Sales Manager",
+    job: "Classifies replies, catches hot leads, handles opt-outs, and routes unclear messages.",
+    canDo: ["explain reply categories", "route interested/opt-out/unclear replies", "summarize reply risk"],
+    nextStep: "Ask: `Sorter, how should we classify this reply: ...`.",
+  },
+  booker: {
+    title: "Booker",
+    persona: "TBD",
+    aliases: ["booker"],
+    reportsTo: "Sales Manager",
+    job: "Turns buying intent into booked calls and clean meeting handoffs.",
+    canDo: ["recommend booking handoff", "prepare call context", "route book-intent replies"],
+    nextStep: "Ask: `Booker, prepare a handoff for this interested lead`.",
+  },
+  "engagement-scout": {
+    title: "Engagement Scout",
+    persona: "TBD",
+    aliases: ["engagement scout", "engagement"],
+    reportsTo: "Sales Manager",
+    job: "Finds social conversations worth entering and drafts comments or DM suggestions.",
+    canDo: ["suggest engagement opportunities", "draft comment ideas", "flag social follow-ups"],
+    nextStep: "Ask: `Engagement Scout, what social conversations are worth entering`.",
+    safety: "Will draft only; no public posting or DMs without approval.",
+  },
+  "client-success-manager": {
+    title: "Client Success Manager",
+    persona: "TBD",
+    aliases: ["client success manager", "client success", "csm"],
+    reportsTo: "General Manager",
+    job: "Owns onboarding health, client check-ins, renewals, retention risk, and reporting cadence.",
+    canDo: ["summarize client health", "flag retention risks", "prepare client check-in priorities"],
+    nextStep: "Ask: `Client Success, what client risks need attention`.",
+  },
+  hub: {
+    title: "Hub",
+    persona: "Jarvis",
+    aliases: ["hub", "jarvis"],
+    reportsTo: "Client Success Manager",
+    job: "Answers account questions from the ledger, GHL, Drive, client notes, and delivery history.",
+    canDo: ["look up account status", "explain where records live", "summarize known client facts"],
+    nextStep: "Ask: `Hub, what do we know about this account`.",
+  },
+  reporter: {
+    title: "Reporter",
+    persona: "TBD",
+    aliases: ["reporter"],
+    reportsTo: "Client Success Manager",
+    job: "Confirms report links open, match the right contact, and tell a useful story.",
+    canDo: ["QA report delivery", "summarize report proof", "flag missing report links"],
+    nextStep: "Ask: `Reporter, verify report delivery status`.",
+  },
+  "local-visibility-manager": {
+    title: "Local Visibility Manager",
+    persona: "TBD",
+    aliases: ["local visibility manager", "local visibility", "local vis", "visibility manager"],
+    reportsTo: "Client Success Manager",
+    job: "Owns Google Business Profile access, profile health, citations, review links, and AI visibility signals.",
+    canDo: ["check visibility gaps", "summarize GBP readiness", "recommend local profile work"],
+    nextStep: "Ask: `Local Visibility Manager, what visibility gaps matter today`.",
+  },
+  "reviews-manager": {
+    title: "Reviews Manager",
+    persona: "TBD",
+    aliases: ["reviews manager", "review manager", "reviews"],
+    reportsTo: "Client Success Manager",
+    job: "Owns review automation delivery, review request health, replies, and review-volume warnings.",
+    canDo: ["summarize review health", "flag review automation risk", "recommend review next actions"],
+    nextStep: "Ask: `Reviews Manager, check review automation health`.",
+  },
+  "relay-manager": {
+    title: "Relay Manager",
+    persona: "Oprah",
+    aliases: ["relay manager", "relay"],
+    reportsTo: "Client Success Manager",
+    job: "Owns voice-agent delivery, missed-call recovery, call summaries, routing quality, and escalation issues.",
+    canDo: ["summarize call/voice-agent readiness", "flag missed-call risks", "recommend Relay follow-ups"],
+    nextStep: "Ask: `Relay Manager, check Relay readiness`.",
+  },
+  coach: {
+    title: "Coach",
+    persona: "Dale Carnegie",
+    aliases: ["coach", "dale carnegie", "dale"],
+    reportsTo: "General Manager",
+    job: "Keeps product truth, SOPs, sales language, client instructions, and response drafts aligned.",
+    canDo: ["review wording", "draft client-safe responses", "explain product truth"],
+    nextStep: "Ask: `Coach, review this copy: ...`.",
+  },
+  editor: {
+    title: "Editor",
+    persona: "James Patterson",
+    aliases: ["editor", "james patterson", "james"],
+    reportsTo: "General Manager",
+    job: "Chooses angles, priorities, brand voice, and what content is worth making.",
+    canDo: ["choose content angles", "review messaging", "prioritize ideas"],
+    nextStep: "Ask: `Editor, what angle should this content take`.",
+  },
+  press: {
+    title: "Press",
+    persona: "Ted Turner",
+    aliases: ["press", "ted turner", "ted"],
+    reportsTo: "General Manager",
+    job: "Publishes approved content and records proof that it went out correctly.",
+    canDo: ["prepare publish checklist", "summarize publish proof", "flag content scheduling needs"],
+    nextStep: "Ask: `Press, what is ready to publish`.",
+    safety: "Will not publish public content without approval.",
   },
 };
 
@@ -109,7 +330,7 @@ async function handleJsonEvent(req: NextRequest, rawBody: string) {
 async function handleSlashLikeCommand(rawBody: string) {
   const params = new URLSearchParams(rawBody);
   const commandText = params.get("text")?.trim() || "Manager, status";
-  const text = commandText.match(/^(manager|general manager|chief of staff|ghl expert|sales manager|approve|pause)\b/i)
+  const text = startsWithKnownAgent(commandText) || commandText.match(/^(approve|pause)\b/i)
     ? commandText
     : `Manager, ${commandText}`;
 
@@ -138,6 +359,7 @@ All campaign live actions are blocked.
   if (approval) return buildApprovalResponse(approval);
 
   if (mentionsReachColdEmailCampaign(normalized)) return buildReachColdEmailCampaignResponse();
+  if (mentionsAgentList(normalized)) return buildAgentListResponse();
 
   if (mentionsGhlReadiness(normalized)) {
     const result = await runGhlReadinessCheck();
@@ -147,6 +369,14 @@ ${buildManagerStatus()}`;
   }
 
   if (mentionsQaReview(normalized)) return buildQaResponse();
+
+  const addressedAgent = findAddressedAgent(normalized);
+  if (addressedAgent) {
+    if (addressedAgent === "general-manager" && mentionsBrief(normalized)) return buildManagerStatus();
+    if (addressedAgent === "chief-of-staff" && mentionsBrief(normalized)) return buildManagerStatus();
+    return buildAgentRoleResponse(addressedAgent);
+  }
+
   if (mentionsBrief(normalized)) return buildManagerStatus();
 
   return `*Manager command not recognized - ${today()}*
@@ -156,6 +386,9 @@ Supported examples:
 \`\`\`text
 Manager, status
 Manager, run Reach Cold Email Campaign
+Manager, list agents
+Coach, review this copy: ...
+Scheduler, what needs attention
 GHL Expert, check Reach readiness
 Sales Manager, review Reach QA
 approve relay import only
@@ -230,12 +463,70 @@ ${summaries.map(renderLaneBullet).join("\n")}
 Mike can say:
 
 \`\`\`text
+Manager, list agents
 Manager, run Reach Cold Email Campaign
 GHL Expert, check Reach readiness
 Sales Manager, review Reach QA
 approve relay import only
 pause all campaign live actions
 \`\`\``;
+}
+
+function buildAgentListResponse() {
+  const groups = [
+    ["Executive Office", ["chief-of-staff", "scheduler"]],
+    ["Company Operations", ["general-manager", "coach"]],
+    ["Systems and IT", ["systems-director", "ghl-expert"]],
+    ["Sales", ["sales-manager", "scout", "sender", "sorter", "booker", "engagement-scout"]],
+    ["Client Success", ["client-success-manager", "hub", "reporter"]],
+    ["Client Delivery", ["local-visibility-manager", "reviews-manager", "relay-manager"]],
+    ["Marketing", ["editor", "press"]],
+  ] as const;
+
+  return `*AOH agent directory*
+
+You can speak to any agent by starting a Slack message with their role name.
+
+${groups
+  .map(([department, keys]) => {
+    const names = keys.map((key) => AGENTS[key].title).join(", ");
+    return `- ${department}: ${names}`;
+  })
+  .join("\n")}
+
+Examples:
+
+\`\`\`text
+General Manager, run Reach Cold Email Campaign
+Chief of Staff, brief
+GHL Expert, check Reach readiness
+Sales Manager, review Reach QA
+Coach, review this copy
+Reporter, verify report delivery status
+Press, what is ready to publish
+\`\`\`
+
+Safety remains the same: agents can recommend and prepare, but they do not import contacts, start drips, publish, DM, or enable HighLevel AI without approval.`;
+}
+
+function buildAgentRoleResponse(agentKey: AgentKey) {
+  const agent = AGENTS[agentKey];
+  return `*${agent.title} - ${agent.persona}*
+
+Reports to: ${agent.reportsTo}
+
+Job:
+${agent.job}
+
+I can help with:
+${agent.canDo.map((item) => `- ${item}`).join("\n")}
+
+Best next command:
+\`\`\`text
+${agent.nextStep.replace(/^Ask: `|`\.$/g, "")}
+\`\`\`
+
+${agent.safety ? `Safety:\n${agent.safety}` : "Safety:\nI can recommend and prepare. Risky or client-facing action still needs approval."}`;
 }
 
 function buildQaResponse() {
@@ -425,9 +716,11 @@ function isSupportedCommand(text: string) {
   const normalized = normalizeCommand(text);
   return (
     mentionsReachColdEmailCampaign(normalized) ||
+    mentionsAgentList(normalized) ||
     mentionsBrief(normalized) ||
     mentionsGhlReadiness(normalized) ||
     mentionsQaReview(normalized) ||
+    Boolean(findAddressedAgent(normalized)) ||
     normalized.includes("approve") ||
     normalized.includes("pause all campaign live actions")
   );
@@ -567,6 +860,15 @@ function mentionsBrief(normalized: string) {
   return normalized.includes("manager status") || normalized.includes("status") || normalized.includes("chief of staff brief") || normalized.includes("brief");
 }
 
+function mentionsAgentList(normalized: string) {
+  return (
+    normalized.includes("list agents") ||
+    normalized.includes("show agents") ||
+    normalized.includes("agent directory") ||
+    normalized.includes("who can i talk to")
+  );
+}
+
 function mentionsReachColdEmailCampaign(normalized: string) {
   return normalized.includes("run reach cold email campaign") || normalized.includes("start reach cold email campaign") || normalized.includes("reach cold email campaign");
 }
@@ -581,6 +883,24 @@ function mentionsQaReview(normalized: string) {
 
 function normalizeCommand(command: string) {
   return command.toLowerCase().replace(/[.,:;|]/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function startsWithKnownAgent(text: string) {
+  const normalized = normalizeCommand(text);
+  return Boolean(findAddressedAgent(normalized));
+}
+
+function findAddressedAgent(normalized: string): AgentKey | null {
+  const entries = Object.entries(AGENTS) as Array<[AgentKey, (typeof AGENTS)[AgentKey]]>;
+  const sorted = entries
+    .flatMap(([key, agent]) => agent.aliases.map((alias) => ({ key, alias })))
+    .sort((a, b) => b.alias.length - a.alias.length);
+  return sorted.find(({ alias }) => containsAliasAtStart(normalized, alias))?.key ?? null;
+}
+
+function containsAliasAtStart(normalized: string, alias: string) {
+  const escaped = alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`^${escaped}(\\s|$)`).test(normalized);
 }
 
 function containsAlias(normalized: string, alias: string) {

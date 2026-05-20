@@ -326,6 +326,7 @@ HighLevel AI features must remain OFF unless Mike explicitly authorizes them man
 - [ ] Create job lifecycle statuses.
 - [x] Add local Slack-ready approval commands through `scripts/agent-command-center.mjs`.
 - [x] Add `/api/agent/slack` as the Slack HTTP listener endpoint.
+- [x] Add direct Slack addressing for all org-chart agents.
 - [ ] Configure Slack app Event Subscription URL, signing secret, and bot token so the listener can answer without Codex bridging.
 - [ ] Convert approved recommendations into jobs.
 - [ ] Write completed jobs back to Client Ops Ledger and client profile notes.

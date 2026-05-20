@@ -12,6 +12,8 @@ Slack is the human command surface. Mission Control and the ledger remain the so
 |---|---|---|
 | Manager status brief | Wired | `npm run agent:brief` reads the current job queue, domain readiness, QA counts, and daily brief. |
 | Reach Cold Email Campaign command | Wired | `Manager, run Reach Cold Email Campaign` runs today's safe QA/readiness routine and reports approval needs. |
+| Agent directory | Wired | `Manager, list agents` shows the agent team and example commands. |
+| Direct agent addressing | Wired | Mike can address agents by role, such as `Coach, ...`, `Scheduler, ...`, `Reporter, ...`, or `Press, ...`. |
 | Slack-ready command router | Wired | `npm run agent:command -- --command "Manager, status"` returns the same kind of message a Slack bot should post. |
 | GHL Expert readiness command | Wired | `GHL Expert, check Reach readiness` runs the read-only GHL checker. |
 | Sales Manager QA command | Wired | `Sales Manager, review Reach QA` summarizes current QA risk counts. |
@@ -35,10 +37,15 @@ Mike should be able to talk in plain text.
 
 ```text
 Manager, status
+Manager, list agents
 Manager, run Reach Cold Email Campaign
 Chief of Staff, brief
 GHL Expert, check Reach readiness
 Sales Manager, review Reach QA
+Coach, review this copy
+Scheduler, what needs attention
+Reporter, verify report delivery status
+Press, what is ready to publish
 approve reviews import only
 approve ai import only
 approve relay import only
@@ -139,6 +146,37 @@ means:
 - do not enable or toggle HighLevel AI features
 
 Use batch names only when Mike explicitly wants a historical or special run.
+
+## Talking To Any Agent
+
+Mike should be able to speak to any agent in the org chart by starting the Slack message with the role name.
+
+Examples:
+
+```text
+Chief of Staff, what needs Mike today?
+General Manager, run Reach Cold Email Campaign
+Systems Director, check risks before this campaign
+GHL Expert, check Reach readiness
+Sales Manager, review Reach QA
+Scout, what prospect lane should we test next?
+Sender, prepare the next import-only plan
+Sorter, how should we classify this reply?
+Booker, prepare a handoff for this interested lead
+Engagement Scout, what social conversations are worth entering?
+Client Success, what client risks need attention?
+Hub, what do we know about this account?
+Reporter, verify report delivery status
+Local Visibility Manager, what visibility gaps matter today?
+Reviews Manager, check review automation health
+Relay Manager, check Relay readiness
+Coach, review this copy
+Editor, what angle should this content take?
+Press, what is ready to publish?
+Scheduler, what meetings or booking issues need attention?
+```
+
+The first response from agents is intentionally conservative: they identify their job, what they can help with, and the safest next command. Deeper tool actions should be added role by role as each agent gets a verified workflow.
 
 ## Live Action Guard
 

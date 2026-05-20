@@ -119,6 +119,7 @@ Wired locally today:
 ```bash
 npm run agent:brief
 npm run agent:command -- --command "Manager, status"
+npm run agent:command -- --command "Manager, list agents"
 npm run agent:command -- --command "Manager, run Reach Cold Email Campaign"
 npm run agent:command -- --command "GHL Expert, check Reach readiness"
 npm run agent:command -- --command "Sales Manager, review Reach QA"
@@ -131,5 +132,7 @@ Default command channel: `#04-aoh-ops`.
 Default daily campaign command: `Manager, run Reach Cold Email Campaign`.
 
 Slack HTTP listener endpoint: `/api/agent/slack`.
+
+Direct agent addressing is now expected in Slack, for example `Coach, review this copy` or `Reporter, verify report delivery status`.
 
 The command center will not import contacts or start a drip unless a separate live execution guard is intentionally opened.
