@@ -184,6 +184,17 @@ function buildBriefResult() {
   const waiting = reachJobs.filter((job) => String(job.status ?? "").startsWith("waiting")).length;
   const webhookReady = Boolean(getSlackWebhook());
   const dailySignals = parseDailyBriefSignals(data.dailyBrief);
+  const relayImportCompleted = summaries.some(
+    (summary) => summary.laneKey === "relay" && String(summary.status).includes("import_only_completed"),
+  );
+  const nextCommands = [
+    "Manager, status",
+    "Manager, run Reach Cold Email Campaign",
+    "GHL Expert, check Reach readiness",
+    "Sales Manager, review Reach QA",
+    ...(relayImportCompleted ? [] : ["approve relay import only"]),
+    "pause all campaign live actions",
+  ];
 
   return {
     kind: "agent-manager-brief",
@@ -211,13 +222,7 @@ Agent gates before live action:
 Mike can say:
 
 \`\`\`text
-Manager, status
-Manager, run Reach Cold Email Campaign
-GHL Expert, check Reach readiness
-Sales Manager, review Reach QA
-approve relay import only
-approve relay start drip
-pause all campaign live actions
+${nextCommands.join("\n")}
 \`\`\`
 
 Recommendation:
@@ -256,6 +261,16 @@ function buildReachDecisionResponse() {
   const importReady = summaries.filter((summary) => String(summary.importReady).toLowerCase() === "yes").length;
   const dripReady = summaries.filter((summary) => String(summary.dripReady).toLowerCase() === "yes").length;
   const dailySignals = parseDailyBriefSignals(data.dailyBrief);
+  const relayImportCompleted = summaries.some(
+    (summary) => summary.laneKey === "relay" && String(summary.status).includes("import_only_completed"),
+  );
+  const nextCommands = relayImportCompleted
+    ? ["Manager, status", "Manager, GHL Expert, check Reach readiness fresh"]
+    : [
+        "Manager, Sales Manager, review Reach QA",
+        "Manager, GHL Expert, check Reach readiness fresh",
+        "Manager, approve relay import only",
+      ];
 
   return {
     kind: "reach-decision",
@@ -280,9 +295,7 @@ Current best move:
 Recommended next commands:
 
 \`\`\`text
-Manager, Sales Manager, review Reach QA
-Manager, GHL Expert, check Reach readiness fresh
-Manager, approve relay import only
+${nextCommands.join("\n")}
 \`\`\`
 
 Do not approve start-drip yet.
@@ -468,7 +481,7 @@ Review focus:
 ${summaries
   .map(
     (summary) =>
-      `- ${summary.label}: ${summary.verifiedText} verified, ${summary.qaText}; source \`${summary.sourceFile || "missing"}\``,
+      `- ${summary.label}: ${summary.volumeText}, ${summary.qaText}; source \`${summary.sourceFile || "missing"}\``,
   )
   .join("\n")}
 
@@ -807,6 +820,9 @@ function laneSummary(job, domains) {
     ? `${qa.review} QA review flag${qa.review === 1 ? "" : "s"} / ${qa.ok} OK`
     : "QA file not found locally";
   const verifiedText = String(verifiedCount || verifiedFallback || "unknown");
+  const volumeText = sourceFile.includes("-qa.csv")
+    ? `${verifiedText} QA row${verifiedText === "1" ? "" : "s"}`
+    : `${verifiedText} verified`;
 
   return {
     laneKey,
@@ -816,6 +832,7 @@ function laneSummary(job, domains) {
     nextAction: String(job.next_action ?? ""),
     sourceFile,
     verifiedText,
+    volumeText,
     qaText,
     domain: String(domain.dedicated_subdomain ?? "TBD"),
     importReady: String(domain.ready_for_import ?? "unknown"),
@@ -824,7 +841,7 @@ function laneSummary(job, domains) {
 }
 
 function renderLaneBullet(summary) {
-  return `- ${summary.label}: ${summary.verifiedText} verified, ${summary.qaText}; status \`${summary.status}\`; import ${summary.importReady}; drip ${summary.dripReady}; domain \`${summary.domain}\``;
+  return `- ${summary.label}: ${summary.volumeText}, ${summary.qaText}; status \`${summary.status}\`; import ${summary.importReady}; drip ${summary.dripReady}; domain \`${summary.domain}\``;
 }
 
 function readQaSummary(sourceFile) {

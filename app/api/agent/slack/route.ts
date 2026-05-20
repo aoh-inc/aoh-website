@@ -508,6 +508,17 @@ ${recommendation}`;
 function buildManagerStatus(actor = buildUserContext()) {
   const summaries = laneSummaries();
   const waiting = reachJobs().filter((job) => String(job.status ?? "").startsWith("waiting")).length;
+  const relayImportCompleted = summaries.some(
+    (summary) => summary.laneKey === "relay" && summary.status.includes("import_only_completed"),
+  );
+  const nextCommands = [
+    "Manager, list agents",
+    "Manager, run Reach Cold Email Campaign",
+    "GHL Expert, check Reach readiness",
+    "Sales Manager, review Reach QA",
+    ...(relayImportCompleted ? [] : ["approve relay import only"]),
+    "pause all campaign live actions",
+  ];
 
   return `*Manager status - ${today()}*
 
@@ -526,12 +537,7 @@ ${summaries.map(renderLaneBullet).join("\n")}
 Mike can say:
 
 \`\`\`text
-Manager, list agents
-Manager, run Reach Cold Email Campaign
-GHL Expert, check Reach readiness
-Sales Manager, review Reach QA
-approve relay import only
-pause all campaign live actions
+${nextCommands.join("\n")}
 \`\`\``;
 }
 
@@ -569,6 +575,16 @@ function buildReachDecisionResponse(actor: UserContext) {
   const dripReady = summaries.filter((summary) => String(summary.dripReady).toLowerCase() === "yes").length;
   const importReady = summaries.filter((summary) => String(summary.importReady).toLowerCase() === "yes").length;
   const recommendation = readRecommendation();
+  const relayImportCompleted = summaries.some(
+    (summary) => summary.laneKey === "relay" && summary.status.includes("import_only_completed"),
+  );
+  const nextCommands = relayImportCompleted
+    ? ["/manager status", "/manager GHL Expert, check Reach readiness fresh"]
+    : [
+        "/manager Sales Manager, review Reach QA",
+        "/manager GHL Expert, check Reach readiness fresh",
+        "/manager approve relay import only",
+      ];
 
   return `*Manager plain-English readout - ${today()}*
 
@@ -591,9 +607,7 @@ Current best move:
 Recommended next commands:
 
 \`\`\`text
-/manager Sales Manager, review Reach QA
-/manager GHL Expert, check Reach readiness fresh
-/manager approve relay import only
+${nextCommands.join("\n")}
 \`\`\`
 
 Do not approve start-drip yet.
@@ -699,7 +713,7 @@ ${address(actor)}, here is the current list-quality review.
 Review focus:
 
 ${laneSummaries()
-  .map((summary) => `- ${summary.label}: ${summary.verified} verified, ${summary.qaText}; source \`${summary.sourceFile}\``)
+  .map((summary) => `- ${summary.label}: ${summary.volumeText}, ${summary.qaText}; source \`${summary.sourceFile}\``)
   .join("\n")}
 
 Decision rule:
@@ -1311,21 +1325,36 @@ function laneSummaries() {
     const laneKey = (job.campaign_lane?.toLowerCase() || "reviews") as LaneKey;
     const lane = LANES[laneKey] ?? LANES.reviews;
     const domain = domains.find((item) => item.lane?.toLowerCase() === laneKey) ?? {};
+    const sourceFile = job.source_file || "";
+    const qa = readQaDetails(sourceFile);
+    const rowCount = sourceFile ? readCsv(sourceFile).length : 0;
+    const verifiedFallback = extractVerifiedCount(job.notes);
+    const volumeText = qa
+      ? `${rowCount || qa.rows.length} QA row${rowCount === 1 ? "" : "s"}`
+      : rowCount
+        ? `${rowCount} verified`
+        : verifiedFallback
+          ? `${verifiedFallback} verified`
+          : "unknown volume";
+    const qaText = qa
+      ? `${qa.reviewRows.length} QA review flag${qa.reviewRows.length === 1 ? "" : "s"} / ${qa.okRows.length} OK`
+      : readQaText(lane.label);
     return {
+      laneKey,
       label: lane.label,
-      verified: extractVerifiedCount(job.notes) || "unknown",
-      qaText: readQaText(lane.label),
+      volumeText,
+      qaText,
       status: job.status || "unknown",
       importReady: domain.ready_for_import || "unknown",
       dripReady: domain.ready_for_drip || "unknown",
       domain: domain.dedicated_subdomain || "TBD",
-      sourceFile: job.source_file || "missing",
+      sourceFile: sourceFile || "missing",
     };
   });
 }
 
 function renderLaneBullet(summary: ReturnType<typeof laneSummaries>[number]) {
-  return `- ${summary.label}: ${summary.verified} verified, ${summary.qaText}; status \`${summary.status}\`; import ${summary.importReady}; drip ${summary.dripReady}; domain \`${summary.domain}\``;
+  return `- ${summary.label}: ${summary.volumeText}, ${summary.qaText}; status \`${summary.status}\`; import ${summary.importReady}; drip ${summary.dripReady}; domain \`${summary.domain}\``;
 }
 
 function reachJobs() {
