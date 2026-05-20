@@ -76,6 +76,10 @@ function routeCommand(command, args) {
     return buildApprovalResponse(approval, args);
   }
 
+  if (mentionsGenericCampaignDeploy(normalized)) {
+    return buildCampaignClarificationResponse();
+  }
+
   if (mentionsReachCampaignStatus(normalized)) {
     return buildReachCampaignStatusResponse();
   }
@@ -210,6 +214,27 @@ Recommendation:
 
 ${dailySignals.recommendation || "Do not start all three live drips at once. Import only after review, and start drip only after the lane domain is ready."}
 `,
+  };
+}
+
+function buildCampaignClarificationResponse() {
+  return {
+    kind: "campaign-clarification",
+    text: `*Manager campaign check - ${today()}*
+
+Which campaign should I prepare?
+
+Current campaign I can run through the team gates:
+
+- Reach Cold Email Campaign
+
+Use this exact command:
+
+\`\`\`text
+Manager, deploy Reach Cold Email Campaign
+\`\`\`
+
+I will run Manager, Sales Manager QA, and GHL Expert readiness first. I will not import contacts, start drip, change GHL settings, or enable HighLevel AI without separate approval.`,
   };
 }
 
@@ -673,8 +698,8 @@ function mentionsReachColdEmailCampaign(normalized) {
     normalized.includes("start reach cold email campaign") ||
     normalized.includes("deploy reach cold email campaign") ||
     normalized.includes("deploy cold email campaign") ||
-    normalized.includes("deploy campaign") ||
-    normalized.includes("launch campaign") ||
+    normalized.includes("launch reach cold email campaign") ||
+    normalized.includes("launch cold email campaign") ||
     normalized.includes("reach cold email campaign")
   );
 }
@@ -685,6 +710,11 @@ function mentionsReachCampaignStatus(normalized) {
     mentionsBrief(normalized) &&
     !/\b(run|start|deploy|launch|execute|fresh|live|recheck|rerun)\b/.test(normalized)
   );
+}
+
+function mentionsGenericCampaignDeploy(normalized) {
+  if (mentionsReachColdEmailCampaign(normalized)) return false;
+  return /\b(run|start|deploy|launch)\s+(the\s+|a\s+)?campaign\b/.test(normalized);
 }
 
 function mentionsGhlReadiness(normalized) {

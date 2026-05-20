@@ -405,6 +405,8 @@ ${address(actor)}, all campaign live actions are blocked.
   const approval = parseApproval(normalized);
   if (approval) return buildApprovalResponse(approval, actor);
 
+  if (mentionsGenericCampaignDeploy(normalized)) return buildCampaignClarificationResponse(actor);
+
   if (mentionsReachCampaignStatus(normalized)) return buildReachCampaignStatusResponse(actor);
 
   if (mentionsReachColdEmailCampaign(normalized)) {
@@ -551,6 +553,24 @@ Sales Manager, review Reach QA
 GHL Expert, check Reach readiness
 Manager, run Reach Cold Email Campaign
 \`\`\``;
+}
+
+function buildCampaignClarificationResponse(actor: UserContext) {
+  return `*Manager campaign check - ${today()}*
+
+${address(actor)}, which campaign should I prepare?
+
+Current campaign I can run through the team gates:
+
+- Reach Cold Email Campaign
+
+Use this exact command:
+
+\`\`\`text
+/manager deploy Reach Cold Email Campaign
+\`\`\`
+
+I will run Manager, Sales Manager QA, and GHL Expert readiness first. I will not import contacts, start drip, change GHL settings, or enable HighLevel AI without separate approval.`;
 }
 
 function buildAgentListResponse(actor: UserContext) {
@@ -1012,6 +1032,7 @@ function allowedChannels() {
 function isSupportedCommand(text: string) {
   const normalized = normalizeCommand(text);
   return (
+    mentionsGenericCampaignDeploy(normalized) ||
     mentionsReachColdEmailCampaign(normalized) ||
     mentionsAgentList(normalized) ||
     mentionsBrief(normalized) ||
@@ -1026,6 +1047,7 @@ function isSupportedCommand(text: string) {
 function shouldRunAsync(command: string) {
   const normalized = normalizeCommand(command);
   if (mentionsReachCampaignStatus(normalized)) return false;
+  if (mentionsGenericCampaignDeploy(normalized)) return false;
   return mentionsReachColdEmailCampaign(normalized) || mentionsGhlReadiness(normalized);
 }
 
@@ -1178,14 +1200,19 @@ function mentionsReachColdEmailCampaign(normalized: string) {
     normalized.includes("start reach cold email campaign") ||
     normalized.includes("deploy reach cold email campaign") ||
     normalized.includes("deploy cold email campaign") ||
-    normalized.includes("deploy campaign") ||
-    normalized.includes("launch campaign") ||
+    normalized.includes("launch reach cold email campaign") ||
+    normalized.includes("launch cold email campaign") ||
     normalized.includes("reach cold email campaign")
   );
 }
 
 function mentionsReachCampaignStatus(normalized: string) {
   return mentionsReachColdEmailCampaign(normalized) && mentionsBrief(normalized) && !/\b(run|start|deploy|launch|execute|fresh|live|recheck|rerun)\b/.test(normalized);
+}
+
+function mentionsGenericCampaignDeploy(normalized: string) {
+  if (mentionsReachColdEmailCampaign(normalized)) return false;
+  return /\b(run|start|deploy|launch)\s+(the\s+|a\s+)?campaign\b/.test(normalized);
 }
 
 function mentionsGhlReadiness(normalized: string) {
