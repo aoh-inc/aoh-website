@@ -1,7 +1,7 @@
 import { createHmac, timingSafeEqual } from "node:crypto";
 import { existsSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { NextRequest, NextResponse } from "next/server";
+import { after, NextRequest, NextResponse } from "next/server";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
@@ -14,8 +14,11 @@ const GHL_API_VERSION = "2021-07-28";
 const OWNER_SLACK_USER_ID = process.env.AOH_OWNER_SLACK_USER_ID?.trim() || "U0ATPQYFA85";
 const OWNER_FIRST_NAME = process.env.AOH_OWNER_FIRST_NAME?.trim() || "Mike";
 const OWNER_FORMAL_NAME = process.env.AOH_OWNER_FORMAL_NAME?.trim() || "Mr. Egidio";
+const configuredGhlCacheTtlMs = Number(process.env.GHL_READINESS_CACHE_TTL_MS ?? 5 * 60 * 1000);
+const GHL_READINESS_CACHE_TTL_MS = Number.isFinite(configuredGhlCacheTtlMs) ? configuredGhlCacheTtlMs : 5 * 60 * 1000;
 
 type CsvRow = Record<string, string>;
+type GhlResult = { ok: boolean; lines: string[]; cacheAgeSeconds?: number };
 
 type LaneKey = "reviews" | "ai" | "relay";
 type AgentKey =
@@ -46,6 +49,8 @@ type UserContext = {
   isMike: boolean;
   tone: "first-name" | "formal";
 };
+
+let ghlReadinessCache: { fetchedAt: number; result: GhlResult } | null = null;
 
 const LANES: Record<
   LaneKey,
@@ -322,7 +327,7 @@ async function handleJsonEvent(req: NextRequest, rawBody: string) {
 
   const text = typeof event.text === "string" ? event.text.trim() : "";
   const channel = typeof event.channel === "string" ? event.channel : "";
-  const threadTs = typeof event.ts === "string" ? event.ts : undefined;
+  const threadTs = typeof event.thread_ts === "string" ? event.thread_ts : typeof event.ts === "string" ? event.ts : undefined;
   const actor = buildUserContext({
     userId: typeof event.user === "string" ? event.user : "",
     commandText: text,
@@ -335,10 +340,9 @@ async function handleJsonEvent(req: NextRequest, rawBody: string) {
     return NextResponse.json({ ok: true, ignored: "not_allowed_channel" });
   }
 
-  const response = await buildAgentResponse(text, actor);
-  await postSlackMessage({ channel, text: response, threadTs });
+  scheduleSlackEventResponse({ channel, command: text, actor, threadTs });
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, queued: true });
 }
 
 async function handleSlashLikeCommand(rawBody: string) {
@@ -353,6 +357,17 @@ async function handleSlashLikeCommand(rawBody: string) {
     fallbackName: params.get("user_name") ?? "",
     commandText: text,
   });
+  const responseUrl = params.get("response_url") ?? "";
+  const channel = params.get("channel_id") ?? "";
+
+  if (shouldRunAsync(text)) {
+    scheduleSlackFollowup({ responseUrl, channel, command: text, actor });
+    return NextResponse.json({
+      response_type: "in_channel",
+      text: buildAsyncAcknowledgement(text, actor),
+    });
+  }
+
   const response = await buildAgentResponse(text, actor);
   return NextResponse.json({
     response_type: "in_channel",
@@ -377,11 +392,13 @@ ${address(actor)}, all campaign live actions are blocked.
   const approval = parseApproval(normalized);
   if (approval) return buildApprovalResponse(approval, actor);
 
-  if (mentionsReachColdEmailCampaign(normalized)) return buildReachColdEmailCampaignResponse(actor);
+  if (mentionsReachColdEmailCampaign(normalized)) {
+    return buildReachColdEmailCampaignResponse(actor, { forceFreshGhl: wantsFreshCheck(normalized) });
+  }
   if (mentionsAgentList(normalized)) return buildAgentListResponse(actor);
 
   if (mentionsGhlReadiness(normalized)) {
-    const result = await runGhlReadinessCheck();
+    const result = await runGhlReadinessCheck({ forceFresh: wantsFreshCheck(normalized) });
     return `${renderGhlResult(result, actor)}
 
 ${buildManagerStatus(actor)}`;
@@ -415,10 +432,11 @@ pause all campaign live actions
 \`\`\``;
 }
 
-async function buildReachColdEmailCampaignResponse(actor: UserContext) {
+async function buildReachColdEmailCampaignResponse(actor: UserContext, { forceFreshGhl = false } = {}) {
   const summaries = laneSummaries();
   const recommendation = readRecommendation();
-  const ghlResult = await runGhlReadinessCheck();
+  const ghlResult = await runGhlReadinessCheck({ forceFresh: forceFreshGhl });
+  const cacheNote = typeof ghlResult.cacheAgeSeconds === "number" ? ` (cached ${ghlResult.cacheAgeSeconds}s ago)` : "";
 
   return `*Reach Cold Email Campaign - ${today()}*
 
@@ -430,7 +448,7 @@ What ran:
 - GHL Expert read-only readiness check.
 - Manager approval gate review.
 
-GHL Expert result: ${ghlResult.ok ? "read-only API check passed" : "read-only API check needs attention"}
+GHL Expert result: ${ghlResult.ok ? "read-only API check passed" : "read-only API check needs attention"}${cacheNote}
 
 Current lanes:
 
@@ -632,7 +650,10 @@ function approvalBlockers({
   return blockers;
 }
 
-async function runGhlReadinessCheck() {
+async function runGhlReadinessCheck({ forceFresh = false } = {}): Promise<GhlResult> {
+  const cached = getCachedGhlReadiness(forceFresh);
+  if (cached) return cached;
+
   const token = process.env.GHL_PIT_TOKEN?.trim();
   const locationId = process.env.GHL_LOCATION_ID?.trim();
   if (!token || !locationId) {
@@ -653,24 +674,41 @@ async function runGhlReadinessCheck() {
       const replyFound = workflowList.some((item) => same(asRecord(item).name ?? asRecord(item).title, lane.replyWorkflow));
       return `${lane.label}: pipeline ${yesNo(pipelineFound)}, cold workflow ${yesNo(coldFound)}, reply workflow ${yesNo(replyFound)}`;
     });
-    return { ok: true, lines };
+    return rememberGhlReadiness({ ok: true, lines });
   } catch (error) {
     return { ok: false, lines: [error instanceof Error ? error.message : "Unknown GHL readiness error."] };
   }
 }
 
-function renderGhlResult(result: { ok: boolean; lines: string[] }, actor: UserContext) {
+function renderGhlResult(result: GhlResult, actor: UserContext) {
+  const cacheNote = typeof result.cacheAgeSeconds === "number" ? ` (cached ${result.cacheAgeSeconds}s ago; say \`fresh\` for a live check)` : "";
+
   return `*GHL Expert readiness check - ${today()}*
 
 ${address(actor)}, I ran the read-only GHL check.
 
-Mode: read-only
+Mode: read-only${cacheNote}
 
 Result: ${result.ok ? "passed" : "needs attention"}
 
 ${result.lines.map((line) => `- ${line}`).join("\n")}
 
 No contacts, tags, workflows, settings, or HighLevel AI features were changed.`;
+}
+
+function getCachedGhlReadiness(forceFresh: boolean): GhlResult | null {
+  if (forceFresh || !ghlReadinessCache || GHL_READINESS_CACHE_TTL_MS <= 0) return null;
+  const age = Date.now() - ghlReadinessCache.fetchedAt;
+  if (age > GHL_READINESS_CACHE_TTL_MS) return null;
+  return {
+    ...ghlReadinessCache.result,
+    cacheAgeSeconds: Math.max(0, Math.round(age / 1000)),
+  };
+}
+
+function rememberGhlReadiness(result: GhlResult) {
+  ghlReadinessCache = { fetchedAt: Date.now(), result };
+  return result;
 }
 
 async function getGhlJson(path: string, token: string) {
@@ -704,6 +742,88 @@ async function postSlackMessage({ channel, text, threadTs }: { channel: string; 
     }),
     cache: "no-store",
   });
+}
+
+async function postSlackResponseUrl(responseUrl: string, text: string) {
+  if (!responseUrl) return false;
+  const response = await fetch(responseUrl, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      response_type: "in_channel",
+      text,
+    }),
+    cache: "no-store",
+  });
+  return response.ok;
+}
+
+function scheduleSlackEventResponse({
+  channel,
+  command,
+  actor,
+  threadTs,
+}: {
+  channel: string;
+  command: string;
+  actor: UserContext;
+  threadTs?: string;
+}) {
+  const asyncMode = shouldRunAsync(command);
+
+  after(async () => {
+    try {
+      if (asyncMode) {
+        await postSlackMessage({ channel, text: buildAsyncAcknowledgement(command, actor), threadTs });
+      }
+      const response = await buildAgentResponse(command, actor);
+      await postSlackMessage({ channel, text: response, threadTs });
+    } catch (error) {
+      await postSlackMessage({ channel, text: buildAsyncErrorResponse(error, actor), threadTs });
+    }
+  });
+}
+
+function scheduleSlackFollowup({
+  responseUrl,
+  channel,
+  command,
+  actor,
+}: {
+  responseUrl: string;
+  channel: string;
+  command: string;
+  actor: UserContext;
+}) {
+  after(async () => {
+    try {
+      const response = await buildAgentResponse(command, actor);
+      const postedViaResponseUrl = await postSlackResponseUrl(responseUrl, response);
+      if (!postedViaResponseUrl && channel) await postSlackMessage({ channel, text: response });
+    } catch (error) {
+      const response = buildAsyncErrorResponse(error, actor);
+      const postedViaResponseUrl = await postSlackResponseUrl(responseUrl, response);
+      if (!postedViaResponseUrl && channel) await postSlackMessage({ channel, text: response });
+    }
+  });
+}
+
+function buildAsyncAcknowledgement(command: string, actor: UserContext) {
+  const normalized = normalizeCommand(command);
+  const owner = mentionsGhlReadiness(normalized) ? "GHL Expert" : mentionsReachColdEmailCampaign(normalized) ? "General Manager" : "Manager";
+
+  return `*${owner} working - ${today()}*
+
+${address(actor)}, I heard you. I am checking the slower parts now and will post the result when it finishes.`;
+}
+
+function buildAsyncErrorResponse(error: unknown, actor: UserContext) {
+  const detail = error instanceof Error ? error.message : "Unknown error.";
+  return `*Agent follow-up failed - ${today()}*
+
+${address(actor)}, the background check did not finish cleanly.
+
+Error: ${detail}`;
 }
 
 function verifySlackRequest(req: NextRequest, rawBody: string): { ok: true } | { ok: false; status: number; error: string } {
@@ -753,6 +873,11 @@ function isSupportedCommand(text: string) {
     normalized.includes("approve") ||
     normalized.includes("pause all campaign live actions")
   );
+}
+
+function shouldRunAsync(command: string) {
+  const normalized = normalizeCommand(command);
+  return mentionsReachColdEmailCampaign(normalized) || mentionsGhlReadiness(normalized);
 }
 
 function parseApproval(normalized: string): { laneKey: LaneKey; action: "import" | "start" } | null {
@@ -912,6 +1037,10 @@ function mentionsQaReview(normalized: string) {
 
 function normalizeCommand(command: string) {
   return command.toLowerCase().replace(/[.,:;|]/g, " ").replace(/\s+/g, " ").trim();
+}
+
+function wantsFreshCheck(normalized: string) {
+  return /\b(fresh|live|force|rerun|recheck|no cache)\b/.test(normalized);
 }
 
 function buildUserContext({

@@ -14,6 +14,7 @@ Slack is the human command surface. Mission Control and the ledger remain the so
 | Reach Cold Email Campaign command | Wired | `Manager, run Reach Cold Email Campaign` runs today's safe QA/readiness routine and reports approval needs. |
 | Agent directory | Wired | `Manager, list agents` shows the agent team and example commands. |
 | Direct agent addressing | Wired | Mike can address agents by role, such as `Coach, ...`, `Scheduler, ...`, `Reporter, ...`, or `Press, ...`. |
+| Fast Slack response mode | Wired | Normal commands answer from the ledger/brief quickly; slower GHL/Reach checks acknowledge first and post follow-up results in the background. |
 | Slack-ready command router | Wired | `npm run agent:command -- --command "Manager, status"` returns the same kind of message a Slack bot should post. |
 | GHL Expert readiness command | Wired | `GHL Expert, check Reach readiness` runs the read-only GHL checker. |
 | Sales Manager QA command | Wired | `Sales Manager, review Reach QA` summarizes current QA risk counts. |
@@ -82,6 +83,34 @@ Mr. Egidio, you are speaking with Coach.
 
 If Mike wants first-name tone again, he can say `first name`, `casual`, or just omit the tone instruction.
 
+## Response Speed Rules
+
+Slack should feel responsive first, complete second.
+
+Fast commands answer from the current ledger, daily brief, and saved job state:
+
+```text
+Manager, status
+Manager, list agents
+Coach, review this copy
+Sales Manager, review Reach QA
+Reporter, verify report delivery status
+```
+
+Slower commands acknowledge first, then post the real result as a follow-up:
+
+```text
+Manager, run Reach Cold Email Campaign
+GHL Expert, check Reach readiness
+```
+
+GHL readiness checks are cached briefly to avoid repeating the same API calls. The default cache is 5 minutes. If Mike wants a true live recheck, add `fresh`, `live`, or `no cache`:
+
+```text
+GHL Expert, check Reach readiness fresh
+Manager, run Reach Cold Email Campaign live
+```
+
 ## Local Commands
 
 Generate the current Manager brief:
@@ -137,6 +166,7 @@ Required environment variables:
 | `AOH_OWNER_SLACK_USER_ID` | Slack user ID for Mike so agents know who is speaking. Default: `U0ATPQYFA85`. |
 | `AOH_OWNER_FIRST_NAME` | First-name address for Mike. Default: `Mike`. |
 | `AOH_OWNER_FORMAL_NAME` | Formal address for Mike. Default: `Mr. Egidio`. |
+| `GHL_READINESS_CACHE_TTL_MS` | Optional GHL readiness cache duration. Default: `300000` ms, or 5 minutes. |
 | `SLACK_LISTENER_TEST_TOKEN` | Optional local-only bypass token for testing the endpoint without a real Slack signature. |
 | `GHL_PIT_TOKEN` | Lets GHL Expert run read-only readiness checks. |
 | `GHL_LOCATION_ID` | Active AOH / hub360ai location for read-only GHL checks. |

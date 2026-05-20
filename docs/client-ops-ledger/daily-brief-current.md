@@ -137,4 +137,6 @@ Direct agent addressing is now expected in Slack, for example `Coach, review thi
 
 Agents recognize Mike by Slack user ID and answer first-name by default. Add `formal` to a command when a formal response is wanted.
 
+Slack speed mode is now expected: fast commands answer from the ledger/brief, while slower GHL or Reach checks acknowledge first and post the full result as a follow-up. Say `fresh` or `live` when a cached GHL readiness result is not acceptable.
+
 The command center will not import contacts or start a drip unless a separate live execution guard is intentionally opened.
