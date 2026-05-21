@@ -1314,6 +1314,8 @@ async function queueReachWarmupWorkflow({
   const ref = process.env.GITHUB_REACH_REF?.trim() || "main";
   const url = `https://api.github.com/repos/${repo}/actions/workflows/${workflow}/dispatches`;
   const runLabel = `${lane}/auto`;
+  const existing = await findOpenReachWarmupRun({ token, repo, workflow, ref });
+  if (existing) return { ok: true, runLabel: `already running #${existing}` };
 
   const response = await fetch(url, {
     method: "POST",
@@ -1340,6 +1342,38 @@ async function queueReachWarmupWorkflow({
   if (response.status === 204) return { ok: true, runLabel };
   const text = await response.text().catch(() => "");
   return { ok: false, error: `GitHub dispatch failed ${response.status}: ${text.slice(0, 180)}` };
+}
+
+async function findOpenReachWarmupRun({
+  token,
+  repo,
+  workflow,
+  ref,
+}: {
+  token: string;
+  repo: string;
+  workflow: string;
+  ref: string;
+}) {
+  for (const status of ["in_progress", "queued", "waiting"]) {
+    const url = new URL(`https://api.github.com/repos/${repo}/actions/workflows/${workflow}/runs`);
+    url.searchParams.set("branch", ref);
+    url.searchParams.set("status", status);
+    url.searchParams.set("per_page", "5");
+    const response = await fetch(url, {
+      headers: {
+        Accept: "application/vnd.github+json",
+        Authorization: `Bearer ${token}`,
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+      cache: "no-store",
+    });
+    if (!response.ok) continue;
+    const data = (await response.json().catch(() => null)) as { workflow_runs?: Array<{ run_number?: number }> } | null;
+    const runNumber = data?.workflow_runs?.[0]?.run_number;
+    if (runNumber) return runNumber;
+  }
+  return null;
 }
 
 function scheduleSlackEventResponse({

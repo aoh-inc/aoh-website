@@ -90,7 +90,7 @@ function runLane({ laneKey, config, domains, args, date, execute }) {
   const guardrails = config.guardrails ?? {};
   const maxAttempts = numberArg(args["max-attempts"] ?? args.maxAttempts, guardrails.max_refill_attempts_per_lane ?? 5);
   const scrapeLimit = Math.min(
-    numberArg(args["scrape-limit"] ?? args.scrapeLimit, Math.max(target * 3, 30)),
+    numberArg(args["scrape-limit"] ?? args.scrapeLimit, Math.min(Math.max(target * 2, 20), 30)),
     guardrails.max_scrape_limit_per_attempt ?? 100,
   );
   const maxTotalScraped = guardrails.max_total_scraped_per_lane_per_day ?? 500;
@@ -114,7 +114,7 @@ function runLane({ laneKey, config, domains, args, date, execute }) {
     const verifyReport = `${prefix}-verified-report.json`;
     const qaCsv = `${prefix}-qa.csv`;
 
-    run("node", [
+    const scrapeResult = runOptional("node", [
       "scripts/launch-reach-campaign.mjs",
       "--lane",
       laneKey,
@@ -128,6 +128,22 @@ function runLane({ laneKey, config, domains, args, date, execute }) {
       rawJson,
     ]);
     totalScraped += remainingScrape;
+    if (!scrapeResult.ok) {
+      attempts.push({
+        attempt,
+        industry: search.industry,
+        area: search.area,
+        state: search.state ?? "",
+        scrapeLimit: remainingScrape,
+        qaRows: 0,
+        okRows: 0,
+        added: 0,
+        poolSize: pool.length,
+        qaCsv: "",
+        error: `scrape_failed_exit_${scrapeResult.status}`,
+      });
+      continue;
+    }
     run("node", ["scripts/reach-json-to-csv.mjs", "--input", rawJson, "--out", cleanCsv]);
     const freshArgs = ["scripts/reach-filter-fresh-prospects.mjs", "--lane", laneKey, "--csv", cleanCsv, "--out", freshCsv];
     if (search.state) freshArgs.push("--state", search.state);
@@ -324,9 +340,9 @@ ${report.blockers.length ? report.blockers.map((item) => `- ${item}`).join("\n")
 
 ## Refill Attempts
 
-| Attempt | Search | Scrape limit | QA rows | OK rows | Added | Pool |
-|---:|---|---:|---:|---:|---:|---:|
-${report.attempts.map((item) => `| ${item.attempt} | ${cell(`${item.industry}, ${item.area}`)} | ${item.scrapeLimit} | ${item.qaRows} | ${item.okRows} | ${item.added} | ${item.poolSize} |`).join("\n") || "| none | | | | | | |"}
+| Attempt | Search | Scrape limit | QA rows | OK rows | Added | Pool | Note |
+|---:|---|---:|---:|---:|---:|---:|---|
+${report.attempts.map((item) => `| ${item.attempt} | ${cell(`${item.industry}, ${item.area}`)} | ${item.scrapeLimit} | ${item.qaRows} | ${item.okRows} | ${item.added} | ${item.poolSize} | ${cell(item.error || "")} |`).join("\n") || "| none | | | | | | | |"}
 
 ## Live Action Results
 
@@ -428,6 +444,13 @@ function run(command, args) {
   console.log(`> ${[command, ...args].join(" ")}`);
   const result = spawnSync(command, args, { stdio: "inherit" });
   if (result.status !== 0) process.exit(result.status ?? 1);
+}
+
+function runOptional(command, args) {
+  console.log("");
+  console.log(`> ${[command, ...args].join(" ")}`);
+  const result = spawnSync(command, args, { stdio: "inherit" });
+  return { ok: result.status === 0, status: result.status ?? 1 };
 }
 
 function readJson(path) {
