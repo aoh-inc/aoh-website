@@ -40,6 +40,7 @@ type WarmupQuota = {
 };
 
 type WarmupConfig = {
+  enabled?: boolean;
   planned_start_date?: string;
   daily_quota_ladder?: WarmupQuota[];
   guardrails?: {
@@ -437,6 +438,8 @@ ${address(actor)}, all campaign live actions are blocked.
 
   if (mentionsOwnerPeek(normalized)) return buildOwnerPeekResponse(actor);
 
+  if (mentionsReachRunStatusQuestion(normalized)) return buildReachRunTodayResponse(actor);
+
   if (mentionsColdReachStart(normalized)) return buildColdReachStartResponse(actor, normalized, context);
 
   if (mentionsGenericCampaignDeploy(normalized)) return buildCampaignClarificationResponse(actor);
@@ -479,6 +482,7 @@ Supported examples:
 
 \`\`\`text
 Manager, status
+Manager, is Reach set to run today, and do I need anything?
 Manager, start cold reach campaign
 Manager, train Reach team
 Manager, owner peek
@@ -548,12 +552,13 @@ ${recommendation}`;
 
 function buildManagerStatus(actor = buildUserContext()) {
   const summaries = laneSummaries();
-  const waiting = reachJobs().filter((job) => String(job.status ?? "").startsWith("waiting")).length;
+  const waiting = reachJobs().filter((job) => String(job.status ?? "").includes("waiting")).length;
   const relayImportCompleted = summaries.some(
     (summary) => summary.laneKey === "relay" && summary.status.includes("import_only_completed"),
   );
   const nextCommands = [
     "Manager, list agents",
+    "Manager, is Reach set to run today, and do I need anything?",
     "Manager, run Reach Cold Email Campaign",
     "GHL Expert, check Reach readiness",
     "Sales Manager, review Reach QA",
@@ -568,7 +573,7 @@ ${address(actor)}, here is the current operating picture.
 Current position:
 
 - ${summaries.length} Reach prep jobs are in the queue; ${waiting} are waiting on agent review.
-- No live GHL import or start-drip is running from this listener.
+- The scheduled auto runner owns normal import/start work inside guardrails; this listener explains and routes blockers.
 - Default Slack command channel is \`#04-aoh-ops\`.
 
 Reach queue:
@@ -584,7 +589,7 @@ ${nextCommands.join("\n")}
 
 function buildReachCampaignStatusResponse(actor: UserContext) {
   const summaries = laneSummaries();
-  const waiting = reachJobs().filter((job) => String(job.status ?? "").startsWith("waiting")).length;
+  const waiting = reachJobs().filter((job) => String(job.status ?? "").includes("waiting")).length;
 
   return `*Reach Cold Email Campaign status - ${today()}*
 
@@ -594,8 +599,8 @@ Current position:
 
 - ${summaries.length} Reach lanes are staged.
 - ${waiting} lanes are still waiting on Sales Manager QA and visual GHL review.
-- No live GHL import or start-drip is running from this listener.
-- This was a status check only; no fresh GHL API check was run.
+- The scheduled auto runner owns normal import/start work inside guardrails.
+- This status command did not take live action or run a fresh GHL API check.
 
 Reach queue:
 
@@ -610,9 +615,44 @@ Manager, run Reach Cold Email Campaign
 \`\`\``;
 }
 
+function buildReachRunTodayResponse(actor: UserContext) {
+  const summaries = laneSummaries();
+  const config = warmupConfig();
+  const autoOn = config?.autopilot_start_enabled === true || config?.enabled === true || String(config?.mode ?? "").includes("autopilot");
+  const started = summaries.filter((summary) => summary.status.includes("auto_warmup_started"));
+  const waiting = summaries.filter((summary) => !summary.status.includes("auto_warmup_started"));
+  const startedText = started.length ? started.map((summary) => summary.label).join(" and ") : "none yet";
+  const waitingText = waiting.length ? waiting.map(renderOwnerLaneStatus).join("\n") : "- Nothing is waiting right now.";
+
+  return `*Reach today - ${today()}*
+
+${address(actor)}, short answer: ${autoOn ? "yes, auto is set." : "no, auto is not turned on in the ledger."}
+
+- Already moving: ${startedText}.
+- Mike action: none unless you want to raise spend or override a safety hold.
+- Safety: NeverBounce/QA guardrails stay in front of GHL; HighLevel AI stays OFF.
+
+Waiting:
+
+${waitingText}
+
+Use this anytime:
+
+\`\`\`text
+Manager, is Reach set to run today, and do I need anything?
+\`\`\``;
+}
+
+function renderOwnerLaneStatus(summary: ReturnType<typeof laneSummaries>[number]) {
+  if (summary.status.includes("auto_waiting")) {
+    return `- ${summary.label}: waiting for more clean contacts and drip-ready = ${summary.dripReady}.`;
+  }
+  return `- ${summary.label}: ${summary.status.replaceAll("_", " ")}.`;
+}
+
 function buildReachDecisionResponse(actor: UserContext) {
   const summaries = laneSummaries();
-  const waiting = reachJobs().filter((job) => String(job.status ?? "").startsWith("waiting")).length;
+  const waiting = reachJobs().filter((job) => String(job.status ?? "").includes("waiting")).length;
   const dripReady = summaries.filter((summary) => String(summary.dripReady).toLowerCase() === "yes").length;
   const importReady = summaries.filter((summary) => String(summary.importReady).toLowerCase() === "yes").length;
   const recommendation = readRecommendation();
@@ -914,24 +954,35 @@ Manager, status
 
 function buildAgentRoleResponse(agentKey: AgentKey, actor: UserContext) {
   const agent = AGENTS[agentKey];
-  return `*${agent.title} - ${agent.persona}*
+  if (agentKey === "general-manager") {
+    return `*Manager*
 
-${address(actor)}, you are speaking with ${agent.title}.
+${address(actor)}, I'm here.
 
-Reports to: ${agent.reportsTo}
+Try:
 
-Job:
-${agent.job}
+\`\`\`text
+Manager, is Reach set to run today, and do I need anything?
+Manager, status
+Manager, owner peek
+\`\`\`
 
-I can help with:
-${agent.canDo.map((item) => `- ${item}`).join("\n")}
+I'll keep answers short unless you ask for detail.`;
+  }
 
-Best next command:
+  return `*${agent.title}*
+
+${address(actor)}, I can help with:
+
+${agent.canDo.slice(0, 3).map((item) => `- ${item}`).join("\n")}
+
+Try:
+
 \`\`\`text
 ${agent.nextStep.replace(/^Ask: `|`\.$/g, "")}
 \`\`\`
 
-${agent.safety ? `Safety:\n${agent.safety}` : "Safety:\nI can recommend and prepare. Risky or client-facing action still needs approval."}`;
+Risky or client-facing action still needs approval.`;
 }
 
 function buildQaResponse(actor: UserContext, normalized = "") {
@@ -1608,6 +1659,7 @@ function isSupportedCommand(text: string) {
   const normalized = normalizeCommand(text);
   return (
     mentionsColdReachStart(normalized) ||
+    mentionsReachRunStatusQuestion(normalized) ||
     mentionsGenericCampaignDeploy(normalized) ||
     mentionsWarmupAutopilot(normalized) ||
     mentionsReachDecisionQuestion(normalized) ||
@@ -1625,6 +1677,7 @@ function isSupportedCommand(text: string) {
 
 function shouldRunAsync(command: string) {
   const normalized = normalizeCommand(command);
+  if (mentionsReachRunStatusQuestion(normalized)) return false;
   if (mentionsReachCampaignStatus(normalized)) return false;
   if (mentionsColdReachStart(normalized)) return false;
   if (mentionsGenericCampaignDeploy(normalized)) return false;
@@ -1876,6 +1929,21 @@ function mentionsReachColdEmailCampaign(normalized: string) {
     normalized.includes("launch reach cold email campaign") ||
     normalized.includes("launch cold email campaign") ||
     normalized.includes("reach cold email campaign")
+  );
+}
+
+function mentionsReachRunStatusQuestion(normalized: string) {
+  const asksRunStatus =
+    /\b(set to run|set up to run|set for today|scheduled today|running today|run today|ready today|ready for today|everything set|all set|did .* run|has .* run|have .* run|did .* send|has .* sent|have .* sent|sent today|getting sent|emails getting sent|do i need .*anything|need .* anything|need to do anything)\b/.test(
+      normalized,
+    );
+  if (!asksRunStatus) return false;
+  return (
+    mentionsReachColdEmailCampaign(normalized) ||
+    normalized.includes("cold email") ||
+    normalized.includes("reach") ||
+    normalized.includes("campaign") ||
+    normalized.includes("email")
   );
 }
 

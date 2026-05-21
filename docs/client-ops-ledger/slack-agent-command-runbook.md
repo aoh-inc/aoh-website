@@ -14,6 +14,7 @@ For Mike's plain daily workflow, use `mike-daily-agent-quickstart.md` first. Thi
 |---|---|---|
 | Manager status brief | Wired | `npm run agent:brief` reads the current job queue, domain readiness, QA counts, and daily brief. |
 | Reach Cold Email Campaign command | Wired | `Manager, run Reach Cold Email Campaign` runs today's safe QA/readiness routine and reports approval needs. |
+| Owner Reach status question | Wired | `Manager, is Reach set to run today, and do I need anything?` gives Mike the short owner answer without a role-card intro. |
 | Reach team training command | Wired | `Manager, train Reach team` reminds each agent what it owns for discovery, QA, GHL readiness, sending, cost, replies, and booking. |
 | Owner peek command | Wired | `Manager, owner peek` explains where Mike should look and whether Manager DMs are wired. |
 | Agent directory | Wired | `Manager, list agents` shows the agent team and example commands. |
@@ -62,6 +63,8 @@ Mike should be able to talk in plain text.
 ```text
 Manager, status
 Manager, list agents
+Manager, is Reach set to run today, and do I need anything?
+Manager, did cold email campaign send?
 Elon, what is the status of Reach Cold Email Campaign
 Manager, run Reach Cold Email Campaign
 Manager, train Reach team
@@ -90,6 +93,8 @@ No special introduction command is needed.
 
 When Mike types from his Slack account, agents should know him as Mike. The listener recognizes Mike by `AOH_OWNER_SLACK_USER_ID`; the current default is `U0ATPQYFA85`.
 
+If Mike only types `Manager` or `General Manager`, Manager should show a tiny help prompt, not the full role biography.
+
 Default style:
 
 ```text
@@ -105,7 +110,7 @@ Coach, review this copy formally
 Expected response style:
 
 ```text
-Mr. Egidio, you are speaking with Coach.
+Mr. Egidio, I can help with the quick review. Risky or client-facing action still needs approval.
 ```
 
 If Mike wants first-name tone again, he can say `first name`, `casual`, or just omit the tone instruction.
@@ -118,6 +123,7 @@ Fast commands answer from the current ledger, daily brief, and saved job state:
 
 ```text
 Manager, status
+Manager, is Reach set to run today, and do I need anything?
 Manager, list agents
 Elon, what is the status of Reach Cold Email Campaign
 Coach, review this copy
@@ -151,6 +157,7 @@ Route a command:
 
 ```bash
 npm run agent:command -- --command "Manager, status"
+npm run agent:command -- --command "Manager, is Reach set to run today, and do I need anything?"
 npm run agent:command -- --command "Manager, run Reach Cold Email Campaign"
 npm run agent:command -- --command "Manager, train Reach team"
 npm run agent:command -- --command "Manager, owner peek"

@@ -20,6 +20,8 @@ Fast command style:
 
 Plain messages like `manager status` are also supported, but they may be slower if Slack Events are not delivering. The `/manager` slash command is the preferred daily path.
 
+No intro is needed. Ask Manager the business question directly.
+
 ## Start The Day
 
 Type:
@@ -28,7 +30,13 @@ Type:
 /manager status
 ```
 
-Then type:
+Then ask the owner-level campaign question:
+
+```text
+/manager is Reach set to run today, and do I need anything?
+```
+
+Or type:
 
 ```text
 /manager what is status of Reach Cold Email Campaign
