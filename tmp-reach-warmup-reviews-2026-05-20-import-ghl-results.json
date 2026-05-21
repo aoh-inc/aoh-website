@@ -1,0 +1,122 @@
+[
+  {
+    "email": "petresort@candlewickkennels.com",
+    "name": "Candlewick Kennels",
+    "contactId": "WkRdoqVoZnqTONVjTkio",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_reviews",
+      "aoh_campaign_reviews_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "requests@wetpawsdogrooming.com",
+    "name": "Wet Paws Dog Grooming",
+    "contactId": "XXm8ye5rNh5HGQrvlXsT",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_reviews",
+      "aoh_campaign_reviews_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "myra@planetbark.com",
+    "name": "Planet Bark",
+    "contactId": "4Q5mO0NdU8cSRK5BKKPl",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_reviews",
+      "aoh_campaign_reviews_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "thepack@pawhavenct.com",
+    "name": "Paw Haven",
+    "contactId": "l9nY3Aj8QcKXZ5JewXbV",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_reviews",
+      "aoh_campaign_reviews_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "frontdesk@holistichealingpartners.com",
+    "name": "Milford Med Spa",
+    "contactId": "eAtWZ1aEdB9I3v8iNHPf",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_reviews",
+      "aoh_campaign_reviews_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "amanda@magnoliamedspact.com",
+    "name": "Magnolia Med Spa",
+    "contactId": "KVwswckJ2gyEVLjxTUbU",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_reviews",
+      "aoh_campaign_reviews_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "office@regentsdental.com",
+    "name": "Downtown Dental CT",
+    "contactId": "RIYjWUAk8ADpjcfLg1Fw",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_reviews",
+      "aoh_campaign_reviews_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "info@centerdentaloffice.com",
+    "name": "Center Dental Office",
+    "contactId": "01xNKwCi401gi2g1DWex",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_reviews",
+      "aoh_campaign_reviews_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "mailbox@ctfamilydentalgroup.com",
+    "name": "Connecticut Family Dental Group",
+    "contactId": "gzGKdKIa3DzHBejViUTZ",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_reviews",
+      "aoh_campaign_reviews_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "office@smiledentalcenterct.com",
+    "name": "Smile Dental Center",
+    "contactId": "gY1jJ6Sgz20Ppwh5h1bw",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_reviews",
+      "aoh_campaign_reviews_imported"
+    ],
+    "error": null
+  }
+]

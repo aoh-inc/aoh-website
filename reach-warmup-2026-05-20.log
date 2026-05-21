@@ -1,0 +1,391 @@
+
+> aoh-website@0.1.0 reach:warmup
+> node scripts/reach-warmup-autopilot.mjs --lane all --execute auto
+
+
+> node scripts/launch-reach-campaign.mjs --lane reviews --industry pet boarding --area Connecticut --limit 30 --out tmp-reach-warmup-reviews-2026-05-20-a1.json
+Scraping Outscraper query: pet boarding, Connecticut, USA
+Limit: 30. Enrichment: contacts_n_leads.
+Prepared 30 Reviews prospects.
+Saved normalized prospects to tmp-reach-warmup-reviews-2026-05-20-a1.json.
+
+DRY RUN ONLY. Nothing was added to GHL.
+Review the output file, then rerun with --commit.
+To also start the drip, add --start-drip.
+
+Sample:
+- Paws Pet Resort & Spa <joseph_paparatto@tjx.com> Cheshire Connecticut
+- Paws Pet Resort & Spa <kdrzewiecki@uchc.edu> Cheshire Connecticut
+- Paws Pet Resort & Spa <dglenn@pawspet.com> Cheshire Connecticut
+
+> node scripts/reach-json-to-csv.mjs --input tmp-reach-warmup-reviews-2026-05-20-a1.json --out tmp-reach-warmup-reviews-2026-05-20-a1-clean.csv
+Input JSON rows: 30
+CSV written: tmp-reach-warmup-reviews-2026-05-20-a1-clean.csv
+
+> node scripts/reach-filter-fresh-prospects.mjs --lane reviews --csv tmp-reach-warmup-reviews-2026-05-20-a1-clean.csv --out tmp-reach-warmup-reviews-2026-05-20-a1-fresh.csv --state Connecticut
+Input rows: 30
+Fresh rows kept: 30
+Removed rows: 0
+Fresh CSV: tmp-reach-warmup-reviews-2026-05-20-a1-fresh.csv
+Removed CSV: tmp-reach-warmup-reviews-2026-05-20-a1-fresh-removed.csv
+No GHL API calls were made. This is CSV filtering only.
+
+> node scripts/verify-reach-emails.mjs --provider neverbounce --csv tmp-reach-warmup-reviews-2026-05-20-a1-fresh.csv --out tmp-reach-warmup-reviews-2026-05-20-a1-verified.csv --report tmp-reach-warmup-reviews-2026-05-20-a1-verified-report.json
+Loaded 30 rows from tmp-reach-warmup-reviews-2026-05-20-a1-fresh.csv.
+REMOVE joseph_paparatto@tjx.com unknown
+REMOVE kdrzewiecki@uchc.edu unknown
+REMOVE dglenn@pawspet.com catchall
+KEEP dayhillken@aol.com valid
+KEEP info@dayhillkennels.com valid
+KEEP spencer@dayhillkennels.com valid
+REMOVE gelliot@bestfriends.net unknown
+REMOVE mnielse@bestfriends.net unknown
+REMOVE hwoolwine@bestfriends.net unknown
+KEEP petresort@candlewickkennels.com valid
+REMOVE information@valleyboardingkennel.com unknown
+REMOVE tim.madsen@valleyboardingkennel.com unknown
+REMOVE geraldine@valleyboardingkennel.com unknown
+REMOVE cbastia@campcaninect.com invalid
+REMOVE cbuck@campcaninect.com invalid
+REMOVE skoss@campcaninect.com invalid
+KEEP support@onlinedoggy.com valid
+KEEP barkavenuepethouse@gmail.com valid
+REMOVE s.wallace@cherrybrookkennels.com invalid
+KEEP cherrybrookkennels@gmail.com valid
+REMOVE info@wigglespetresort.com catchall
+REMOVE madison@wigglespetresort.com catchall
+REMOVE middlebury@wigglespetresort.com catchall
+KEEP diamonds56@optonline.net valid
+REMOVE dogma@ct2.nai.net unknown
+KEEP saragregware@optonline.net valid
+KEEP brendancollins@k9resorts.com valid
+REMOVE debbiehom@k9resorts.com invalid
+KEEP cassielow@gmail.com valid
+REMOVE info@shorelinepetlodge.com catchall
+
+Input: 30
+Kept: 11
+Removed: 19
+Verified CSV: tmp-reach-warmup-reviews-2026-05-20-a1-verified.csv
+Verification report: tmp-reach-warmup-reviews-2026-05-20-a1-verified-report.json
+
+> node scripts/reach-quality-review.mjs --lane reviews --csv tmp-reach-warmup-reviews-2026-05-20-a1-verified.csv --out tmp-reach-warmup-reviews-2026-05-20-a1-qa.csv
+Rows reviewed: 11
+OK rows: 1
+Review rows: 10
+QA CSV: tmp-reach-warmup-reviews-2026-05-20-a1-qa.csv
+QA report: /home/runner/work/aoh-website/aoh-website/docs/client-ops-ledger/outbox/reach-reviews-quality-2026-05-21.md
+
+> node scripts/launch-reach-campaign.mjs --lane reviews --industry pet groomer --area Connecticut --limit 30 --out tmp-reach-warmup-reviews-2026-05-20-a2.json
+Scraping Outscraper query: pet groomer, Connecticut, USA
+Limit: 30. Enrichment: contacts_n_leads.
+Prepared 27 Reviews prospects.
+Saved normalized prospects to tmp-reach-warmup-reviews-2026-05-20-a2.json.
+
+DRY RUN ONLY. Nothing was added to GHL.
+Review the output file, then rerun with --commit.
+To also start the drip, add --start-drip.
+
+Sample:
+- Wagging Tails Animal Daycare & Pet Spaw | Cat & Dog Boarding CT - Cat & Dog Grooming CT <pugsitters@yahoo.com> Wolcott Connecticut
+- Wagging Tails Animal Daycare & Pet Spaw | Cat & Dog Boarding CT - Cat & Dog Grooming CT <outoftheashes5@gmail.com> Wolcott Connecticut
+- Wagging Tails Animal Daycare & Pet Spaw | Cat & Dog Boarding CT - Cat & Dog Grooming CT <caudle@waggingtails.com> Wolcott Connecticut
+
+> node scripts/reach-json-to-csv.mjs --input tmp-reach-warmup-reviews-2026-05-20-a2.json --out tmp-reach-warmup-reviews-2026-05-20-a2-clean.csv
+Input JSON rows: 27
+CSV written: tmp-reach-warmup-reviews-2026-05-20-a2-clean.csv
+
+> node scripts/reach-filter-fresh-prospects.mjs --lane reviews --csv tmp-reach-warmup-reviews-2026-05-20-a2-clean.csv --out tmp-reach-warmup-reviews-2026-05-20-a2-fresh.csv --state Connecticut
+Input rows: 27
+Fresh rows kept: 27
+Removed rows: 0
+Fresh CSV: tmp-reach-warmup-reviews-2026-05-20-a2-fresh.csv
+Removed CSV: tmp-reach-warmup-reviews-2026-05-20-a2-fresh-removed.csv
+No GHL API calls were made. This is CSV filtering only.
+
+> node scripts/verify-reach-emails.mjs --provider neverbounce --csv tmp-reach-warmup-reviews-2026-05-20-a2-fresh.csv --out tmp-reach-warmup-reviews-2026-05-20-a2-verified.csv --report tmp-reach-warmup-reviews-2026-05-20-a2-verified-report.json
+Loaded 27 rows from tmp-reach-warmup-reviews-2026-05-20-a2-fresh.csv.
+REMOVE pugsitters@yahoo.com unknown
+KEEP outoftheashes5@gmail.com valid
+REMOVE caudle@waggingtails.com invalid
+KEEP guenevere84@hotmail.com valid
+REMOVE john@petgroomingspa.com unknown
+REMOVE kp62@sbcglobal.net unknown
+KEEP linnmadison@yahoo.com valid
+KEEP qpd617@aol.com valid
+KEEP jessica.abrahamsen@gmail.com valid
+REMOVE rh@cornell.edu catchall
+KEEP lizbiernesser@yahoo.com valid
+KEEP requests@wetpawsdogrooming.com valid
+KEEP martidonhart@yahoo.ca valid
+KEEP lut@iupui.edu valid
+KEEP marcom@simongroup.com valid
+KEEP onepamperedpupct@gmail.com valid
+KEEP info@cleanpaws.biz valid
+KEEP office@cleanpaws.biz valid
+KEEP dogfathermobile@gmail.com valid
+KEEP doggiestylesalonllc@gmail.com valid
+REMOVE info@tailwaggers.co catchall
+REMOVE b.morris@morrisgroomingservice.com unknown
+REMOVE john@morrisgroomingservice.com unknown
+KEEP sales@xyzmaps.com valid
+KEEP worldmapscenter@yandex.com valid
+KEEP cozyclipsct@gmail.com valid
+KEEP furfriendsct@gmail.com valid
+
+Input: 27
+Kept: 19
+Removed: 8
+Verified CSV: tmp-reach-warmup-reviews-2026-05-20-a2-verified.csv
+Verification report: tmp-reach-warmup-reviews-2026-05-20-a2-verified-report.json
+
+> node scripts/reach-quality-review.mjs --lane reviews --csv tmp-reach-warmup-reviews-2026-05-20-a2-verified.csv --out tmp-reach-warmup-reviews-2026-05-20-a2-qa.csv
+Rows reviewed: 19
+OK rows: 1
+Review rows: 18
+QA CSV: tmp-reach-warmup-reviews-2026-05-20-a2-qa.csv
+QA report: /home/runner/work/aoh-website/aoh-website/docs/client-ops-ledger/outbox/reach-reviews-quality-2026-05-21.md
+
+> node scripts/launch-reach-campaign.mjs --lane reviews --industry dog daycare --area Connecticut --limit 30 --out tmp-reach-warmup-reviews-2026-05-20-a3.json
+Scraping Outscraper query: dog daycare, Connecticut, USA
+Limit: 30. Enrichment: contacts_n_leads.
+Prepared 30 Reviews prospects.
+Saved normalized prospects to tmp-reach-warmup-reviews-2026-05-20-a3.json.
+
+DRY RUN ONLY. Nothing was added to GHL.
+Review the output file, then rerun with --commit.
+To also start the drip, add --start-drip.
+
+Sample:
+- Camp Canine <cbastia@campcaninect.com> Bristol Connecticut
+- Camp Canine <cbuck@campcaninect.com> Bristol Connecticut
+- Camp Canine <skoss@campcaninect.com> Bristol Connecticut
+
+> node scripts/reach-json-to-csv.mjs --input tmp-reach-warmup-reviews-2026-05-20-a3.json --out tmp-reach-warmup-reviews-2026-05-20-a3-clean.csv
+Input JSON rows: 30
+CSV written: tmp-reach-warmup-reviews-2026-05-20-a3-clean.csv
+
+> node scripts/reach-filter-fresh-prospects.mjs --lane reviews --csv tmp-reach-warmup-reviews-2026-05-20-a3-clean.csv --out tmp-reach-warmup-reviews-2026-05-20-a3-fresh.csv --state Connecticut
+Input rows: 30
+Fresh rows kept: 30
+Removed rows: 0
+Fresh CSV: tmp-reach-warmup-reviews-2026-05-20-a3-fresh.csv
+Removed CSV: tmp-reach-warmup-reviews-2026-05-20-a3-fresh-removed.csv
+No GHL API calls were made. This is CSV filtering only.
+
+> node scripts/verify-reach-emails.mjs --provider neverbounce --csv tmp-reach-warmup-reviews-2026-05-20-a3-fresh.csv --out tmp-reach-warmup-reviews-2026-05-20-a3-verified.csv --report tmp-reach-warmup-reviews-2026-05-20-a3-verified-report.json
+Loaded 30 rows from tmp-reach-warmup-reviews-2026-05-20-a3-fresh.csv.
+REMOVE cbastia@campcaninect.com invalid
+REMOVE cbuck@campcaninect.com invalid
+REMOVE skoss@campcaninect.com invalid
+REMOVE joseph_paparatto@tjx.com unknown
+REMOVE kdrzewiecki@uchc.edu unknown
+REMOVE dglenn@pawspet.com catchall
+REMOVE freerangedd@att.net unknown
+REMOVE tpfreerange@sbcglobal.net unknown
+REMOVE phelan-tpfreerange@sbcglobal.net unknown
+KEEP walkercopeland@aol.com valid
+REMOVE jill.brackenbrough@state.or.us invalid
+REMOVE joy@barkinglotsf.com unknown
+REMOVE thepoop@wagsdaycamp.com catchall
+REMOVE info@wagsdaycamp.com catchall
+KEEP martasvineyardcr@gmail.com valid
+REMOVE kara.donaldson@christmastreeshops.com unknown
+KEEP info@unleasheddaycare.com valid
+KEEP luciano@latinotype.com valid
+KEEP petresort@candlewickkennels.com valid
+REMOVE ktran@campbowwowusa.com invalid
+REMOVE barbara.pinkney@campbowwowusa.com invalid
+REMOVE jboris@campbowwowusa.com invalid
+KEEP myra@planetbark.com valid
+REMOVE michellef@planetbark.com invalid
+REMOVE thorsten@planetbark.com invalid
+KEEP diamonds56@optonline.net valid
+REMOVE dogma@ct2.nai.net invalid
+KEEP saragregware@optonline.net valid
+KEEP thepack@pawhavenct.com valid
+REMOVE jackie@pawhavenct.com invalid
+
+Input: 30
+Kept: 9
+Removed: 21
+Verified CSV: tmp-reach-warmup-reviews-2026-05-20-a3-verified.csv
+Verification report: tmp-reach-warmup-reviews-2026-05-20-a3-verified-report.json
+
+> node scripts/reach-quality-review.mjs --lane reviews --csv tmp-reach-warmup-reviews-2026-05-20-a3-verified.csv --out tmp-reach-warmup-reviews-2026-05-20-a3-qa.csv
+Rows reviewed: 9
+OK rows: 3
+Review rows: 6
+QA CSV: tmp-reach-warmup-reviews-2026-05-20-a3-qa.csv
+QA report: /home/runner/work/aoh-website/aoh-website/docs/client-ops-ledger/outbox/reach-reviews-quality-2026-05-21.md
+
+> node scripts/launch-reach-campaign.mjs --lane reviews --industry med spa --area Connecticut --limit 30 --out tmp-reach-warmup-reviews-2026-05-20-a4.json
+Scraping Outscraper query: med spa, Connecticut, USA
+Limit: 30. Enrichment: contacts_n_leads.
+Prepared 30 Reviews prospects.
+Saved normalized prospects to tmp-reach-warmup-reviews-2026-05-20-a4.json.
+
+DRY RUN ONLY. Nothing was added to GHL.
+Review the output file, then rerun with --commit.
+To also start the drip, add --start-drip.
+
+Sample:
+- Milford Med Spa <hello@hhp.sprucecare.com> Milford Connecticut
+- Milford Med Spa <frontdesk@holistichealingpartners.com> Milford Connecticut
+- Pure Skin MedSpa <jenna@ctskin.com> Southington Connecticut
+
+> node scripts/reach-json-to-csv.mjs --input tmp-reach-warmup-reviews-2026-05-20-a4.json --out tmp-reach-warmup-reviews-2026-05-20-a4-clean.csv
+Input JSON rows: 30
+CSV written: tmp-reach-warmup-reviews-2026-05-20-a4-clean.csv
+
+> node scripts/reach-filter-fresh-prospects.mjs --lane reviews --csv tmp-reach-warmup-reviews-2026-05-20-a4-clean.csv --out tmp-reach-warmup-reviews-2026-05-20-a4-fresh.csv --state Connecticut
+Input rows: 30
+Fresh rows kept: 30
+Removed rows: 0
+Fresh CSV: tmp-reach-warmup-reviews-2026-05-20-a4-fresh.csv
+Removed CSV: tmp-reach-warmup-reviews-2026-05-20-a4-fresh-removed.csv
+No GHL API calls were made. This is CSV filtering only.
+
+> node scripts/verify-reach-emails.mjs --provider neverbounce --csv tmp-reach-warmup-reviews-2026-05-20-a4-fresh.csv --out tmp-reach-warmup-reviews-2026-05-20-a4-verified.csv --report tmp-reach-warmup-reviews-2026-05-20-a4-verified-report.json
+Loaded 30 rows from tmp-reach-warmup-reviews-2026-05-20-a4-fresh.csv.
+REMOVE hello@hhp.sprucecare.com catchall
+KEEP frontdesk@holistichealingpartners.com valid
+KEEP jenna@ctskin.com valid
+KEEP info@ctskin.com valid
+KEEP jennifer@ctskin.com valid
+REMOVE michelle@samaramedspa.com invalid
+KEEP info@samaramedspa.com valid
+KEEP christian@samaramedspa.com valid
+KEEP blushmedspact@gmail.com valid
+REMOVE blush.institute@gmail.com invalid
+REMOVE blushbykay@gmail.com invalid
+KEEP thebellamedicalspa@gmail.com valid
+REMOVE marria@momtaz.com unknown
+KEEP yourskinspecialist@greenwichmedicalspa.com valid
+KEEP greenwichmedicalmassage@gmail.com valid
+KEEP bepurelyou8@gmail.com valid
+KEEP callahanscott@msn.com valid
+KEEP customerservice@dvmedspa.com valid
+KEEP officemanager@dvmedspa.com valid
+KEEP feelgood@ctfacialmedspa.com valid
+REMOVE ashleydouglas0806@gmail.com unknown
+KEEP frontdesk@ctfacialmedspa.com valid
+KEEP infinitemedspa@gmail.com valid
+REMOVE info@ctbotox.com catchall
+REMOVE john@ctbotox.com catchall
+KEEP amanda@magnoliamedspact.com valid
+REMOVE manda@magnoliamedspact.com invalid
+KEEP miasmedicalspa@gmail.com valid
+KEEP wweeiihhuuaanngg@gmail.com valid
+REMOVE filler@godaddy.com invalid
+
+Input: 30
+Kept: 20
+Removed: 10
+Verified CSV: tmp-reach-warmup-reviews-2026-05-20-a4-verified.csv
+Verification report: tmp-reach-warmup-reviews-2026-05-20-a4-verified-report.json
+
+> node scripts/reach-quality-review.mjs --lane reviews --csv tmp-reach-warmup-reviews-2026-05-20-a4-verified.csv --out tmp-reach-warmup-reviews-2026-05-20-a4-qa.csv
+Rows reviewed: 20
+OK rows: 2
+Review rows: 18
+QA CSV: tmp-reach-warmup-reviews-2026-05-20-a4-qa.csv
+QA report: /home/runner/work/aoh-website/aoh-website/docs/client-ops-ledger/outbox/reach-reviews-quality-2026-05-21.md
+
+> node scripts/launch-reach-campaign.mjs --lane reviews --industry dental office --area Connecticut --limit 30 --out tmp-reach-warmup-reviews-2026-05-20-a5.json
+Scraping Outscraper query: dental office, Connecticut, USA
+Limit: 30. Enrichment: contacts_n_leads.
+Prepared 30 Reviews prospects.
+Saved normalized prospects to tmp-reach-warmup-reviews-2026-05-20-a5.json.
+
+DRY RUN ONLY. Nothing was added to GHL.
+Review the output file, then rerun with --commit.
+To also start the drip, add --start-drip.
+
+Sample:
+- Dental Associates of Connecticut <wsnyder@dentalassoc.com> Shelton Connecticut
+- Dental Associates of Connecticut <kim.wells@snet.net> Shelton Connecticut
+- Dental Associates of Connecticut <annielucarelli1230@gmail.com> Shelton Connecticut
+
+> node scripts/reach-json-to-csv.mjs --input tmp-reach-warmup-reviews-2026-05-20-a5.json --out tmp-reach-warmup-reviews-2026-05-20-a5-clean.csv
+Input JSON rows: 30
+CSV written: tmp-reach-warmup-reviews-2026-05-20-a5-clean.csv
+
+> node scripts/reach-filter-fresh-prospects.mjs --lane reviews --csv tmp-reach-warmup-reviews-2026-05-20-a5-clean.csv --out tmp-reach-warmup-reviews-2026-05-20-a5-fresh.csv --state Connecticut
+Input rows: 30
+Fresh rows kept: 30
+Removed rows: 0
+Fresh CSV: tmp-reach-warmup-reviews-2026-05-20-a5-fresh.csv
+Removed CSV: tmp-reach-warmup-reviews-2026-05-20-a5-fresh-removed.csv
+No GHL API calls were made. This is CSV filtering only.
+
+> node scripts/verify-reach-emails.mjs --provider neverbounce --csv tmp-reach-warmup-reviews-2026-05-20-a5-fresh.csv --out tmp-reach-warmup-reviews-2026-05-20-a5-verified.csv --report tmp-reach-warmup-reviews-2026-05-20-a5-verified-report.json
+Loaded 30 rows from tmp-reach-warmup-reviews-2026-05-20-a5-fresh.csv.
+REMOVE wsnyder@dentalassoc.com invalid
+REMOVE kim.wells@snet.net unknown
+KEEP annielucarelli1230@gmail.com valid
+REMOVE info@centralctdental.com invalid
+KEEP office@regentsdental.com valid
+KEEP info@centerdentaloffice.com valid
+KEEP demartindental@gmail.com valid
+REMOVE spencer@smartdentallabs.com invalid
+REMOVE hello@mcddental.com unknown
+KEEP cdicomesdental@gmail.com valid
+REMOVE info@connecticutdentalgroup.com unknown
+REMOVE westhaven@generaldentalct.com invalid
+REMOVE webmaster@generaldentalct.com invalid
+KEEP tulsinama@gmail.com valid
+KEEP as@ctfdental.com valid
+KEEP info@ctfdental.com valid
+KEEP manchesterdentalgroup@gmail.com valid
+REMOVE info@manchesterdentalgroup.com unknown
+KEEP advancedentalfd@gmail.com valid
+KEEP archdentalcarenorthampton@gmail.com valid
+KEEP churchstreetdentalofchicopee@gmail.com valid
+KEEP mailbox@ctfamilydentalgroup.com valid
+KEEP office@smiledentalcenterct.com valid
+KEEP info@ctfamilydentistry.com valid
+KEEP ctfamilydentistry@gmail.com valid
+REMOVE graciela.panuncio@columbiadental.com catchall
+KEEP tehvgm@gmail.com valid
+KEEP pooja.palaksha@gmail.com valid
+REMOVE bill@hawleylanedental.com catchall
+REMOVE office@hawleylanedental.com catchall
+
+Input: 30
+Kept: 18
+Removed: 12
+Verified CSV: tmp-reach-warmup-reviews-2026-05-20-a5-verified.csv
+Verification report: tmp-reach-warmup-reviews-2026-05-20-a5-verified-report.json
+
+> node scripts/reach-quality-review.mjs --lane reviews --csv tmp-reach-warmup-reviews-2026-05-20-a5-verified.csv --out tmp-reach-warmup-reviews-2026-05-20-a5-qa.csv
+Rows reviewed: 18
+OK rows: 4
+Review rows: 14
+QA CSV: tmp-reach-warmup-reviews-2026-05-20-a5-qa.csv
+QA report: /home/runner/work/aoh-website/aoh-website/docs/client-ops-ledger/outbox/reach-reviews-quality-2026-05-21.md
+
+> node scripts/launch-reach-campaign.mjs --lane reviews --csv tmp-reach-warmup-reviews-2026-05-20-selected-qa.csv --limit 10 --commit --only-ok --out tmp-reach-warmup-reviews-2026-05-20-import.json
+Loaded 10 rows from tmp-reach-warmup-reviews-2026-05-20-selected-qa.csv.
+QA OK-only filter kept 10 of 10 rows.
+Prepared 10 Reviews prospects.
+Saved normalized prospects to tmp-reach-warmup-reviews-2026-05-20-import.json.
+OK petresort@candlewickkennels.com Candlewick Kennels
+OK requests@wetpawsdogrooming.com Wet Paws Dog Grooming
+OK myra@planetbark.com Planet Bark
+OK thepack@pawhavenct.com Paw Haven
+OK frontdesk@holistichealingpartners.com Milford Med Spa
+OK amanda@magnoliamedspact.com Magnolia Med Spa
+OK office@regentsdental.com Downtown Dental CT
+OK info@centerdentaloffice.com Center Dental Office
+OK mailbox@ctfamilydentalgroup.com Connecticut Family Dental Group
+OK office@smiledentalcenterct.com Smile Dental Center
+
+GHL results saved to tmp-reach-warmup-reviews-2026-05-20-import-ghl-results.json.
+Contacts imported/tagged, but drip was not started.
+
+Reviews report: /home/runner/work/aoh-website/aoh-website/docs/client-ops-ledger/outbox/reach-warmup-reviews-2026-05-20.md
+
+> node scripts/launch-reach-campaign.mjs --lane ai --industry senior living --area Connecticut --limit 30 --out tmp-reach-warmup-ai-2026-05-20-a1.json
+Scraping Outscraper query: senior living, Connecticut, USA
+Limit: 30. Enrichment: contacts_n_leads.

@@ -1,0 +1,88 @@
+{
+  "date": "2026-05-20",
+  "lane": "reviews",
+  "label": "Reviews",
+  "execute": "import",
+  "warmupDay": 1,
+  "quota": {
+    "name": "days_1_3",
+    "from_day": 1,
+    "to_day": 3,
+    "min": 10,
+    "target": 20,
+    "max": 20
+  },
+  "status": "executed",
+  "selectedCount": 10,
+  "selectedCsv": "tmp-reach-warmup-reviews-2026-05-20-selected-qa.csv",
+  "blockers": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "industry": "pet boarding",
+      "area": "Connecticut",
+      "state": "Connecticut",
+      "scrapeLimit": 30,
+      "qaRows": 11,
+      "okRows": 1,
+      "added": 1,
+      "poolSize": 1,
+      "qaCsv": "tmp-reach-warmup-reviews-2026-05-20-a1-qa.csv"
+    },
+    {
+      "attempt": 2,
+      "industry": "pet groomer",
+      "area": "Connecticut",
+      "state": "Connecticut",
+      "scrapeLimit": 30,
+      "qaRows": 19,
+      "okRows": 1,
+      "added": 1,
+      "poolSize": 2,
+      "qaCsv": "tmp-reach-warmup-reviews-2026-05-20-a2-qa.csv"
+    },
+    {
+      "attempt": 3,
+      "industry": "dog daycare",
+      "area": "Connecticut",
+      "state": "Connecticut",
+      "scrapeLimit": 30,
+      "qaRows": 9,
+      "okRows": 3,
+      "added": 2,
+      "poolSize": 4,
+      "qaCsv": "tmp-reach-warmup-reviews-2026-05-20-a3-qa.csv"
+    },
+    {
+      "attempt": 4,
+      "industry": "med spa",
+      "area": "Connecticut",
+      "state": "Connecticut",
+      "scrapeLimit": 30,
+      "qaRows": 20,
+      "okRows": 2,
+      "added": 2,
+      "poolSize": 6,
+      "qaCsv": "tmp-reach-warmup-reviews-2026-05-20-a4-qa.csv"
+    },
+    {
+      "attempt": 5,
+      "industry": "dental office",
+      "area": "Connecticut",
+      "state": "Connecticut",
+      "scrapeLimit": 30,
+      "qaRows": 18,
+      "okRows": 4,
+      "added": 4,
+      "poolSize": 10,
+      "qaCsv": "tmp-reach-warmup-reviews-2026-05-20-a5-qa.csv"
+    }
+  ],
+  "actionResults": [
+    {
+      "action": "import",
+      "outFile": "tmp-reach-warmup-reviews-2026-05-20-import.json",
+      "resultFile": "tmp-reach-warmup-reviews-2026-05-20-import-ghl-results.json"
+    }
+  ]
+}
