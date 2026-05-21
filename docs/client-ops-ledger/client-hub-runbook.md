@@ -44,11 +44,17 @@ Every Review Automation client hub should show:
 
 - recent customer/job list status
 - Google access status only if it affects setup or launch
-- review request count/status
-- proof/status after launch
+- this week's reviews vs weekly goal
+- review requests sent
+- response rate
+- short tips only when reviews are behind goal
 - action buttons for updating setup details or sending a file
 
 This is the commercial standard service.
+
+Do not show request rules, launch proof, screenshots, workflow wording, or
+internal testing mechanics to clients. Those belong in Mission Control and the
+agent runbooks.
 
 ## Custom / Upgrade Section
 

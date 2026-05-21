@@ -49,6 +49,7 @@ export default async function ClientHubPage({ params }: PageProps) {
   const visibleMetrics = client.metrics.filter((metric) =>
     ["Review requests", "Google access"].includes(metric.label),
   );
+  const reviewsBehind = client.reviews.weeklyReviews < client.reviews.weeklyGoal;
 
   return (
     <main id="main-content" tabIndex={-1} className="min-h-screen w-full min-w-0 overflow-x-hidden bg-[#f7f8f4] text-slate-950 focus:outline-none">
@@ -179,37 +180,56 @@ export default async function ClientHubPage({ params }: PageProps) {
       </section>
 
       <section id="reviews" className="border-y border-slate-200 bg-white">
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-10 lg:grid-cols-[1fr_1fr]">
-          <div>
+        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-10 lg:grid-cols-[0.82fr_1.18fr]">
+          <div className="max-w-xl">
             <SectionHeader
               eyebrow="Standard"
               title="Review Automation"
-              sub="This is the live core service: collect more Google reviews without making the owner chase every customer."
+              sub="A quick look at review momentum and whether anything needs attention this week."
             />
-            <div className="grid gap-4">
-              <ProofRow label="Google profile" value={client.reviews.googleStatus} />
-              <ProofRow label="Review link" value={client.reviews.reviewLinkStatus} />
-              <ProofRow label="Request rule" value={client.reviews.requestRule} />
-              <ProofRow label="Launch proof" value={client.reviews.proof} />
-            </div>
           </div>
 
           <div className="rounded-lg border border-emerald-200 bg-emerald-50 p-6">
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-800">
-              Review status
-            </p>
-            <h2 className="mt-3 text-2xl font-semibold text-slate-950">
-              Simple status, not a messy dashboard
-            </h2>
-            <div className="mt-5 grid gap-3 sm:grid-cols-2">
-              <MiniStat label="Requests sent" value={client.metrics[0]?.value ?? "0"} />
-              <MiniStat label="Access status" value={client.reviews.googleStatus} />
-              <MiniStat label="Automation" value={client.metrics[2]?.value ?? "Checking"} />
-              <MiniStat label="Proof" value="Saved here" />
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-800">
+                  Review status
+                </p>
+                <h2 className="mt-3 text-2xl font-semibold text-slate-950">
+                  {client.reviews.status}
+                </h2>
+              </div>
+              <span className={`rounded-md border px-2.5 py-1 text-xs font-bold uppercase tracking-[0.14em] ${
+                reviewsBehind
+                  ? "border-amber-200 bg-amber-50 text-amber-900"
+                  : "border-emerald-200 bg-white text-emerald-800"
+              }`}>
+                {client.reviews.trendLabel}
+              </span>
             </div>
-            <p className="mt-5 text-sm leading-6 text-slate-600">
-              SMS, AI-drafted replies, ranking reports, and ChatGPT visibility stay in AI Visibility unless the client upgrades.
-            </p>
+
+            <div className="mt-5 grid gap-3 sm:grid-cols-4">
+              <MiniStat label="This week" value={`${client.reviews.weeklyReviews}/${client.reviews.weeklyGoal}`} />
+              <MiniStat label="Requests sent" value={client.reviews.requestsSent.toString()} />
+              <MiniStat label="Response" value={client.reviews.responseRate} />
+              <MiniStat label="Automation" value={client.metrics[2]?.value ?? "Checking"} />
+            </div>
+
+            {reviewsBehind ? (
+              <div className="mt-5 rounded-lg border border-amber-200 bg-white p-4">
+                <p className="text-xs font-bold uppercase tracking-[0.16em] text-amber-900">
+                  Tips if reviews are low
+                </p>
+                <ul className="mt-3 grid gap-2 text-sm leading-6 text-slate-700">
+                  {client.reviews.lowReviewTips.map((tip) => (
+                    <li key={tip} className="flex gap-2">
+                      <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-amber-700" />
+                      <span>{tip}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
@@ -287,15 +307,6 @@ function StatusPill({ status }: { status: ClientHubStatus }) {
     <span className={`inline-flex rounded-md border px-2.5 py-1 text-xs font-bold uppercase tracking-[0.14em] ${statusClasses(status)}`}>
       {statusLabel(status)}
     </span>
-  );
-}
-
-function ProofRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-      <p className="text-xs font-bold uppercase tracking-[0.16em] text-slate-500">{label}</p>
-      <p className="mt-2 text-sm leading-6 text-slate-800">{value}</p>
-    </div>
   );
 }
 

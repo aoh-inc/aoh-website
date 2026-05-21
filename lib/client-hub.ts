@@ -26,6 +26,16 @@ export type ClientMetric = {
   sub: string;
 };
 
+export type ReviewAutomationStatus = {
+  status: string;
+  weeklyReviews: number;
+  weeklyGoal: number;
+  requestsSent: number;
+  responseRate: string;
+  trendLabel: string;
+  lowReviewTips: string[];
+};
+
 export type ClientHubProfile = {
   slug: string;
   businessName: string;
@@ -45,12 +55,7 @@ export type ClientHubProfile = {
   checklist: ClientChecklistItem[];
   metrics: ClientMetric[];
   uploadRequests: ClientUploadRequest[];
-  reviews: {
-    googleStatus: string;
-    reviewLinkStatus: string;
-    requestRule: string;
-    proof: string;
-  };
+  reviews: ReviewAutomationStatus;
   aiVisibilityPreview: ClientMetric[];
   nextSteps: ClientNextStep[];
 };
@@ -190,10 +195,17 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
       },
     ],
     reviews: {
-      googleStatus: "Access pending",
-      reviewLinkStatus: "Being verified",
-      requestRule: "Email request after completed work. SMS is an AI Visibility upgrade.",
-      proof: "AOH will show first test request, automation proof, and review link proof before launch.",
+      status: "Setting up",
+      weeklyReviews: 0,
+      weeklyGoal: 3,
+      requestsSent: 0,
+      responseRate: "0%",
+      trendLabel: "Behind goal this week",
+      lowReviewTips: [
+        "Upload completed jobs from this week so requests can go out quickly.",
+        "Ask your team to mention the review request before the customer leaves.",
+        "Send us any happy-customer names you already know should be asked first.",
+      ],
     },
     aiVisibilityPreview: [
       { label: "ChatGPT visibility", value: "Locked", sub: "preview scan available with upgrade" },
@@ -304,10 +316,17 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
       },
     ],
     reviews: {
-      googleStatus: "Access confirmed",
-      reviewLinkStatus: "Needs capture",
-      requestRule: "Test internally first. Public customer sends require Mike approval.",
-      proof: "AOH needs screenshots and one safe automation test before this becomes the client template.",
+      status: "Client-zero test",
+      weeklyReviews: 0,
+      weeklyGoal: 2,
+      requestsSent: 0,
+      responseRate: "0%",
+      trendLabel: "Testing before live customer sends",
+      lowReviewTips: [
+        "Use a safe test contact list before real AOH customers.",
+        "Capture the Google review link so the test request points to the right place.",
+        "Approve the first safe test before turning this into the client template.",
+      ],
     },
     aiVisibilityPreview: [
       { label: "ChatGPT visibility", value: "Custom", sub: "AOH internal testing" },
