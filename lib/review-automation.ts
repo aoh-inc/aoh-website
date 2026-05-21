@@ -274,6 +274,7 @@ function renderCustomerUploadSlack(
 *Missing email:* ${packet.summary.missingEmailRows}
 *Duplicates:* ${packet.summary.duplicateEmailRows}
 *AOH webhook:* ${webhookResult.ok ? "received full packet" : webhookResult.configured ? `failed - ${webhookResult.error || "unknown"}` : "not configured"}
+*Storage:* ${webhookResult.ok ? "saved or forwarded" : "not saved yet"}
 
 Manager next: Reviews Manager checks sendable rows, confirms the review link, then Sender sends only after proof checks.`;
 }
@@ -289,6 +290,7 @@ function renderFeedbackSlack(
 *Customer:* ${packet.customerName || "not provided"}${packet.customerEmail ? ` - ${packet.customerEmail}` : ""}
 *Route:* ${packet.shouldRouteToGoogle ? "happy customer can continue to Google" : "private owner follow-up"}
 *AOH webhook:* ${webhookResult.ok ? "received packet" : webhookResult.configured ? `failed - ${webhookResult.error || "unknown"}` : "not configured"}
+*Storage:* ${webhookResult.ok ? "saved or forwarded" : "not saved yet"}
 
 Feedback: ${packet.feedback || "none"}`;
 }

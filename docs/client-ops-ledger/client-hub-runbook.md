@@ -177,13 +177,18 @@ Before real private client data goes on a hub:
 
 Customer uploads:
 
-- full customer rows must go only to `AOH_REVIEW_AUTOMATION_WEBHOOK_URL`,
-  `AOH_CLIENT_INTAKE_WEBHOOK_URL`, or another AOH-owned secure intake path
+- full customer rows are stored in Upstash Redis when
+  `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` are configured
+- if Redis is not configured, full customer rows must go only to
+  `AOH_REVIEW_AUTOMATION_WEBHOOK_URL`, `AOH_CLIENT_INTAKE_WEBHOOK_URL`, or
+  another AOH-owned secure intake path
 - Slack receives only counts and summary, not the full customer list
 - rows missing email, duplicates, and do-not-contact matches are held back before
   Sender gets a sendable list
 - if no AOH webhook is configured, the page may show a summary, but real customer
   outreach should wait until secure storage/intake is connected
+- default event retention is 90 days; override with
+  `AOH_REVIEW_AUTOMATION_STORAGE_TTL_DAYS`
 
 Private feedback:
 

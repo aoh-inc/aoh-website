@@ -115,6 +115,8 @@ Build status:
 - Client page exists at `/client/[slug]`.
 - Customer upload v1 exists at `/client/[slug]/customers`.
 - Customer rows are summarized and cleaned before outreach.
+- Customer uploads and feedback can save into existing Upstash Redis when
+  configured, so no new storage vendor is required for the first test.
 - Full customer rows are not posted to Slack.
 - Private feedback v1 exists at `/review/[slug]`.
 - Google routing waits for a verified per-client review link.

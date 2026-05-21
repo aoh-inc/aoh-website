@@ -222,8 +222,11 @@ Current v1 foundation:
 
 - `/client/[slug]/customers` accepts customer/job rows and applies basic
   missing-email, duplicate, and do-not-contact holds.
+- Customer uploads and private feedback now save to Upstash Redis when
+  `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` are configured.
 - `/api/review-automation/customers` forwards full packets only to the AOH-owned
-  review automation webhook when configured; Slack gets summary counts.
+  review automation webhook when Redis is not configured; Slack gets summary
+  counts.
 - `/review/[slug]` collects private feedback before Google.
 - `/api/review-automation/feedback` routes 1-3 star feedback privately and only
   sends 4-5 star customers to Google when a verified review link exists.

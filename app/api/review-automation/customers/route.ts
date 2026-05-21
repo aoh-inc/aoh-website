@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateEmail } from "@/lib/email-validation";
 import { checkEmailRate } from "@/lib/rate-limit";
+import { saveReviewAutomationEvent } from "@/lib/review-automation-store";
 import {
   buildCustomerPacket,
   cleanLongText,
@@ -63,13 +64,19 @@ export async function POST(req: NextRequest) {
     doNotContactText,
   });
 
+  const storageResult = await saveReviewAutomationEvent("customer_upload", packet);
   const webhookResult = await forwardReviewAutomationEvent("customer_upload", packet);
-  await postReviewAutomationSlackSummary("customer_upload", packet, webhookResult);
+  await postReviewAutomationSlackSummary("customer_upload", packet, {
+    ok: storageResult.ok || webhookResult.ok,
+    configured: storageResult.configured || webhookResult.configured,
+    error: storageResult.ok ? webhookResult.error : storageResult.error || webhookResult.error,
+  });
 
   return NextResponse.json({
     ok: true,
     summary: packet.summary,
-    stored: webhookResult.ok,
-    storageConfigured: webhookResult.configured,
+    stored: storageResult.ok || webhookResult.ok,
+    storageConfigured: storageResult.configured || webhookResult.configured,
+    storageId: storageResult.ok || storageResult.configured ? storageResult.id : "",
   });
 }
