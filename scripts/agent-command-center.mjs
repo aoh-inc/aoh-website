@@ -976,6 +976,7 @@ Live pieces:
 - Customer upload page: built.
 - Private feedback page: built.
 - Unsubscribe/suppression page: built.
+- Internal send-log endpoint: built.
 - Summary storage: ready once Upstash env is set on Vercel.
 - Slack/automation handoff: summary-only; optional webhook can be added.
 - Manager status API: built and protected by internal token.
@@ -985,13 +986,14 @@ What Manager can check:
 - Recent customer uploads.
 - Recent private feedback.
 - Unsubscribe/suppression updates.
+- Send events like sent, failed, bounced, clicked, or follow-up sent.
 - Counts and summaries only by default.
 - No full customer list in Slack.
 
 Still needed:
 
 - Add each client's verified Google review link before happy feedback can route to Google.
-- Keep GHL as sender until the AOH sender has send logs, bounce handling, and follow-up rules.
+- Keep GHL as sender until the AOH sender has bounce handling and follow-up rules.
 
 Useful URL for systems/Manager:
 

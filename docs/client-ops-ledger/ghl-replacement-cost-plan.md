@@ -122,6 +122,9 @@ Build status:
 - Unsubscribe/suppression v1 exists at `/review/[slug]/unsubscribe`.
   Stored suppressions are applied to future customer uploads when Redis is
   configured.
+- Internal send-log v1 exists at `/api/review-automation/send-log`.
+  GHL exports/webhooks or the future AOH sender can record sent, failed,
+  bounced, clicked, and follow-up events there.
 - Manager/internal summary status exists at `/api/review-automation/status`.
   It returns summary records only by default and requires an internal token.
   Use `AOH_INTERNAL_API_TOKEN`, or the existing report bypass token as the
@@ -173,8 +176,9 @@ Current v1 loop:
 3. Slack receives only a short summary.
 4. Client feedback lands at `/review/[slug]`.
 5. Customer unsubscribe requests land at `/review/[slug]/unsubscribe`.
-6. Happy feedback routes to Google only after the verified Google review link is saved.
-7. Manager/System can check `/api/review-automation/status?client=[slug]` with an internal token.
+6. Sender/GHL bridge can log send events to `/api/review-automation/send-log`.
+7. Happy feedback routes to Google only after the verified Google review link is saved.
+8. Manager/System can check `/api/review-automation/status?client=[slug]` with an internal token.
 
 What this gives Mike:
 
@@ -186,7 +190,6 @@ What this gives Mike:
 Still needed before removing GHL from Review Automation sending:
 
 - Verified Google review link for each client.
-- Send log.
 - Bounce handling.
 - One follow-up rule.
 - Monthly recap.

@@ -3,6 +3,7 @@ import type {
   ReviewAutomationPacket,
   ReviewCustomerPacket,
   ReviewFeedbackPacket,
+  ReviewSendLogPacket,
   ReviewSuppressionPacket,
 } from "@/lib/review-automation";
 
@@ -249,11 +250,25 @@ function summarizePayload(eventType: ReviewAutomationEventType, payload: ReviewA
     };
   }
 
+  if (eventType === "send_log") {
+    return summarizeSendLog(payload as ReviewSendLogPacket);
+  }
+
   const packet = payload as ReviewSuppressionPacket;
   return {
-    customerEmail: packet.customerEmail,
+    customerEmail: maskEmail(packet.customerEmail),
     hasReason: Boolean(packet.reason.trim()),
     source: packet.source,
+  };
+}
+
+function summarizeSendLog(payload: ReviewSendLogPacket) {
+  return {
+    customerEmail: maskEmail(payload.customerEmail),
+    status: payload.status,
+    provider: payload.provider,
+    hasMessageId: Boolean(payload.messageId),
+    hasDetail: Boolean(payload.detail),
   };
 }
 
@@ -287,4 +302,10 @@ function globalIndexKey() {
 
 function suppressionKey(clientSlug: string) {
   return `review-automation:suppression:${clientSlug}`;
+}
+
+function maskEmail(email: string) {
+  const [name, domain] = email.split("@");
+  if (!name || !domain) return "hidden";
+  return `${name.slice(0, 2)}***@${domain}`;
 }

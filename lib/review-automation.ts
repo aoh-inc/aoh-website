@@ -50,8 +50,23 @@ export type ReviewSuppressionPacket = {
   timestamp: string;
 };
 
-export type ReviewAutomationEventType = "customer_upload" | "private_feedback" | "suppression_update";
-export type ReviewAutomationPacket = ReviewCustomerPacket | ReviewFeedbackPacket | ReviewSuppressionPacket;
+export type ReviewSendLogPacket = {
+  clientSlug: string;
+  clientName: string;
+  customerEmail: string;
+  status: "sent" | "failed" | "bounced" | "opened" | "clicked" | "followup_sent";
+  provider: string;
+  messageId: string;
+  detail: string;
+  timestamp: string;
+};
+
+export type ReviewAutomationEventType = "customer_upload" | "private_feedback" | "suppression_update" | "send_log";
+export type ReviewAutomationPacket =
+  | ReviewCustomerPacket
+  | ReviewFeedbackPacket
+  | ReviewSuppressionPacket
+  | ReviewSendLogPacket;
 
 export function buildCustomerPacket(input: {
   clientSlug: string;
@@ -118,6 +133,29 @@ export function buildSuppressionPacket(input: {
   } satisfies ReviewSuppressionPacket;
 }
 
+export function buildSendLogPacket(input: {
+  clientSlug: string;
+  customerEmail: string;
+  status: ReviewSendLogPacket["status"];
+  provider: string;
+  messageId: string;
+  detail: string;
+  timestamp?: string;
+}) {
+  const client = getClientHub(input.clientSlug);
+
+  return {
+    clientSlug: input.clientSlug,
+    clientName: client?.businessName ?? input.clientSlug,
+    customerEmail: input.customerEmail.trim().toLowerCase(),
+    status: input.status,
+    provider: cleanText(input.provider, 80) || "unknown",
+    messageId: cleanText(input.messageId, 160),
+    detail: cleanLongText(input.detail, 500),
+    timestamp: input.timestamp ?? new Date().toISOString(),
+  } satisfies ReviewSendLogPacket;
+}
+
 export async function forwardReviewAutomationEvent(
   eventType: ReviewAutomationEventType,
   payload: ReviewAutomationPacket,
@@ -170,7 +208,9 @@ export async function postReviewAutomationSlackSummary(
       ? renderCustomerUploadSlack(payload as ReviewCustomerPacket, webhookResult)
       : eventType === "private_feedback"
         ? renderFeedbackSlack(payload as ReviewFeedbackPacket, webhookResult)
-        : renderSuppressionSlack(payload as ReviewSuppressionPacket, webhookResult);
+        : eventType === "suppression_update"
+          ? renderSuppressionSlack(payload as ReviewSuppressionPacket, webhookResult)
+          : renderSendLogSlack(payload as ReviewSendLogPacket, webhookResult);
 
   await fetch(webhook, {
     method: "POST",
@@ -334,10 +374,32 @@ function renderSuppressionSlack(
   return `*Review Automation unsubscribe*
 
 *Client:* ${packet.clientName}
-*Email:* ${packet.customerEmail}
+*Email:* ${maskEmail(packet.customerEmail)}
 *Reason:* ${packet.reason || "not provided"}
 *AOH webhook:* ${webhookResult.ok ? "received packet" : webhookResult.configured ? `failed - ${webhookResult.error || "unknown"}` : "not configured"}
 *Storage:* ${webhookResult.ok ? "saved or forwarded" : "not saved yet"}
 
 Manager next: Future review request uploads should hold this email back.`;
+}
+
+function renderSendLogSlack(
+  packet: ReviewSendLogPacket,
+  webhookResult: { ok: boolean; configured: boolean; error?: string },
+) {
+  const shouldAlert = packet.status === "failed" || packet.status === "bounced";
+  return `*Review Automation send ${shouldAlert ? "alert" : "log"}*
+
+*Client:* ${packet.clientName}
+*Status:* ${packet.status}
+*Email:* ${maskEmail(packet.customerEmail)}
+*Provider:* ${packet.provider}
+*Storage:* ${webhookResult.ok ? "saved or forwarded" : webhookResult.configured ? `failed - ${webhookResult.error || "unknown"}` : "not saved yet"}
+
+Manager next: ${shouldAlert ? "Check whether this customer should be held back or retried." : "No action unless the client asks for send proof."}`;
+}
+
+function maskEmail(email: string) {
+  const [name, domain] = email.split("@");
+  if (!name || !domain) return "hidden";
+  return `${name.slice(0, 2)}***@${domain}`;
 }
