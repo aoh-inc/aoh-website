@@ -14,6 +14,7 @@ import {
   type JobCostStatus,
   type ScheduledJobCost,
 } from "@/lib/control/job-costs";
+import { GROWTH_PRODUCTS, productStatusLabel } from "@/lib/control/growth-products";
 
 export const metadata: Metadata = {
   title: "Agent Jobs - The Hub",
@@ -70,6 +71,7 @@ export default function JobsPage() {
       </section>
 
       <JobIndexSection />
+      <GrowthProductBuildSection />
       {reachJob ? <ReachWorkflowHero job={reachJob} /> : null}
       <CommercialReachFlowSection />
       <OptionalCustomAgentSection />
@@ -127,6 +129,20 @@ function JobIndexSection() {
       href: "/mike-mc/jobs/reach-cold-email-campaign",
       detail: "Your internal room for whether emails are ready to send or still blocked.",
     },
+    {
+      title: "Presence Refresh",
+      label: "build now",
+      tone: "accent" as const,
+      href: "/mike-mc/jobs/presence-refresh",
+      detail: "One-time setup to make a business look active before Reach sends attention.",
+    },
+    {
+      title: "Social Reach",
+      label: "pilot",
+      tone: "warm" as const,
+      href: "/mike-mc/jobs/social-reach",
+      detail: "Find useful social conversations, draft helpful replies, and keep humans in approval.",
+    },
   ];
 
   return (
@@ -147,7 +163,7 @@ function JobIndexSection() {
         <Pill tone="accent">simple view</Pill>
       </div>
 
-      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
         {links.map((item) => (
           <Link
             key={item.title}
@@ -159,6 +175,52 @@ function JobIndexSection() {
               <Pill tone={item.tone}>{item.label}</Pill>
             </div>
             <p className="text-sm leading-relaxed text-zinc-400">{item.detail}</p>
+          </Link>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function GrowthProductBuildSection() {
+  return (
+    <section className="mb-8 rounded-2xl border border-emerald-500/25 bg-emerald-500/5 p-5 md:p-6">
+      <div className="mb-5 flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
+        <div>
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-emerald-300">
+            New Reach-style products
+          </p>
+          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
+            Build these as add-ons, not standalone reporting
+          </h2>
+          <p className="mt-2 max-w-none text-base leading-relaxed text-zinc-400">
+            Morning Brief can be the included visibility layer. These are the marketable growth jobs:
+            one makes the business look active, the other helps it join useful conversations.
+          </p>
+        </div>
+        <Pill tone="accent">growth offer build</Pill>
+      </div>
+
+      <div className="grid gap-4 lg:grid-cols-2">
+        {GROWTH_PRODUCTS.map((product) => (
+          <Link
+            key={product.slug}
+            href={product.href}
+            className="rounded-2xl border border-zinc-800/70 bg-zinc-950/70 p-5 transition hover:border-zinc-700 hover:bg-zinc-900/80"
+          >
+            <div className="mb-3 flex flex-wrap items-center gap-2">
+              <Pill tone={product.tone}>{productStatusLabel(product.status)}</Pill>
+              <Pill tone="muted">{product.type}</Pill>
+            </div>
+            <h3 className="text-xl font-semibold tracking-tight text-zinc-50">{product.name}</h3>
+            <p className="mt-2 text-base leading-relaxed text-zinc-400">{product.headline}</p>
+            <div className="mt-4 grid gap-2 md:grid-cols-2">
+              {product.whatClientBuys.slice(0, 4).map((item) => (
+                <div key={item} className="rounded-lg border border-zinc-800/70 bg-black/20 px-3 py-2 text-sm text-zinc-400">
+                  {item}
+                </div>
+              ))}
+            </div>
           </Link>
         ))}
       </div>

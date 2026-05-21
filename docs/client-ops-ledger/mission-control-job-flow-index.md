@@ -22,6 +22,8 @@ This keeps the front page useful as more agent jobs are added.
 | Front page job index | `/mike-mc` | Start here for active rooms and job links. |
 | Find new leads | `/mike-mc/jobs#commercial-reach` | Explain the main growth job simply. |
 | What agents do | `/mike-mc/jobs#commercial-reach-steps` | Show each agent step in plain English. |
+| Presence Refresh | `/mike-mc/jobs/presence-refresh` | One-time setup to make a business look active before Reach sends attention. |
+| Social Reach | `/mike-mc/jobs/social-reach` | Pilot for social conversation listening, helpful comment drafts, and human-approved engagement. |
 | Custom agents | `/mike-mc/jobs#custom-agent-layer` | Show optional CRM/custom-agent work after the sale. |
 | Send status | `/mike-mc/jobs/reach-cold-email-campaign` | Check whether emails are ready to send or still blocked. |
 | Spending | `/mike-mc/jobs` | See daily spend and spend so far by job. |
@@ -43,6 +45,33 @@ Commercial Reach is the standard lead job:
 9. Review spend and results.
 
 This is the version to explain to most businesses. It does not require connecting to the client's CRM.
+
+## Presence Refresh
+
+Presence Refresh is the first add-on to build:
+
+1. Audit stale website/social presence.
+2. Pick one useful customer-facing angle.
+3. Draft five catch-up social posts.
+4. Draft one useful blog post.
+5. Publish only after approval.
+6. Save proof links/screenshots.
+7. Hand the refreshed proof to Reach.
+
+This is a setup product. It helps prospects see a current, credible business when outreach sends them to check the client.
+
+## Social Reach
+
+Social Reach is the guarded pilot:
+
+1. Build an approved source watchlist.
+2. Find useful social conversations.
+3. Score whether the conversation is worth joining.
+4. Draft helpful responses.
+5. Human approves/posts during v1.
+6. Track replies, DMs, profile views, booked calls, and useful buyer language.
+
+Do not sell this as bots posting in groups. Sell it as human-approved community listening and useful engagement.
 
 ## Optional Custom Agents And CRM
 
@@ -78,4 +107,5 @@ The send room still controls live sending:
 - adding leads is not the same as sending emails
 - emails should not send until contacts and sending setup are checked
 - unsubscribe and reply handling must work
+- social comments should not auto-post; human approval is required during v1
 - HighLevel AI features remain OFF unless Mike manually authorizes them

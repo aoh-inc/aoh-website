@@ -28,6 +28,8 @@ The ledger is intentionally spreadsheet-first. Mike should be able to open it, s
 | `morning-brief-sources.json` | News/RSS and GHL stats source configuration for the Morning Brief. |
 | `ghl-email-stats-template.csv` | Template for GHL email performance stats before API/export automation is wired. |
 | `reach-campaign-agent-runbook.md` | Safe agent workflow for Reach email campaign prep, approval, import, drip start, and logging. |
+| `presence-refresh-product-runbook.md` | One-time setup add-on for stale social/website presence before Reach campaigns. |
+| `social-reach-pilot-runbook.md` | Guarded Social Reach pilot: listening, opportunity scoring, helpful drafts, and human-approved posting. |
 | `mission-control-job-flow-index.md` | Mission Control job index links and the split between Commercial Reach and optional custom agent/CRM work. |
 | `slack-agent-command-runbook.md` | How Mike talks to Manager, GHL Expert, Sales Manager, and approval gates through Slack-ready commands. |
 | `agent-jobs-template.csv` | Starter job queue format for agent work, budgets, approvals, and next actions. |

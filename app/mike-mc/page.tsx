@@ -26,6 +26,7 @@ import {
 } from "@/lib/control/mission";
 import { INTERNAL_JOBS, MANAGER_OWNER_PEEK } from "@/lib/control/internal-jobs";
 import { SCHEDULED_JOB_COSTS } from "@/lib/control/job-costs";
+import { GROWTH_PRODUCTS, productStatusLabel } from "@/lib/control/growth-products";
 
 export const metadata: Metadata = {
   title: "The Hub",
@@ -274,6 +275,13 @@ function JobsInProgressSection() {
       tone: "default" as const,
       detail: "Simple daily cost and spend so far by job.",
     },
+    ...GROWTH_PRODUCTS.map((product) => ({
+      title: product.shortName,
+      href: product.href,
+      badge: productStatusLabel(product.status),
+      tone: product.tone,
+      detail: product.headline,
+    })),
   ];
 
   return (
