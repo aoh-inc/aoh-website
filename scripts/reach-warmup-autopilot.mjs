@@ -312,7 +312,7 @@ function scrapeSpendBlockerFor({ args, guardrails }) {
   if (guardrails.require_outscraper_spend_approval !== true) return "";
   if (hasScrapeSpendApproval(args, guardrails)) return "";
   const envName = String(guardrails.outscraper_spend_approval_env ?? "REACH_ALLOW_OUTSCRAPER_SPEND");
-  return `Outscraper balance protection is ON; skipped new scraping before any paid Outscraper call. Approve spend with --allow-scrape-spend or ${envName}=yes.`;
+  return `Outscraper balance protection is ON; skipped new scraping before any paid Outscraper call. To allow capped auto spend, set --allow-scrape-spend or ${envName}=yes.`;
 }
 
 function hasScrapeSpendApproval(args, guardrails) {
@@ -657,11 +657,11 @@ ${reports
 
 - The runner keeps refilling bad or risky emails until it reaches the daily quota or hits max attempts/scrape caps.
 - It will not loop forever.
-- It will not call Outscraper when balance protection is on unless spend is explicitly approved.
+- It can call Outscraper automatically inside the configured scrape caps.
 - It will not exceed the run-level Outscraper scrape cap across all lanes.
 - It will not reuse contacts already imported or started in prior GHL result files.
 - It re-verifies the selected live-action CSV before import or start tags.
-- In start mode, it reuses prior imported contacts instead of scraping new contacts.
+- Auto mode refills lanes while they are import-ready; start tags still require clean selected contacts.
 - It will not start drip unless the lane is marked ready_for_drip=yes.
 - HighLevel AI features must stay OFF.
 `;

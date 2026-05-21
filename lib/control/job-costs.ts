@@ -126,15 +126,15 @@ export const REACH_INTERNAL_FLOW: ReachInternalStep[] = [
     status: "partial",
     description:
       "Clean leads are added to the right list. Adding leads does not mean emails are sending yet.",
-    verification: "Read-only GHL readiness passed and Relay import-only completed for 2 clean contacts; other lanes still need visual review.",
+    verification: "Reviews and AI Visibility have clean warmup batches started. Relay is still waiting for more clean contacts.",
   },
   {
     title: "Send outreach",
     owner: "Sender + Coach",
-    status: "missing",
+    status: "partial",
     description:
       "Sender sends a useful first note and asks for a simple next step.",
-    verification: "Copy and runbooks exist, but live Send Email/start-drip remains blocked until reply routing, unsubscribe, sender-domain, and Systems Director QA pass.",
+    verification: "Auto warmup can start lanes after readiness checks pass. Relay is waiting because it has 5 OK contacts and needs 10.",
   },
   {
     title: "Sort replies",

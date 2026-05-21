@@ -339,8 +339,8 @@ If a campaign needs more than the approved cap, stop before continuing.
 ## Hard Safety Rules
 
 - Do not enable or toggle any HighLevel AI feature.
-- Do not start outreach without explicit approval.
-- Do not import contacts unless the approval packet says import is approved.
+- Do not start outreach outside the approved Reach warmup autopilot or a clear manual approval.
+- Do not import contacts outside the approved Reach warmup autopilot unless the approval packet says import is approved.
 - Do not treat one lane approval as approval for another lane.
 - Do not use strong models for row-by-row CSV cleanup.
 - Do not continue after a failed GHL/API result without reporting it.

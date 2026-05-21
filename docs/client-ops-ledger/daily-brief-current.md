@@ -1,21 +1,21 @@
 # Daily Agent Brief
 
-Date: 2026-05-20
+Date: 2026-05-21
 Prepared by: Manager
 
 ## 1. Needs Mike Today
 
 | # | Decision | Recommendation | Risk | Approval needed |
 |---|---|---|---|---|
-| 1 | Whether to start a warmup drip after import-only | Relay import-only is complete for the 2 QA OK contacts. Do not start drip until drip readiness is yes and Mike separately approves start-drip | Warmup/domain readiness and live drip trigger risk | Mike approval required for start-drip |
+| 1 | Normal Reach warmup | Auto mode is on. Reviews and AI Visibility started today. Relay is waiting for enough clean contacts and ready_for_drip=yes. | Relay only has 5 OK contacts and is not marked ready | No Mike action unless overriding auto |
 
 ## 2. Campaigns Being Prepared
 
 | Campaign | Lane | Audience | Verified contacts from May 19 | Budget cap | Current status |
 |---|---|---|---:|---:|---|
-| Reviews | `reviews` | Pet boarding / Connecticut | 8 fresh verified | $2 | Waiting Sales Manager QA review and Reviews subdomain confirmation |
-| AI Visibility | `ai` | Senior living / Connecticut | 6 fresh verified | $2 | Waiting Sales Manager QA review and AI subdomain confirmation |
-| Relay | `relay` | Veterinary / Connecticut | 4 fresh verified | $2 | Import-only completed for 2 QA OK contacts. 2 flagged Cornell personal-email duplicate rows held. Drip not started |
+| Reviews | `reviews` | Pet boarding / Connecticut | 12 OK started | $2 | Auto warmup start executed |
+| AI Visibility | `ai` | Senior living / Connecticut | 20 OK started | $2 | Auto warmup start executed |
+| Relay | `relay` | Veterinary / Connecticut | 5 OK / 10 min | $2 | Auto waiting for refill and ready status |
 
 ## 3. Required Checks Before Any Live Action
 
@@ -65,22 +65,27 @@ Remaining GHL Expert visual checks:
 
 ## 6. Recommendation
 
-Do not start all three live drips at once.
+Do not manually override auto.
 
 Recommended path:
 
-1. Sales Manager reviews QA flags and removes questionable personal/duplicate contacts if needed.
-2. GHL Expert completes visual sender-domain/warmup/AI-toggle checks in GHL.
-3. Manager regenerates preflight packet for the final approved CSV.
-4. Approve one lane import-only if the domain is still warming.
-5. Approve one lane start-drip only when the lane's sending subdomain is confirmed ready.
-6. Keep each first warmup batch to the lane's allowed daily send volume.
+1. Let auto continue for Reviews and AI Visibility.
+2. Refill Relay until it has at least 10 OK contacts.
+3. Mark Relay `ready_for_drip=yes` only after the sending setup is checked.
+4. Auto will start Relay when both conditions are true.
+5. Keep HighLevel AI features OFF.
 
-Current strongest lane by cleanliness: Relay import-only is complete for the 2 QA OK contacts. Current next move: do not start Relay drip until `ready_for_drip=yes` and Mike separately approves start-drip. Reviews has the most volume, but needs the most QA judgment.
+Current picture: Reviews and AI started today. Relay is the only holdout.
 
 ## 7. Fresh Batch Prep Commands
 
-These commands prepare files and approval packets only. They do not import contacts or start a drip.
+Normal daily run is auto:
+
+```bash
+npm run reach:warmup -- --lane all --execute auto
+```
+
+Prep commands below are for manual research or rebuilding a lane.
 
 Single-command prep:
 
@@ -100,7 +105,7 @@ npm run reach:preflight -- --lane reviews --csv tmp-reach-reviews-next-verified.
 
 Repeat with `ai` / senior living and `relay` / veterinary after confirming the lane priority.
 
-## 8. Approval Commands
+## 8. Manual Override Commands
 
 ```text
 approve reviews import only
@@ -139,4 +144,4 @@ Agents recognize Mike by Slack user ID and answer first-name by default. Add `fo
 
 Slack speed mode is now expected: fast commands answer from the ledger/brief, while slower GHL or Reach checks acknowledge first and post the full result as a follow-up. Say `fresh` or `live` when a cached GHL readiness result is not acceptable.
 
-The command center will not import contacts or start a drip unless a separate live execution guard is intentionally opened.
+The scheduled Reach Warmup Autopilot can import/start ready lanes inside guardrails. Manual overrides still need the live execution guard.

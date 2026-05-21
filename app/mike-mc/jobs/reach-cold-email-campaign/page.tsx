@@ -399,27 +399,27 @@ function NextMoveSection() {
             Next move
           </p>
           <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
-            Do not start drip yet
+            Auto is on; Relay is waiting
           </h2>
           <p className="mt-3 text-base leading-relaxed text-zinc-400">
-            The next valid step is proving drip readiness, not approving import again. HighLevel AI features must stay OFF unless Mike manually authorizes them.
+            Reviews and AI Visibility started today. Relay will not start until it has enough clean contacts and the ready switch is yes.
           </p>
         </div>
         <div className="grid gap-3 md:grid-cols-3">
           <ActionTile
             label="1"
-            title="Confirm drip readiness"
-            body="GHL Expert and Systems Director verify warmup, sender nodes, caps, unsubscribe, reply routing, and no AI toggles."
+            title="Refill Relay"
+            body="Relay has 5 OK contacts and needs 10 for the current warmup minimum."
           />
           <ActionTile
             label="2"
-            title="Mark ready_for_drip=yes"
-            body="Only after those checks pass should the ledger move Relay from imported to drip-ready."
+            title="Set ready yes"
+            body="Once the sending setup is checked, mark Relay ready_for_drip=yes in the ledger."
           />
           <ActionTile
             label="3"
-            title="Separate Mike approval"
-            body="Starting emails requires a new explicit start-drip approval. Import approval is not enough."
+            title="Auto starts it"
+            body="No extra Mike approval needed after the lane is ready. Auto mode starts only when guardrails pass."
           />
         </div>
       </div>

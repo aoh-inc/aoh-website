@@ -319,8 +319,9 @@ Lane-specific shortcuts are supported:
 ```
 
 Manager owns the handoff and row cleanup. Mike should not need to approve or
-reject individual warmup rows. Start-drip still stays blocked until
-`ready_for_drip=yes`, and HighLevel AI features stay OFF.
+reject individual warmup rows. The scheduled auto-run can start lanes after
+`ready_for_drip=yes` and the guardrails pass; no second Mike approval is needed
+for that normal auto path. HighLevel AI features stay OFF.
 
 ## Reach Warmup Autopilot
 
@@ -358,8 +359,7 @@ What it does:
 - does not enable HighLevel AI features
 
 GitHub Actions has a scheduled `Reach Business Discovery First` workflow. It
-runs plan-only unless `REACH_DISCOVERY_ALLOW_SPEND=yes` is set as a repo
-variable or the manual workflow input approves spend.
+runs spend-enabled by default inside the daily cap because Mike approved auto.
 
 Slack command language can stay plain:
 
@@ -395,19 +395,12 @@ What it does:
 - expands to the next search when the first niche/area is too small
 - stops at max attempts and scrape caps so it cannot loop forever
 - caps the full all-lane run at 60 scraped records total unless the config is deliberately changed
-- skips new paid Outscraper calls when budget protection is ON unless Mike explicitly approves spend
+- can make new Outscraper calls inside the configured caps because Mike approved auto
 - writes reports to `docs/client-ops-ledger/outbox`
 
-Budget protection is currently ON because Outscraper balance is low. Repeating
-`/manager start cold reach campaign` will not keep buying more Outscraper data
-by accident. To deliberately spend credits for a run, the command must include
-clear approval such as:
-
-```text
-/manager start cold reach campaign; approve Outscraper spend
-```
-
-Without that approval, the worker writes a held report before any paid scrape.
+Budget protection now means capped auto spend, not a manual approval stop. Repeating
+`/manager start cold reach campaign` can refill lanes inside the configured caps,
+then the worker stops.
 
 Already-paid scrape inventory can be rebuilt without Outscraper spend:
 
@@ -423,21 +416,20 @@ docs/client-ops-ledger/reach-scrape-inventory-ai-ok.csv
 docs/client-ops-ledger/reach-scrape-inventory-relay-ok.csv
 ```
 
-Import-only:
+Manual import-only reference:
 
 ```bash
 npm run reach:warmup -- --lane relay --execute import
 ```
 
-Start drip:
+Manual start reference:
 
 ```bash
 npm run reach:warmup -- --lane relay --execute start
 ```
 
-Start mode uses prior import inventory. It should not scrape new prospects just
-to start a drip; it adds the start tag only to contacts already imported and not
-already started.
+Manual modes are for diagnostics or a deliberate override. Normal operation should
+use auto mode.
 
 Auto mode:
 
@@ -448,7 +440,7 @@ npm run reach:warmup -- --lane all --execute auto
 Auto mode chooses `start` only for lanes marked `ready_for_drip=yes`; otherwise
 it chooses `import` for lanes marked `ready_for_import=yes`.
 
-Start-drip is still blocked unless `ready_for_drip=yes`. This keeps the decision
+Auto mode will not start a lane unless `ready_for_drip=yes`. This keeps the decision
 out of Mike's hands day to day while still requiring the agent/GHL readiness
 ledger to be safe before the sender tag is added.
 
@@ -496,7 +488,9 @@ The first response from agents is intentionally conservative: they identify thei
 
 ## Live Action Guard
 
-The command center does not import contacts or start drips by default.
+The manual command center does not import contacts or start drips by default.
+The scheduled Reach Warmup Autopilot is different: it may auto-start lanes after
+`ready_for_drip=yes` and all guardrails pass.
 
 When a QA CSV exists, import-only approval uses the QA CSV with `--only-ok` so flagged rows are excluded from the import path. For example, Relay import-only resolves to:
 
@@ -510,14 +504,14 @@ If Mike has personally checked the GHL screens, he can include that in the appro
 approve relay import only; I visually confirmed Relay sender domain, warmup status, workflow sender nodes, and HighLevel AI toggles OFF
 ```
 
-Live execution requires all of the following:
+Manual live execution requires all of the following:
 
-- Mike approval for the exact lane and action.
+- Mike approval for the exact lane and action, unless the scheduled auto-run is handling it.
 - No local blockers in `agent-jobs.csv` or `sending-domain-readiness.csv`.
 - `--execute-live` passed to the command center.
 - `AGENT_ALLOW_LIVE_GHL_ACTIONS=yes` set for the execution window.
 
-Start-drip remains blocked unless `ready_for_drip=yes`.
+Auto and manual start both require `ready_for_drip=yes`.
 
 Import-only approval does not approve start-drip.
 
@@ -536,7 +530,7 @@ Before any live campaign action:
 | Dedicated sending domain warmup status confirmed | GHL Expert |
 | HighLevel AI features confirmed OFF | GHL Expert |
 | Budget/model tier checked | Systems Director |
-| Import or start-drip explicitly approved | Mike |
+| Auto policy or manual override approved | Mike |
 
 ## Hard Rule
 

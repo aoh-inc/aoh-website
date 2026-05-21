@@ -100,7 +100,7 @@ ${summaries
 
 - OK rows can be reused automatically for import-only warmup.
 - Review rows are preserved, but not auto-used.
-- New Outscraper calls remain blocked unless spend is explicitly approved.
+- New Outscraper calls can run automatically inside the configured caps.
 `;
 }
 

@@ -479,7 +479,7 @@ async function buildReachColdEmailCampaignResponse(actor: UserContext, { forceFr
     (summary) => summary.laneKey === "relay" && summary.status.includes("import_only_completed"),
   );
   const nextApprovalText = relayImportCompleted
-    ? "No import approval is needed for Relay right now. Relay import-only is complete. Do not approve start-drip until `ready_for_drip=yes`."
+    ? "No import approval is needed for Relay right now. Auto is waiting for enough clean contacts and `ready_for_drip=yes`."
     : "Recommended next approval, if Mike wants to move today:\n\n```text\napprove relay import only\n```";
 
   return `*Reach Cold Email Campaign - ${today()}*
@@ -498,16 +498,15 @@ Current lanes:
 
 ${summaries.map(renderLaneBullet).join("\n")}
 
-What still needs approval or review:
+What still needs work:
 
-- Sales Manager must decide what to do with QA-flagged rows before live outreach.
-- GHL Expert must visually confirm sender/from domains, domain warmup status, workflow email sender nodes, and HighLevel AI toggles OFF.
-- Mike must approve import-only before any new contacts are imported.
-- Mike must approve start-drip separately, and only after the lane is marked \`ready_for_drip=yes\`.
+- Auto warmup is on for lanes that pass guardrails.
+- Relay needs enough clean contacts and \`ready_for_drip=yes\`.
+- HighLevel AI toggles must stay OFF.
 
 ${nextApprovalText}
 
-Do not start drip yet.
+Do not manually override auto.
 
 Safety:
 
@@ -602,22 +601,22 @@ function buildReachDecisionResponse(actor: UserContext) {
         "/manager approve relay import only",
       ];
   const statusLine = relayImportCompleted
-    ? "- Relay import-only already completed for the 2 QA OK contacts. This check did not start drip."
+    ? "- Auto warmup is active. Reviews and AI Visibility started today; Relay is still waiting."
     : "- The team preflight ran. No live action ran.";
   const bestMove = relayImportCompleted
-    ? "1. Do not start Relay drip yet.\n2. Keep checking readiness until `ready_for_drip=yes`.\n3. Continue Reviews/AI QA only if you want another import-only lane."
+    ? "1. Keep auto mode on.\n2. Refill Relay to at least 10 OK contacts.\n3. Mark Relay `ready_for_drip=yes` only after checks pass; auto will start it."
     : "1. Have Sales Manager review the QA flags.\n2. Have GHL Expert run/confirm fresh readiness.\n3. If those clear, approve the smallest clean lane for import-only first.";
 
   return `*Manager plain-English readout - ${today()}*
 
-${address(actor)}, short version: we are not ready to send emails yet.
+${address(actor)}, short version: auto is on. Ready lanes can start; unready lanes wait.
 
 What this means:
 
 ${statusLine}
 - ${summaries.length} Reach lanes are staged; ${waiting} still need Sales Manager QA and visual GHL review.
 - ${importReady} lanes are marked import-ready, but import-only does not send emails.
-- ${dripReady} lanes are marked drip-ready, so do not start drip yet.
+- ${dripReady} lanes are marked drip-ready; auto can start those lanes when guardrails pass.
 - The read-only GHL API check can pass while visual checks are still open.
 
 Current best move:
@@ -630,7 +629,7 @@ Recommended next commands:
 ${nextCommands.join("\n")}
 \`\`\`
 
-Do not approve start-drip yet.
+Do not manually override auto unless there is a reason.
 
 Safety:
 
@@ -684,14 +683,12 @@ What autopilot does:
 Commands wired in the repo:
 
 \`\`\`bash
-npm run reach:warmup -- --lane ${laneInput}
-npm run reach:warmup -- --lane ${laneInput} --execute import
-npm run reach:warmup -- --lane ${laneInput} --execute start
+npm run reach:warmup -- --lane ${laneInput} --execute auto
 \`\`\`
 
 Important:
 
-- Start-drip stays blocked unless \`ready_for_drip=yes\`.
+- Auto will not start a lane unless \`ready_for_drip=yes\`.
 - HighLevel AI features stay OFF.
 - The Slack listener reports the plan; the long scrape/verify/refill runner is the repo command above.`;
 }
@@ -725,7 +722,7 @@ Default mode: *Warmup Autopilot*
 Current warmup day: ${dayNumber}
 Current quota: ${quotaText}
 Runner: ${queued.ok ? `queued in GitHub Actions (\`${queued.runLabel}\`)` : `not queued yet (${queued.error})`}
-Outscraper spend guard: ${spendApprovalRequired ? (allowScrapeSpend ? "approved for this run" : "ON - no new paid scraping unless you explicitly approve Outscraper spend") : "standard caps only"}
+Outscraper spend guard: ${spendApprovalRequired ? (allowScrapeSpend ? "approved for this run" : "ON - new Outscraper calls are paused by config") : "standard caps only"}
 Outscraper run cap: ${scrapeRunCap} scraped records total across all lanes
 
 What I will own:
@@ -736,9 +733,9 @@ What I will own:
 - Expand the search if the first niche or area is too small.
 - Import only QA OK contacts when the lane is import-ready.
 - Start drip only when the lane is marked \`ready_for_drip=yes\`.
-- When starting drip, use prior imported contacts instead of scraping new contacts.
+- If a lane is short, refill it with capped discovery before trying to start drip.
 - Stop at the configured attempt and scrape caps so this cannot loop forever.
-- If budget protection is ON, skip new Outscraper calls unless spend was explicitly approved.
+- New Outscraper calls can run inside the caps because Mike approved auto.
 
 Current lanes:
 
@@ -760,7 +757,7 @@ If you only say \`/manager start campaign\`, I will ask which campaign first.
 Safety:
 
 - HighLevel AI features stay OFF.
-- Start-drip remains blocked until \`ready_for_drip=yes\`.
+- Auto can start lanes after \`ready_for_drip=yes\` and guardrails pass.
 - I do not need row-by-row decisions from Mike for warmup cleanup.`;
 }
 
@@ -816,7 +813,7 @@ Reporter, verify report delivery status
 Press, what is ready to publish
 \`\`\`
 
-Safety remains the same: agents can recommend and prepare, but they do not import contacts, start drips, publish, DM, or enable HighLevel AI without approval.`;
+Safety remains the same: scheduled auto can run approved warmup lanes; manual risky actions and HighLevel AI still need approval.`;
 }
 
 function buildAgentRoleResponse(agentKey: AgentKey, actor: UserContext) {
@@ -907,7 +904,7 @@ npm run reach:quality -- --lane ${laneKey} --csv ${sourceFile}
       : `Hold/remove the ${heldRows.length} flagged ${rowWord}. Use the ${okRows.length} OK ${okWord} for import-only after GHL visual checks clear.`
     : `All ${okRows.length} ${okWord} are OK from this QA pass.`;
   const nextStepText = importCompleted
-    ? `Relay import-only is already complete. Do not approve import-only again. Wait for \`ready_for_drip=yes\` before any separate start-drip approval.`
+    ? `Relay import-only is already complete. Auto will start Relay after it has enough clean contacts and \`ready_for_drip=yes\`.`
     : `Recommended next command after GHL visual sender-domain/warmup/AI-toggle review clears:
 
 \`\`\`text

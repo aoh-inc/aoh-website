@@ -13,7 +13,7 @@
     "lc_email_send_per_1000": 0.675
   },
   "guardrails": {
-    "require_spend_approval": true,
+    "require_spend_approval": false,
     "spend_approval_env": "REACH_DISCOVERY_ALLOW_SPEND",
     "discovery_limit_per_search": 20,
     "max_discovered_businesses_per_lane": 120,

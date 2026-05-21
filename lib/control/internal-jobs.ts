@@ -70,31 +70,31 @@ export const REACH_LANES: ReachLane[] = [
   {
     name: "Reviews",
     domain: "mail.aioutsourcehubs.com",
-    status: "Waiting on contact review before sending",
-    rows: "8 QA rows",
-    qa: "7 review flags / 1 OK",
-    importState: "Import allowed after gate",
-    dripState: "Drip not ready",
-    tone: "warn",
+    status: "Auto warmup start executed today",
+    rows: "12 OK contacts",
+    qa: "No blockers",
+    importState: "Imported",
+    dripState: "Auto started",
+    tone: "accent",
   },
   {
     name: "AI Visibility",
     domain: "mail.getaioutsourcehub.com",
-    status: "Waiting on contact review before sending",
-    rows: "6 QA rows",
-    qa: "5 review flags / 1 OK",
-    importState: "Import allowed after gate",
-    dripState: "Drip not ready",
-    tone: "warn",
+    status: "Auto warmup start executed today",
+    rows: "20 OK contacts",
+    qa: "No blockers",
+    importState: "Imported",
+    dripState: "Auto started",
+    tone: "accent",
   },
   {
     name: "Relay",
     domain: "mail.myaioutsourcehub.com",
-    status: "Import-only complete; waiting drip readiness",
-    rows: "4 QA rows",
-    qa: "2 review flags / 2 OK",
+    status: "Auto waiting for enough clean contacts and ready status",
+    rows: "5 OK / 10 min",
+    qa: "Needs refill + ready switch",
     importState: "2 OK contacts imported/tagged",
-    dripState: "Drip not ready",
+    dripState: "Auto waiting",
     tone: "warm",
   },
 ];
@@ -198,26 +198,26 @@ export const REACH_STEPS: ReachStep[] = [
   {
     order: 9,
     agent: "GHL Expert + Systems Director",
-    title: "Drip readiness",
-    status: "Blocked",
-    tone: "danger",
+    title: "Auto start readiness",
+    status: "Waiting",
+    tone: "warm",
     whatHappened:
-      "This is the real stop sign. Relay is imported, but ready_for_drip is still no.",
+      "Reviews and AI Visibility started warmup automatically. Relay is waiting because it has 5 OK contacts and needs 10, and ready_for_drip is still no.",
     leftToDo:
-      "Confirm warmup, sender nodes, caps, unsubscribe/reply routing, and final no-AI safety before any drip can start.",
-    evidence: "Current ledger says drip no / ready_for_drip=no.",
+      "Let the auto runner refill Relay with enough clean contacts and mark the lane ready after the sending checks pass.",
+    evidence: "2026-05-21 warmup reports: Reviews 12 started, AI 20 started, Relay blocked at 5 OK rows and ready_for_drip=no.",
   },
   {
     order: 10,
     agent: "Sender",
-    title: "Start drip / send emails",
-    status: "Not started",
-    tone: "muted",
+    title: "Auto start emails",
+    status: "Auto mode on",
+    tone: "accent",
     whatHappened:
-      "No live drip or cold-email send has started from this process.",
+      "The guarded runner can start a lane automatically once it has enough clean contacts and the lane is marked ready.",
     leftToDo:
-      "Start only after ready_for_drip=yes and Mike gives a separate start-drip approval.",
-    evidence: "Slack output repeatedly reports no drip started and no workflows/settings changed.",
+      "Do not ask Mike for another start approval. Keep the readiness switches accurate so auto can do its job.",
+    evidence: "reach-warmup-autopilot.json has autopilot_start_enabled=true and requires ready_for_drip=yes.",
   },
 ];
 
@@ -240,15 +240,15 @@ export const REACH_PROCESS_FACTS = [
   {
     label: "Main handoff issue",
     detail:
-      "The next handoff is not another import. It is drip readiness: warmup, sender nodes, caps, unsubscribe/reply routing, and no HighLevel AI toggles.",
+      "The remaining issue is Relay only: it needs enough clean contacts and the ready switch set to yes. Reviews and AI already started guarded warmup.",
   },
 ];
 
 export const REACH_WARMUP_AUTOPILOT: ReachWarmupAutopilot = {
-  status: "Armed, not running",
-  statusTone: "warm",
+  status: "Auto mode on",
+  statusTone: "accent",
   currentBlocker:
-    "Start-drip remains blocked until each lane is marked ready_for_drip=yes. Import-only can run before that.",
+    "Reviews and AI started today. Relay is waiting for 10 OK contacts and ready_for_drip=yes; then auto can start it without asking Mike again.",
   dailyLadder: [
     "Days 1-3: 10-20 emails/day per dedicated domain",
     "Days 4-6: 40-50 emails/day per dedicated domain",
@@ -271,7 +271,7 @@ export const REACH_WARMUP_AUTOPILOT: ReachWarmupAutopilot = {
     {
       label: "Start warmup drip",
       command: "npm run reach:warmup -- --lane all --execute start",
-      detail: "Adds start tags only when ready_for_drip=yes and guardrails pass.",
+      detail: "Adds start tags only when ready_for_drip=yes, enough clean contacts exist, and guardrails pass.",
       tone: "danger",
     },
   ],
@@ -284,7 +284,7 @@ export const REACH_WARMUP_AUTOPILOT: ReachWarmupAutopilot = {
     "HighLevel AI features stay OFF",
   ],
   visibility: [
-    "Mission Control now shows the warmup plan and exact commands.",
+    "Mission Control now shows auto warmup status by lane.",
     "Local runs write reports into docs/client-ops-ledger/outbox.",
     "True live progress in production MC needs the runner connected to shared state or a deployed job trigger.",
   ],
@@ -295,19 +295,19 @@ export const REACH_INTERNAL_JOB: InternalJob = {
   title: "Internal Job: Reach Cold Email Campaign",
   href: REACH_JOB_HREF,
   owner: "Manager",
-  status: "Waiting on drip readiness",
-  statusTone: "warm",
+  status: "Auto warmup running",
+  statusTone: "accent",
   summary:
-    "Relay import-only is complete for the 2 clean contacts. Reviews and AI Visibility still need QA/visual review. No drip has started.",
+    "Reviews and AI Visibility started guarded warmup today. Relay is waiting for enough clean contacts and ready status.",
   currentBlocker:
-    "ready_for_drip is still no. The system should not send until drip readiness is proven and Mike separately approves start-drip.",
+    "Relay has 5 OK contacts but needs 10, and ready_for_drip is still no. Auto will start it once both are fixed.",
   plainEnglish:
-    "The job is not stuck because Slack is broken. It is paused between importing clean contacts and actually sending emails.",
+    "Auto is on. The system is running lanes that are ready and holding the lane that is not ready.",
   metrics: [
-    { label: "Relay imported", value: "2 OK", tone: "accent" },
-    { label: "Emails sent", value: "0", tone: "muted" },
-    { label: "Lanes still waiting", value: "2", tone: "warn" },
-    { label: "Drip ready", value: "No", tone: "danger" },
+    { label: "Started today", value: "2 lanes", tone: "accent" },
+    { label: "Reviews", value: "12 OK", tone: "accent" },
+    { label: "AI", value: "20 OK", tone: "accent" },
+    { label: "Relay", value: "5/10", tone: "warm" },
   ],
   lanes: REACH_LANES,
   steps: REACH_STEPS,

@@ -351,11 +351,11 @@ function TeamTrackerSection() {
             Campaign launch work
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-            Website reports are verified. Scaled sending waits on GHL reply routing, Systems Director proof,
-            then Sender.
+            Website reports are verified. Reach warmup is on auto; Relay waits for more clean contacts
+            before it joins.
           </p>
         </div>
-        <Pill tone="warn">send blocked until QA</Pill>
+        <Pill tone="accent">warmup auto on</Pill>
       </div>
       <div className="mb-4">
         <a

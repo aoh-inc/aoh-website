@@ -66,7 +66,7 @@ jobs:
       REQUESTED_BY: ${{ github.event.inputs.requested_by || 'scheduled-autopilot' }}
       REACH_LANE: ${{ github.event.inputs.lane || 'all' }}
       REACH_EXECUTE: ${{ github.event.inputs.execute || 'auto' }}
-      REACH_ALLOW_OUTSCRAPER_SPEND: ${{ github.event.inputs.allow_scrape_spend || vars.REACH_ALLOW_OUTSCRAPER_SPEND || 'false' }}
+      REACH_ALLOW_OUTSCRAPER_SPEND: ${{ github.event.inputs.allow_scrape_spend || vars.REACH_ALLOW_OUTSCRAPER_SPEND || 'true' }}
       TZ: America/New_York
 
     steps:

@@ -30,7 +30,7 @@ export default function CampaignLaunchPage() {
             Campaign Launch Room
           </h1>
           <p className="mt-1.5 max-w-3xl text-base leading-relaxed text-zinc-400">
-            Reviews, AI Visibility, and Relay campaigns are drafted. Scaled sending stays blocked until reply handling and launch QA pass.
+            Reviews and AI Visibility are on warmup auto. Relay joins after more clean contacts and final readiness.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -46,14 +46,14 @@ export default function CampaignLaunchPage() {
           >
             Job Costs
           </Link>
-          <Pill tone="warn">send blocked</Pill>
+          <Pill tone="accent">warmup auto on</Pill>
         </div>
       </header>
 
       <section className="mb-8 grid gap-3 md:grid-cols-4">
-        <Metric label="Campaign status" value="QA" tone="warm" />
+        <Metric label="Campaign status" value="Auto warmup" tone="accent" />
         <Metric label="Lanes" value="3" />
-        <Metric label="Hard blocker" value="QA" tone="warn" />
+        <Metric label="Relay need" value="5 more OK" tone="warm" />
         <Metric label="Launch mode" value="Controlled" tone="accent" />
       </section>
 
@@ -76,7 +76,7 @@ export default function CampaignLaunchPage() {
 
         <div className="rounded-2xl border border-emerald-500/25 bg-emerald-500/5 p-5 md:p-6">
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-emerald-300">
-            Mike's role
+            Mike&apos;s role
           </p>
           <h2 className="mt-1 text-2xl font-semibold tracking-tight text-zinc-50">
             Pick target, then approve

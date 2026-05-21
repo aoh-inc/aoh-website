@@ -52,4 +52,4 @@ Mike reviews and approves. Manager scans the company, prepares the brief, and ro
 
 For outreach campaigns, the extra rule is:
 
-> Agents may research, clean, verify, and prepare. Mike must explicitly approve GHL imports and drip starts.
+> Agents may research, clean, verify, and prepare. The approved Reach warmup autopilot may import/start ready lanes inside guardrails; anything outside that still needs Mike approval.

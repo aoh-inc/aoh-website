@@ -47,7 +47,7 @@ jobs:
       REACH_DISCOVERY_LIMIT: ${{ github.event.inputs.limit || vars.REACH_DISCOVERY_LIMIT || '20' }}
       REACH_DISCOVERY_MAX_SPEND: ${{ github.event.inputs.max_spend || vars.REACH_DISCOVERY_MAX_SPEND || '5' }}
       REACH_DISCOVERY_CRAWL_LIMIT: ${{ github.event.inputs.crawl_limit || vars.REACH_DISCOVERY_CRAWL_LIMIT || '60' }}
-      REACH_DISCOVERY_ALLOW_SPEND: ${{ github.event.inputs.allow_spend || vars.REACH_DISCOVERY_ALLOW_SPEND || 'false' }}
+      REACH_DISCOVERY_ALLOW_SPEND: ${{ github.event.inputs.allow_spend || vars.REACH_DISCOVERY_ALLOW_SPEND || 'true' }}
       TZ: America/New_York
 
     steps:

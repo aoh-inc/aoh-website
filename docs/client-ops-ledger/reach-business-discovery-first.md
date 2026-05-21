@@ -43,10 +43,10 @@ The discovery-first script:
 - does not add campaign start tags
 - does not start drip workflows
 - does not enable or change HighLevel AI features
-- requires spend approval before paid Outscraper calls
+- can use paid Outscraper discovery automatically inside the daily cap
 - writes CSVs and outbox reports only
 
-Paid discovery is approved only when one of these is present:
+Paid discovery is now allowed for the scheduled auto run inside the configured cap:
 
 ```powershell
 npm run reach:discover -- --lane all --allow-spend
@@ -58,8 +58,8 @@ or:
 $env:REACH_DISCOVERY_ALLOW_SPEND="yes"
 ```
 
-GitHub Actions uses the repo variable `REACH_DISCOVERY_ALLOW_SPEND`. If that
-variable is not `yes`, the scheduled workflow runs plan-only and spends nothing.
+GitHub Actions now defaults scheduled discovery to spend-enabled because Mike
+approved auto. The cap still protects the Outscraper balance.
 
 ## Daily Budget
 
