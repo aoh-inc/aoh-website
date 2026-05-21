@@ -6,7 +6,7 @@ Prepared by: General Manager
 ## Owner Read
 
 - Reach: Reviews start (start: 12 contacts, no errors). AI Visibility start (start: 20 contacts, no errors). Relay import (import: 10 contacts, no errors).
-- Mike today: After the brief: choose the AOH Google email clients should invite for Google Business Profile access.
+- Mike today: No action from you.
 - Safety: HighLevel AI stays OFF. GHL Expert owns sender/domain proof before start-drip.
 
 ## Campaign Results
@@ -21,7 +21,6 @@ Prepared by: General Manager
 
 - No Mike action: GHL Expert needs to clear Relay drip readiness before sending can start.
 - No Mike action: Systems/GHL Expert still need to connect GHL Email Statistics export/API for opens, clicks, replies, bounces, and unsubscribes.
-- After the brief: choose the AOH Google email clients should invite for Google Business Profile access.
 - Relay clean contact check: 10/10.
 
 ## Market Signal
@@ -39,20 +38,18 @@ Prepared by: General Manager
 
 ## Recommended Move
 
-Keep auto on. Have GHL Expert clear Relay drip readiness before any start-drip action. Then have Local Visibility Manager test GBP access/update on AOH as client zero.
+Keep auto on. Have GHL Expert clear Relay drip readiness before any start-drip action.
 
 ## Source Status
 
 - News feeds active: 0; waiting for URLs: 4.
 - GHL email stats: not connected yet.
-- GBP access/update test: documented; waiting for the AOH Google email to use.
 
 ## Proof Used
 
 - docs/client-ops-ledger/agent-jobs.csv
 - docs/client-ops-ledger/sending-domain-readiness.csv
 - docs/client-ops-ledger/daily-brief-current.md
-- docs/client-ops-ledger/gbp-client-access-and-update-test.md
 - docs/client-ops-ledger/outbox/reach-warmup-reviews-2026-05-21.json
 - tmp-reach-warmup-reviews-2026-05-21-start-ghl-results.json
 - docs/client-ops-ledger/outbox/reach-warmup-ai-2026-05-21.json
