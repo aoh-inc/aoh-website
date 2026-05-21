@@ -135,7 +135,7 @@ Bridge decision:
 
 | Workstream | Replacement target | Exit gate |
 | --- | --- | --- |
-| Review Automation | AOH client page, database, optional GHL/email sender bridge, private feedback page, monthly recap | AOH can run review requests for AOH and 1 pilot client with GHL bridge or without GHL. |
+| Review Automation | AOH client page, Redis/database storage, internal status API, optional GHL/email sender bridge, private feedback page, monthly recap | AOH can run review requests for AOH and 1 pilot client with GHL bridge or without GHL. |
 | AI Visibility | AOH client page, GBP checklist, AI scans, heatmap vendor/API, AI reply drafts, monthly report | AOH can produce one AI Visibility report without GHL/Search Atlas. |
 | Reach cold email | Keep GHL drips short term; later Smartlead/Instantly only if GHL becomes the blocker | New campaign can send, stop on reply, track stats, and report without forcing $297/$497. |
 | Report routing | AOH database/API tracks report requests and ready state | Website report request no longer needs GHL workflow state. |
@@ -144,6 +144,35 @@ Bridge decision:
 | Data/archive | Export GHL contacts, workflows, fields, tags, stats, assets | Auditor can find old proof after GHL is canceled. |
 
 ## Build Order
+
+### Step 0: AOH Review Automation Core
+
+Owner: Website/Codex  
+Reviewer: Reviews Manager + Auditor
+
+Built:
+
+- `/client/[slug]/customers` for customer/job list upload.
+- `/review/[slug]` for private feedback before Google routing.
+- Redis-backed event storage through existing Upstash env vars.
+- `/api/review-automation/status` for Manager/System status checks.
+
+Rules:
+
+- Slack only gets summaries, not full customer rows.
+- The status endpoint requires an internal token. Use
+  `AOH_INTERNAL_API_TOKEN`, or the existing report bypass token as the bridge
+  token while infrastructure is being consolidated.
+- Happy customers route to Google only after the verified client review link is saved.
+- GHL remains the sender bridge until AOH has send logs, suppression, unsubscribe, bounce handling, and one follow-up rule.
+
+Current deployment note:
+
+- `REPORT_TEST_BYPASS_TOKEN` exists in Vercel Production and can protect the
+  internal status endpoint during the bridge phase.
+- `UPSTASH_REDIS_REST_URL` and `UPSTASH_REDIS_REST_TOKEN` were not listed in
+  Vercel Production on 2026-05-21, so persistent review event history still
+  needs those env vars or a replacement database before live storage is complete.
 
 ### Step 1: GHL Inventory And Export
 

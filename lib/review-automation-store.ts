@@ -2,7 +2,7 @@ import type { ReviewCustomerPacket, ReviewFeedbackPacket } from "@/lib/review-au
 
 type ReviewAutomationEventType = "customer_upload" | "private_feedback";
 
-type ReviewAutomationRecord = {
+export type ReviewAutomationRecord = {
   id: string;
   eventType: ReviewAutomationEventType;
   clientSlug: string;
@@ -16,6 +16,16 @@ type StorageResult =
   | { ok: true; configured: true; id: string; status?: number }
   | { ok: false; configured: false; error: string }
   | { ok: false; configured: true; id: string; status?: number; error: string };
+
+type ReviewAutomationSummaryResult =
+  | {
+      ok: true;
+      configured: true;
+      index: string;
+      records: Array<Omit<ReviewAutomationRecord, "payload">>;
+    }
+  | { ok: false; configured: false; error: string }
+  | { ok: false; configured: true; error: string; status?: number };
 
 const DEFAULT_TTL_DAYS = 90;
 
@@ -72,6 +82,82 @@ export async function saveReviewAutomationEvent(
   return { ok: true, configured: true, id, status: response.status };
 }
 
+export async function listReviewAutomationSummaries(input: {
+  clientSlug?: string;
+  limit?: number;
+}): Promise<ReviewAutomationSummaryResult> {
+  const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+
+  if (!url || !token) {
+    return { ok: false, configured: false, error: "UPSTASH_REDIS_REST_URL or UPSTASH_REDIS_REST_TOKEN is not set." };
+  }
+
+  const limit = Math.min(50, Math.max(1, Math.floor(input.limit ?? 20)));
+  const index = input.clientSlug ? clientIndexKey(input.clientSlug) : globalIndexKey();
+  const idsResult = await runRedisPipeline<string[][]>(url, token, [["LRANGE", index, "0", String(limit - 1)]]);
+
+  if (!idsResult.ok) return { ok: false, configured: true, status: idsResult.status, error: idsResult.error };
+
+  const ids = Array.isArray(idsResult.values[0]) ? idsResult.values[0] : [];
+  if (!ids.length) {
+    return { ok: true, configured: true, index, records: [] };
+  }
+
+  const recordResult = await runRedisPipeline<string[]>(
+    url,
+    token,
+    ids.map((id) => ["GET", eventKey(id)]),
+  );
+  if (!recordResult.ok) return { ok: false, configured: true, status: recordResult.status, error: recordResult.error };
+
+  const records = recordResult.values
+    .map((value) => parseRecord(value))
+    .filter((record): record is ReviewAutomationRecord => Boolean(record))
+    .map(({ payload: _payload, ...summary }) => summary);
+
+  return { ok: true, configured: true, index, records };
+}
+
+async function runRedisPipeline<T>(
+  url: string,
+  token: string,
+  commands: string[][],
+): Promise<{ ok: true; values: T; status: number } | { ok: false; error: string; status?: number }> {
+  const response = await fetch(`${url}/pipeline`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(commands),
+    cache: "no-store",
+  }).catch((error) => {
+    return error instanceof Error ? error : new Error("Unknown storage error.");
+  });
+
+  if (response instanceof Error) return { ok: false, error: response.message };
+  if (!response.ok) {
+    return {
+      ok: false,
+      status: response.status,
+      error: (await response.text().catch(() => "")).slice(0, 300),
+    };
+  }
+
+  const json = (await response.json().catch(() => null)) as Array<{ result?: unknown; error?: string }> | null;
+  if (!Array.isArray(json)) {
+    return { ok: false, status: response.status, error: "Redis pipeline returned an unexpected response." };
+  }
+
+  const failed = json.find((item) => item?.error);
+  if (failed?.error) {
+    return { ok: false, status: response.status, error: failed.error };
+  }
+
+  return { ok: true, status: response.status, values: json.map((item) => item.result) as T };
+}
+
 function buildRecord({
   id,
   eventType,
@@ -109,6 +195,17 @@ function summarizePayload(eventType: ReviewAutomationEventType, payload: ReviewC
     hasFeedback: Boolean(packet.feedback.trim()),
     hasCustomerEmail: Boolean(packet.customerEmail.trim()),
   };
+}
+
+function parseRecord(value: unknown) {
+  if (typeof value !== "string" || !value) return null;
+  try {
+    const parsed = JSON.parse(value) as ReviewAutomationRecord;
+    if (!parsed || typeof parsed !== "object" || typeof parsed.id !== "string") return null;
+    return parsed;
+  } catch {
+    return null;
+  }
 }
 
 function storageTtlDays() {

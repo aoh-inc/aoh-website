@@ -138,6 +138,10 @@ function routeCommand(command, args) {
     return buildGhlExitStatusResponse();
   }
 
+  if (mentionsReviewAutomationStatus(normalized)) {
+    return buildReviewAutomationStatusResponse();
+  }
+
   if (mentionsGhlReadiness(normalized)) {
     return buildGhlCheckResponse();
   }
@@ -175,6 +179,7 @@ Supported commands:
 - \`Manager, morning brief\`
 - \`Manager, model routing\`
 - \`Manager, GHL exit status\`
+- \`Reviews Manager, status\`
 - \`Local Visibility Manager, prepare GBP access test\`
 - \`Manager, run Reach Cold Email Campaign\`
 - \`Manager, show Reach warmup autopilot\`
@@ -954,6 +959,42 @@ Useful commands:
 Manager, GHL exit status
 GHL Expert, check Reach readiness
 Manager, status
+\`\`\`
+`,
+  };
+}
+
+function buildReviewAutomationStatusResponse() {
+  return {
+    kind: "reviews-manager-status",
+    text: `*Reviews Manager status - ${today()}*
+
+Short answer: AOH Review Automation is being moved onto our own client page, with GHL kept as the $97 bridge for sending while we test.
+
+Live pieces:
+
+- Customer upload page: built.
+- Private feedback page: built.
+- Summary storage: ready once Upstash env is set on Vercel.
+- Slack/automation handoff: summary-only; optional webhook can be added.
+- Manager status API: built and protected by internal token.
+
+What Manager can check:
+
+- Recent customer uploads.
+- Recent private feedback.
+- Counts and summaries only by default.
+- No full customer list in Slack.
+
+Still needed:
+
+- Add each client's verified Google review link before happy feedback can route to Google.
+- Keep GHL as sender until the AOH sender has send logs, suppression, unsubscribe, and bounce handling.
+
+Useful URL for systems/Manager:
+
+\`\`\`text
+/api/review-automation/status?client=ai-outsource-hub
 \`\`\`
 `,
   };
@@ -1747,6 +1788,17 @@ function mentionsGhlExit(normalized) {
   const mentionsHighLevel = normalized.includes("ghl") || normalized.includes("highlevel") || normalized.includes("high level");
   if (!mentionsHighLevel) return false;
   return /\b(exit|migration|migrate|replacement|replace|downgrade|cancel|off ghl|move off)\b/.test(normalized);
+}
+
+function mentionsReviewAutomationStatus(normalized) {
+  const mentionsReviews =
+    normalized.includes("review automation") ||
+    normalized.includes("reviews manager") ||
+    normalized.includes("review manager") ||
+    normalized.includes("customer upload") ||
+    normalized.includes("private feedback");
+  if (!mentionsReviews) return false;
+  return /\b(status|check|health|ready|working|running|activity|uploads|feedback)\b/.test(normalized);
 }
 
 function mentionsGhlVisualReadiness(normalized) {

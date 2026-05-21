@@ -119,6 +119,10 @@ Build status:
   configured, so no new storage vendor is required for the first test.
 - Full customer rows are not posted to Slack.
 - Private feedback v1 exists at `/review/[slug]`.
+- Manager/internal summary status exists at `/api/review-automation/status`.
+  It returns summary records only by default and requires an internal token.
+  Use `AOH_INTERNAL_API_TOKEN`, or the existing report bypass token as the
+  bridge token while AOH is consolidating infrastructure.
 - Google routing waits for a verified per-client review link.
 
 This v1 fulfills the actual $49/mo promise without GHL.
@@ -154,6 +158,35 @@ What not to build into v1:
 | Monthly recap sent | Manager | Generate simple summary and email/client-page update. | Client sees what went out, what came in, and what is needed. |
 | Low-review coaching | Manager/Coach | If review count is below goal, page shows simple owner tips. | Client gets practical next action, not internal tooling detail. |
 | QA and proof | Auditor | Check sends, links, suppressions, GBP link, and summary accuracy. | Client can be marked live/healthy. |
+
+## Review Automation Status Loop
+
+Manager should not ask Mike to babysit review jobs.
+
+Current v1 loop:
+
+1. Client uploads customers at `/client/[slug]/customers`.
+2. AOH stores the full packet in Redis if configured.
+3. Slack receives only a short summary.
+4. Client feedback lands at `/review/[slug]`.
+5. Happy feedback routes to Google only after the verified Google review link is saved.
+6. Manager/System can check `/api/review-automation/status?client=[slug]` with an internal token.
+
+What this gives Mike:
+
+- Customer uploads happened or did not happen.
+- Feedback came in or did not come in.
+- Counts and summaries.
+- No private customer list dumped into Slack.
+
+Still needed before removing GHL from Review Automation sending:
+
+- Verified Google review link for each client.
+- Send log.
+- Suppression/unsubscribe.
+- Bounce handling.
+- One follow-up rule.
+- Monthly recap.
 
 ## GHL-Free Cost View For Review Automation
 
