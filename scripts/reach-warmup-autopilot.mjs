@@ -6,6 +6,7 @@ import { spawnSync } from "node:child_process";
 
 const CONFIG_PATH = "docs/client-ops-ledger/reach-warmup-autopilot.json";
 const DOMAIN_PATH = "docs/client-ops-ledger/sending-domain-readiness.csv";
+const LEDGER_DIR = "docs/client-ops-ledger";
 const OUTBOX = "docs/client-ops-ledger/outbox";
 const LANES = {
   reviews: {
@@ -104,6 +105,7 @@ function runLane({ laneKey, config, domains, args, date, execute, runBudget }) {
   const pool = [];
   const attempts = [];
   const history = readLaneHistory(laneKey, lane);
+  const seen = new Set([...history.imported, ...history.started]);
   const earlyBlockers = earlyLiveActionBlockers({ laneKey, execute: laneExecute, guardrails, date });
   if (earlyBlockers.length) {
     return writeLaneReport({
@@ -124,46 +126,12 @@ function runLane({ laneKey, config, domains, args, date, execute, runBudget }) {
   }
 
   const scrapeSpendBlocker = scrapeSpendBlockerFor({ args, guardrails });
-  if (scrapeSpendBlocker) {
-    return writeLaneReport({
-      laneKey,
-      lane,
-      date,
-      execute: laneExecute,
-      requestedExecute: execute,
-      dayNumber,
-      quota: { ...quota, target, min, max },
-      status: "held",
-      selectedRows: [],
-      selectedCsv: "",
-      attempts: [],
-      blockers: [scrapeSpendBlocker],
-      actionResults: [],
-    });
-  }
+  const cachedAttempt = addCachedInventoryRows({ laneKey, pool, seen, target });
+  if (cachedAttempt) attempts.push(cachedAttempt);
 
-  if (maxTotalScraped <= 0) {
-    return writeLaneReport({
-      laneKey,
-      lane,
-      date,
-      execute: laneExecute,
-      requestedExecute: execute,
-      dayNumber,
-      quota: { ...quota, target, min, max },
-      status: "held",
-      selectedRows: [],
-      selectedCsv: "",
-      attempts: [],
-      blockers: ["Run-level Outscraper scrape budget is already exhausted; skipped this lane before scraping."],
-      actionResults: [],
-    });
-  }
-
-  const seen = new Set([...history.imported, ...history.started]);
   let totalScraped = 0;
 
-  for (let attempt = 1; attempt <= maxAttempts && pool.length < target; attempt++) {
+  for (let attempt = 1; attempt <= maxAttempts && pool.length < target && !scrapeSpendBlocker; attempt++) {
     if (totalScraped >= maxTotalScraped) break;
     const search = laneConfig.searches[(attempt - 1) % laneConfig.searches.length];
     const remainingScrape = Math.max(1, Math.min(scrapeLimit, maxTotalScraped - totalScraped));
@@ -258,6 +226,10 @@ function runLane({ laneKey, config, domains, args, date, execute, runBudget }) {
   const selectedRows = pool.slice(0, target);
   const blockers = [];
   if (selectedRows.length < min) blockers.push(`Only ${selectedRows.length} OK rows found; minimum is ${min}.`);
+  if (selectedRows.length < min && scrapeSpendBlocker) blockers.push(scrapeSpendBlocker);
+  if (selectedRows.length < min && maxTotalScraped <= 0) {
+    blockers.push("Run-level Outscraper scrape budget is already exhausted; no new scraping was attempted.");
+  }
   if (laneExecute !== "none") blockers.push(...liveActionBlockers({ laneKey, lane, domains, selectedRows, min, max, execute: laneExecute, config, date, history }));
 
   const selectedCsv = `tmp-reach-warmup-${laneKey}-${date}-selected-qa.csv`;
@@ -335,6 +307,65 @@ function hasScrapeSpendApproval(args, guardrails) {
   if (args["allow-scrape-spend"] || args.allowScrapeSpend) return true;
   const envName = String(guardrails.outscraper_spend_approval_env ?? "REACH_ALLOW_OUTSCRAPER_SPEND");
   return /^(1|true|yes|y|approved)$/i.test(String(process.env[envName] ?? "").trim());
+}
+
+function addCachedInventoryRows({ laneKey, pool, seen, target }) {
+  const { rows, okRows, fileCount } = loadCachedQaInventory(laneKey);
+  if (!fileCount) return null;
+
+  let added = 0;
+  for (const row of okRows) {
+    const email = String(row.email ?? "").trim().toLowerCase();
+    if (!email || seen.has(email)) continue;
+    seen.add(email);
+    pool.push(row);
+    added++;
+    if (pool.length >= target) break;
+  }
+
+  return {
+    attempt: "cache",
+    industry: "paid scrape inventory",
+    area: `${fileCount} saved QA file${fileCount === 1 ? "" : "s"}`,
+    state: "",
+    scrapeLimit: 0,
+    qaRows: rows.length,
+    okRows: okRows.length,
+    added,
+    poolSize: pool.length,
+    qaCsv: `cached ${laneKey} QA inventory`,
+    error: added ? "reused_paid_scrape_inventory" : "no_unused_cached_ok_rows",
+  };
+}
+
+function loadCachedQaInventory(laneKey) {
+  const files = inventoryCandidateFiles(laneKey);
+  const byEmail = new Map();
+  for (const file of files) {
+    for (const row of readCsv(file)) {
+      const email = String(row.email ?? "").trim().toLowerCase();
+      if (!email) continue;
+      const next = { ...row, inventory_source_file: file };
+      const current = byEmail.get(email);
+      if (!current || (isQaOk(next) && !isQaOk(current))) byEmail.set(email, next);
+    }
+  }
+  const rows = [...byEmail.values()];
+  return { rows, okRows: rows.filter(isQaOk), fileCount: files.length };
+}
+
+function inventoryCandidateFiles(laneKey) {
+  const files = [];
+  const ledgerOk = resolve(LEDGER_DIR, `reach-scrape-inventory-${laneKey}-ok.csv`);
+  const ledgerAll = resolve(LEDGER_DIR, `reach-scrape-inventory-${laneKey}.csv`);
+  if (existsSync(ledgerOk)) files.push(ledgerOk);
+  if (existsSync(ledgerAll)) files.push(ledgerAll);
+  for (const file of readdirSync(".")) {
+    const isQa = file.endsWith("-qa.csv") && !file.includes("selected-qa");
+    const isLane = file.startsWith(`tmp-reach-warmup-${laneKey}-`) || file.startsWith(`tmp-reach-${laneKey}-`);
+    if (isQa && isLane) files.push(file);
+  }
+  return [...new Set(files)].sort();
 }
 
 function createScrapeRunBudget(config) {

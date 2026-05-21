@@ -374,6 +374,7 @@ npm run reach:warmup -- --lane ${requestedLane ?? "all"} --execute start
 Guardrails:
 
 - Refill bad/risky emails automatically.
+- Reuse already-paid scrape inventory before making a new Outscraper call.
 - Expand search when the first niche/area is too small.
 - Stop at max attempts and scrape caps.
 - Skip new Outscraper calls unless spend is approved when budget protection is ON.
@@ -411,6 +412,7 @@ Outscraper run cap: ${scrapeRunCap} scraped records total across all lanes
 What Manager owns:
 
 - Work toward today's warmup amount without asking Mike to decide each row.
+- Reuse already-paid scrape inventory before making a new Outscraper call.
 - Replace bad, risky, duplicate, personal-domain, unknown, or catchall emails.
 - Expand the search if the first niche or area is too small.
 - Import only QA OK contacts when the lane is import-ready.

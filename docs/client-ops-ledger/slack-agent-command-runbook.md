@@ -336,6 +336,7 @@ What it does:
 
 - follows the 10-20 / 40-50 / 80-100 warmup ladder
 - finds enough QA OK contacts for the day
+- reuses already-paid scrape inventory before making any new Outscraper call
 - replaces bad/risky emails automatically
 - expands to the next search when the first niche/area is too small
 - stops at max attempts and scrape caps so it cannot loop forever
@@ -353,6 +354,20 @@ clear approval such as:
 ```
 
 Without that approval, the worker writes a held report before any paid scrape.
+
+Already-paid scrape inventory can be rebuilt without Outscraper spend:
+
+```bash
+npm run reach:inventory
+```
+
+The inventory files are:
+
+```text
+docs/client-ops-ledger/reach-scrape-inventory-reviews-ok.csv
+docs/client-ops-ledger/reach-scrape-inventory-ai-ok.csv
+docs/client-ops-ledger/reach-scrape-inventory-relay-ok.csv
+```
 
 Import-only:
 

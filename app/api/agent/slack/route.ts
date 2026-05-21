@@ -673,6 +673,7 @@ ${lanes
 What autopilot does:
 
 - Follows the 10-20 / 40-50 / 80-100 warmup ladder.
+- Reuses already-paid scrape inventory before making a new Outscraper call.
 - If a bad or risky email is found, it removes it and keeps searching.
 - If the first niche/area is too small, it expands to the next configured search.
 - It stops at max refill attempts and scrape caps, so it cannot run forever.
@@ -727,6 +728,7 @@ Outscraper run cap: ${scrapeRunCap} scraped records total across all lanes
 What I will own:
 
 - Work toward today's warmup amount without asking you to decide each row.
+- Reuse already-paid scrape inventory before making a new Outscraper call.
 - Replace bad, risky, duplicate, personal-domain, unknown, or catchall emails.
 - Expand the search if the first niche or area is too small.
 - Import only QA OK contacts when the lane is import-ready.

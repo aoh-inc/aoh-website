@@ -58,6 +58,7 @@ lighthouse-local-*
 !/scripts/reach-prep-batch.mjs
 !/scripts/reach-quality-review.mjs
 !/scripts/reach-ghl-expert-check.mjs
+!/scripts/build-reach-scrape-inventory.mjs
 !/scripts/agent-command-center.mjs
 !/scripts/auditor-security-sweep.mjs
 /data/
