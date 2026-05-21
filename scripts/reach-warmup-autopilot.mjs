@@ -90,9 +90,10 @@ function runLane({ laneKey, config, domains, args, date, execute }) {
   const guardrails = config.guardrails ?? {};
   const maxAttempts = numberArg(args["max-attempts"] ?? args.maxAttempts, guardrails.max_refill_attempts_per_lane ?? 5);
   const scrapeLimit = Math.min(
-    numberArg(args["scrape-limit"] ?? args.scrapeLimit, Math.min(Math.max(target * 2, 20), 30)),
+    numberArg(args["scrape-limit"] ?? args.scrapeLimit, Math.min(Math.max(target, 15), 20)),
     guardrails.max_scrape_limit_per_attempt ?? 100,
   );
+  const scrapeTimeoutMs = numberArg(args["scrape-timeout-ms"] ?? args.scrapeTimeoutMs, 120_000);
   const maxTotalScraped = guardrails.max_total_scraped_per_lane_per_day ?? 500;
   const provider = String(args.provider ?? "neverbounce");
   const skipVerify = Boolean(args["skip-verify"]);
@@ -124,6 +125,8 @@ function runLane({ laneKey, config, domains, args, date, execute }) {
       search.area,
       "--limit",
       String(remainingScrape),
+      "--timeout-ms",
+      String(scrapeTimeoutMs),
       "--out",
       rawJson,
     ]);
@@ -593,6 +596,7 @@ Options:
   --execute none|import|start|auto
   --max-attempts 5
   --scrape-limit 60
+  --scrape-timeout-ms 120000
   --provider neverbounce|hunter
   --skip-verify
   --config docs/client-ops-ledger/reach-warmup-autopilot.json

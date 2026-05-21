@@ -177,8 +177,10 @@ async function scrapeProspects(args, laneKey, limit) {
   console.log(`Scraping Outscraper query: ${query}`);
   console.log(`Limit: ${limit}. Enrichment: ${enrich ? "contacts_n_leads" : "off"}.`);
 
+  const timeoutMs = boundedNumber(args.timeoutMs ?? args["timeout-ms"], 30_000, 240_000, 120_000);
   const res = await fetch(url, {
     headers: { "X-API-KEY": apiKey },
+    signal: AbortSignal.timeout(timeoutMs),
   });
   const text = await res.text();
   if (!res.ok) {
@@ -187,6 +189,12 @@ async function scrapeProspects(args, laneKey, limit) {
   const data = parseJson(text);
   const rows = flattenOutscraperData(data?.data);
   return rows.map((row) => ({ ...row, campaignLane: laneKey, searchQuery: query }));
+}
+
+function boundedNumber(value, min, max, fallback) {
+  const parsed = Number(value ?? fallback);
+  if (!Number.isFinite(parsed)) return fallback;
+  return Math.min(max, Math.max(min, parsed));
 }
 
 function normalizeProspect(input, laneKey) {
