@@ -32,6 +32,16 @@ type ReviewAutomationSummaryResult =
   | { ok: false; configured: false; error: string }
   | { ok: false; configured: true; error: string; status?: number };
 
+type ReviewAutomationRecordResult =
+  | {
+      ok: true;
+      configured: true;
+      index: string;
+      records: ReviewAutomationRecord[];
+    }
+  | { ok: false; configured: false; error: string }
+  | { ok: false; configured: true; error: string; status?: number };
+
 const DEFAULT_TTL_DAYS = 90;
 
 export async function saveReviewAutomationEvent(
@@ -138,6 +148,21 @@ export async function listReviewAutomationSummaries(input: {
   clientSlug?: string;
   limit?: number;
 }): Promise<ReviewAutomationSummaryResult> {
+  const result = await listReviewAutomationRecords(input);
+  if (!result.ok) return result;
+
+  return {
+    ok: true,
+    configured: true,
+    index: result.index,
+    records: result.records.map(({ payload: _payload, ...summary }) => summary),
+  };
+}
+
+export async function listReviewAutomationRecords(input: {
+  clientSlug?: string;
+  limit?: number;
+}): Promise<ReviewAutomationRecordResult> {
   const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
   const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
 
@@ -165,8 +190,7 @@ export async function listReviewAutomationSummaries(input: {
 
   const records = recordResult.values
     .map((value) => parseRecord(value))
-    .filter((record): record is ReviewAutomationRecord => Boolean(record))
-    .map(({ payload: _payload, ...summary }) => summary);
+    .filter((record): record is ReviewAutomationRecord => Boolean(record));
 
   return { ok: true, configured: true, index, records };
 }
