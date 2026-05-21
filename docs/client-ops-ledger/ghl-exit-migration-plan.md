@@ -288,6 +288,8 @@ Day 1:
 - downgrade call/support confirmation
 - export current GHL inventory
 - freeze new GHL-dependent work
+- keep intake packets flowing to AOH-owned webhooks/Slack before the temporary
+  GHL bridge
 
 Days 2-3:
 

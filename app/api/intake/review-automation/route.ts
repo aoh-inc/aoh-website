@@ -105,7 +105,12 @@ export async function POST(req: NextRequest) {
     timestamp: new Date().toISOString(),
   };
 
-  await Promise.allSettled([forwardToGhl(payload), forwardToSlack(payload)]);
+  const tasks: Promise<void>[] = [forwardToAohIntakeWebhook(payload), forwardToSlack(payload)];
+  if (!ghlForwardingDisabled()) {
+    tasks.push(forwardToGhl(payload));
+  }
+
+  await Promise.allSettled(tasks);
 
   return NextResponse.json({ ok: true });
 }
@@ -149,6 +154,30 @@ async function forwardToGhl(payload: CleanIntake) {
   }
 }
 
+async function forwardToAohIntakeWebhook(payload: CleanIntake) {
+  const url =
+    process.env.AOH_CLIENT_INTAKE_WEBHOOK_URL?.trim() ||
+    process.env.AOH_INTAKE_WEBHOOK_URL?.trim();
+  if (!url) return;
+
+  const response = await fetch(url, {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({
+      ...payload,
+      taskPacket: buildTaskPacket(payload),
+      destination: "aoh_owned_intake",
+    }),
+  }).catch((error) => {
+    console.error("Client intake AOH webhook failed", error);
+    return null;
+  });
+
+  if (response && !response.ok) {
+    console.error("Client intake AOH webhook responded", response.status, await response.text().catch(() => ""));
+  }
+}
+
 async function forwardToSlack(payload: CleanIntake) {
   const webhook =
     process.env.SLACK_CLIENT_INTAKE_WEBHOOK_URL?.trim() ||
@@ -170,6 +199,13 @@ async function forwardToSlack(payload: CleanIntake) {
   }
 }
 
+function ghlForwardingDisabled() {
+  const value = String(process.env.AOH_DISABLE_GHL_FORWARDING ?? process.env.AOH_GHL_FREE_MODE ?? "")
+    .trim()
+    .toLowerCase();
+  return ["1", "true", "yes", "on"].includes(value);
+}
+
 function buildTaskPacket(payload: CleanIntake) {
   return {
     job: "Review Automation intake",
@@ -178,11 +214,13 @@ function buildTaskPacket(payload: CleanIntake) {
       manager: "route and brief",
       localVisibilityManager: "verify Google Business Profile access and profile basics",
       reviewsManager: "prepare review automation setup",
-      ghlExpert: "prepare HighLevel setup after access is clear",
+      systemsDirector: "keep setup moving through AOH-owned intake and alert paths",
+      ghlExpert: "bridge-only HighLevel setup/export while GHL remains active",
     },
     safety: [
       "No password sharing.",
       "Default GBP role is Manager.",
+      "AOH-owned intake path should receive the packet before any GHL bridge handoff.",
       "Do not enable HighLevel AI features without Mike's manual approval.",
       "Public GBP changes need client or Mike approval before publishing.",
     ],
@@ -204,7 +242,8 @@ function buildSlackMessage(payload: CleanIntake) {
 *Manager routing:*
 - Local Visibility Manager: verify GBP access and profile basics.
 - Reviews Manager: prepare review automation setup.
-- GHL Expert: prepare HighLevel setup after access is clear.
+- Systems Director: keep AOH-owned intake and alert paths healthy.
+- GHL Expert: bridge-only HighLevel setup/export while GHL remains active.
 
 *Safety:*
 - No password sharing.

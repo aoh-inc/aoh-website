@@ -2,7 +2,7 @@
 
 Status: v1 live intake
 Owner: Manager
-Primary agents: Local Visibility Manager, Reviews Manager, GHL Expert
+Primary agents: Local Visibility Manager, Reviews Manager, Systems Director, GHL Expert bridge
 Last updated: 2026-05-21
 
 ## Purpose
@@ -16,7 +16,8 @@ The important trigger is Google Business Profile access:
 - Manager routes the setup packet to the right agents
 - Local Visibility Manager verifies access
 - Reviews Manager prepares the review automation flow
-- GHL Expert handles HighLevel setup only after access is clear
+- Systems Director keeps the AOH-owned intake/alert path healthy
+- GHL Expert handles HighLevel only as a bridge while the GHL exit is in progress
 
 ## Live Form
 
@@ -28,10 +29,20 @@ The important trigger is Google Business Profile access:
 
 When the form is submitted, the API forwards a setup packet to:
 
-- `GHL_CLIENT_INTAKE_WEBHOOK_URL`, if set
-- otherwise `GHL_CONTACT_WEBHOOK_URL` or `GHL_WEBHOOK_URL`
+- `AOH_CLIENT_INTAKE_WEBHOOK_URL`, if set
+- otherwise `AOH_INTAKE_WEBHOOK_URL`, if set
 - `SLACK_CLIENT_INTAKE_WEBHOOK_URL`, if set
 - otherwise `SLACK_MISSION_CONTROL_WEBHOOK_URL` or `SLACK_WEBHOOK_URL`
+- `GHL_CLIENT_INTAKE_WEBHOOK_URL`, `GHL_CONTACT_WEBHOOK_URL`, or
+  `GHL_WEBHOOK_URL` only as the temporary GHL bridge
+
+Bridge control:
+
+```text
+AOH_DISABLE_GHL_FORWARDING=yes
+```
+
+Use that when AOH is ready to stop sending new intake packets into GHL.
 
 ## Client Access Language
 
@@ -51,8 +62,9 @@ Owner access is not the default. If a client selects Owner, Manager should flag 
 2. Manager receives setup packet.
 3. Local Visibility Manager checks GBP access and profile basics.
 4. Reviews Manager prepares review automation setup.
-5. GHL Expert prepares HighLevel setup after access is clear.
-6. Manager reports ready, blocked, or needs client help.
+5. Systems Director confirms the AOH-owned intake/alert path received the packet.
+6. GHL Expert prepares HighLevel setup only if the GHL bridge is still active.
+7. Manager reports ready, blocked, or needs client help.
 
 ## Safety Rules
 
@@ -60,3 +72,4 @@ Owner access is not the default. If a client selects Owner, Manager should flag 
 - Default GBP role is Manager.
 - Public Google profile changes need approval before publishing.
 - HighLevel AI features stay OFF unless Mike manually approves them.
+- GHL forwarding is temporary and can be disabled without changing the client form.

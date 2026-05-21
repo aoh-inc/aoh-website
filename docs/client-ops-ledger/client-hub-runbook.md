@@ -134,11 +134,14 @@ Reviews Manager owns:
 
 GHL Expert owns:
 
-- HighLevel workflow setup
-- custom fields and tags
-- sender checks
-- workflow logs
+- HighLevel workflow setup only while GHL remains the bridge
+- custom fields and tags that must be exported or translated
+- sender checks for current GHL-backed campaigns
+- workflow logs needed for proof/history
 - HighLevel AI features OFF unless Mike manually authorizes otherwise
+
+As AOH exits GHL, Systems Director and Website/Codex take over the AOH-owned
+client record, intake packet, send log, suppression list, and recap path.
 
 Systems Director owns:
 
