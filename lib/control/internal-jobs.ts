@@ -70,7 +70,7 @@ export const REACH_LANES: ReachLane[] = [
   {
     name: "Reviews",
     domain: "mail.aioutsourcehubs.com",
-    status: "Waiting on Sales QA + visual GHL review",
+    status: "Waiting on contact review before sending",
     rows: "8 QA rows",
     qa: "7 review flags / 1 OK",
     importState: "Import allowed after gate",
@@ -80,7 +80,7 @@ export const REACH_LANES: ReachLane[] = [
   {
     name: "AI Visibility",
     domain: "mail.getaioutsourcehub.com",
-    status: "Waiting on Sales QA + visual GHL review",
+    status: "Waiting on contact review before sending",
     rows: "6 QA rows",
     qa: "5 review flags / 1 OK",
     importState: "Import allowed after gate",

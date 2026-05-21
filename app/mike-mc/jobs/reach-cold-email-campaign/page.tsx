@@ -80,9 +80,8 @@ export default function ReachColdEmailCampaignPage() {
               It is paused between import and sending
             </h2>
             <p className="mt-3 max-w-none text-base leading-relaxed text-zinc-300">
-              The wiring is good enough to answer in Slack and run read-only GHL checks. The bad or questionable
-              Relay emails were filtered out. The handoff is stopping at the correct place: contacts can be imported,
-              but the system should not send emails until drip readiness is proven.
+              The agents found bad or questionable emails and kept them out. Clean contacts can be added,
+              but emails should not send until the sending setup is checked.
             </p>
           </div>
           <div className="rounded-xl border border-amber-500/25 bg-black/25 p-4">
@@ -93,7 +92,7 @@ export default function ReachColdEmailCampaignPage() {
               {job.currentBlocker}
             </p>
             <p className="mt-3 text-sm leading-relaxed text-zinc-500">
-              Import-only means &quot;put the clean contacts in GHL and tag them.&quot; It does not mean &quot;start emailing.&quot;
+              Adding clean contacts does not mean starting emails.
             </p>
           </div>
         </div>
@@ -118,12 +117,11 @@ function CommercialBoundarySection() {
             Scope boundary
           </p>
           <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
-            Commercial Reach first, custom agents only when needed
+            Lead outreach first, custom agents only when needed
           </h2>
           <p className="mt-2 max-w-none text-base leading-relaxed text-zinc-400">
-            This room tracks the cold email campaign path: discovery, verification, import-only,
-            send readiness, reply routing, and booking. CRM/POS connections and custom agents are
-            separate client-scoped work after a business actually needs that deeper automation.
+            This room is for the email job: find leads, check contacts, send safely, sort replies,
+            and book calls. Connecting agents to a client&apos;s CRM is a separate add-on.
           </p>
         </div>
         <Link
@@ -137,10 +135,10 @@ function CommercialBoundarySection() {
       <div className="grid gap-3 lg:grid-cols-3">
         <article className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4">
           <p className="font-mono text-xs uppercase tracking-wider text-emerald-300">
-            Commercial Reach
+            Main lead job
           </p>
           <p className="mt-2 text-sm leading-relaxed text-zinc-300">
-            Find likely businesses, verify safe contacts, send useful outreach, sort replies, and book real interest.
+            Find businesses, check contacts, send useful outreach, sort replies, and book real interest.
           </p>
         </article>
         <article className="rounded-xl border border-amber-500/20 bg-amber-500/5 p-4">
@@ -148,7 +146,7 @@ function CommercialBoundarySection() {
             This job room
           </p>
           <p className="mt-2 text-sm leading-relaxed text-zinc-300">
-            Shows lane QA, import-only status, drip readiness, and the exact stop sign before any email sends.
+            Shows whether emails are ready to send or still blocked.
           </p>
         </article>
         <article className="rounded-xl border border-zinc-800/70 bg-black/20 p-4">
@@ -156,7 +154,7 @@ function CommercialBoundarySection() {
             Optional custom agents
           </p>
           <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-            Added only when a client wants agents connected to CRM, POS, CSV, webhooks, or customer-event workflows.
+            Added only when a client wants agents connected to their CRM or daily business software.
           </p>
         </article>
       </div>
@@ -170,7 +168,7 @@ function LaneStatusSection({ lanes }: { lanes: ReachLane[] }) {
       <SectionHeader
         eyebrow="Campaign lanes"
         title="What each lane is doing now"
-        sub="These are the three small warmup lanes. Relay moved furthest; Reviews and AI Visibility still need list QA and visual GHL review."
+        sub="These are the three small email lanes. Relay moved furthest; Reviews and AI Visibility still need contact review before sending."
       />
       <div className="grid gap-3 lg:grid-cols-3">
         {lanes.map((lane) => (

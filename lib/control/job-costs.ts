@@ -56,159 +56,159 @@ export type ReachInternalStep = {
 
 export const REACH_COMMERCIAL_DEMO: ReachCommercialItem[] = [
   {
-    title: "Define the market and offer",
+    title: "Choose who to target",
     description:
-      "Pick one lane, one local market, and one clear reason to talk: reviews, AI visibility, Relay, or another approved AOH offer.",
+      "Pick the type of business, the area, and the simple offer we want to lead with.",
   },
   {
-    title: "Discover businesses first",
+    title: "Find businesses",
     description:
-      "Find candidate businesses cheaply before paying for deeper enrichment. Agents look for fit signals instead of blasting every map result.",
+      "Agents build a list of local businesses that look like they may need help.",
   },
   {
-    title: "Verify a real contact path",
+    title: "Check contact info",
     description:
-      "Use public business emails when possible, reject risky personal emails, and validate contacts before import or sending.",
+      "Agents look for usable business emails and remove risky or low-quality contacts.",
   },
   {
-    title: "Send a useful first message",
+    title: "Send the first message",
     description:
-      "The outreach is reply-first and specific to the business. The goal is a real response, not a giant generic campaign.",
+      "The message is short, specific, and built to get a reply instead of sounding like a blast.",
   },
   {
-    title: "Sort replies into next actions",
+    title: "Sort replies",
     description:
-      "Agents separate interested, not interested, bad fit, unsubscribe, report request, and book-a-call replies.",
+      "Agents separate real interest from no, bad fit, unsubscribe, or needs-follow-up replies.",
   },
   {
-    title: "Book and improve",
+    title: "Book calls",
     description:
-      "Warm replies go to the calendar or report handoff, while cost, bounce, reply, and booked-call data improve the next run.",
+      "Interested people get moved toward the calendar. The agents use results to improve the next run.",
   },
 ];
 
 export const REACH_INTERNAL_FLOW: ReachInternalStep[] = [
   {
-    title: "Pick the lane, market, and daily cap",
+    title: "Choose the target",
     owner: "Coach + Manager",
     status: "manual",
     description:
-      "Start with one offer, one geography, one target niche, and a spend/sending limit. This keeps the job explainable and prevents agents from wandering into random lead lists.",
+      "Decide which businesses we are going after, where they are, and how much we are allowed to spend per day.",
     verification: "Defined in runbooks and Mission Control, but not yet enforced through a required campaign setup form.",
   },
   {
-    title: "Run business discovery first",
+    title: "Find businesses first",
     owner: "Scout",
     status: "partial",
     description:
-      "Scout collects candidate businesses with the cheap discovery pass before deeper scraping, verification, or imports happen.",
+      "Scout builds the first list before we spend more money checking emails.",
     verification: "scripts/reach-discovery-first.mjs and docs/client-ops-ledger/reach-business-discovery-first.md exist; production scheduling/state still needs live telemetry.",
   },
   {
-    title: "Score and shortlist businesses",
-    owner: "Scout + Local Visibility Manager",
+    title: "Pick the best fits",
+    owner: "Scout",
     status: "partial",
     description:
-      "Agents look for likely pain: review gap, stale reviews, weak local visibility, incomplete profile, no useful website, or competitor pressure.",
+      "Agents keep the businesses that look most likely to need the offer and remove weak fits.",
     verification: "Scoring rules are documented and partially scripted; live scoring still needs more automated evidence before scale.",
   },
   {
-    title: "Find and verify business emails",
+    title: "Check emails",
     owner: "Enricher + Sender",
     status: "partial",
     description:
-      "Only shortlisted businesses move to contact discovery. Business-domain emails are preferred, personal/free-mail rows are held unless Sales Manager clears them, and verification happens before sending.",
+      "Agents look for real business emails and remove risky personal or duplicate emails.",
     verification: "The Relay batch proved risky rows can be held out. Live NoBounce/NeverBounce/GHL validation telemetry is not yet shown directly in Mission Control.",
   },
   {
-    title: "Create clean prospect records",
+    title: "Add clean leads",
     owner: "GHL Expert",
     status: "partial",
     description:
-      "Clean contacts can be imported/tagged into the right lane with source, offer, and safety status. Import-only never means start sending.",
+      "Clean leads are added to the right list. Adding leads does not mean emails are sending yet.",
     verification: "Read-only GHL readiness passed and Relay import-only completed for 2 clean contacts; other lanes still need visual review.",
   },
   {
-    title: "Send reply-first outreach",
+    title: "Send outreach",
     owner: "Sender + Coach",
     status: "missing",
     description:
-      "Sender uses a specific business reason and asks for a small next action such as send the report, show details, or book a short call.",
+      "Sender sends a useful first note and asks for a simple next step.",
     verification: "Copy and runbooks exist, but live Send Email/start-drip remains blocked until reply routing, unsubscribe, sender-domain, and Systems Director QA pass.",
   },
   {
-    title: "Route replies and report requests",
-    owner: "Sorter + GHL Expert",
+    title: "Sort replies",
+    owner: "Sorter",
     status: "partial",
     description:
-      "Replies become clear next actions: interested, send report, book call, objection, bad fit, unsubscribe, or needs-human review.",
+      "Sorter turns replies into clear next steps: interested, book call, send info, bad fit, or stop.",
     verification: "Website report delivery workflows are live. Campaign reply router blueprint exists but still needs live UI build and QA.",
   },
   {
-    title: "Book interested prospects",
+    title: "Book calls",
     owner: "Booker + Scheduler",
     status: "verified",
     description:
-      "Warm replies get moved to the AOH Talk calendar or a human handoff so the owner is not sorting cold email noise.",
+      "Warm replies get moved to the calendar so you are talking to people with interest.",
     verification: "AOH Talk booking URL loads and production custom value aoh_discovery_calendar_link is set.",
   },
   {
-    title: "Review cost and improve the next run",
-    owner: "Systems Director + Manager",
+    title: "Review spend and results",
+    owner: "Manager",
     status: "partial",
     description:
-      "Mission Control watches discovery spend, verified contacts, sends, replies, booked calls, and lane quality so weak lists or copy get changed before scaling.",
+      "Manager checks spend, replies, booked calls, and whether the list or message needs to change.",
     verification: "The ledger shows cost estimates and blockers; live vendor billing, bounce, and booked-call telemetry still need deeper wiring.",
   },
 ];
 
 export const REACH_OPTIONAL_AGENT_FLOW: ReachInternalStep[] = [
   {
-    title: "Confirm the custom automation need",
+    title: "Confirm they need a custom agent",
     owner: "Coach + Manager",
     status: "manual",
     description:
-      "Use this layer only when the business needs AOH agents connected to its CRM, POS, intake form, webhook, or job system. Not every Reach client needs it.",
+      "Use this only when the business wants agents connected to its CRM or daily software. Not every client needs it.",
     verification: "Must be scoped during sales/onboarding before any client system is connected.",
   },
   {
-    title: "Collect access and intake",
+    title: "Collect access",
     owner: "Manager + GHL Expert",
     status: "manual",
     description:
-      "The client supplies business facts, CRM/POS access path, customer data rules, service areas, message preferences, and approval contacts.",
+      "The client gives the business info, software access path, message preferences, and approval contact.",
     verification: "Client-facing intake and access proof must exist before build work starts.",
   },
   {
-    title: "Connect CRM, POS, CSV, or webhook source",
+    title: "Connect their software",
     owner: "GHL Expert + Systems Director",
     status: "manual",
     description:
-      "Agents map the system that will trigger work: closed jobs, missed calls, new customers, completed appointments, review requests, or follow-up stages.",
+      "Agents connect the CRM or business system that should start follow-ups.",
     verification: "No custom client CRM/POS connector should go live without a test contact, rollback path, and written scope.",
   },
   {
-    title: "Build custom agent instructions",
+    title: "Teach the agent the business",
     owner: "Systems Director + Coach",
     status: "manual",
     description:
-      "Define what the agent can do, what it must never do, when it asks a human, and how it should sound for that business.",
+      "Define what the agent can do, what it should never do, when it asks a human, and how it should sound.",
     verification: "Instructions must be reviewed before any automated client communication or data write.",
   },
   {
-    title: "Trigger delivery jobs from real events",
+    title: "Start jobs from real events",
     owner: "GHL Expert + Custom Agent",
     status: "manual",
     description:
-      "Once connected, events can start review requests, missed-call follow-up, lead triage, report delivery, or customer nurture jobs.",
+      "Closed jobs, missed calls, new leads, or completed appointments can start the right follow-up.",
     verification: "Each event trigger needs sample data, a dry run, and a visible Mission Control status before launch.",
   },
   {
-    title: "QA and monitor the client agent",
+    title: "Watch the agent",
     owner: "Auditor + Manager",
     status: "manual",
     description:
-      "Auditor checks links, permissions, unsubscribe behavior, wrong-business risk, logs, and HighLevel AI features. Those AI features stay off unless Mike manually authorizes them.",
+      "Auditor watches for mistakes, wrong links, wrong business info, or messages that need a human.",
     verification: "Launch requires written QA and ongoing monitoring because custom agents touch client systems.",
   },
 ];
@@ -267,69 +267,69 @@ export const REACH_TOMORROW_BLOCKERS: ReachInternalStep[] = [
 export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
   {
     slug: "reviews-outreach",
-    name: "Commercial Reach - Reviews lane",
+    name: "Commercial Reach - find and book leads",
     service: "Reach",
     owner: "Scout + Sender + Sorter + Booker",
     overview:
-      "Commercial Reach is the standard outbound job AOH can sell to most businesses: find likely buyers, verify a safe way to contact them, send a useful first message, sort replies, and turn real interest into calls.",
+      "Agents find local businesses, check the contact info, send a useful first message, sort replies, and try to book calls.",
     reachPart:
-      "This is standard Reach. Custom agents and CRM/POS connections are a separate add-on after the client needs event-based automation.",
+      "This is the standard Reach offer. Connecting to a client's CRM is optional extra work.",
     salesAgentTasks: [
       {
-        title: "Run discovery first",
-        description: "Scout finds and scores local businesses before AOH pays for deeper enrichment or starts any email workflow.",
+        title: "Find businesses",
+        description: "Scout finds local businesses that look like good fits.",
         owner: "Scout",
       },
       {
-        title: "Verify contact quality",
-        description: "Enricher and Sender prefer business-domain emails, reject risky personal emails, and validate before send approval.",
+        title: "Check contact quality",
+        description: "Agents keep usable business emails and remove risky contacts.",
         owner: "Enricher + Sender",
       },
       {
-        title: "Send the first useful message",
-        description: "Sender writes a specific, reply-first note tied to the lane instead of a generic cold email blast.",
+        title: "Send the first message",
+        description: "Sender writes a short, specific message that asks for a reply.",
         owner: "Sender",
       },
       {
-        title: "Read and classify every reply",
-        description: "Sorter separates interested replies, objections, bad fits, and unsubscribe/no-response noise.",
+        title: "Sort replies",
+        description: "Sorter separates interested replies from no, bad fit, and unsubscribe replies.",
         owner: "Sorter",
       },
       {
-        title: "Turn interest into a call",
-        description: "Booker nudges warm replies toward the /aoh-talk calendar and makes sure no lead sits unanswered.",
+        title: "Book calls",
+        description: "Booker moves warm replies toward the calendar.",
         owner: "Booker",
       },
     ],
     internalTasks: [
       {
-        title: "Measure cost against booked calls",
-        description: "Systems Director watches daily spend, cost per booked call, reply quality, and whether the list or message should change.",
+        title: "Watch spend",
+        description: "Manager watches daily spend, reply quality, and booked calls.",
         owner: "Systems Director",
       },
       {
         title: "Keep custom agents separate",
-        description: "Manager marks CRM, POS, webhook, or custom-agent work as an add-on path so the basic Reach job stays simple to explain.",
+        description: "CRM and custom-agent setup stays as an add-on so Reach stays easy to sell.",
         owner: "Manager",
       },
       {
-        title: "Keep the workflow visible",
-        description: "Manager makes sure the job status, blockers, and next actions stay visible in Mission Control.",
+        title: "Show the next move",
+        description: "Manager keeps the job status and next action visible.",
         owner: "Manager",
       },
       {
-        title: "Improve the offer loop",
-        description: "Coach turns reply patterns into better sales language, clearer objections, and future playbook updates.",
+        title: "Improve the pitch",
+        description: "Coach uses reply patterns to improve the next message.",
         owner: "Coach",
       },
     ],
     agentRoles: [
-      { agent: "Scout", role: "Runs business discovery first and shortlists businesses that look worth contacting." },
-      { agent: "Enricher", role: "Finds usable business contact data and keeps risky emails out of the send path." },
-      { agent: "Sender", role: "Prepares reply-first outreach without making it sound templated." },
-      { agent: "Sorter", role: "Reads replies, separates real interest from noise, and flags hot leads." },
-      { agent: "Booker", role: "Moves interested replies toward a call on the calendar." },
-      { agent: "Systems Director", role: "Checks cost, booked-call rate, and whether the list/copy should change." },
+      { agent: "Scout", role: "Finds businesses worth contacting." },
+      { agent: "Enricher", role: "Finds usable contact info and removes risky emails." },
+      { agent: "Sender", role: "Writes and sends the first message." },
+      { agent: "Sorter", role: "Reads replies and finds real interest." },
+      { agent: "Booker", role: "Moves interested replies toward a call." },
+      { agent: "Manager", role: "Watches spend and decides what to change." },
     ],
     cadence: "Daily at 7:00am",
     status: "watch",
@@ -340,13 +340,13 @@ export const SCHEDULED_JOB_COSTS: ScheduledJobCost[] = [
     estimatedPipelineValueUsd: 299,
     lastRun: "Today 7:00am",
     nextRun: "Tomorrow 7:00am",
-    notes: "This is the clean business-facing job: discovery, verification, outreach, reply sorting, booking, and improvement. Do not bundle CRM/custom-agent setup into this unless the prospect buys that add-on.",
+    notes: "Keep this simple when selling: find businesses, send useful outreach, sort replies, book calls. CRM/custom-agent setup is optional.",
     costBreakdown: [
-      { label: "Scout research", amountUsd: 0.42 },
-      { label: "Contact enrichment", amountUsd: 0.9 },
-      { label: "Message drafting + send prep", amountUsd: 1.8 },
-      { label: "Reply triage", amountUsd: 0.35 },
-      { label: "Booking/admin checks", amountUsd: 0.25 },
+      { label: "Find businesses", amountUsd: 0.42 },
+      { label: "Check emails", amountUsd: 0.9 },
+      { label: "Write/send messages", amountUsd: 1.8 },
+      { label: "Sort replies", amountUsd: 0.35 },
+      { label: "Booking checks", amountUsd: 0.25 },
     ],
     checks: [
       "Discovery first",

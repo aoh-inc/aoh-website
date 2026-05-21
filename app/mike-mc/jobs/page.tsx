@@ -5,48 +5,23 @@ import {
   REACH_COMMERCIAL_DEMO,
   REACH_INTERNAL_FLOW,
   REACH_OPTIONAL_AGENT_FLOW,
-  REACH_TOMORROW_BLOCKERS,
   SCHEDULED_JOB_COSTS,
   costPerBookedCall,
   daysRunning,
   formatUsd,
   totalCost,
-  type ReachFlowStatus,
   type ReachInternalStep,
   type JobCostStatus,
   type ScheduledJobCost,
 } from "@/lib/control/job-costs";
 
 export const metadata: Metadata = {
-  title: "Scheduled Jobs - The Hub",
-  description: "AOH scheduled job costs and workflow tracking.",
+  title: "Agent Jobs - The Hub",
+  description: "A simple view of what AOH agents are doing and what each job costs.",
   robots: { index: false, follow: false },
 };
 
 export const revalidate = 60;
-
-const REACH_REVIEW_GATE = [
-  {
-    label: "Owner",
-    value: "GHL Expert",
-    detail: "Inspects live HighLevel, documents exact fields, and prepares the workflow plan.",
-  },
-  {
-    label: "Reviewer",
-    value: "Auditor",
-    detail: "Checks merge fields, unsubscribe behavior, report URLs, DNS, and launch safety.",
-  },
-  {
-    label: "Orchestrator",
-    value: "Manager",
-    detail: "Confirms proof, blockers, model choice, and whether the work is ready for Mike.",
-  },
-  {
-    label: "Mike needed",
-    value: "Not yet",
-    detail: "Mike only approves final decisions or access changes after agents finish review.",
-  },
-];
 
 export default function JobsPage() {
   const now = new Date();
@@ -64,10 +39,10 @@ export default function JobsPage() {
             AOH - Mission Control
           </p>
           <h1 className="mt-2 text-3xl font-semibold tracking-tight text-zinc-50 md:text-4xl">
-            Scheduled Jobs + Workflow Ledger
+            Agent Jobs
           </h1>
           <p className="mt-1.5 text-base text-zinc-400">
-            The sales story, agent handoffs, daily run cost, and whether each job is paying for itself.
+            What agents are doing, what it costs, and what needs a decision.
           </p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
@@ -83,40 +58,37 @@ export default function JobsPage() {
           >
             Campaigns
           </Link>
-          <Pill tone="warn">estimated until telemetry</Pill>
+          <Pill tone="warm">simple owner view</Pill>
         </div>
       </header>
 
       <section className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <Metric label="Daily run cost" value={formatUsd(totalDaily)} tone="warm" />
-        <Metric label="Total to date" value={formatUsd(totalToDate)} />
-        <Metric label="Booked calls" value={bookedCalls.toString()} />
-        <Metric label="Won revenue" value={formatUsd(wonRevenue)} tone={wonRevenue > totalToDate ? "accent" : "muted"} />
+        <Metric label="Daily spend" value={formatUsd(totalDaily)} tone="warm" />
+        <Metric label="Spent so far" value={formatUsd(totalToDate)} />
+        <Metric label="Calls booked" value={bookedCalls.toString()} />
+        <Metric label="Revenue won" value={formatUsd(wonRevenue)} tone={wonRevenue > totalToDate ? "accent" : "muted"} />
       </section>
 
       <JobIndexSection />
       {reachJob ? <ReachWorkflowHero job={reachJob} /> : null}
       <CommercialReachFlowSection />
       <OptionalCustomAgentSection />
-      <ReachReviewGateSection />
-      <TomorrowReadinessSection />
-
-      <section className="mb-8 rounded-2xl border border-amber-500/20 bg-amber-500/5 p-5">
-        <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
-          <div>
-            <p className="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">
-              Cost source
-            </p>
-            <p className="mt-1 max-w-none text-base leading-relaxed text-zinc-400">
-              These are operating estimates, not live vendor bills yet. The page is shaped so real OpenClaw,
-              GHL, enrichment, email, and model usage can replace the estimates once telemetry is wired.
-            </p>
-          </div>
-          <Pill tone="muted">v0 ledger</Pill>
-        </div>
-      </section>
 
       <section className="space-y-5">
+        <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="font-mono text-xs uppercase tracking-[0.2em] text-amber-300">
+              Spending
+            </p>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
+              Simple job spend breakout
+            </h2>
+            <p className="mt-2 text-base leading-relaxed text-zinc-400">
+              Estimates for now. Use this to decide keep, pause, or improve.
+            </p>
+          </div>
+          <Pill tone="muted">estimated</Pill>
+        </div>
         {SCHEDULED_JOB_COSTS.map((job, index) => (
           <JobCostCard key={job.slug} job={job} now={now} featured={index === 0} />
         ))}
@@ -128,32 +100,32 @@ export default function JobsPage() {
 function JobIndexSection() {
   const links = [
     {
-      title: "Commercial Reach",
-      label: "core job",
+      title: "Find new leads",
+      label: "main job",
       tone: "accent" as const,
       href: "#commercial-reach",
-      detail: "The business-facing product: discover, verify, email, sort replies, and book calls.",
+      detail: "Agents find local businesses, start conversations, and try to book calls.",
     },
     {
-      title: "Reach steps",
-      label: "plain steps",
+      title: "What agents do",
+      label: "steps",
       tone: "warm" as const,
       href: "#commercial-reach-steps",
-      detail: "The operational sequence you can explain without dragging a prospect into internal tooling.",
+      detail: "A plain step-by-step view you can explain to a business owner.",
     },
     {
-      title: "Custom agents / CRM",
+      title: "Custom agents",
       label: "optional",
       tone: "muted" as const,
       href: "#custom-agent-layer",
-      detail: "Only for clients that need agents connected to CRM, POS, CSV, webhooks, or customer events.",
+      detail: "Only for clients who want agents connected to their CRM or business software.",
     },
     {
-      title: "Internal Reach room",
-      label: "live room",
+      title: "Send status",
+      label: "internal",
       tone: "warn" as const,
       href: "/mike-mc/jobs/reach-cold-email-campaign",
-      detail: "The current warmup/import/send-gate room for the cold email campaign.",
+      detail: "Your internal room for whether emails are ready to send or still blocked.",
     },
   ];
 
@@ -165,14 +137,14 @@ function JobIndexSection() {
             Job index
           </p>
           <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
-            Fast links for explaining the work
+            Quick job menu
           </h2>
           <p className="mt-2 max-w-none text-base leading-relaxed text-zinc-400">
-            Use this as the table of contents when you are showing a business what agents do.
-            Reach stays simple unless a client actually needs the custom CRM/agent layer.
+            Start here. Keep the sales story simple: agents find prospects, send useful outreach,
+            sort replies, and book interested people.
           </p>
         </div>
-        <Pill tone="accent">front-page index source</Pill>
+        <Pill tone="accent">simple view</Pill>
       </div>
 
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
@@ -183,7 +155,7 @@ function JobIndexSection() {
             className="rounded-xl border border-zinc-800/70 bg-zinc-950/70 p-4 transition hover:border-zinc-700 hover:bg-zinc-900/80"
           >
             <div className="mb-3 flex items-start justify-between gap-3">
-              <h3 className="text-base font-semibold text-zinc-100">{item.title}</h3>
+              <h3 className="text-base font-semibold leading-snug text-zinc-100">{item.title}</h3>
               <Pill tone={item.tone}>{item.label}</Pill>
             </div>
             <p className="text-sm leading-relaxed text-zinc-400">{item.detail}</p>
@@ -200,20 +172,19 @@ function ReachWorkflowHero({ job }: { job: ScheduledJobCost }) {
       <div className="grid gap-6 xl:grid-cols-[0.7fr_1.3fr]">
         <div>
           <div className="mb-3 flex flex-wrap items-center gap-2">
-            <Pill tone="accent">Reach product</Pill>
-            <Pill tone="muted">standard offer</Pill>
+            <Pill tone="accent">main growth job</Pill>
+            <Pill tone="muted">simple offer</Pill>
           </div>
           <h2 className="text-2xl font-semibold tracking-tight text-zinc-50 md:text-3xl">
-            Commercial Reach: what a business is buying
+            Commercial Reach: find businesses and start conversations
           </h2>
           <p className="mt-3 max-w-none text-base leading-relaxed text-zinc-300">
             {job.reachPart ?? job.overview}
           </p>
           <p className="mt-4 max-w-none text-base leading-relaxed text-zinc-500">
-            For a sales demo, keep the story here: Reach finds businesses that look like good fits,
-            verifies the contact path, starts useful conversations, sorts replies, and moves real
-            interest toward a report or booked call. CRM connections and custom agents are an add-on,
-            not the default promise.
+            Say it plainly: agents find businesses that look like a fit, check the contact info,
+            send a useful first message, sort replies, and move interested people to a call.
+            Connecting to a client&apos;s CRM is optional extra work.
           </p>
         </div>
 
@@ -221,49 +192,13 @@ function ReachWorkflowHero({ job }: { job: ScheduledJobCost }) {
           {REACH_COMMERCIAL_DEMO.map((item, index) => (
             <div key={item.title} className="rounded-xl border border-emerald-500/20 bg-black/25 p-4">
               <p className="font-mono text-xs uppercase tracking-wider text-emerald-300">
-                Commercial {index + 1}
+                Step {index + 1}
               </p>
               <p className="mt-3 text-base font-semibold text-zinc-100">{item.title}</p>
               <p className="mt-2 text-sm leading-relaxed text-zinc-400">{item.description}</p>
             </div>
           ))}
         </div>
-      </div>
-    </section>
-  );
-}
-
-function ReachReviewGateSection() {
-  return (
-    <section className="mb-8 rounded-2xl border border-sky-500/25 bg-sky-500/5 p-5 md:p-6">
-      <div className="mb-4 flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
-        <div>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-sky-300">
-            Agent review gate
-          </p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
-            Agents work and review before Mike approves
-          </h2>
-          <p className="mt-2 max-w-none text-base leading-relaxed text-zinc-400">
-            Website visitor reports are live-tested. Reach is still blocked from scaled campaign
-            sending until GHL Expert verifies reply routing, Auditor reviews the risk, and Manager
-            decides the work is ready to escalate. Mike should not be asked to gather technical
-            details unless no agent or tool access exists.
-          </p>
-        </div>
-        <Pill tone="warn">campaign routing still gated</Pill>
-      </div>
-
-      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-4">
-        {REACH_REVIEW_GATE.map((item) => (
-          <div key={item.label} className="rounded-xl border border-sky-500/20 bg-black/25 p-4">
-            <p className="font-mono text-xs uppercase tracking-wider text-sky-300">
-              {item.label}
-            </p>
-            <p className="mt-2 text-lg font-semibold text-zinc-100">{item.value}</p>
-            <p className="mt-2 text-sm leading-relaxed text-zinc-400">{item.detail}</p>
-          </div>
-        ))}
       </div>
     </section>
   );
@@ -278,19 +213,17 @@ function CommercialReachFlowSection() {
             Commercial Reach - standard job
           </p>
           <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
-            Step-by-step: discovery to booked call
+            What agents do step by step
           </h2>
           <p className="mt-2 max-w-none text-base leading-relaxed text-zinc-400">
-            This is the version to explain to most businesses. It does not assume their CRM is connected
-            or that custom agents are running inside their company yet. Green is verified, amber is partly
-            wired or still needs live proof, gray is manual, and red is not ready.
+            This is the customer-friendly version. It shows the work without the technical plumbing.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Pill tone="accent">verified</Pill>
-          <Pill tone="warm">partial</Pill>
+          <Pill tone="accent">ready</Pill>
+          <Pill tone="warm">working</Pill>
           <Pill tone="muted">manual</Pill>
-          <Pill tone="danger">missing</Pill>
+          <Pill tone="danger">blocked</Pill>
         </div>
       </div>
 
@@ -312,15 +245,14 @@ function OptionalCustomAgentSection() {
             Optional add-on
           </p>
           <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
-            Custom agents and CRM connections
+            Custom agents after the sale
           </h2>
           <p className="mt-2 max-w-none text-base leading-relaxed text-zinc-400">
-            This starts after a business needs AOH agents connected to its CRM, POS, CSV,
-            webhook, intake form, or job system. Not every business needs this layer, so it stays
-            separate from the standard Commercial Reach promise.
+            This is extra work for businesses that want agents connected to their CRM or daily
+            business software. It is not needed for every client.
           </p>
         </div>
-        <Pill tone="muted">scope before build</Pill>
+        <Pill tone="muted">optional</Pill>
       </div>
 
       <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
@@ -332,41 +264,12 @@ function OptionalCustomAgentSection() {
   );
 }
 
-function TomorrowReadinessSection() {
-  return (
-    <section className="mb-8 rounded-2xl border border-rose-500/25 bg-rose-500/5 p-5 md:p-6">
-      <div className="mb-4 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="font-mono text-xs uppercase tracking-[0.2em] text-rose-300">
-            Before sending tomorrow
-          </p>
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-zinc-50">
-            What still has to be true before emails go out
-          </h2>
-          <p className="mt-2 text-base leading-relaxed text-zinc-400">
-            The website build passed, but sending outreach safely needs these operational pieces
-            finished or manually controlled first.
-          </p>
-        </div>
-        <Pill tone="warn">do not scale until checked</Pill>
-      </div>
-      <div className="grid gap-3 lg:grid-cols-2 2xl:grid-cols-5">
-        {REACH_TOMORROW_BLOCKERS.map((step, index) => (
-          <InternalStepCard key={step.title} step={step} index={index + 1} compact />
-        ))}
-      </div>
-    </section>
-  );
-}
-
 function InternalStepCard({
   step,
   index,
-  compact,
 }: {
   step: ReachInternalStep;
   index: number;
-  compact?: boolean;
 }) {
   return (
     <article className="rounded-xl border border-zinc-800/70 bg-zinc-950/70 p-4">
@@ -379,22 +282,14 @@ function InternalStepCard({
             {step.title}
           </h3>
         </div>
-        <Pill tone={flowStatusTone(step.status)}>{step.status}</Pill>
+        <Pill tone={flowStatusTone(step.status)}>{flowStatusLabel(step.status)}</Pill>
       </div>
       <p className="mt-3 text-sm leading-relaxed text-zinc-400">{step.description}</p>
       <div className="mt-4 rounded-lg border border-zinc-800/70 bg-black/20 p-3">
         <p className="font-mono text-xs uppercase tracking-wider text-zinc-500">
-          Owner
+          Agent
         </p>
         <p className="mt-1 text-sm text-zinc-300">{step.owner}</p>
-        {!compact ? (
-          <>
-            <p className="mt-3 font-mono text-xs uppercase tracking-wider text-zinc-500">
-              Verification
-            </p>
-            <p className="mt-1 text-sm leading-relaxed text-zinc-400">{step.verification}</p>
-          </>
-        ) : null}
       </div>
     </article>
   );
@@ -440,7 +335,6 @@ function JobCostCard({
   const total = totalCost(job, now);
   const cpb = costPerBookedCall(job, now);
   const days = daysRunning(job.startedOn, now);
-  const roi = job.wonRevenueUsd - total;
 
   return (
     <article
@@ -453,7 +347,7 @@ function JobCostCard({
       <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
         <div className="min-w-0">
           <div className="mb-2 flex flex-wrap items-center gap-2">
-            {featured ? <Pill tone="accent">Reach core</Pill> : null}
+            {featured ? <Pill tone="accent">main growth job</Pill> : null}
             <Pill tone={statusTone(job.status)}>{statusLabel(job.status)}</Pill>
             <Pill tone="muted">{job.cadence}</Pill>
           </div>
@@ -461,10 +355,10 @@ function JobCostCard({
             {job.name}
           </h2>
           <p className="mt-1 text-base text-zinc-500">
-            {job.service} - {job.owner}
+            Agents: {job.owner}
           </p>
           <p className="mt-3 max-w-none text-base leading-relaxed text-zinc-400">
-            {job.notes}
+            {job.overview}
           </p>
         </div>
 
@@ -480,85 +374,26 @@ function JobCostCard({
         </div>
       </div>
 
-      <div className="mt-5 grid grid-cols-1 gap-4 xl:grid-cols-[0.7fr_1.3fr]">
+      <div className="mt-5 grid grid-cols-1 gap-4 xl:grid-cols-[1.1fr_0.9fr]">
         <section className="rounded-xl border border-zinc-800/70 bg-black/20 p-4">
           <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-500">
-            Job overview
+            What agents are doing
           </h3>
-          <p className="mt-2 text-base leading-relaxed text-zinc-400">{job.overview}</p>
-          {job.reachPart ? (
-            <div className="mt-4 rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-3">
-              <p className="font-mono text-xs uppercase tracking-wider text-emerald-300">
-                Part of Reach
-              </p>
-              <p className="mt-1 text-sm leading-relaxed text-zinc-400">{job.reachPart}</p>
-            </div>
-          ) : null}
-        </section>
-
-        <section className="rounded-xl border border-zinc-800/70 bg-black/20 p-4">
-          <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-500">
-            Full workflow
-          </h3>
-          <div className="mt-3 grid gap-4 lg:grid-cols-2">
-            <WorkflowColumn title="Possible sales-agent tasks" tasks={job.salesAgentTasks} tone="accent" />
-            <WorkflowColumn title="Internal control work" tasks={job.internalTasks} tone="muted" />
-          </div>
-        </section>
-      </div>
-
-      <section className="mt-4 rounded-xl border border-zinc-800/70 bg-black/20 p-4">
-        <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-500">
-          Agent roles
-        </h3>
-        <div className="mt-4 grid grid-cols-1 gap-2 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-6">
-          {job.agentRoles.map((item) => (
-            <div key={`${job.slug}-${item.agent}`} className="rounded-lg border border-zinc-800/70 bg-zinc-950/70 p-3">
-              <p className="font-mono text-xs uppercase tracking-wider text-emerald-300">
-                {item.agent}
-              </p>
-              <p className="mt-1 text-sm leading-relaxed text-zinc-400">{item.role}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {job.slug === "reviews-outreach" ? (
-        <section className="mt-4 rounded-xl border border-sky-500/25 bg-sky-500/5 p-4">
-          <div className="flex flex-col gap-2 lg:flex-row lg:items-start lg:justify-between">
-            <div>
-              <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-sky-300">
-                Current review gate
-              </h3>
-              <p className="mt-2 text-base leading-relaxed text-zinc-400">
-                This job should not reach Mike as raw technical work. GHL Expert verifies,
-                Auditor reviews, Manager decides, then Mike approves only if needed.
-              </p>
-            </div>
-            <Pill tone="warn">Mike not needed yet</Pill>
-          </div>
-          <div className="mt-4 grid gap-2 md:grid-cols-2 xl:grid-cols-4">
-            {REACH_REVIEW_GATE.map((item) => (
-              <div key={`${job.slug}-gate-${item.label}`} className="rounded-lg border border-zinc-800/70 bg-zinc-950/70 p-3">
-                <p className="font-mono text-xs uppercase tracking-wider text-zinc-500">
-                  {item.label}
-                </p>
-                <p className="mt-1 text-sm font-semibold text-zinc-200">{item.value}</p>
-              </div>
+          <div className="mt-3 grid gap-2 md:grid-cols-2">
+            {job.salesAgentTasks.map((task) => (
+              <SimpleTask key={`${job.slug}-${task.title}`} task={task} />
             ))}
           </div>
         </section>
-      ) : null}
 
-      <div className="mt-4 grid grid-cols-1 gap-4 lg:grid-cols-[1fr_1fr] 2xl:grid-cols-[1.15fr_0.85fr]">
-        <div className="rounded-xl border border-zinc-800/70 bg-black/20 p-4">
+        <section className="rounded-xl border border-zinc-800/70 bg-black/20 p-4">
           <div className="mb-3 flex items-center justify-between gap-3">
             <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-500">
-              Cost breakdown
+              Daily spend
             </h3>
-            <span className="text-sm text-zinc-600">{days} day run</span>
+            <span className="text-sm text-zinc-600">{days} days running</span>
           </div>
-          <div className="grid gap-2 md:grid-cols-2">
+          <div className="space-y-2">
             {job.costBreakdown.map((item) => (
               <div key={item.label} className="flex items-center justify-between gap-3 rounded-lg border border-zinc-800/70 bg-zinc-950/70 px-3 py-2 text-base">
                 <span className="text-zinc-400">{item.label}</span>
@@ -566,63 +401,50 @@ function JobCostCard({
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="rounded-xl border border-zinc-800/70 bg-black/20 p-4">
-          <h3 className="mb-3 font-mono text-xs uppercase tracking-[0.18em] text-zinc-500">
-            Worth it check
-          </h3>
-          <div className="grid grid-cols-2 gap-2 xl:grid-cols-4">
-            <MiniMetric label="Won revenue" value={formatUsd(job.wonRevenueUsd)} />
-            <MiniMetric label="Net so far" value={formatUsd(roi)} tone={roi >= 0 ? "accent" : "warm"} />
-            <MiniMetric label="Pipeline value" value={formatUsd(job.estimatedPipelineValueUsd)} />
-            <MiniMetric label="Next run" value={job.nextRun} compact />
+          <div className="mt-4 rounded-lg border border-zinc-800/70 bg-zinc-950/70 p-3">
+            <p className="font-mono text-xs uppercase tracking-wider text-zinc-600">
+              Next run
+            </p>
+            <p className="mt-1 text-base text-zinc-300">{job.nextRun}</p>
           </div>
-          <div className="mt-4 flex flex-wrap gap-1.5">
-            {job.checks.map((check) => (
-              <span
-                key={check}
-                className="rounded-md border border-zinc-800 bg-zinc-900/50 px-2 py-1 text-sm text-zinc-500"
-              >
-                {check}
-              </span>
-            ))}
-          </div>
-        </div>
+        </section>
       </div>
+
+      <section className="mt-4 rounded-xl border border-zinc-800/70 bg-black/20 p-4">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+          <div>
+            <h3 className="font-mono text-xs uppercase tracking-[0.18em] text-zinc-500">
+              Owner note
+            </h3>
+            <p className="mt-2 text-base leading-relaxed text-zinc-400">
+              {job.notes}
+            </p>
+          </div>
+          <div className="grid min-w-full grid-cols-2 gap-2 sm:grid-cols-3 lg:min-w-[24rem]">
+            <MiniMetric label="Revenue" value={formatUsd(job.wonRevenueUsd)} />
+            <MiniMetric label="Pipeline" value={formatUsd(job.estimatedPipelineValueUsd)} />
+            <MiniMetric label="Next" value={job.nextRun} compact />
+          </div>
+        </div>
+      </section>
     </article>
   );
 }
 
-function WorkflowColumn({
-  title,
-  tasks,
-  tone,
+function SimpleTask({
+  task,
 }: {
-  title: string;
-  tasks: ScheduledJobCost["salesAgentTasks"];
-  tone: "accent" | "muted";
+  task: ScheduledJobCost["salesAgentTasks"][number];
 }) {
-  const titleClass = tone === "accent" ? "text-emerald-300" : "text-zinc-400";
-
   return (
-    <div>
-      <p className={`font-mono text-xs uppercase tracking-wider ${titleClass}`}>
-        {title}
-      </p>
-      <div className="mt-2 space-y-2">
-        {tasks.map((task) => (
-          <div key={`${title}-${task.title}`} className="rounded-lg border border-zinc-800/70 bg-zinc-950/70 p-3">
-            <div className="flex items-start justify-between gap-3">
-              <p className="text-base font-medium text-zinc-200">{task.title}</p>
-              <span className="shrink-0 rounded-md border border-zinc-800 bg-zinc-900/60 px-2 py-0.5 font-mono text-xs uppercase tracking-wider text-zinc-500">
-                {task.owner}
-              </span>
-            </div>
-            <p className="mt-1 text-sm leading-relaxed text-zinc-400">{task.description}</p>
-          </div>
-        ))}
+    <div className="rounded-lg border border-zinc-800/70 bg-zinc-950/70 p-3">
+      <div className="flex items-start justify-between gap-3">
+        <p className="text-base font-medium text-zinc-200">{task.title}</p>
+        <span className="shrink-0 rounded-md border border-zinc-800 bg-zinc-900/60 px-2 py-0.5 font-mono text-xs uppercase tracking-wider text-zinc-500">
+          {task.owner}
+        </span>
       </div>
+      <p className="mt-1 text-sm leading-relaxed text-zinc-400">{task.description}</p>
     </div>
   );
 }
@@ -671,9 +493,16 @@ function statusLabel(status: JobCostStatus) {
   return "too early";
 }
 
-function flowStatusTone(status: ReachFlowStatus) {
+function flowStatusTone(status: ReachInternalStep["status"]) {
   if (status === "verified") return "accent";
   if (status === "partial") return "warm";
   if (status === "missing") return "danger";
   return "muted";
+}
+
+function flowStatusLabel(status: ReachInternalStep["status"]) {
+  if (status === "verified") return "ready";
+  if (status === "partial") return "working";
+  if (status === "missing") return "blocked";
+  return "manual";
 }

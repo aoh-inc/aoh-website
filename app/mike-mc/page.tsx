@@ -193,39 +193,39 @@ function JobsInProgressSection() {
   const job = INTERNAL_JOBS[0];
   const jobLinks = [
     {
-      title: "Commercial Reach",
+      title: "Find new leads",
       href: "/mike-mc/jobs#commercial-reach",
-      badge: "sales story",
+      badge: "main job",
       tone: "accent" as const,
-      detail: "The plain business-facing Reach offer: discover, verify, outreach, sort, book.",
+      detail: "Agents find businesses, send outreach, sort replies, and book calls.",
     },
     {
-      title: "Reach step flow",
+      title: "Agent steps",
       href: "/mike-mc/jobs#commercial-reach-steps",
       badge: "steps",
       tone: "warm" as const,
-      detail: "Shows each agent handoff from business discovery through booked-call review.",
+      detail: "Plain view of what each agent does along the job.",
     },
     {
-      title: "Custom agents / CRM",
+      title: "Custom agents",
       href: "/mike-mc/jobs#custom-agent-layer",
       badge: "optional",
       tone: "muted" as const,
-      detail: "Separate add-on for businesses that need CRM, POS, CSV, webhook, or custom agent connections.",
+      detail: "Only for clients who want agents connected to their CRM or business software.",
     },
     {
-      title: "Reach cold email room",
+      title: "Email send status",
       href: job.href,
-      badge: "live room",
+      badge: "internal",
       tone: "warn" as const,
-      detail: "Current campaign warmup, import-only, lane QA, and start-drip gate.",
+      detail: "Shows whether emails are ready to send or still blocked.",
     },
     {
-      title: "All scheduled jobs",
+      title: "Spending",
       href: "/mike-mc/jobs",
       badge: `${SCHEDULED_JOB_COSTS.length} jobs`,
       tone: "default" as const,
-      detail: "Cost, owner, cadence, and worth-it checks for the agent job ledger.",
+      detail: "Simple daily cost and spend so far by job.",
     },
   ];
 
@@ -237,16 +237,15 @@ function JobsInProgressSection() {
             Job index
           </p>
           <h2 className="mt-1 text-2xl font-semibold tracking-tight text-zinc-50">
-            Work rooms and sales-ready flows
+            What agents are doing
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-zinc-400">
-            Start here when you need to explain what agents do. Commercial Reach is separated from
-            optional custom agent and CRM work so the offer stays clear.
+            A simple view for you as the owner: active jobs, what agents are doing, and where money is going.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">
           <Pill tone="warm">{INTERNAL_JOBS.length} active room</Pill>
-          <Pill tone="muted">{SCHEDULED_JOB_COSTS.length} costed jobs</Pill>
+          <Pill tone="muted">{SCHEDULED_JOB_COSTS.length} jobs tracked</Pill>
         </div>
       </div>
 
