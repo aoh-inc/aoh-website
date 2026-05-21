@@ -12,6 +12,12 @@ Do not sell "AI agents" first. Sell:
 
 > Every morning, you know what happened, what needs attention, and where money may be leaking.
 
+Mission Control page:
+
+- `/mike-mc/morning-brief`
+- Standard / Commercial is the packaged product.
+- Custom Layer is paid setup for inbox, calendar, GHL/CRM, GBP, calls, ads, payments, or client-specific workflows.
+
 ## Two-Part Product
 
 ### Commercial Brief
@@ -67,6 +73,37 @@ Guardrails:
 - Read-only first.
 - Summarize, label, and recommend.
 - Do not auto-send replies or move meetings without explicit approval.
+
+## Data Retention Recommendation
+
+| Data | Keep on live page | Why |
+|---|---:|---|
+| Daily owner briefs | 13 months | Lets the owner look back through the year and compare the same season next year. |
+| Raw proof/log files | 90 days | Enough for debugging without cluttering the owner page. |
+| Monthly rollups | 24 months | Useful for renewals, annual reviews, and proving value. |
+| Client export | On cancel | Give a simple archive export, then remove private access. |
+
+The page should feel current, not infinite. Keep the daily archive visible for 13 months, then roll older history into monthly summaries.
+
+## Pricing Anchors
+
+These are software/tool price anchors, not done-for-you agency pricing:
+
+| Tool | Public price anchor | What it proves |
+|---|---:|---|
+| AgencyAnalytics | $20/client/month billed annually | Agencies pay for automated reports, AI insights, white-label branding, and client portals. |
+| DashThis | $44/month annually or $54/month monthly for 3 dashboards | A basic reporting dashboard has a real monthly software cost before labor. |
+| Databox | $159/month Pro | Broader BI/reporting dashboards cost more when you add teams, reports, goals, and shared updates. |
+| Whatagraph | 199 euros/month Start, billed annually | AI-powered marketing reports with automated emails and unlimited reports are priced as a real platform. |
+
+AOH recommendation:
+
+| Tier | Price |
+|---|---:|
+| Standard / Commercial Brief | $149-$299/month, with $0-$500 setup |
+| Custom Layer | $399-$1,500+/month, with $750-$3,000 setup |
+
+Standard should be easy to buy. Custom should cost more because it needs private access, setup, QA, and monitoring.
 
 ## What The Agents Should Do
 

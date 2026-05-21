@@ -93,6 +93,11 @@ It writes:
 - `docs/client-ops-ledger/morning-brief-current.md`
 - `docs/client-ops-ledger/outbox/morning-brief-YYYY-MM-DD.md`
 
+Mission Control page:
+
+- `/mike-mc/morning-brief`
+- Shows the current brief, GHL stats, standard/commercial package, custom layer, retention, pricing anchors, source health, proof files, and brief archive.
+
 Optional flags:
 
 ```bash

@@ -55,8 +55,28 @@ Start read-only. Do not auto-send replies or move meetings without approval.
 
 - GHL workflow email stats are connected by read-only API.
 - Morning Brief now has `Commercial Brief` and `Custom Layer` sections.
+- Mission Control page: `/mike-mc/morning-brief`.
 - Email and calendar should be the next custom connectors after the internal brief proves useful.
 - Daily stats movement will become cleaner after multiple saved daily GHL snapshots exist.
+
+## Retention
+
+- Daily briefs: keep 13 months on the live page.
+- Raw proof/log files: keep 90 days.
+- Monthly rollups: keep 24 months.
+- On cancellation: provide a simple archive export and remove private access.
+
+## Pricing Anchors
+
+- AgencyAnalytics: $20/client/month billed annually.
+- DashThis: $44/month annually or $54/month monthly for 3 dashboards.
+- Databox: $159/month Pro.
+- Whatagraph: 199 euros/month Start, billed annually.
+
+AOH recommended packaging:
+
+- Standard / Commercial Brief: $149-$299/month, with $0-$500 setup.
+- Custom Layer: $399-$1,500+/month, with $750-$3,000 setup.
 
 ## Sources
 

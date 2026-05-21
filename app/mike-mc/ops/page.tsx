@@ -54,6 +54,11 @@ const DOCS = [
     path: "docs/client-ops-ledger/morning-brief-skill-pack.md",
     purpose: "Who feeds Mike's owner brief and how agent knowledge should be sourced.",
   },
+  {
+    title: "Owner Morning Brief Product Research",
+    path: "docs/client-ops-ledger/owner-morning-brief-product-research.md",
+    purpose: "Commercial vs custom brief packaging, retention, pricing anchors, and target industries.",
+  },
 ];
 
 const RECOVERY_STEPS = [
