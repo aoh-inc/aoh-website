@@ -154,17 +154,20 @@ Built:
 
 - `/client/[slug]/customers` for customer/job list upload.
 - `/review/[slug]` for private feedback before Google routing.
+- `/review/[slug]/unsubscribe` for customer suppression.
 - Redis-backed event storage through existing Upstash env vars.
 - `/api/review-automation/status` for Manager/System status checks.
 
 Rules:
 
 - Slack only gets summaries, not full customer rows.
+- Stored suppressions are applied to future customer uploads when Redis is
+  configured.
 - The status endpoint requires an internal token. Use
   `AOH_INTERNAL_API_TOKEN`, or the existing report bypass token as the bridge
   token while infrastructure is being consolidated.
 - Happy customers route to Google only after the verified client review link is saved.
-- GHL remains the sender bridge until AOH has send logs, suppression, unsubscribe, bounce handling, and one follow-up rule.
+- GHL remains the sender bridge until AOH has send logs, bounce handling, and one follow-up rule.
 
 Current deployment note:
 

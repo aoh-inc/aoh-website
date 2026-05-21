@@ -1,6 +1,10 @@
-import type { ReviewCustomerPacket, ReviewFeedbackPacket } from "@/lib/review-automation";
-
-type ReviewAutomationEventType = "customer_upload" | "private_feedback";
+import type {
+  ReviewAutomationEventType,
+  ReviewAutomationPacket,
+  ReviewCustomerPacket,
+  ReviewFeedbackPacket,
+  ReviewSuppressionPacket,
+} from "@/lib/review-automation";
 
 export type ReviewAutomationRecord = {
   id: string;
@@ -9,7 +13,7 @@ export type ReviewAutomationRecord = {
   clientName: string;
   createdAt: string;
   summary: Record<string, unknown>;
-  payload: ReviewCustomerPacket | ReviewFeedbackPacket;
+  payload: ReviewAutomationPacket;
 };
 
 type StorageResult =
@@ -31,7 +35,7 @@ const DEFAULT_TTL_DAYS = 90;
 
 export async function saveReviewAutomationEvent(
   eventType: ReviewAutomationEventType,
-  payload: ReviewCustomerPacket | ReviewFeedbackPacket,
+  payload: ReviewAutomationPacket,
 ): Promise<StorageResult> {
   const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
   const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
@@ -80,6 +84,53 @@ export async function saveReviewAutomationEvent(
   }
 
   return { ok: true, configured: true, id, status: response.status };
+}
+
+export async function saveReviewSuppression(packet: ReviewSuppressionPacket): Promise<StorageResult> {
+  const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+  const id = `${Date.now()}-${crypto.randomUUID()}`;
+
+  if (!url || !token) {
+    return { ok: false, configured: false, error: "UPSTASH_REDIS_REST_URL or UPSTASH_REDIS_REST_TOKEN is not set." };
+  }
+
+  const record = buildRecord({ id, eventType: "suppression_update", payload: packet });
+  const ttlSec = storageTtlDays() * 24 * 60 * 60;
+  const key = eventKey(id);
+  const clientIndex = clientIndexKey(record.clientSlug);
+
+  const result = await runRedisPipeline<unknown[]>(url, token, [
+    ["SET", key, JSON.stringify(record), "EX", String(ttlSec)],
+    ["LPUSH", clientIndex, id],
+    ["LTRIM", clientIndex, "0", "499"],
+    ["LPUSH", globalIndexKey(), id],
+    ["LTRIM", globalIndexKey(), "0", "999"],
+    ["SADD", suppressionKey(packet.clientSlug), packet.customerEmail],
+  ]);
+
+  if (!result.ok) return { ok: false, configured: true, id, status: result.status, error: result.error };
+  return { ok: true, configured: true, id, status: result.status };
+}
+
+export async function listReviewSuppressions(clientSlug: string) {
+  const url = process.env.UPSTASH_REDIS_REST_URL?.trim();
+  const token = process.env.UPSTASH_REDIS_REST_TOKEN?.trim();
+
+  if (!url || !token) {
+    return { ok: false as const, configured: false as const, emails: [], error: "Storage is not configured." };
+  }
+
+  const result = await runRedisPipeline<string[][]>(url, token, [["SMEMBERS", suppressionKey(clientSlug)]]);
+  if (!result.ok) {
+    return { ok: false as const, configured: true as const, emails: [], status: result.status, error: result.error };
+  }
+
+  return {
+    ok: true as const,
+    configured: true as const,
+    emails: Array.isArray(result.values[0]) ? result.values[0].map((email) => String(email).toLowerCase()) : [],
+  };
 }
 
 export async function listReviewAutomationSummaries(input: {
@@ -165,7 +216,7 @@ function buildRecord({
 }: {
   id: string;
   eventType: ReviewAutomationEventType;
-  payload: ReviewCustomerPacket | ReviewFeedbackPacket;
+  payload: ReviewAutomationPacket;
 }): ReviewAutomationRecord {
   return {
     id,
@@ -178,7 +229,7 @@ function buildRecord({
   };
 }
 
-function summarizePayload(eventType: ReviewAutomationEventType, payload: ReviewCustomerPacket | ReviewFeedbackPacket) {
+function summarizePayload(eventType: ReviewAutomationEventType, payload: ReviewAutomationPacket) {
   if (eventType === "customer_upload") {
     const packet = payload as ReviewCustomerPacket;
     return {
@@ -188,12 +239,21 @@ function summarizePayload(eventType: ReviewAutomationEventType, payload: ReviewC
     };
   }
 
-  const packet = payload as ReviewFeedbackPacket;
+  if (eventType === "private_feedback") {
+    const packet = payload as ReviewFeedbackPacket;
+    return {
+      rating: packet.rating,
+      shouldRouteToGoogle: packet.shouldRouteToGoogle,
+      hasFeedback: Boolean(packet.feedback.trim()),
+      hasCustomerEmail: Boolean(packet.customerEmail.trim()),
+    };
+  }
+
+  const packet = payload as ReviewSuppressionPacket;
   return {
-    rating: packet.rating,
-    shouldRouteToGoogle: packet.shouldRouteToGoogle,
-    hasFeedback: Boolean(packet.feedback.trim()),
-    hasCustomerEmail: Boolean(packet.customerEmail.trim()),
+    customerEmail: packet.customerEmail,
+    hasReason: Boolean(packet.reason.trim()),
+    source: packet.source,
   };
 }
 
@@ -223,4 +283,8 @@ function clientIndexKey(clientSlug: string) {
 
 function globalIndexKey() {
   return "review-automation:index:all";
+}
+
+function suppressionKey(clientSlug: string) {
+  return `review-automation:suppression:${clientSlug}`;
 }

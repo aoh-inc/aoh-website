@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { validateEmail } from "@/lib/email-validation";
 import { checkEmailRate } from "@/lib/rate-limit";
-import { saveReviewAutomationEvent } from "@/lib/review-automation-store";
+import { listReviewSuppressions, saveReviewAutomationEvent } from "@/lib/review-automation-store";
 import {
   buildCustomerPacket,
   cleanLongText,
@@ -56,12 +56,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "Paste at least one customer row." }, { status: 400 });
   }
 
+  const storedSuppressions = await listReviewSuppressions(clientSlug);
+  const storedDoNotContactText = storedSuppressions.emails.join("\n");
+
   const packet = buildCustomerPacket({
     clientSlug,
     submittedBy,
     submittedEmail,
     customerText,
-    doNotContactText,
+    doNotContactText: [doNotContactText, storedDoNotContactText].filter(Boolean).join("\n"),
   });
 
   const storageResult = await saveReviewAutomationEvent("customer_upload", packet);

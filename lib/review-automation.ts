@@ -41,6 +41,18 @@ export type ReviewFeedbackPacket = {
   googleReviewUrl: string;
 };
 
+export type ReviewSuppressionPacket = {
+  clientSlug: string;
+  clientName: string;
+  customerEmail: string;
+  reason: string;
+  source: string;
+  timestamp: string;
+};
+
+export type ReviewAutomationEventType = "customer_upload" | "private_feedback" | "suppression_update";
+export type ReviewAutomationPacket = ReviewCustomerPacket | ReviewFeedbackPacket | ReviewSuppressionPacket;
+
 export function buildCustomerPacket(input: {
   clientSlug: string;
   submittedBy: string;
@@ -88,9 +100,27 @@ export function buildFeedbackPacket(input: {
   } satisfies ReviewFeedbackPacket;
 }
 
+export function buildSuppressionPacket(input: {
+  clientSlug: string;
+  customerEmail: string;
+  reason: string;
+  source?: string;
+}) {
+  const client = getClientHub(input.clientSlug);
+
+  return {
+    clientSlug: input.clientSlug,
+    clientName: client?.businessName ?? input.clientSlug,
+    customerEmail: input.customerEmail.trim().toLowerCase(),
+    reason: cleanLongText(input.reason, 500),
+    source: input.source ?? "aioutsourcehub.com:review-automation-unsubscribe",
+    timestamp: new Date().toISOString(),
+  } satisfies ReviewSuppressionPacket;
+}
+
 export async function forwardReviewAutomationEvent(
-  eventType: "customer_upload" | "private_feedback",
-  payload: ReviewCustomerPacket | ReviewFeedbackPacket,
+  eventType: ReviewAutomationEventType,
+  payload: ReviewAutomationPacket,
 ) {
   const url =
     process.env.AOH_REVIEW_AUTOMATION_WEBHOOK_URL?.trim() ||
@@ -125,8 +155,8 @@ export async function forwardReviewAutomationEvent(
 }
 
 export async function postReviewAutomationSlackSummary(
-  eventType: "customer_upload" | "private_feedback",
-  payload: ReviewCustomerPacket | ReviewFeedbackPacket,
+  eventType: ReviewAutomationEventType,
+  payload: ReviewAutomationPacket,
   webhookResult: { ok: boolean; configured: boolean; error?: string },
 ) {
   const webhook =
@@ -138,7 +168,9 @@ export async function postReviewAutomationSlackSummary(
   const text =
     eventType === "customer_upload"
       ? renderCustomerUploadSlack(payload as ReviewCustomerPacket, webhookResult)
-      : renderFeedbackSlack(payload as ReviewFeedbackPacket, webhookResult);
+      : eventType === "private_feedback"
+        ? renderFeedbackSlack(payload as ReviewFeedbackPacket, webhookResult)
+        : renderSuppressionSlack(payload as ReviewSuppressionPacket, webhookResult);
 
   await fetch(webhook, {
     method: "POST",
@@ -293,4 +325,19 @@ function renderFeedbackSlack(
 *Storage:* ${webhookResult.ok ? "saved or forwarded" : "not saved yet"}
 
 Feedback: ${packet.feedback || "none"}`;
+}
+
+function renderSuppressionSlack(
+  packet: ReviewSuppressionPacket,
+  webhookResult: { ok: boolean; configured: boolean; error?: string },
+) {
+  return `*Review Automation unsubscribe*
+
+*Client:* ${packet.clientName}
+*Email:* ${packet.customerEmail}
+*Reason:* ${packet.reason || "not provided"}
+*AOH webhook:* ${webhookResult.ok ? "received packet" : webhookResult.configured ? `failed - ${webhookResult.error || "unknown"}` : "not configured"}
+*Storage:* ${webhookResult.ok ? "saved or forwarded" : "not saved yet"}
+
+Manager next: Future review request uploads should hold this email back.`;
 }
