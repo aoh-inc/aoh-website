@@ -1,19 +1,19 @@
 # Reach Manager Check
 
 Date: 2026-05-21
-Status: auto-retry-relay
+Status: ok
 
 ## Owner Readout
 
-- Relay clean contacts: 5/10.
-- Relay status: blocked.
-- Scraped today: 60/100 records.
-- Remaining Relay scrape room today: 40.
-- Discovery did not run live or returned no usable contacts; Manager should not rely on it for today's Relay recovery.
+- Relay clean contacts: 10/10.
+- Relay status: executed.
+- Scraped today: 100/100 records.
+- Remaining Relay scrape room today: 0.
+- Discovery does not show a plan-only blocker.
 
 ## Manager Action
 
-Manager will run one more capped Relay refill automatically.
+Relay has enough clean contacts for the next guarded action.
 
 ## Safety
 

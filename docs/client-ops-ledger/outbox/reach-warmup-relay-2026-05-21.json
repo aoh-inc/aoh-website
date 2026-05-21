@@ -12,64 +12,65 @@
     "target": 20,
     "max": 20
   },
-  "status": "blocked",
-  "selectedCount": 5,
-  "selectedCsv": "tmp-reach-warmup-relay-2026-05-21-selected-qa.csv",
-  "blockers": [
-    "Only 5 OK rows found; minimum is 10.",
-    "Selected rows below minimum 10."
-  ],
+  "status": "executed",
+  "selectedCount": 10,
+  "selectedCsv": "tmp-reach-warmup-relay-2026-05-21-selected-qa-neverbounce.csv",
+  "blockers": [],
   "attempts": [
     {
       "attempt": "cache",
       "industry": "paid scrape inventory",
-      "area": "6 saved QA files",
+      "area": "9 saved QA files",
       "state": "",
       "scrapeLimit": 0,
-      "qaRows": 43,
-      "okRows": 3,
-      "added": 3,
-      "poolSize": 3,
+      "qaRows": 45,
+      "okRows": 5,
+      "added": 5,
+      "poolSize": 5,
       "qaCsv": "cached relay QA inventory",
       "error": "reused_paid_scrape_inventory"
     },
     {
-      "attempt": 1,
-      "industry": "veterinary",
-      "area": "Connecticut",
-      "state": "Connecticut",
-      "scrapeLimit": 20,
-      "qaRows": 2,
-      "okRows": 2,
-      "added": 1,
-      "poolSize": 4,
-      "qaCsv": "tmp-reach-warmup-relay-2026-05-21-a1-qa.csv"
-    },
-    {
-      "attempt": 2,
-      "industry": "emergency veterinary",
-      "area": "Connecticut",
-      "state": "Connecticut",
-      "scrapeLimit": 20,
-      "qaRows": 14,
-      "okRows": 1,
-      "added": 0,
-      "poolSize": 4,
-      "qaCsv": "tmp-reach-warmup-relay-2026-05-21-a2-qa.csv"
-    },
-    {
-      "attempt": 3,
-      "industry": "HVAC contractor",
+      "attempt": 5,
+      "industry": "electrician",
       "area": "Connecticut",
       "state": "Connecticut",
       "scrapeLimit": 20,
       "qaRows": 9,
-      "okRows": 1,
-      "added": 1,
-      "poolSize": 5,
-      "qaCsv": "tmp-reach-warmup-relay-2026-05-21-a3-qa.csv"
+      "okRows": 3,
+      "added": 3,
+      "poolSize": 8,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-21-a5-qa.csv"
+    },
+    {
+      "attempt": 6,
+      "industry": "roofing contractor",
+      "area": "Connecticut",
+      "state": "Connecticut",
+      "scrapeLimit": 20,
+      "qaRows": 15,
+      "okRows": 2,
+      "added": 2,
+      "poolSize": 10,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-21-a6-qa.csv"
     }
   ],
-  "verification": null,
-  "actionResults": []
+  "verification": {
+    "provider": "neverbounce",
+    "sourceCsv": "tmp-reach-warmup-relay-2026-05-21-selected-qa.csv",
+    "verifiedCsv": "tmp-reach-warmup-relay-2026-05-21-selected-qa-neverbounce.csv",
+    "report": "tmp-reach-warmup-relay-2026-05-21-selected-qa-neverbounce-report.json",
+    "inputCount": 10,
+    "keptCount": 10,
+    "removedCount": 0,
+    "date": "2026-05-21",
+    "lane": "relay"
+  },
+  "actionResults": [
+    {
+      "action": "import",
+      "outFile": "tmp-reach-warmup-relay-2026-05-21-import.json",
+      "resultFile": "tmp-reach-warmup-relay-2026-05-21-import-ghl-results.json"
+    }
+  ]
 }

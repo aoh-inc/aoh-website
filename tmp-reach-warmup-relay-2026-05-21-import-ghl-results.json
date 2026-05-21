@@ -1,0 +1,122 @@
+[
+  {
+    "email": "info@vecct.com",
+    "name": "Veterinary Eye Center - Connecticut",
+    "contactId": "W3DbiSviJB78AncpbIFl",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_relay",
+      "aoh_campaign_relay_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "r.perez@ctvetcenter.com",
+    "name": "Connecticut Veterinary Center",
+    "contactId": "QTGPSmHhIe2IFUXuR8JE",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_relay",
+      "aoh_campaign_relay_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "joey@joeyperras.com",
+    "name": "Joe the Plumber",
+    "contactId": "Ode26NyURcrN5Au0F39Y",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_relay",
+      "aoh_campaign_relay_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "info@hvsct.com",
+    "name": "Hospital for Veterinary Surgery - Connecticut",
+    "contactId": "DEKyLq7W4fwDstV3TXwi",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_relay",
+      "aoh_campaign_relay_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "service@yourservicestars.com",
+    "name": "Service Stars",
+    "contactId": "eBFqbNLTrMr7OUylyPzp",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_relay",
+      "aoh_campaign_relay_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "jsmart@jselectrical-llc.com",
+    "name": "J.S. Electrical LLC",
+    "contactId": "vnW8vBmaTIo2msu4wAJo",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_relay",
+      "aoh_campaign_relay_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "info@electricaltechniciansct.com",
+    "name": "Electrical Technicians of Connecticut LLC",
+    "contactId": "VvvkxVPmc6zfNPoLj7IW",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_relay",
+      "aoh_campaign_relay_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "info@indiantypefoundry.com",
+    "name": "LOU ELECTRIC LLC",
+    "contactId": "810WpPvaRktPfVsjCZdg",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_relay",
+      "aoh_campaign_relay_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "sales@connecticutroofingsolutions.com",
+    "name": "Connecticut Roofing Solutions",
+    "contactId": "iVOdozHJNkFIXJpacw8j",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_relay",
+      "aoh_campaign_relay_imported"
+    ],
+    "error": null
+  },
+  {
+    "email": "info@albanaroofing.com",
+    "name": "Albana Roofing",
+    "contactId": "OH4l13IJ8YshSuaw4yYX",
+    "upsert": true,
+    "tagged": true,
+    "tags": [
+      "aoh_campaign_relay",
+      "aoh_campaign_relay_imported"
+    ],
+    "error": null
+  }
+]

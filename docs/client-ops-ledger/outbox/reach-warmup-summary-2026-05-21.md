@@ -5,9 +5,7 @@ Requested action: auto
 
 | Lane | Status | Warmup day | Quota | Selected | Report |
 |---|---|---:|---|---:|---|
-| Reviews | executed | 2 | 10-20 | 12 | reach-warmup-reviews-2026-05-21.md |
-| AI Visibility | executed | 2 | 10-20 | 20 | reach-warmup-ai-2026-05-21.md |
-| Relay | blocked | 2 | 10-20 | 5 | reach-warmup-relay-2026-05-21.md |
+| Relay | executed | 2 | 10-20 | 10 | reach-warmup-relay-2026-05-21.md |
 
 ## Guardrail Meaning
 
