@@ -629,17 +629,18 @@ function buildReachRunTodayResponse(actor: UserContext) {
 ${address(actor)}, short answer: ${autoOn ? "yes, auto is set." : "no, auto is not turned on in the ledger."}
 
 - Already moving: ${startedText}.
+- Runs: discovery/refill around 7:30 AM ET on weekdays; send check around 9:00 AM ET daily.
 - Your action: none right now.
-- Safety: emails are checked before GHL, and HighLevel AI stays OFF.
+- Safety: emails are checked by NeverBounce before GHL, and HighLevel AI stays OFF.
 
-Waiting:
+Relay plan:
 
 ${waitingText}`;
 }
 
 function renderOwnerLaneStatus(summary: ReturnType<typeof laneSummaries>[number]) {
   if (summary.status.includes("auto_waiting")) {
-    return `- ${summary.label}: waiting until the list is clean enough to send.`;
+    return `- ${summary.label}: keeps pulling from the approved search list, drops risky contacts, and sends only after the list is clean enough.`;
   }
   return `- ${summary.label}: ${summary.status.replaceAll("_", " ")}.`;
 }
@@ -1928,7 +1929,7 @@ function mentionsReachColdEmailCampaign(normalized: string) {
 
 function mentionsReachRunStatusQuestion(normalized: string) {
   const asksRunStatus =
-    /\b(set to run|set up to run|set for today|scheduled today|running today|run today|ready today|ready for today|everything set|all set|did .* run|has .* run|have .* run|did .* send|has .* sent|have .* sent|sent today|getting sent|emails getting sent|do i need .*anything|need .* anything|need to do anything)\b/.test(
+    /\b(set to run|set up to run|set for today|scheduled today|running today|run today|ready today|ready for today|everything set|all set|did .* run|has .* run|have .* run|did .* send|has .* sent|have .* sent|sent today|getting sent|emails getting sent|do i need .*anything|need .* anything|need to do anything|how .*relay.*clean|how .*relay.*send|relay .*enough clean|get enough clean)\b/.test(
       normalized,
     );
   if (!asksRunStatus) return false;

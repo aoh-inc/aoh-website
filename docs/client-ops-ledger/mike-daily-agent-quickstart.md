@@ -42,6 +42,12 @@ Or type:
 /manager what is status of Reach Cold Email Campaign
 ```
 
+Normal schedule:
+
+- Discovery/refill runs around 7:30 AM Eastern on weekdays.
+- The guarded send check runs around 9:00 AM Eastern daily.
+- Relay keeps finding more businesses, checks emails before GHL, drops risky contacts, and waits until the list is clean enough to send.
+
 If you want to see who you can talk to:
 
 ```text

@@ -56,6 +56,12 @@ Use `Manager, owner peek` for the owner-level view:
 
 Recommended DM policy: one short daily owner brief plus urgent exceptions only. Do not DM every agent action.
 
+## Reach Daily Schedule
+
+- Business discovery/refill runs around 7:30 AM Eastern on weekdays.
+- The guarded warmup/send check runs around 9:00 AM Eastern daily.
+- Relay gets enough clean contacts by rotating through the approved search list, checking emails with NeverBounce before GHL, removing risky contacts, and waiting until the list is clean enough to send.
+
 ## Command Map
 
 Mike should be able to talk in plain text.
