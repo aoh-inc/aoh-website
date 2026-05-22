@@ -90,10 +90,16 @@ export const GHL_EXIT_CHECKLIST: GhlExitChecklistItem[] = [
     detail: "Add email provider env, run proof checks, then send only after the AOH client-zero test passes.",
   },
   {
-    title: "Monthly client recap",
+    title: "Monthly recap endpoint",
+    owner: "Manager",
+    status: "done",
+    detail: "AOH can summarize uploads, sends, bounces, feedback, suppressions, and owner notes.",
+  },
+  {
+    title: "Client-facing monthly recap",
     owner: "Manager",
     status: "next",
-    detail: "Show review momentum, requests sent, feedback captured, and what the owner should do next.",
+    detail: "Turn the recap data into a clean client hub card and monthly owner summary.",
   },
   {
     title: "Booking replacement",

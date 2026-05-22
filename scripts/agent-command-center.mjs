@@ -1012,6 +1012,7 @@ Live pieces:
 - Bounce auto-hold: built.
 - Send-candidate endpoint: built, but waits on storage and verified Google review link.
 - Send-batch endpoint: built with dry-run first, capped live sends, and send logging.
+- Monthly recap endpoint: built for owner/client reporting.
 - Summary storage: ready once Upstash env is set on Vercel.
 - Slack/automation handoff: summary-only; optional webhook can be added.
 - Manager status API: built and protected by internal token.
@@ -1025,6 +1026,7 @@ What Manager can check:
 - Who is due for one gentle follow-up.
 - Which uploaded customers are eligible for first send once storage and review link are ready.
 - Dry-run the next review request batch before any live email goes out.
+- Pull a monthly recap of sends, feedback, bounces, suppressions, and owner notes.
 - Counts and summaries only by default.
 - No full customer list in Slack.
 
@@ -1037,6 +1039,7 @@ Useful URL for systems/Manager:
 
 \`\`\`text
 /api/review-automation/status?client=ai-outsource-hub
+/api/review-automation/monthly-recap?client=ai-outsource-hub
 \`\`\`
 `,
   };
