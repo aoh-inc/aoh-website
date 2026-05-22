@@ -119,6 +119,27 @@ export default async function ClientHubPage({ params }: PageProps) {
               <MiniStat label="Automation" value={client.metrics[2]?.value ?? "Checking"} />
             </div>
 
+            <div className="mt-5 rounded-lg border border-emerald-200 bg-white p-4">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-[0.16em] text-emerald-700">
+                    Monthly recap
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    {client.monthlyRecap.ownerNote}
+                  </p>
+                </div>
+                <span className="rounded-md border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-bold uppercase tracking-[0.14em] text-slate-600">
+                  {client.monthlyRecap.label}
+                </span>
+              </div>
+              <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                <MiniStat label="Sent" value={client.monthlyRecap.requestsSent.toString()} />
+                <MiniStat label="Feedback" value={client.monthlyRecap.feedbackCaptured.toString()} />
+                <MiniStat label="Held back" value={client.monthlyRecap.heldBack.toString()} />
+              </div>
+            </div>
+
             {reviewsBehind ? (
               <div className="mt-5 rounded-lg border border-amber-200 bg-white p-4">
                 <p className="text-xs font-bold uppercase tracking-[0.16em] text-amber-900">

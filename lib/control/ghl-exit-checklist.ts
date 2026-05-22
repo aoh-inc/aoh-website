@@ -98,8 +98,8 @@ export const GHL_EXIT_CHECKLIST: GhlExitChecklistItem[] = [
   {
     title: "Client-facing monthly recap",
     owner: "Manager",
-    status: "next",
-    detail: "Turn the recap data into a clean client hub card and monthly owner summary.",
+    status: "done",
+    detail: "Client hub now has a simple monthly recap card ready for live data wiring.",
   },
   {
     title: "Booking replacement",

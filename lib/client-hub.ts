@@ -29,6 +29,14 @@ export type ReviewAutomationStatus = {
   lowReviewTips: string[];
 };
 
+export type ClientMonthlyRecap = {
+  label: string;
+  requestsSent: number;
+  feedbackCaptured: number;
+  heldBack: number;
+  ownerNote: string;
+};
+
 export type ClientHubProfile = {
   slug: string;
   businessName: string;
@@ -50,6 +58,7 @@ export type ClientHubProfile = {
   metrics: ClientMetric[];
   uploadRequests: ClientUploadRequest[];
   reviews: ReviewAutomationStatus;
+  monthlyRecap: ClientMonthlyRecap;
   aiVisibilityPreview: ClientMetric[];
 };
 
@@ -167,6 +176,13 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
         "Ask your team to mention the review request before the customer leaves.",
         "Send us any happy-customer names you already know should be asked first.",
       ],
+    },
+    monthlyRecap: {
+      label: "Last 30 days",
+      requestsSent: 0,
+      feedbackCaptured: 0,
+      heldBack: 0,
+      ownerNote: "Monthly recap appears here after the first live send.",
     },
     aiVisibilityPreview: [
       { label: "ChatGPT visibility", value: "Locked", sub: "preview scan available with upgrade" },
@@ -288,6 +304,13 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
         "Ask your team to mention the review request before the customer leaves.",
         "Send names of happy customers who are most likely to leave a review.",
       ],
+    },
+    monthlyRecap: {
+      label: "Last 30 days",
+      requestsSent: 0,
+      feedbackCaptured: 0,
+      heldBack: 0,
+      ownerNote: "AOH recap appears here after the client-zero send test.",
     },
     aiVisibilityPreview: [
       { label: "ChatGPT visibility", value: "Custom", sub: "AOH internal testing" },
