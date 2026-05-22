@@ -200,7 +200,7 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
     website: "https://aioutsourcehub.com",
     phone: "(877) 521-2224",
     email: "mike@aioutsourcehub.com",
-    googleReviewUrl: "",
+    googleReviewUrl: "https://g.page/r/CXoXmnbEDyX7EAE/review",
     location: "United States",
     category: "AI automation and growth services",
     logoText: "AOH",
