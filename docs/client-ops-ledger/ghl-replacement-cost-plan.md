@@ -129,6 +129,9 @@ Build status:
   when Redis is configured.
 - Follow-up due v1 exists at `/api/review-automation/followups/due`.
   It reads internal send logs and returns customers due for one gentle follow-up.
+- Send-candidate v1 exists at `/api/review-automation/send-candidates`.
+  It prepares eligible customers from the latest upload and blocks when storage
+  or the verified Google review link is missing.
 - Manager/internal summary status exists at `/api/review-automation/status`.
   It returns summary records only by default and requires an internal token.
   Use `AOH_INTERNAL_API_TOKEN`, or the existing report bypass token as the
@@ -182,8 +185,9 @@ Current v1 loop:
 5. Customer unsubscribe requests land at `/review/[slug]/unsubscribe`.
 6. Sender/GHL bridge can log send events to `/api/review-automation/send-log`.
 7. Manager/System can check `/api/review-automation/followups/due?client=[slug]` for follow-up candidates.
-8. Happy feedback routes to Google only after the verified Google review link is saved.
-9. Manager/System can check `/api/review-automation/status?client=[slug]` with an internal token.
+8. Sender/System can check `/api/review-automation/send-candidates?client=[slug]` before any send.
+9. Happy feedback routes to Google only after the verified Google review link is saved.
+10. Manager/System can check `/api/review-automation/status?client=[slug]` with an internal token.
 
 What this gives Mike:
 

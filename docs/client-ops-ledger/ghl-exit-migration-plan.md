@@ -164,6 +164,7 @@ Built:
 - `/review/[slug]/unsubscribe` for customer suppression.
 - `/api/review-automation/send-log` for internal send/fail/bounce/click/follow-up events.
 - `/api/review-automation/followups/due` for one-follow-up candidate checks.
+- `/api/review-automation/send-candidates` for first-send candidate checks.
 - Redis-backed event storage through existing Upstash env vars.
 - `/api/review-automation/status` for Manager/System status checks.
 
@@ -176,6 +177,8 @@ Rules:
 - Bounced send logs automatically hold that email back from future uploads when
   Redis is configured.
 - Follow-up candidates are internal-only and protected by the same internal token.
+- Send candidates are internal-only, protected by the same internal token, and
+  blocked until the verified Google review link exists.
 - The status endpoint requires an internal token. Use
   `AOH_INTERNAL_API_TOKEN`, or the existing report bypass token as the bridge
   token while infrastructure is being consolidated.

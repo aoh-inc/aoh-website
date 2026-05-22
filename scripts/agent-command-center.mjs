@@ -1010,6 +1010,7 @@ Live pieces:
 - Internal send-log endpoint: built.
 - Follow-up due endpoint: built.
 - Bounce auto-hold: built.
+- Send-candidate endpoint: built, but waits on storage and verified Google review link.
 - Summary storage: ready once Upstash env is set on Vercel.
 - Slack/automation handoff: summary-only; optional webhook can be added.
 - Manager status API: built and protected by internal token.
@@ -1021,6 +1022,7 @@ What Manager can check:
 - Unsubscribe/suppression updates.
 - Send events like sent, failed, bounced, clicked, or follow-up sent.
 - Who is due for one gentle follow-up.
+- Which uploaded customers are eligible for first send once storage and review link are ready.
 - Counts and summaries only by default.
 - No full customer list in Slack.
 
