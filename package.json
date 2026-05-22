@@ -23,6 +23,7 @@
     "ghl:email-stats": "node scripts/ghl-email-stats.mjs",
     "ghl:exit-inventory": "node scripts/ghl-exit-inventory.mjs",
     "ghl:smoke-97": "node scripts/ghl-post-downgrade-smoke.mjs",
+    "review:storage-check": "node scripts/review-storage-check.mjs",
     "morning:brief": "node scripts/morning-brief.mjs",
     "agent:brief": "node scripts/agent-command-center.mjs",
     "agent:command": "node scripts/agent-command-center.mjs",

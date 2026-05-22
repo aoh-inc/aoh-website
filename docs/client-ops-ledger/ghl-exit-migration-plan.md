@@ -233,6 +233,15 @@ Post-downgrade requirement:
 - Relay remains import-ready but not drip-ready until visual sender-domain/warmup
   confirmation is complete.
 
+Review Automation storage readiness:
+
+```bash
+npm run review:storage-check
+```
+
+This is the Manager/Systems Director check for persistent customer uploads,
+private feedback, suppression, bounce holds, send logs, and follow-up history.
+
 Export or document:
 
 - active locations/subaccounts

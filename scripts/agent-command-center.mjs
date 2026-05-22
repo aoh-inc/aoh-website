@@ -142,6 +142,10 @@ function routeCommand(command, args) {
     return buildGhlExitStatusResponse();
   }
 
+  if (mentionsReviewStorageCheck(normalized)) {
+    return buildReviewStorageCheckResponse();
+  }
+
   if (mentionsReviewAutomationStatus(normalized)) {
     return buildReviewAutomationStatusResponse();
   }
@@ -185,6 +189,7 @@ Supported commands:
 - \`Manager, GHL exit status\`
 - \`GHL Expert, run $97 smoke check\`
 - \`Reviews Manager, status\`
+- \`Reviews Manager, storage check\`
 - \`Local Visibility Manager, prepare GBP access test\`
 - \`Manager, run Reach Cold Email Campaign\`
 - \`Manager, show Reach warmup autopilot\`
@@ -1033,6 +1038,25 @@ Useful URL for systems/Manager:
   };
 }
 
+function buildReviewStorageCheckResponse() {
+  const result = runNpm(["run", "review:storage-check"]);
+  return {
+    kind: "review-storage-check",
+    text: `*Review Automation storage check - ${today()}*
+
+Mode: no secret values printed
+
+Result: ${result.ok ? "ready" : "blocked"}
+
+\`\`\`text
+${trimOutput(result.stdout || result.stderr || "No output captured.")}
+\`\`\`
+
+Needed before Review Automation is live-ready without GHL storage: Upstash Redis env vars in Vercel Production.
+`,
+  };
+}
+
 function buildGhlVisualChecklistResponse(laneKey) {
   const data = loadData();
   const lanes = laneKey ? [laneKey] : Object.keys(LANES);
@@ -1838,6 +1862,18 @@ function mentionsReviewAutomationStatus(normalized) {
     normalized.includes("private feedback");
   if (!mentionsReviews) return false;
   return /\b(status|check|health|ready|working|running|activity|uploads|feedback)\b/.test(normalized);
+}
+
+function mentionsReviewStorageCheck(normalized) {
+  const mentionsReviews =
+    normalized.includes("review automation") ||
+    normalized.includes("reviews manager") ||
+    normalized.includes("review manager") ||
+    normalized.includes("upstash") ||
+    normalized.includes("redis") ||
+    normalized.includes("storage");
+  if (!mentionsReviews) return false;
+  return /\b(storage|redis|upstash|env|environment|history|persist|persistence)\b/.test(normalized);
 }
 
 function mentionsGhlVisualReadiness(normalized) {

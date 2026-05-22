@@ -520,6 +520,15 @@ Latest result:
   downgrade. Keep GHL at $97 while AOH Review Automation and Reach replacements
   are tested.
 
+Review storage check:
+
+```bash
+npm run review:storage-check
+```
+
+This confirms whether the required Upstash Redis env vars are present locally
+and in Vercel without printing secret values.
+
 ## Sources
 
 - HighLevel Pricing Guide: https://help.gohighlevel.com/support/solutions/articles/155000001156-highlevel-pricing-guide
