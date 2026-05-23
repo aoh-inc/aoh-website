@@ -1,13 +1,18 @@
 -- GetMeFound API access policies
 -- Run this after supabase/schema.sql.
 
-grant usage on schema public to anon, authenticated;
+grant usage on schema public to anon, authenticated, service_role;
 
 grant insert on public.contact_submissions to anon, authenticated;
 grant insert on public.agent_tasks to anon, authenticated;
 grant insert on public.email_events to anon, authenticated;
 
 grant select on public.tooling_status to anon, authenticated;
+
+grant all privileges on public.contact_submissions to service_role;
+grant all privileges on public.agent_tasks to service_role;
+grant all privileges on public.email_events to service_role;
+grant all privileges on public.tooling_status to service_role;
 
 drop policy if exists "allow contact submissions insert" on public.contact_submissions;
 create policy "allow contact submissions insert"
