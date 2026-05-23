@@ -1,0 +1,99 @@
+{
+  "date": "2026-05-23",
+  "lane": "relay",
+  "label": "Relay",
+  "execute": "import",
+  "warmupDay": 4,
+  "quota": {
+    "name": "days_4_6",
+    "from_day": 4,
+    "to_day": 6,
+    "min": 40,
+    "target": 50,
+    "max": 50
+  },
+  "status": "blocked",
+  "selectedCount": 8,
+  "selectedCsv": "tmp-reach-warmup-relay-2026-05-23-selected-qa.csv",
+  "blockers": [
+    "Only 8 OK rows found; minimum is 40.",
+    "Selected rows below minimum 40."
+  ],
+  "attempts": [
+    {
+      "attempt": "cache",
+      "industry": "paid scrape inventory",
+      "area": "16 saved QA files",
+      "state": "",
+      "scrapeLimit": 0,
+      "qaRows": 74,
+      "okRows": 11,
+      "added": 1,
+      "poolSize": 1,
+      "qaCsv": "cached relay QA inventory",
+      "error": "reused_paid_scrape_inventory"
+    },
+    {
+      "attempt": 12,
+      "industry": "plumber",
+      "area": "Connecticut",
+      "state": "Connecticut",
+      "scrapeLimit": 20,
+      "qaRows": 11,
+      "okRows": 0,
+      "added": 0,
+      "poolSize": 1,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-23-a12-qa.csv"
+    },
+    {
+      "attempt": 13,
+      "industry": "electrician",
+      "area": "Connecticut",
+      "state": "Connecticut",
+      "scrapeLimit": 20,
+      "qaRows": 8,
+      "okRows": 2,
+      "added": 2,
+      "poolSize": 3,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-23-a13-qa.csv"
+    },
+    {
+      "attempt": 14,
+      "industry": "roofing contractor",
+      "area": "Connecticut",
+      "state": "Connecticut",
+      "scrapeLimit": 20,
+      "qaRows": 13,
+      "okRows": 1,
+      "added": 1,
+      "poolSize": 4,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-23-a14-qa.csv"
+    },
+    {
+      "attempt": 15,
+      "industry": "veterinary",
+      "area": "Westchester County NY",
+      "state": "New York",
+      "scrapeLimit": 20,
+      "qaRows": 5,
+      "okRows": 0,
+      "added": 0,
+      "poolSize": 4,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-23-a15-qa.csv"
+    },
+    {
+      "attempt": 16,
+      "industry": "HVAC contractor",
+      "area": "Massachusetts",
+      "state": "Massachusetts",
+      "scrapeLimit": 20,
+      "qaRows": 14,
+      "okRows": 4,
+      "added": 4,
+      "poolSize": 8,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-23-a16-qa.csv"
+    }
+  ],
+  "verification": null,
+  "actionResults": []
+}

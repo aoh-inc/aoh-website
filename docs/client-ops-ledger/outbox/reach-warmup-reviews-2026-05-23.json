@@ -1,0 +1,39 @@
+{
+  "date": "2026-05-23",
+  "lane": "reviews",
+  "label": "Reviews",
+  "execute": "start",
+  "warmupDay": 4,
+  "quota": {
+    "name": "days_4_6",
+    "from_day": 4,
+    "to_day": 6,
+    "min": 40,
+    "target": 50,
+    "max": 50
+  },
+  "status": "blocked",
+  "selectedCount": 1,
+  "selectedCsv": "tmp-reach-warmup-reviews-2026-05-23-selected-qa.csv",
+  "blockers": [
+    "Only 1 OK rows found; minimum is 40.",
+    "Selected rows below minimum 40."
+  ],
+  "attempts": [
+    {
+      "attempt": "imported",
+      "industry": "imported warmup contacts",
+      "area": "1 prior import source",
+      "state": "",
+      "scrapeLimit": 0,
+      "qaRows": 10,
+      "okRows": 10,
+      "added": 1,
+      "poolSize": 1,
+      "qaCsv": "prior import inventory",
+      "error": "reused_prior_import_for_start_drip"
+    }
+  ],
+  "verification": null,
+  "actionResults": []
+}

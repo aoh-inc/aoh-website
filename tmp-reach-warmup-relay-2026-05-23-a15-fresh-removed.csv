@@ -1,0 +1,2 @@
+name,email,phone,website,address,city,state,niche,rating,reviewCount,lastReviewDate,reviewsLink,competitorName,competitorReviewCount,lane,sourceQuery,removal_reason
+Vets on the Hudson,info@vetsonthehudson.com,+1 201-441-1118,http://www.vetsonthehudson.com/,"340 Old River Rd, Edgewater, NJ 07020",Edgewater,New Jersey,Veterinarian,4.8,230,,https://search.google.com/local/reviews?placeid=ChIJhRa2R1_3wokRYgXOELvhzSI&q=*&authuser=0&hl=en&gl=US,,,relay,"veterinary, Westchester County NY, USA",state_mismatch

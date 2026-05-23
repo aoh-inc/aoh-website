@@ -1,0 +1,2 @@
+name,email,phone,website,address,city,state,niche,rating,reviewCount,lastReviewDate,reviewsLink,competitorName,competitorReviewCount,lane,sourceQuery,removal_reason
+Joe the Plumber,joey@joeyperras.com,+1 860-614-7157,http://www.calljoetheplumber.com/,"350 Chapel Rd Unit 1, South Windsor, CT 06074",South Windsor,Connecticut,Plumber,4.7,631,,https://search.google.com/local/reviews?placeid=ChIJnTAJhnBW5okRC1FVEKlfz1w&q=*&authuser=0&hl=en&gl=US,,,relay,"plumber, Connecticut, USA",already_imported
