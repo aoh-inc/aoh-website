@@ -103,7 +103,6 @@ export async function POST(req: NextRequest) {
     console.error("Supabase contact save failed", contactResult.status, contactResult.error);
   }
 
-  const contactSubmissionId = contactResult.ok ? contactResult.data?.[0]?.id : null;
   const taskResult = await createAgentTask({
     title: `Follow up with ${contact.name}`,
     kind: "contact_follow_up",
@@ -111,7 +110,6 @@ export async function POST(req: NextRequest) {
     source: "website_contact",
     payload: {
       ...contact,
-      contactSubmissionId,
       submittedAt,
     },
   });
@@ -123,7 +121,6 @@ export async function POST(req: NextRequest) {
   const notificationStatus = await sendContactNotification({
     ...contact,
     subject,
-    contactSubmissionId,
     submittedAt,
   });
 
@@ -136,7 +133,6 @@ export async function POST(req: NextRequest) {
     provider_id: notificationStatus.id,
     error: notificationStatus.sent ? undefined : notificationStatus.reason,
     payload: {
-      contactSubmissionId,
       resendDomainStatus: notificationStatus.domainStatus,
     },
   });
@@ -160,7 +156,6 @@ async function sendContactNotification(input: {
   user_agent: string | null;
   ip_hint: string | null;
   subject: string;
-  contactSubmissionId: string | null | undefined;
   submittedAt: string;
 }): Promise<{ sent: boolean; id?: string; reason?: string; domainStatus?: string }> {
   const domain = await getResendDomainStatus();
@@ -179,7 +174,6 @@ async function sendContactNotification(input: {
     `Email: ${input.email}`,
     `Source: ${input.source}`,
     `Submitted: ${input.submittedAt}`,
-    input.contactSubmissionId ? `Supabase ID: ${input.contactSubmissionId}` : null,
     "",
     input.message,
   ].filter(Boolean);

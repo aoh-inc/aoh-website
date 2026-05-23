@@ -6,8 +6,8 @@ import { supabaseRest } from "@/lib/supabase-rest";
 export async function GET() {
   const env = getEnvChecks();
   const resend = await getResendDomainStatus();
-  const supabase = await supabaseRest<Array<{ id: string }>>("contact_submissions", {
-    query: "select=id&limit=1",
+  const supabase = await supabaseRest<Array<{ service: string }>>("tooling_status", {
+    query: "select=service&service=eq.supabase&limit=1",
   });
 
   return NextResponse.json({
@@ -21,7 +21,7 @@ export async function GET() {
       supabase: {
         ok: supabase.ok,
         status: supabase.status,
-        contactSubmissionsTable: supabase.ok ? "ready" : "not-ready",
+        toolingStatusTable: supabase.ok ? "ready" : "not-ready",
       },
     },
   });

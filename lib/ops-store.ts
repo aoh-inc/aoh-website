@@ -10,7 +10,7 @@ export type ContactSubmission = {
 };
 
 export async function saveContactSubmission(input: ContactSubmission) {
-  return supabaseRest<Array<{ id: string }>>("contact_submissions", {
+  return supabaseRest<null>("contact_submissions", {
     method: "POST",
     body: {
       name: input.name,
@@ -20,7 +20,7 @@ export async function saveContactSubmission(input: ContactSubmission) {
       user_agent: input.user_agent ?? null,
       ip_hint: input.ip_hint ?? null,
     },
-    prefer: "return=representation",
+    prefer: "return=minimal",
   });
 }
 
@@ -31,7 +31,7 @@ export async function createAgentTask(input: {
   source?: string;
   payload?: Record<string, unknown>;
 }) {
-  return supabaseRest<Array<{ id: string }>>("agent_tasks", {
+  return supabaseRest<null>("agent_tasks", {
     method: "POST",
     body: {
       title: input.title,
@@ -41,7 +41,7 @@ export async function createAgentTask(input: {
       source: input.source ?? "website",
       payload: input.payload ?? {},
     },
-    prefer: "return=representation",
+    prefer: "return=minimal",
   });
 }
 

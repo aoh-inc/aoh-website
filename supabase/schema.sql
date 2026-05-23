@@ -58,6 +58,42 @@ alter table public.agent_tasks enable row level security;
 alter table public.email_events enable row level security;
 alter table public.tooling_status enable row level security;
 
+grant usage on schema public to anon, authenticated;
+
+grant insert on public.contact_submissions to anon, authenticated;
+grant insert on public.agent_tasks to anon, authenticated;
+grant insert on public.email_events to anon, authenticated;
+
+grant select on public.tooling_status to anon, authenticated;
+
+drop policy if exists "allow contact submissions insert" on public.contact_submissions;
+create policy "allow contact submissions insert"
+on public.contact_submissions
+for insert
+to anon, authenticated
+with check (true);
+
+drop policy if exists "allow agent tasks insert" on public.agent_tasks;
+create policy "allow agent tasks insert"
+on public.agent_tasks
+for insert
+to anon, authenticated
+with check (true);
+
+drop policy if exists "allow email events insert" on public.email_events;
+create policy "allow email events insert"
+on public.email_events
+for insert
+to anon, authenticated
+with check (true);
+
+drop policy if exists "allow tooling status read" on public.tooling_status;
+create policy "allow tooling status read"
+on public.tooling_status
+for select
+to anon, authenticated
+using (true);
+
 insert into public.tooling_status (service, status, detail)
 values
   ('google_workspace', 'ready', 'Google Workspace and Gmail are live for getmefound.ai.'),
