@@ -47,21 +47,21 @@ export function FinalCta() {
             Free report
           </p>
           <h2 className="text-3xl md:text-5xl font-bold text-[var(--color-hero-text)] leading-tight mb-5">
-            Customers are searching right now.
+            Customers are choosing right now.
             <br className="hidden md:block" />
             <span className="hidden md:inline"> </span>
-            <span className="text-[var(--color-accent)]">See where you stand.</span>
+            <span className="text-[var(--color-accent)]">Make sure they find you.</span>
           </h2>
           <p className="text-base md:text-lg text-[var(--color-hero-subtext)] leading-relaxed mb-6 max-w-xl mx-auto">
-            Two minutes for a free Google visibility check. No card. We&apos;ll show you what is stale, missing, or confusing before customers choose someone else.
+            We handle your Google presence, reviews, and AI search visibility every month — so you show up where it counts. No dashboards. No contract.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
-              href="/#calculator"
+              href="/pricing"
               className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-8 py-4 text-base font-semibold text-[var(--color-accent-text)] transition-all hover:bg-[var(--color-accent-hover)] hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-[var(--color-accent)]/30"
             >
-              Get my free report
+              See our plans
               <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
                 →
               </span>
@@ -70,12 +70,12 @@ export function FinalCta() {
               href="/contact"
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/[0.06] px-6 py-4 text-base font-semibold text-[var(--color-hero-text)] ring-1 ring-white/[0.08] transition-all hover:bg-white/[0.10] hover:ring-white/20"
             >
-              Or talk to us
+              Talk to us
             </Link>
           </div>
 
           <p className="mt-8 text-xs text-[var(--color-hero-subtext)]/70">
-            Free report — no card needed. Service plans require card; fully refundable, cancel anytime.
+            No contracts. Cancel anytime. Plans from $59/mo.
           </p>
         </motion.div>
       </div>

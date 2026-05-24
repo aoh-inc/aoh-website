@@ -391,16 +391,16 @@ export function CostCompare() {
 
         <div className="mt-6 flex flex-col items-center gap-4">
           <Link
-            href="/#calculator"
+            href="/pricing"
             className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-8 py-4 text-base font-semibold text-[var(--color-accent-text)] transition hover:bg-[var(--color-accent-hover)] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[var(--color-accent)]/25"
           >
-            Get my free audit
+            See our plans
             <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
               →
             </span>
           </Link>
           <p className="text-xs text-[var(--color-text-muted)]">
-            No credit card. No contract. Same-day reply.
+            No contract. Cancel anytime. Plans from $59/mo.
           </p>
         </div>
 

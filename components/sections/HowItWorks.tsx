@@ -182,23 +182,23 @@ type Step = {
 const STEPS: Step[] = [
   {
     number: "01",
-    title: "Get your free report",
-    body: "We grade your online presence in minutes — reviews, ranking, AI visibility, listings. You see exactly where you stand.",
-    meta: "Free · No card needed",
+    title: "We audit your presence",
+    body: "We review your Google profile, reviews, star rating, AI search visibility, and listing gaps. You see exactly where you stand — and what's costing you customers.",
+    meta: "Personal review · Same-day",
     Visual: ScoreGauge,
   },
   {
     number: "02",
     title: "We set you up",
-    body: "We connect your accounts, set you up to rank higher on Google, plug you into ChatGPT, and turn on review requests. You give us access — we do the rest.",
+    body: "We connect your accounts, set you up to rank higher on Google, plug you into ChatGPT and AI search, and turn on review requests. You give us access — we do the rest.",
     meta: "Live in 48 hrs",
     Visual: SetupTimeline,
   },
   {
     number: "03",
     title: "We run it",
-    body: "Reviews, ranking, AI visibility — handled by us, every day. You approve replies in your inbox. You stay focused on your business.",
-    meta: "Cancel anytime · Fully refundable",
+    body: "Reviews, rankings, AI visibility — handled by us every month. You approve replies in your inbox. You stay focused on your business.",
+    meta: "No contract · Cancel anytime",
     Visual: ReviewFeed,
   },
 ];
@@ -268,16 +268,16 @@ export function HowItWorks() {
         {/* CTA below steps */}
         <div className="mt-8 flex flex-col items-center gap-3">
           <Link
-            href="/#calculator"
+            href="/contact"
             className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-8 py-4 text-base font-semibold text-[var(--color-accent-text)] transition hover:bg-[var(--color-accent-hover)] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[var(--color-accent)]/25"
           >
-            Get my free report
+            Talk to us
             <span aria-hidden="true" className="transition-transform group-hover:translate-x-0.5">
               →
             </span>
           </Link>
           <p className="text-xs text-[var(--color-text-muted)]">
-            Step 1 only takes a minute. No card needed for the report.
+            We review your profile and follow up same day.
           </p>
         </div>
       </div>

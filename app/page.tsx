@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { HeroEmailForm } from "@/components/hero/HeroEmailForm";
 import { RevenueCalculator } from "@/components/RevenueCalculator";
 import { SocialProof } from "@/components/sections/SocialProof";
 import { CostCompare } from "@/components/sections/CostCompare";
@@ -11,13 +10,14 @@ import { Reveal } from "@/components/Reveal";
 import { Spotlight } from "@/components/ui/Spotlight";
 import { BackgroundBeams } from "@/components/ui/BackgroundBeams";
 import { AnimatedIcon } from "@/components/ui/AnimatedIcon";
+import { HeroVisualAI } from "@/components/hero/HeroVisualAI";
 import { ICON_PATHS } from "@/lib/icon-paths";
 import { faqPageSchema } from "@/lib/faq";
 
 export const metadata: Metadata = {
-  title: "Google Visibility Services for Local Businesses",
+  title: "GetMeFound — Google Visibility for Local Businesses",
   description:
-    "Done-for-you Google visibility for local businesses. Get Found, Stay Found, Review Power, and AI Ready Bundle.",
+    "Done-for-you Google visibility, reviews, and AI search presence for local businesses. No contracts. Live in 48 hours.",
   alternates: { canonical: "/" },
 };
 
@@ -37,27 +37,27 @@ type TeaserCard = {
 const teaserCards: TeaserCard[] = [
   {
     name: "Get Found",
-    tagline: "A one-time cleanup for the new Google search.",
+    tagline: "One-time setup for the new Google search.",
     price: "$149",
     cadence: "one-time",
     bullets: [
-      "Google Business Profile audit",
-      "Services, categories, schema, and review path tightened",
+      "Google Business Profile audit and cleanup",
+      "Schema, categories, and review path set up",
       "AI search visibility baseline report",
     ],
-    href: "/pricing#get-found-refresh",
-    cta: "See the refresh",
+    href: "/pricing#get-found",
+    cta: "See what's included",
     iconPaths: ICON_PATHS.search,
     jobLabel: "Get Found",
   },
   {
     name: "Stay Found",
-    tagline: "Monthly upkeep so your profile does not go stale.",
+    tagline: "Monthly upkeep so your profile stays current.",
     price: "$59",
     cadence: "/month",
     bullets: [
-      "Weekly client list upload path",
-      "Email review requests and GBP post",
+      "Weekly review request emails to your customers",
+      "Weekly Google Business Profile post",
       "Monthly one-page visibility report",
     ],
     href: "/pricing#stay-found",
@@ -68,13 +68,13 @@ const teaserCards: TeaserCard[] = [
   },
   {
     name: "Review Power",
-    tagline: "SMS, email, and AI-drafted replies.",
+    tagline: "SMS and email review requests plus AI-drafted replies.",
     price: "$149",
     cadence: "/month",
     bullets: [
-      "SMS and email after A2P readiness",
-      "AI reply drafts in the client's voice",
-      "Monthly sentiment and citation check",
+      "SMS review requests — 3–5× the response rate of email",
+      "AI reply drafts in your voice, you approve before posting",
+      "Monthly review sentiment and citation check",
     ],
     href: "/pricing#review-power",
     cta: "Build review power",
@@ -83,15 +83,15 @@ const teaserCards: TeaserCard[] = [
   },
   {
     name: "AI Ready Bundle",
-    tagline: "Reputation, content, and voice readiness together.",
+    tagline: "Reviews, content, and AI voice readiness in one plan.",
     price: "$299",
     cadence: "/month",
     bullets: [
       "Everything in Review Power",
-      "AI voice agent readiness",
-      "Monthly strategy call and AEO check",
+      "AI voice agent ready for Google's calling feature",
+      "Monthly strategy call and AI search citation check",
     ],
-    href: "/pricing#ai-ready-bundle",
+    href: "/pricing#ai-ready",
     cta: "Get AI ready",
     iconPaths: ICON_PATHS.phone,
     jobLabel: "AI Ready",
@@ -111,8 +111,72 @@ export default function Home() {
         tabIndex={-1}
         className="flex flex-1 flex-col focus:outline-none"
       >
-        <HeroEmailForm />
+        {/* ── Hero ── */}
+        <section
+          aria-label="Hero"
+          className="bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]"
+        >
+          <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+            <div className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16 md:items-center">
+              <div className="flex flex-col">
+                <p className="mb-4 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
+                  Google IO 2026 · AI search is live
+                </p>
+                <h1 className="font-semibold leading-[1.05] tracking-tight text-[clamp(2rem,8vw,3.5rem)] md:text-[clamp(2.5rem,5vw,4rem)]">
+                  Your next customer let AI pick a business.{" "}
+                  <span className="text-[var(--color-accent)]">Were you on the list?</span>
+                </h1>
+                <p className="mt-6 max-w-xl text-lg text-[var(--color-hero-subtext)] md:text-xl leading-relaxed">
+                  Google&apos;s biggest search change in 25 years is live. AI now
+                  recommends local businesses before anyone clicks. We get you on
+                  that list — and keep you there.
+                </p>
 
+                <ul className="mt-8 flex flex-wrap gap-3">
+                  {[
+                    "Done for you — no dashboards",
+                    "No contracts, cancel anytime",
+                    "Live in 48 hours",
+                  ].map((pill) => (
+                    <li
+                      key={pill}
+                      className="inline-flex items-center gap-2 rounded-full border border-[var(--color-hero-border)] bg-white/5 px-4 py-1.5 text-sm text-[var(--color-hero-subtext)]"
+                    >
+                      <span className="text-[var(--color-accent)]" aria-hidden="true">✓</span>
+                      {pill}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-10 flex flex-wrap gap-4">
+                  <Link
+                    href="/pricing"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-7 py-4 text-base font-semibold text-[var(--color-accent-text)] transition hover:bg-[var(--color-accent-hover)] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[var(--color-accent)]/30"
+                  >
+                    See our plans
+                    <span aria-hidden="true">→</span>
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/[0.06] px-7 py-4 text-base font-semibold text-[var(--color-hero-text)] ring-1 ring-white/[0.10] transition hover:bg-white/[0.10] hover:ring-white/20"
+                  >
+                    Talk to us
+                  </Link>
+                </div>
+
+                <p className="mt-4 font-mono text-xs text-[var(--color-hero-subtext)]/60">
+                  Plans from $59/mo · no contract · cancel anytime
+                </p>
+              </div>
+
+              <div className="h-full">
+                <HeroVisualAI />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── Service tiers ── */}
         <section className="py-14 md:py-20 bg-[var(--color-bg-page)]">
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-8 text-center">
@@ -120,10 +184,10 @@ export default function Home() {
                 Get found. Stay found. Build trust.
               </p>
               <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-body)] mb-4">
-                Google Search is changing. Your business profile has to keep up.
+                Pick the level that fits where you are.
               </h2>
               <p className="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
-                We clean up your Google-facing footprint, keep it fresh, and help happy customers leave the reviews they meant to leave. You do not learn another dashboard. We run it.
+                We run everything. You stay focused on your business.
               </p>
             </div>
 
@@ -202,7 +266,7 @@ export default function Home() {
                 href="/pricing"
                 className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] hover:gap-2.5 transition-all"
               >
-                See all plans
+                See full plan details
                 <span aria-hidden="true">→</span>
               </Link>
             </div>
