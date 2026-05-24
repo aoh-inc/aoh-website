@@ -29,6 +29,21 @@ export const metadata: Metadata = {
 
 export const revalidate = 60;
 
+const MC_BOOKMARKS = [
+  { label: "Hub", href: "/mike-mc" },
+  { label: "Workflows", href: "/mike-mc/workflows" },
+  { label: "Team", href: "/mike-mc/team" },
+  { label: "Clients", href: "/mike-mc/clients" },
+  { label: "Setup Jobs", href: "/mike-mc/setup-jobs" },
+  { label: "GHL Exit Ops", href: "/mike-mc/ghl-exit-ops" },
+  { label: "Ops Index", href: "/mike-mc/ops" },
+  { label: "Morning Brief", href: "/mike-mc/morning-brief" },
+  { label: "Review Proof", href: "/mike-mc/review-proof/ai-outsource-hub" },
+  { label: "Review Replies", href: "/mike-mc/review-replies/ai-outsource-hub" },
+  { label: "Report Flow", href: "/mike-mc/report-flow" },
+  { label: "Campaigns", href: "/mike-mc/campaigns" },
+];
+
 const OVERSIGHT_LINKS = [
   {
     label: "Workflows",
@@ -259,6 +274,8 @@ export default async function ControlPage() {
         </div>
       </header>
 
+      <BookmarkSection />
+
       <section className="mb-8">
         <FleetStrip active={6} total={AGENTS.length} doneToday={BOARD_TASKS.length} queued={SCHEDULED_WORK.length} />
       </section>
@@ -276,6 +293,24 @@ export default async function ControlPage() {
         </p>
       </footer>
     </ControlShell>
+  );
+}
+
+function BookmarkSection() {
+  return (
+    <nav className="mb-8 rounded-lg border border-zinc-800/70 bg-zinc-950/80 p-4" aria-label="Mike Command Center bookmarks">
+      <div className="flex flex-wrap gap-2">
+        {MC_BOOKMARKS.map((link) => (
+          <Link
+            key={link.href}
+            href={link.href}
+            className="rounded-md border border-zinc-800 bg-black/20 px-3 py-2 text-sm font-medium text-zinc-200 transition hover:border-emerald-500/40 hover:bg-emerald-500/10 hover:text-emerald-200"
+          >
+            {link.label}
+          </Link>
+        ))}
+      </div>
+    </nav>
   );
 }
 
