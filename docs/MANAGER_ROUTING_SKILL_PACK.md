@@ -27,17 +27,16 @@ Manager optimizes for:
 
 ## Current GMF Offers
 
-- Get Found Refresh - one-time visibility cleanup.
-- Stay Found - monthly visibility maintenance.
-- Review Engine - email review requests.
-- Review Voice - drafted review replies in client voice.
-- Call Protection - future add-on.
+- Get Found - $149 one-time visibility setup and baseline.
+- Stay Found - $59/mo email-only review requests, weekly GBP post, monitoring, and monthly report.
+- Review Power - $149/mo SMS + email, A2P handled by GMF, AI reply drafts, alerts, and reporting.
+- AI Ready Bundle - $299/mo reputation, content, AI voice readiness, strategy, and AEO checks.
 
 Reach/outbound work is not part of the GMF delivery focus.
 
 ## Work Categories
 
-### Get Found Refresh
+### Get Found
 
 Default owner: Profile Manager
 Reviewer: Auditor
@@ -80,7 +79,7 @@ Proof required:
 - no invented metrics
 - next action included
 
-### Review Engine
+### Review Power
 
 Default owner: Reviews Manager
 Support: Systems Director
@@ -91,7 +90,7 @@ Examples:
 - customer upload
 - clean/held rows
 - proof preview
-- live email review request batch
+- live email or SMS review request batch
 - feedback/suppression handling
 - monthly review summary
 
@@ -100,10 +99,10 @@ Proof required:
 - review link exists
 - clean/held count visible
 - proof page checked
-- sender health ok
+- sender and SMS compliance health ok when applicable
 - send logs recorded after live send
 
-### Review Voice
+### Review Replies
 
 Default owner: Reply Writer
 Support: Reviews Manager
@@ -122,6 +121,29 @@ Proof required:
 - safety flags shown
 - decision logged
 - no auto-post unless future trust level is approved
+
+### AI Ready Bundle
+
+Default owner: Manager
+Support: Profile Manager, Reply Writer, Systems Director, Client Success
+Reviewer: Auditor before any live voice/content automation
+
+Examples:
+
+- AI voice readiness intake
+- services/pricing/hours/FAQ training pack
+- GBP content management plan
+- FAQ schema and location-page recommendations
+- monthly strategy call prep
+- AEO visibility check
+
+Proof required:
+
+- business facts confirmed
+- voice/FAQ training source saved
+- no live voice behavior without approval
+- content recommendations are factual
+- monthly strategy recap created
 
 ### Systems / Security / Access
 
@@ -233,11 +255,11 @@ Do not ask Mike when:
 
 | Task | Owner Agent | Reviewer | Mike Approval |
 | --- | --- | --- | --- |
-| Get Found Refresh | Profile Manager | Auditor | Only public/profile edits |
+| Get Found | Profile Manager | Auditor | Only public/profile edits |
 | Stay Found monthly check | Profile Manager | Auditor if risky | No unless client-facing sensitive |
-| Review Engine send batch | Reviews Manager | Auditor | Yes before first/live batch as needed |
+| Review Power send batch | Reviews Manager | Auditor | Yes before first/live batch as needed |
 | Customer upload cleanup | Reviews Manager/Sorter | Manager | No |
-| Review Voice draft | Reply Writer | Auditor | Only high-risk or client approval |
+| Review reply draft | Reply Writer | Auditor | Only high-risk or client approval |
 | Client recap | Client Success/Coach | Manager | No unless sensitive |
 | Security/access/billing | Systems Director | Auditor | Yes |
 | Code/deploy | Codex/Website | Auditor if sensitive | Only pricing/security/public claims |
@@ -249,4 +271,3 @@ Do not ask Mike when:
 - `docs/AGENT_OPERATING_MODEL.md`
 - `docs/PROFILE_KNOWLEDGE_PACK.md`
 - `docs/REVIEW_AUTOMATION_AGENT_SKILLS.md`
-

@@ -85,7 +85,7 @@ function MultiplierBadge() {
       />
       <div className="relative inline-flex items-center gap-2.5 rounded-full bg-[var(--color-bg-dark-card)] px-6 py-3 text-sm font-bold text-[var(--color-hero-text)] ring-1 ring-[var(--color-accent)]/50 shadow-xl">
         <span className="flex h-2 w-2 rounded-full bg-[var(--color-accent)] animate-pulse shadow-[0_0_10px_rgba(45,106,79,0.8)]" />
-        <span className="font-mono tracking-wide">10× cheaper</span>
+        <span className="font-mono tracking-wide">about 5× cheaper</span>
         <span className="text-[var(--color-accent)]">→</span>
       </div>
     </motion.div>
@@ -146,12 +146,12 @@ export function CostCompare() {
             <span className="hidden md:inline"> </span>
             Run it with us:{" "}
             <span className="text-[var(--color-accent)]">
-              $<AnimatedNumber value={199} duration={2600} />/mo
+              $<AnimatedNumber value={299} duration={2600} />/mo
             </span>
             .
           </h2>
           <p className="text-base md:text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto leading-relaxed">
-            Same outcome. Less than one of those tools. Here&apos;s what each piece costs to do yourself.
+            Same operating lane. Less than one enterprise review platform. Here&apos;s what each piece costs to do yourself.
           </p>
         </div>
 
@@ -233,13 +233,13 @@ export function CostCompare() {
                   GetMeFound
                 </p>
                 <p className="font-mono text-2xl font-bold text-[var(--color-accent)] leading-none">
-                  $<AnimatedNumber value={199} duration={2800} />
+                  $<AnimatedNumber value={299} duration={2800} />
                   <span className="text-sm">/mo</span>
                 </p>
                 <div className="mt-2 h-1.5 w-full rounded-full bg-[var(--color-accent)]/15 overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
-                    whileInView={{ width: "10%" }}
+                    whileInView={{ width: "20%" }}
                     viewport={{ once: true }}
                     transition={{ duration: 2.2, delay: 0.8, ease: "easeOut" }}
                     className="h-full rounded-full bg-[var(--color-accent)] shadow-[0_0_8px_rgba(45,106,79,0.6)]"
@@ -357,13 +357,13 @@ export function CostCompare() {
             </div>
             <div className="px-6 py-6 text-center border-l border-white/[0.08] bg-[var(--color-accent)]/[0.10]">
               <p className="font-mono text-3xl md:text-4xl font-bold text-[var(--color-accent)] leading-none drop-shadow-[0_0_12px_rgba(45,106,79,0.3)]">
-                $<AnimatedNumber value={199} duration={2800} />
+                $<AnimatedNumber value={299} duration={2800} />
                 <span className="text-lg text-[var(--color-accent)]/70">/mo</span>
               </p>
               <div className="mt-3 h-1.5 w-full rounded-full bg-[var(--color-accent)]/15 overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
-                  whileInView={{ width: "10%" }}
+                  whileInView={{ width: "20%" }}
                   viewport={{ once: true }}
                   transition={{ duration: 2.2, delay: 1.0, ease: "easeOut" }}
                   className="h-full rounded-full bg-[var(--color-accent)] shadow-[0_0_8px_rgba(45,106,79,0.7)]"
@@ -405,7 +405,7 @@ export function CostCompare() {
         </div>
 
         <p className="mt-6 text-center text-xs text-[var(--color-text-muted)] max-w-3xl mx-auto leading-relaxed">
-          Prices reflect publicly listed rates as of 2026: Birdeye Standard ($349/mo), Yext Essential / BrightLocal ($37–$39/mo), Profound Starter ($99/mo, ChatGPT-only tier), and typical small-business marketing-assistant labor. Voice answering (Relay) is a separate GetMeFound product — add as you scale.
+          Prices reflect publicly listed examples and can change: Birdeye Standard, Yext or BrightLocal, Profound Starter, and typical small-business marketing-assistant labor. Live voice behavior inside AI Ready stays approval-gated.
         </p>
       </div>
     </section>

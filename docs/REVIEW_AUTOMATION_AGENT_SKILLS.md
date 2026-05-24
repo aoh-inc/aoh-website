@@ -1,7 +1,7 @@
-# Review Automation Agent Skills
+# Review Power Agent Skills
 
 Status: draft source of truth
-Scope: what each agent must know before GMF runs self-serve Review Automation onboarding for real clients.
+Scope: what each agent must know before GMF runs self-serve review request onboarding for real clients.
 
 ## Service Principle
 
@@ -9,15 +9,15 @@ The client completes access and intake asynchronously. Agents do the backend set
 
 Default path:
 
-1. Client buys Review Automation.
+1. Client buys Stay Found or Review Power.
 2. Client gets self-serve instructions with screenshots and video.
 3. Client fills out business info and invites GMF as Google Business Profile Manager.
 4. Profile confirms access.
-5. GHL Expert connects GBP inside HighLevel and configures review automation.
-6. Sorter/GHL Expert handle customer list and POS/CRM connection as the next phase.
+5. Systems Director confirms the GMF-owned sender, storage, and proof path.
+6. Sorter/Reviews Manager handle customer list and POS/CRM connection as the next phase.
 7. Auditor verifies launch.
 
-Base Review Automation is email-only review automation plus a one-time Google Business Profile audit/fix and monthly digest. SMS review requests, Reviews AI, AI-drafted replies, ongoing AI Visibility work, and social review posting belong to AI Visibility or another approved upgrade.
+Stay Found is email-only review requests plus weekly GBP post, review monitoring, and monthly report. Review Power adds compliant SMS after A2P readiness, AI-drafted replies in the client's voice, alerts, and sentiment/citation reporting. AI Ready Bundle adds voice readiness, content, strategy, and AEO checks.
 
 ## Scout Skill Pack
 
@@ -25,8 +25,8 @@ Purpose: keep the knowledge current.
 
 Scout must know how to research:
 
-- official HighLevel docs for Reputation, GBP integration, workflows, snapshots, custom values, widgets, webhooks, email sending, and CRM integrations
-- official HighLevel docs for Reviews AI, phone/SMS, and social planner as upgrade/service modules
+- official HighLevel docs only while GHL remains a bridge for legacy exports or temporary data
+- official docs for email, SMS/A2P, phone/voice, and CRM/POS integrations as upgrade/service modules
 - official Google Business Profile docs for owners/managers, agency invites, verification, reviews, posts, photos, services, and profile edits
 - saved GMF Drive/Obsidian SOPs and checklist notes
 - edge cases from client onboarding problems
@@ -71,9 +71,9 @@ Profile must know:
 - how to find or generate the Google review link
 - how to identify if the wrong Google account/location was connected
 - how to check basic profile health: name, address, phone, website, hours, categories, services, photos, reviews, unanswered reviews
-- when to hand off to GHL Expert
+- when to hand off to Reviews Manager or Systems Director
 
-Profile should know that Manager access gives GMF authority over the profile, but does not automatically connect the profile to HighLevel. GHL Expert still needs to connect GBP inside the client subaccount using an GMF Google account with manager access.
+Profile should know that Manager access gives GMF authority over the profile, but it does not automatically connect the profile to any sender, CRM, or workflow tool. Systems Director owns the tool connection path.
 
 Profile "done" means:
 
@@ -82,42 +82,31 @@ Profile "done" means:
 - GBP verified or verification blocker recorded
 - review link captured
 - any access/profile blocker assigned to Manager
-- GHL Expert notified that GBP is ready to connect
+- Reviews Manager and Systems Director are notified that GBP is ready to use
 
-## GHL Expert Skill Pack
+## Systems Director Skill Pack
 
-Purpose: own HighLevel setup and automation.
+Purpose: own GMF-owned sender, storage, compliance, and automation safety.
 
-GHL Expert must know:
+Systems Director must know:
 
-- how to create or confirm the client subaccount
-- how to apply the Review Automation snapshot
-- how to confirm the review dashboard imported
-- how to update business settings
-- how to update custom values
-- how to connect Google Business Profile inside HighLevel
-- how to confirm Google reviews are syncing into Reputation
-- how to configure Reputation settings
-- how to keep base Review Automation email-only unless the client has AI Visibility
-- how to configure Reviews AI and reply tone/signature for AI Visibility upgrades
-- how to configure review request workflows
-- how to configure trigger links and webhooks
-- how to create review widgets
-- how to configure email sending basics
-- how to configure phone/SMS basics for upgrade plans and other services
+- how to confirm the client profile exists in Supabase
+- how to confirm review events and proof pages are storing correctly
+- how to confirm email sender health
+- how to keep Stay Found email-only
+- how to confirm SMS/A2P readiness before Review Power SMS sends
+- how to configure protected endpoints and webhooks
+- how to configure phone/voice basics for AI Ready only after approval
 - how to connect POS/CRM later through native integration, Zapier, CRM Connector, or manual CSV flow
 - how to test the setup before launch
 
-GHL Expert "done" means:
+Systems Director "done" means:
 
-- subaccount exists
-- snapshot loaded
-- business settings and custom values updated
-- GBP connected inside HighLevel
-- reviews visible/syncing in Reputation, or blocker recorded
-- review request workflow configured
-- Reviews AI configured only if AI Visibility or another upgrade is included
-- review widget created if included
+- client profile exists
+- review proof page and customer upload path work
+- sender health passes
+- SMS readiness is blocked unless A2P/opt-in/STOP/sample approval are complete
+- review request workflow is protected by internal approval
 - launch test passed or blocker assigned
 - Auditor notified for verification
 
@@ -135,7 +124,7 @@ Sorter must know:
 - how to remove bad rows
 - how to flag missing consent or risky records
 - how to exclude customers the client does not want contacted
-- how to prepare a clean import file for GHL Expert
+- how to prepare a clean import file for Reviews Manager
 
 Sorter "done" means:
 
@@ -143,7 +132,7 @@ Sorter "done" means:
 - columns are mapped
 - exclusions are removed
 - risks are documented
-- GHL Expert has the prepared list
+- Reviews Manager has the prepared list
 
 ## Auditor Skill Pack
 
@@ -152,13 +141,11 @@ Purpose: verify setup and monitor early launch.
 Auditor must know how to check:
 
 - GBP is connected to the correct client
-- reviews are syncing into Reputation
 - review link points to the correct profile
-- custom values are not blank or wrong
 - workflows are active only where intended
 - test contact receives the expected message/email
 - reply number and links are correct
-- Reviews AI tone/signature are correct if the client has AI Visibility
+- AI reply tone/signature are correct if the client has Review Power
 - customer list import did not create obvious bad data
 - first 1-2 weeks of send/review activity
 

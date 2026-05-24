@@ -8,13 +8,12 @@ Purpose: the simple operating model for running GMF as autonomously as possible.
 
 GetMeFound helps local businesses stay visible and trusted as Google Search changes.
 
-The company should not be positioned as a broad AI agency. GMF sells a narrow visibility system:
+The company should not be positioned as a broad AI agency. GMF is the review, reputation, and AI visibility company. The public site stays GetMeFound, and the offer ladder uses this structure:
 
-1. Get Found Refresh - one-time cleanup and visibility reset.
-2. Stay Found - monthly monitoring and light upkeep.
-3. Review Engine - email review requests for current and future customers.
-4. Review Voice - add-on that drafts replies in the client's voice.
-5. Call Protection - future add-on for answering calls when Google/customers call.
+1. Get Found - one-time cleanup, visibility baseline, and first review request setup.
+2. Stay Found - $59/mo email-only review requests, weekly GBP post, monitoring, and monthly report.
+3. Review Power - $149/mo SMS + email review requests, A2P handled by GMF, AI reply drafts, alerts, and sentiment/citation checks.
+4. AI Ready Bundle - $299/mo full reputation, content, AI voice readiness, strategy, and AEO checks.
 
 Reach, outbound prospecting, and social selling belong in a separate company/brand.
 
@@ -28,63 +27,72 @@ Google is changing how people find businesses. We keep your business easier to f
 
 ## Offer Ladder
 
-### Get Found Refresh
+### Get Found
 
 One-time service. Target price: $149.
 
-Purpose: clean up the client's Google-facing footprint and give them a simple before/after.
+Purpose: get the client's Google-facing footprint clean enough to sell the ongoing plans.
 
 Core work:
 
-- Google Business Profile check
+- full Google Business Profile audit and optimization plan
 - category, service, hours, website, and description review
+- LocalBusiness schema markup plan or handoff
 - review link capture
 - local/AI-search readability check
-- one-page findings and next-step report
+- first email review request campaign setup after approval
+- 30-minute onboarding call
+- AI search visibility baseline report
 
 ### Stay Found
 
-Monthly service. Target price: $49/mo.
+Monthly service. Target price: $59/mo. No contract.
 
-Purpose: keep the profile and visibility signals from going stale.
+Purpose: keep the profile, review path, and visibility signals from going stale. Email-only at this tier; SMS is the Review Power upgrade.
 
 Core work:
 
-- monthly visibility check
-- profile/review drift check
-- simple monthly note: what changed, what needs attention, what is next
+- weekly client list upload path into email review requests
+- one weekly Google Business Profile post
+- review monitoring across platforms where available
+- monthly one-page visibility report
 - client hub status
 
-### Review Engine
+### Review Power
 
 Monthly service. Target price: $149/mo.
 
-Purpose: send review requests to completed customers through GMF-owned email workflows.
+Purpose: generate stronger review proof with SMS + email, while keeping compliance and AI replies guarded.
 
 Core work:
 
+- everything in Stay Found
 - customer upload/manual import
 - POS-ready event path when available
-- email review requests
+- email and SMS review requests after A2P readiness
+- A2P setup handled by GMF when SMS is approved
 - private feedback capture
 - suppression/do-not-contact handling
-- monthly review summary
+- AI response drafted in the client's brand voice, approval-first
+- negative review alert and suggested response target within 4 business hours
+- monthly sentiment report and AI citation check
 
-### Review Voice
+### AI Ready Bundle
 
-Monthly add-on. Target price: +$49/mo.
+Monthly service. Target price: $299/mo. No contract.
 
-Purpose: draft review replies in the client's voice so they do not have to start from a blank page.
+Purpose: package reputation, local content, AI voice readiness, and strategy into one full-service lane.
 
-Safety rule: start in draft/approval mode. Do not auto-post until the client has proven trust, risk rules are stable, and Mike approves the automation level.
+Core work:
 
-### Call Protection
+- everything in Review Power
+- AI voice agent trained on business, services, pricing, hours, and FAQs
+- voice/phone readiness for AI and customer inquiries
+- full GBP content management and local content planning
+- FAQ schema and location-page recommendations
+- monthly 30-minute strategy call and AEO check
 
-Future add-on. Contact for pricing.
-
-Purpose: answer or route calls when Google/customers call and the business cannot pick up.
-
-Not a current default build. Keep it visible as future demand, not a blocker.
+Safety rule: review replies and voice automation start approval-first. Do not auto-post or enable live voice behavior until risk rules are stable and Mike approves the automation level.
 
 ## How The Company Runs
 
@@ -121,9 +129,10 @@ Mike should not need to inspect raw logs unless Manager or Auditor flags a probl
 
 No workflow is done until proof exists:
 
-- profile/access proof for Refresh and Stay Found
-- send proof for Review Engine
-- draft/approval proof for Review Voice
+- profile/access proof for Get Found and Stay Found
+- send proof for Review Power
+- draft/approval proof for review replies
+- voice/content proof for AI Ready Bundle
 - health/safety proof for weekly audits
 - client-visible summary for monthly retention
 
@@ -144,4 +153,3 @@ Monthly:
 
 - Client Success/Coach produces the client recap.
 - Manager shows Mike clients at risk, renewals, upgrades, and blockers.
-

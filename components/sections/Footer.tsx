@@ -5,10 +5,10 @@ import { NewsletterForm } from "@/components/NewsletterForm";
 import { usePathname } from "next/navigation";
 
 const services = [
-  { href: "/pricing#get-found-refresh", label: "Get Found Refresh" },
+  { href: "/pricing#get-found-refresh", label: "Get Found" },
   { href: "/pricing#stay-found", label: "Stay Found" },
-  { href: "/pricing#review-engine", label: "Review Engine" },
-  { href: "/pricing#review-voice", label: "Review Voice" },
+  { href: "/pricing#review-power", label: "Review Power" },
+  { href: "/pricing#ai-ready-bundle", label: "AI Ready Bundle" },
 ];
 
 const company = [

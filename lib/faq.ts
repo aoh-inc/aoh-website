@@ -7,11 +7,11 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: "Will automated replies sound fake and hurt me with Google?",
-    a: "Generic, templated responses do hurt rankings. Ours are different - once your standard plan begins, every reply is written in your specific business voice using your tone profile. Personalized and indistinguishable from something your best employee would write. During the 30-day intro, you reply manually.",
+    a: "Generic, templated responses can make a business look careless. Review Power includes AI-drafted replies in your business voice, but they start approval-first. Sensitive reviews always stay human-reviewed.",
   },
   {
     q: "How much of my time does this take?",
-    a: "Less than 10 minutes of setup, then completely hands-off. We handle everything - requests, responses, optimization. You run your business, we handle your reputation.",
+    a: "Get Found needs a short onboarding call and access details. After that, the monthly plans are built to be light: send or upload customer lists, approve anything risky, and read the recap.",
   },
   {
     q: "How long before I see results?",
@@ -27,7 +27,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: "What if I get a bad review?",
-    a: "A professional, calm reply in your voice does more for your reputation than ignoring it. Once your standard plan begins, we draft a reply to every review, positive or negative - you approve before it posts. During the 30-day intro, you handle replies yourself.",
+    a: "A professional, calm reply in your voice does more for your reputation than ignoring it. Review Power drafts suggested responses and flags sensitive issues before anything is posted.",
   },
   {
     q: "You're a new company - why should I trust you?",

@@ -10,11 +10,10 @@ GMF helps local businesses stay visible and trusted as Google Search becomes mor
 
 Active offers:
 
-- Get Found Refresh
-- Stay Found
-- Review Engine
-- Review Voice
-- future Call Protection
+- Get Found - $149 one-time setup and visibility baseline
+- Stay Found - $59/mo email-only review requests, weekly GBP post, monitoring, and monthly report
+- Review Power - $149/mo SMS + email, A2P handled by GMF, AI reply drafts, alerts, and reporting
+- AI Ready Bundle - $299/mo reputation, content, AI voice readiness, strategy, and AEO checks
 
 Reach/prospecting services are not part of GMF's active operating model.
 
@@ -48,7 +47,7 @@ Responsibilities:
 - Google Business Profile access/status
 - categories, services, hours, website, description, photos, and review link
 - monthly profile drift checks
-- Get Found Refresh and Stay Found execution
+- Get Found and Stay Found execution
 
 Proof owed:
 
@@ -59,7 +58,7 @@ Proof owed:
 
 ### Reviews Manager
 
-Owns Review Engine.
+Owns Review Power.
 
 Responsibilities:
 
@@ -78,7 +77,7 @@ Proof owed:
 
 ### Reply Writer
 
-Owns Review Voice drafts.
+Owns review reply drafts.
 
 Responsibilities:
 
@@ -182,7 +181,7 @@ Proof owed:
 
 ## Workflow Ownership
 
-Get Found Refresh:
+Get Found:
 
 - Owner: Profile Manager
 - Reviewer: Auditor
@@ -194,13 +193,13 @@ Stay Found:
 - Support: Client Success
 - Reviewer: Auditor
 
-Review Engine:
+Review Power:
 
 - Owner: Reviews Manager
 - Support: Systems Director
 - Reviewer: Auditor
 
-Review Voice:
+Review Replies:
 
 - Owner: Reply Writer
 - Support: Reviews Manager
@@ -212,10 +211,12 @@ Weekly Safety Audit:
 - Reviewer: Auditor
 - Manager role: receives exceptions only
 
-Call Protection:
+AI Ready Bundle:
 
-- Owner: Manager until product is activated
-- Status: planned/future
+- Owner: Manager
+- Support: Profile Manager, Reply Writer, Systems Director, Client Success
+- Reviewer: Auditor
+- Status: building; sell only inside approved $299/mo scope and keep live voice behavior approval-gated
 
 ## Escalation Rules
 

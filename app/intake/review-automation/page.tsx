@@ -8,7 +8,7 @@ const inviteEmail =
 
 export const metadata: Metadata = {
   title: "Client Setup Intake - GetMeFound",
-  description: "Submit business setup details for Review Engine and Google Business Profile access.",
+  description: "Submit business setup details for Review Power and Google Business Profile access.",
   robots: { index: false, follow: false },
 };
 
@@ -22,7 +22,7 @@ export default function ReviewAutomationIntakePage() {
               Client setup
             </p>
             <h1 className="mt-3 text-4xl font-semibold leading-tight tracking-tight md:text-5xl">
-              Review Engine intake
+              Review Power intake
             </h1>
             <p className="mt-4 max-w-xl text-base leading-7 text-slate-600">
               Send us the business details we need to verify Google Business Profile access and start setup.
@@ -60,7 +60,7 @@ export default function ReviewAutomationIntakePage() {
             <li>
               <span className="font-semibold text-slate-950">2. Setup routing</span>
               <br />
-              Reviews Manager prepares the review request flow. GHL Expert handles HighLevel setup.
+              Reviews Manager prepares the review request flow. Systems Director keeps any legacy GHL handoff limited to export or bridge work.
             </li>
             <li>
               <span className="font-semibold text-slate-950">3. Manager summary</span>

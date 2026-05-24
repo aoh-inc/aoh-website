@@ -101,7 +101,7 @@ const AGENTS: {
     status: "live",
     cadence: "daily",
     activity: {
-      lastDone: "Narrowed GMF to Google visibility, review generation, review replies, and future call coverage.",
+      lastDone: "Narrowed GMF to Google visibility, review generation, review replies, and AI readiness.",
       doingNow: "Routes every job to the right agent and keeps Mike out of routine work.",
       upNext: "Escalate only access, spending, risk, or client-approval issues.",
     },
@@ -117,26 +117,26 @@ const AGENTS: {
     status: "manual",
     cadence: "per client",
     activity: {
-      doingNow: "Owns Get Found Refresh and Stay Found checks.",
+      doingNow: "Owns Get Found and Stay Found checks.",
       upNext: "Run GMF as client-zero before the first outside client.",
     },
     rows: [
-      { primary: "Get Found Refresh", secondary: "Profile, categories, services, hours, NAP, website, review path.", badge: { tone: "accent", label: "$149" } },
-      { primary: "Stay Found", secondary: "Monthly drift check and owner recap.", badge: { tone: "warm", label: "$49/mo" } },
+      { primary: "Get Found", secondary: "Profile, categories, services, hours, NAP, website, schema, review path.", badge: { tone: "accent", label: "$149" } },
+      { primary: "Stay Found", secondary: "Weekly GBP post, email review requests, monitoring, and owner recap.", badge: { tone: "warm", label: "$59/mo" } },
       { primary: "Access rule", secondary: "Client grants access; no password sharing.", badge: { tone: "danger", label: "safe" } },
     ],
   },
   {
     name: "Reviews Manager",
-    role: "Review Engine owner",
+    role: "Review Power owner",
     status: "manual",
     cadence: "per client",
     activity: {
-      doingNow: "Owns email-first review request flow after POS, upload, or job-complete events.",
+      doingNow: "Owns email and compliant SMS review request flow after POS, upload, or job-complete events.",
       upNext: "Move proof into Supabase-backed client records as GHL is replaced.",
     },
     rows: [
-      { primary: "Review Engine", secondary: "Email requests, suppressions, review link, and proof report.", badge: { tone: "accent", label: "$149/mo" } },
+      { primary: "Review Power", secondary: "SMS/email requests, suppressions, review link, AI reply drafts, and proof report.", badge: { tone: "accent", label: "$149/mo" } },
       { primary: "POS path", secondary: "Manual upload first, export/API later when ready.", badge: { tone: "warm", label: "staged" } },
       { primary: "SMS rule", secondary: "Do not rely on SMS until compliance is approved.", badge: { tone: "warn", label: "hold" } },
     ],
@@ -151,7 +151,7 @@ const AGENTS: {
       upNext: "Graduate safe reply types only after Manager and Auditor approval.",
     },
     rows: [
-      { primary: "Review Voice", secondary: "Draft-only first; approval before posting.", badge: { tone: "warm", label: "+$49/mo" } },
+      { primary: "Review Replies", secondary: "Included in Review Power; draft-only first, approval before posting.", badge: { tone: "warm", label: "included" } },
       { primary: "Escalations", secondary: "Refunds, safety, legal, staff accusations, and regulated topics hold for human review.", badge: { tone: "danger", label: "hold" } },
       { primary: "Voice profile", secondary: "Tone, phrases, banned phrases, and examples.", badge: { tone: "accent", label: "trained" } },
     ],
@@ -222,7 +222,7 @@ const AGENTS: {
     cadence: "monthly",
     activity: {
       doingNow: "Turns agent work into simple client-facing recaps.",
-      upNext: "Test the Stay Found recap template and finish the Review Engine report format.",
+      upNext: "Test the Stay Found recap template and finish the Review Power report format.",
     },
     rows: [
       { primary: "Client recap", secondary: "What changed, what happened, what is next.", badge: { tone: "accent", label: "plain" } },
@@ -326,7 +326,7 @@ function OwnerCommandSection() {
             Manager is the right hand. Agents do the work. Mike approves exceptions.
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-zinc-400">
-            GMF sells a simple ladder: Get Found Refresh, Stay Found, Review Engine, and Review Voice. Call Protection is parked until later. Reach/prospecting work is outside GMF and belongs to a future separate company.
+            GMF sells a simple ladder: Get Found, Stay Found, Review Power, and AI Ready Bundle. Review replies and voice automation stay approval-gated. Reach/prospecting work is outside GMF and belongs to a future separate company.
           </p>
         </div>
         <div className="grid gap-3 sm:grid-cols-2">

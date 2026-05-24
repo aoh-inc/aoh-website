@@ -277,12 +277,12 @@ function ClientForm({ record }: { record?: ClientAdminRecord }) {
         <Select
           label="Plan"
           name="plan"
-          defaultValue={profile?.plan ?? "Get Found Refresh"}
+          defaultValue={profile?.plan ?? "Get Found"}
           options={[
-            "Get Found Refresh",
+            "Get Found",
             "Stay Found",
-            "Review Engine",
-            "Review Voice",
+            "Review Power",
+            "AI Ready Bundle",
             "Client Setup",
           ]}
         />

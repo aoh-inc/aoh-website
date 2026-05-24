@@ -57,9 +57,9 @@ export const MOTTOS: Motto[] = [
   },
 ];
 
-const SERVICES = "Review Automation · AI Visibility · Reach · Studio · Relay · Full Service";
+const SERVICES = "Get Found · Stay Found · Review Power · AI Ready Bundle";
 
-const SERVICE_LABEL = "Get Found Refresh - Stay Found - Review Engine - Review Voice - Call Protection later";
+const SERVICE_LABEL = "Get Found - Stay Found - Review Power - AI Ready Bundle";
 const SERVICES_TO_RENDER = SERVICE_LABEL || SERVICES;
 
 export function generateStaticParams() {
@@ -170,7 +170,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
                 fontSize: 13,
               }}
             >
-              From $49/mo · No contract
+              From $59/mo · No contract
             </div>
           </div>
         </div>

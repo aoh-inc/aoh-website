@@ -1,4 +1,4 @@
-import { CLIENT_HUBS, getClientHub, type ClientHubProfile } from "@/lib/client-hub";
+import { CLIENT_HUBS, getClientHub, normalizeClientHubPlan, type ClientHubProfile } from "@/lib/client-hub";
 import { hasSupabaseConfig, supabaseRest } from "@/lib/supabase-rest";
 
 const CLIENT_PROFILES_TABLE = "client_profiles";
@@ -156,7 +156,7 @@ export async function upsertClientAdminRecord(input: {
   if (!slug) return { ok: false as const, error: "Client slug is required." };
 
   const fallback = getClientHub(slug) ?? CLIENT_HUBS[0];
-  const plan = normalizePlan(input.plan) ?? fallback.plan;
+  const plan = normalizeClientHubPlan(input.plan) ?? fallback.plan;
   const weeklyGoal = clampNumber(input.weeklyGoal, 1, 50, fallback.reviews.weeklyGoal);
   const sendDelayDays = clampNumber(input.sendDelayDays, 0, 30, 1);
   const businessName = cleanText(input.businessName) || fallback.businessName;
@@ -248,19 +248,6 @@ export async function upsertClientAdminRecord(input: {
   }
 
   return { ok: true as const, slug };
-}
-
-function normalizePlan(plan: string): ClientHubProfile["plan"] | undefined {
-  if (
-    plan === "Get Found Refresh" ||
-    plan === "Stay Found" ||
-    plan === "Review Engine" ||
-    plan === "Review Voice" ||
-    plan === "Client Setup"
-  ) {
-    return plan;
-  }
-  return undefined;
 }
 
 function normalizeProtection(protection: string): ClientHubProfile["protection"] | undefined {

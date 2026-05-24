@@ -50,12 +50,12 @@ const SERVICE_FORMATS = [
   {
     id: "full",
     label: "Full names",
-    text: "Review Automation · AI Visibility · Reach · Studio · Relay · Full Service",
+    text: "Get Found · Stay Found · Review Power · AI Ready Bundle",
   },
   {
     id: "short",
     label: "Short / categories",
-    text: "Reviews · AI Visibility · Voice · Content · Outbound · Stack",
+    text: "Reviews · AI visibility · Voice readiness · Content · Local trust",
   },
   {
     id: "verbs",

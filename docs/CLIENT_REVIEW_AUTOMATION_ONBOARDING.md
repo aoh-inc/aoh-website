@@ -1,15 +1,15 @@
-# Client Review Automation Onboarding
+# Client Review Request Onboarding
 
 Status: draft v1
 Audience: client-facing instructions to convert into page, screenshots, and video
 Owner agent: Coach
-Service: Review Automation
+Service: Stay Found / Review Power
 
 ## Purpose
 
 This onboarding is self-serve. The client does not need a default Zoom setup call.
 
-The client buys Review Automation, then completes this checklist so GMF can configure the review request flow.
+The client buys Stay Found or Review Power, then completes this checklist so GMF can configure the review request flow.
 
 ## Client Promise
 
@@ -59,7 +59,7 @@ Client can add notes like:
 - "Do not send to warranty complaints"
 - "Start with new customers only"
 
-Review replies in the client's voice, SMS review requests, POS/CRM auto-sync, social review posting, and AI Visibility reports are upgrade/add-on items, not the base Review Automation plan.
+Stay Found is email-only. Review Power adds compliant SMS after A2P readiness and AI-drafted review replies in the client's voice. POS/CRM auto-sync is staged after the manual upload path works.
 
 ## Step 3: Add GMF As Google Business Profile Manager
 
@@ -119,16 +119,17 @@ Base setup starts with a manual upload or simple send-file flow. Automatic
 POS/CRM sync is a paid setup/add-on after GMF confirms the client's system
 can safely provide the right customer data.
 
-## Step 6: Upgrade-Only Social / Reply Details
+## Step 6: Review Power / AI Ready Details
 
-Skip this for the base Review Automation plan. Only collect this if the client bought or upgrades to AI Visibility, Review Intelligence, SMS, or another plan that includes replies, auto-sync, or social review posting.
+Skip this for Stay Found. Collect this if the client bought or upgrades to Review Power or AI Ready Bundle.
 
 Client provides:
 
-- Facebook page access status
-- Instagram business account access status
-- who controls Meta Business Suite
-- whether GMF should post 5-star reviews to social/GBP
+- SMS opt-in language and any existing customer-consent notes
+- preferred voice/tone for review reply drafts
+- phrases to use or avoid
+- high-risk topics that should always hold for human review
+- services, pricing, hours, FAQs, and escalation rules if AI Ready is included
 
 ## Step 7: Final Confirmation
 

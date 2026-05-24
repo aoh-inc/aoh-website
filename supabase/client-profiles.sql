@@ -10,7 +10,7 @@ create table if not exists public.client_profiles (
   slug text not null unique,
   business_name text not null,
   owner_name text not null default '',
-  plan text not null default 'Get Found Refresh',
+  plan text not null default 'Get Found',
   status text not null default 'setup',
   status_label text not null default 'Setup in progress',
   website text not null default '',

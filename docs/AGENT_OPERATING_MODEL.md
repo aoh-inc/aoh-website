@@ -15,11 +15,10 @@ GMF is focused on local-business visibility and trust as Google Search becomes m
 
 Active GMF offers:
 
-1. Get Found Refresh - one-time visibility cleanup.
-2. Stay Found - monthly visibility maintenance.
-3. Review Engine - email review requests for completed customers.
-4. Review Voice - AI-drafted review replies in the client's voice.
-5. Call Protection - future add-on, not an active default workflow.
+1. Get Found - $149 one-time visibility setup, baseline, and first review request setup.
+2. Stay Found - $59/mo email-only review requests, weekly GBP post, monitoring, and monthly report.
+3. Review Power - $149/mo SMS + email review requests, A2P handled by GMF, AI reply drafts, alerts, and reporting.
+4. AI Ready Bundle - $299/mo full reputation, content, AI voice readiness, strategy, and AEO checks.
 
 Reach, cold outreach, social prospecting, and lead-generation services belong in a separate company/brand.
 
@@ -52,17 +51,17 @@ Manager must:
 
 Owns Google-facing visibility.
 
-Profile Manager handles Google Business Profile access, profile health, review link capture, categories/services, monthly drift checks, and Get Found Refresh/Stay Found execution.
+Profile Manager handles Google Business Profile access, profile health, review link capture, categories/services, monthly drift checks, and Get Found/Stay Found execution.
 
 ### Reviews Manager
 
-Owns the Review Engine.
+Owns the Review Power request flow.
 
 Reviews Manager handles customer uploads, clean/held rows, proof previews, review request sending readiness, private feedback, suppressions, and monthly review summary inputs.
 
 ### Reply Writer
 
-Owns Review Voice.
+Owns review reply drafts.
 
 Reply Writer drafts replies in the client's voice, flags risky review topics, and records approve/reject/posted decisions. Reply Writer does not auto-post by default.
 
@@ -102,12 +101,12 @@ Mission Control workflow library lives at `/mike-mc/workflows`.
 
 Active workflow families:
 
-- Launch 01: Get Found Refresh
+- Launch 01: Get Found
 - Serve 01: Stay Found
-- Serve 02: Review Engine
-- Serve 03: Review Voice
+- Serve 02: Review Power
+- Serve 03: Review Replies
 - Systems 01: Weekly Safety Audit
-- Future 01: Call Protection
+- Growth 01: AI Ready Bundle
 
 Each workflow must show:
 
@@ -152,7 +151,7 @@ Each workflow must show:
 - Mike approves live sends, public profile edits, pricing changes, billing, credentials, and high-risk client messages.
 - Drafts are cheap; live actions require proof.
 - No HighLevel AI feature may be enabled without Mike's explicit approval.
-- Review Voice starts draft/approval only. Auto-posting is a future trust level, not a default.
+- Review replies and voice automation start draft/approval only. Auto-posting/live voice behavior is a future trust level, not a default.
 
 ## Model And Tool Routing
 
@@ -188,4 +187,3 @@ Monthly:
 - `docs/PROFILE_KNOWLEDGE_PACK.md`
 - `docs/REVIEW_AUTOMATION_AGENT_SKILLS.md`
 - `docs/CLIENT_REVIEW_AUTOMATION_ONBOARDING.md`
-

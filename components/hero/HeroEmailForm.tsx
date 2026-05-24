@@ -49,8 +49,8 @@ const variants: Record<Variant, VariantConfig> = {
       { text: "Your competitor just got another review. ", speed: 60 },
       { text: "Your turn.", speed: 110 },
     ],
-    subheadline: "Automated review requests, done for you.",
-    priceLine: "Limited time · only $49/mo · cancel anytime",
+    subheadline: "Email-first review requests and visibility upkeep, done for you.",
+    priceLine: "Stay Found starts at $59/mo · cancel anytime",
     formHeadline: "See how your reviews stack up.",
     formDescription: "We audit your Google reviews, response rate, and star rating. Your free report lands in your inbox in about 10 minutes. No card needed.",
     buttonText: "Get My Free Review Audit",
@@ -69,7 +69,7 @@ const variants: Record<Variant, VariantConfig> = {
     ],
     subheadline:
       "We get your business showing up across search — before your competitors take the spot.",
-    priceLine: "Limited time · only $199/mo · cancel anytime",
+    priceLine: "AI Ready Bundle · $299/mo · cancel anytime",
     formHeadline: "See if you're showing up where it counts.",
     formDescription: "We check your visibility across Google, ChatGPT, and AI search. Free report in your inbox in about 10 minutes. No card needed.",
     buttonText: "Get My Free Visibility Score",
@@ -87,7 +87,7 @@ const variants: Record<Variant, VariantConfig> = {
     ],
     subheadline:
       "We handle your reviews, rankings, and online presence — so more customers find you, and choose you.",
-    priceLine: "Limited time · from $49/mo · cancel anytime",
+    priceLine: "Plans from $59/mo · cancel anytime",
     formHeadline: "Get your free Google visibility check.",
     formDescription: "We check your reviews, Google profile, website signals, and obvious local visibility gaps. Free, no card needed.",
     buttonText: "Get My Free Visibility Check",

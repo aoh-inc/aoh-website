@@ -13,7 +13,7 @@ import { pageBreadcrumbs } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Done-for-you Google visibility for local businesses. Get Found Refresh, Stay Found, Review Engine, and review replies in your voice.",
+    "Done-for-you Google visibility for local businesses. Get Found, Stay Found, Review Power, and AI Ready Bundle.",
   alternates: { canonical: "/pricing" },
 };
 
@@ -24,22 +24,22 @@ const products: ProductDetailData[] = [
   {
     slug: "get-found-refresh",
     number: "01",
-    name: "Get Found Refresh",
-    outcome: "Clean up the places Google checks before customers choose you.",
+    name: "Get Found",
+    outcome: "Fix the Google-facing basics before AI search decides who to recommend.",
     story:
-      "A fast one-time refresh for local businesses that need their Google-facing footprint to look current, accurate, and trustworthy. We tune the basics, find obvious visibility gaps, and hand you a plain-language next move.",
+      "A one-time setup for local businesses that need to look current, accurate, and easy for Google, AI answers, and customers to understand. It is the lowest-risk first step before a monthly plan.",
     stats: [
       { label: "Type", value: "One-time" },
       { label: "Typical turn", value: "72h" },
       { label: "Contract", value: "None" },
     ],
     whatYouGet: [
-      "Google Business Profile basics reviewed",
+      "Full Google Business Profile audit and optimization plan",
       "Name, address, phone, website, category, hours, and services checked",
-      "Review link and public trust signals checked",
-      "Simple before/after notes",
-      "One short action list for what to fix next",
-      "No new dashboard for the client to learn",
+      "LocalBusiness schema markup plan or handoff",
+      "AI search visibility baseline report",
+      "First email review request campaign setup after approval",
+      "30-minute onboarding call",
     ],
     useThisIf: [
       "Your Google profile is stale, thin, or inconsistent.",
@@ -51,13 +51,13 @@ const products: ProductDetailData[] = [
       { title: "Refresh", sub: "Profile, website, review path, and trust signals are reviewed." },
       { title: "Report", sub: "You get the before/after summary and next move." },
     ],
-    cadence: "One-time refresh, usually completed within 72 hours after access and intake are ready.",
+    cadence: "One-time setup, usually completed within 72 hours after access and intake are ready.",
     crossSell: { label: "Stay Found - monthly upkeep", href: "#stay-found" },
     price: "$149",
     cadenceLabel: " one-time",
     setup: "No contract",
-    promoNote: "Best first step for a business that wants to see the GMF process.",
-    ctaLabel: "Start the refresh",
+    promoNote: "Best first step for a business that wants proof before a monthly plan.",
+    ctaLabel: "Start Get Found",
     ctaHref: "/contact",
     secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.search,
@@ -69,37 +69,37 @@ const products: ProductDetailData[] = [
     name: "Stay Found",
     outcome: "Keep your local visibility from going stale again.",
     story:
-      "Google Search is getting more answer-driven. Stay Found keeps the profile, website signals, review path, and visibility notes moving monthly so the business does not disappear into old information.",
+      "Stay Found keeps the profile, review path, and local visibility signals moving without making the owner learn another platform. It is email-only at this tier, with SMS saved for Review Power.",
     stats: [
-      { label: "Cadence", value: "Monthly" },
-      { label: "Report", value: "Plain" },
-      { label: "Access", value: "Light" },
+      { label: "Channel", value: "Email" },
+      { label: "GBP post", value: "Weekly" },
+      { label: "Report", value: "Monthly" },
     ],
     whatYouGet: [
-      "Monthly Google profile and local visibility check",
-      "Profile drift and missing-info watch",
-      "Review path and reputation signal check",
-      "Simple monthly recap",
-      "Recommended next move for the owner",
-      "Manager exception review if something breaks",
+      "Weekly client list upload path for email review requests",
+      "Automated email review requests after approval",
+      "One weekly Google Business Profile post",
+      "Review monitoring across platforms where available",
+      "Monthly one-page visibility report",
+      "No SMS or A2P setup at this tier",
     ],
     useThisIf: [
       "You do not want your Google profile to decay after the first cleanup.",
       "You want a simple monthly visibility report without logging into a platform.",
-      "You need an affordable maintenance plan before adding review automation.",
+      "You need an affordable maintenance plan before adding SMS review requests.",
     ],
     setupSteps: [
-      { title: "Baseline", sub: "We start from the Get Found Refresh or a fresh audit." },
-      { title: "Monthly check", sub: "Profile, review path, and trust signals are checked." },
-      { title: "Owner recap", sub: "You get the short update and any recommended fix." },
+      { title: "Baseline", sub: "We start from Get Found or a fresh audit." },
+      { title: "Weekly upkeep", sub: "Profile content and email review requests keep moving." },
+      { title: "Owner recap", sub: "You get the short monthly update and any recommended fix." },
     ],
-    cadence: "Monthly check and recap. Urgent profile issues escalate to Manager.",
-    crossSell: { label: "Review Engine - generate more reviews", href: "#review-engine" },
-    price: "$49",
+    cadence: "Weekly light upkeep with a monthly owner recap. Urgent profile issues escalate to Manager.",
+    crossSell: { label: "Review Power - add SMS and AI reply drafts", href: "#review-power" },
+    price: "$59",
     cadenceLabel: "/mo",
     setup: "No contract",
     promoNote: "Designed to be easy to keep, even for small local businesses.",
-    ctaLabel: "Stay found monthly",
+    ctaLabel: "Stay Found monthly",
     ctaHref: "/contact",
     secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.dashboard,
@@ -107,130 +107,88 @@ const products: ProductDetailData[] = [
     variant: "dark",
   },
   {
-    slug: "review-engine",
+    slug: "review-power",
     number: "03",
-    name: "Review Engine",
-    outcome: "Ask happy customers for reviews at the right time.",
+    name: "Review Power",
+    outcome: "Add SMS, email, and AI-drafted review replies without a heavy CRM.",
     story:
-      "We help current and future customers get the review request after the job, visit, or purchase is complete. The first version is email-first, with manual upload or POS export before deeper integrations.",
+      "Review Power is the performance tier. We handle the review request system, SMS readiness, email, approval-first AI replies, negative-review alerts, and monthly review proof.",
     stats: [
-      { label: "Channel", value: "Email" },
-      { label: "Flow", value: "After job" },
-      { label: "Report", value: "Monthly" },
+      { label: "Channel", value: "SMS + email" },
+      { label: "Replies", value: "Drafted" },
+      { label: "Contract", value: "None" },
     ],
     whatYouGet: [
-      "Email review requests to current and future customers",
-      "Manual upload or POS/export workflow planning",
-      "Google review link and review-ready timing",
-      "Suppression list for customers who should not be asked",
-      "Monthly sent, clicked, and review proof recap",
-      "Human-safe setup before any SMS expansion",
+      "Everything in Stay Found",
+      "SMS and email review request campaigns after A2P readiness",
+      "A2P setup handled by GMF when SMS is approved",
+      "AI response drafts in the client's brand voice",
+      "Negative review alert and suggested response target within 4 business hours",
+      "Monthly sentiment and AI citation check",
     ],
     useThisIf: [
       "You have happy customers but do not ask consistently.",
-      "Your team forgets to send review requests after jobs.",
-      "You want review growth without paying for a heavy CRM.",
+      "You want stronger review conversion than email alone.",
+      "You want reply help without risky auto-posting.",
     ],
     setupSteps: [
       { title: "Map the trigger", sub: "We define what counts as review-ready." },
-      { title: "Connect the source", sub: "Manual upload first, POS export/API later if available." },
-      { title: "Send and report", sub: "Requests go out and the monthly proof is saved." },
+      { title: "Clear compliance", sub: "SMS waits for opt-in, STOP handling, and A2P readiness." },
+      { title: "Send and reply", sub: "Requests go out and AI replies are drafted for approval." },
     ],
-    cadence: "Requests send after the review-ready event, with monthly proof reporting.",
-    crossSell: { label: "Review Voice - replies in the client's voice", href: "#review-voice" },
+    cadence: "Requests send after the review-ready event, with monthly proof and sentiment reporting.",
+    crossSell: { label: "AI Ready Bundle - add voice readiness", href: "#ai-ready-bundle" },
     price: "$149",
     cadenceLabel: "/mo",
     setup: "No contract",
-    promoNote: "Start with email. SMS can be added later only after compliance is ready.",
-    ctaLabel: "Start Review Engine",
+    promoNote: "SMS starts only after compliance checks are ready.",
+    ctaLabel: "Start Review Power",
     ctaHref: "/contact",
     secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.star,
     mock: <MockReviewPanel />,
   },
   {
-    slug: "review-voice",
+    slug: "ai-ready-bundle",
     number: "04",
-    name: "Review Voice",
-    outcome: "Reply to reviews in the client's voice without handing the keys to autopilot.",
+    name: "AI Ready Bundle",
+    outcome: "Prepare the business for AI search, AI calls, and deeper local visibility.",
     story:
-      "AI drafts thoughtful review replies using the client's tone, boundaries, and favorite language. It starts approval-first. Only safe, proven reply types become eligible for automation later.",
+      "AI Ready Bundle is the full-service tier for owners who want GMF to manage reputation, visibility, content, and voice readiness together. Voice automation stays approval-gated until the workflow is safe.",
     stats: [
-      { label: "Mode", value: "Draft" },
-      { label: "Voice", value: "Trained" },
-      { label: "Risk", value: "Guarded" },
+      { label: "Includes", value: "Review Power" },
+      { label: "Voice", value: "Ready" },
+      { label: "Call", value: "Monthly" },
     ],
     whatYouGet: [
-      "Client voice profile",
-      "AI review reply drafts",
-      "Escalation rules for sensitive reviews",
-      "Approval-first workflow",
-      "Manager audit trail",
-      "Safe auto-reply eligibility only after proof",
+      "Everything in Review Power",
+      "AI voice agent trained on services, pricing, hours, and FAQs",
+      "Voice/phone readiness for AI and customer inquiries",
+      "Full GBP content management and local content planning",
+      "FAQ schema and location-page recommendations",
+      "Monthly 30-minute strategy call and AEO check",
     ],
     useThisIf: [
-      "Reviews are coming in but nobody has time to reply.",
-      "The owner wants responses to sound like the business, not a template.",
-      "You want AI help without risky auto-posting on day one.",
+      "You want the full visibility and reputation lane handled.",
+      "Your business gets calls or questions that need consistent answers.",
+      "You want AI-readiness without building the system yourself.",
     ],
     setupSteps: [
-      { title: "Train the voice", sub: "We capture tone, phrases, do-not-say rules, and escalation lines." },
-      { title: "Draft replies", sub: "The agent drafts replies and flags anything sensitive." },
-      { title: "Audit weekly", sub: "Manager and Auditor check quality before automation expands." },
+      { title: "Train", sub: "We capture services, prices, FAQs, hours, voice, and escalation rules." },
+      { title: "Build", sub: "Content, schema, GBP, and voice readiness are staged." },
+      { title: "Review", sub: "Monthly strategy call reviews what changed and what is next." },
     ],
-    cadence: "Draft replies as reviews arrive. Sensitive reviews always hold for human review.",
-    crossSell: { label: "Review Engine - feed the reply workflow", href: "#review-engine" },
-    price: "+$49",
+    cadence: "Monthly full-service management. No voice automation goes live without explicit approval.",
+    price: "$299",
     cadenceLabel: "/mo",
-    setup: "Add-on",
-    promoNote: "Approval-first keeps the brand safe while the voice model learns.",
-    ctaLabel: "Add Review Voice",
-    ctaHref: "/contact",
-    secondaryCtaHref: BOOKING_HREF,
-    iconPaths: ICON_PATHS.star,
-    mock: <MockReviewPanel />,
-    variant: "dark",
-  },
-  {
-    slug: "call-protection",
-    number: "05",
-    name: "Call Protection",
-    outcome: "Future add-on: answer important calls when the business cannot.",
-    story:
-      "Google is moving toward more agentic local actions, including calling businesses for details. GMF will add phone coverage later, after the profile and review engine are stable enough to justify it.",
-    stats: [
-      { label: "Status", value: "Future" },
-      { label: "Pricing", value: "Custom" },
-      { label: "Launch", value: "Later" },
-    ],
-    whatYouGet: [
-      "Future AI or human-assisted call answer plan",
-      "FAQ and escalation map",
-      "Missed-call risk review",
-      "Appointment or message handoff planning",
-      "Only offered when the client is ready",
-      "Contact us for pricing when this becomes active",
-    ],
-    useThisIf: [
-      "The business misses valuable calls during jobs or after hours.",
-      "The owner wants phone coverage but not another full-time hire.",
-      "Google phone checks or customer calls become a real growth bottleneck.",
-    ],
-    setupSteps: [
-      { title: "Hold", sub: "Not a core offer yet." },
-      { title: "Map calls", sub: "When ready, we map FAQs, routing, booking, and escalation." },
-      { title: "Pilot", sub: "We test before putting real customer calls at risk." },
-    ],
-    cadence: "Future add-on. No client phone automation without explicit approval.",
-    price: "Contact",
-    cadenceLabel: "",
-    setup: "Future",
-    promoNote: "Parked until the core GMF offer is producing proof.",
-    ctaLabel: "Ask about call coverage",
+    setup: "No contract",
+    promoNote: "Best fit after the owner wants more than review requests.",
+    ctaLabel: "Start AI Ready",
     ctaHref: "/contact",
     secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.phone,
     mock: <MockRelayPanel />,
+    variant: "dark",
   },
 ];
 
@@ -239,40 +197,39 @@ const chips = products.map((product) => ({
   label: product.name,
 }));
 
-type JobKey = "get-found" | "stay-found" | "build-trust" | "future";
+type JobKey = "get-found" | "stay-found" | "review-power" | "ai-ready";
 
 const jobBySlug: Record<string, JobKey> = {
   "get-found-refresh": "get-found",
   "stay-found": "stay-found",
-  "review-engine": "build-trust",
-  "review-voice": "build-trust",
-  "call-protection": "future",
+  "review-power": "review-power",
+  "ai-ready-bundle": "ai-ready",
 };
 
 const jobGroupCopy: Record<JobKey, { index: string; label: string; intro: string }> = {
   "get-found": {
-    index: "Job 1 of 4",
+    index: "Step 1 of 4",
     label: "Get found.",
     intro:
       "Google Search is changing. We clean up the public footprint first so customers and search systems see the right business.",
   },
   "stay-found": {
-    index: "Job 2 of 4",
+    index: "Step 2 of 4",
     label: "Stay found.",
     intro:
       "Monthly upkeep keeps the profile, review path, and local trust signals from going stale.",
   },
-  "build-trust": {
-    index: "Job 3 of 4",
-    label: "Build trust.",
+  "review-power": {
+    index: "Step 3 of 4",
+    label: "Build review power.",
     intro:
-      "Fresh review requests and safe review replies help customers choose the business with more confidence.",
+      "Email, compliant SMS, and approval-first AI replies help turn happy customers into stronger review proof.",
   },
-  future: {
-    index: "Job 4 of 4",
-    label: "Protect calls later.",
+  "ai-ready": {
+    index: "Step 4 of 4",
+    label: "Be AI ready.",
     intro:
-      "Phone coverage comes later, when the core visibility and review system is already producing proof.",
+      "Voice readiness, GBP content, schema, and AEO checks prepare the business for where local search is heading next.",
   },
 };
 
@@ -335,11 +292,12 @@ export default function PricingPage() {
             </Reveal>
 
             <Reveal delay={0.07}>
-              <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {[
-                  { value: "$149", label: "first refresh", border: "border-t-green-500", text: "text-green-500" },
-                  { value: "$49/mo", label: "visibility upkeep", border: "border-t-amber-500", text: "text-amber-500" },
-                  { value: "$149/mo", label: "review engine", border: "border-t-gray-900", text: "text-gray-900" },
+                  { value: "$149", label: "Get Found setup", border: "border-t-green-500", text: "text-green-500" },
+                  { value: "$59/mo", label: "Stay Found", border: "border-t-amber-500", text: "text-amber-500" },
+                  { value: "$149/mo", label: "Review Power", border: "border-t-gray-900", text: "text-gray-900" },
+                  { value: "$299/mo", label: "AI Ready Bundle", border: "border-t-sky-500", text: "text-sky-600" },
                 ].map((stat) => (
                   <div
                     key={stat.label}
@@ -360,7 +318,7 @@ export default function PricingPage() {
                   Step 1 - Start here
                 </p>
                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-5">
-                  Most owners start with Get Found Refresh.
+                  Most owners start with Get Found.
                 </h3>
 
                 <div className="mb-6 flex flex-wrap gap-2">
@@ -375,14 +333,14 @@ export default function PricingPage() {
                 </div>
 
                 <p className="text-base md:text-lg text-white/80 leading-relaxed mb-7 max-w-2xl">
-                  We clean up the obvious visibility issues first. If the monthly plan or review engine makes sense after that, you will know why.
+                  We clean up the obvious visibility issues first. If Stay Found or Review Power makes sense after that, you will know why.
                 </p>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                   <Link
                     href="/contact"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-green-600 hover:bg-green-500 text-white px-6 py-3.5 text-sm font-semibold transition-all hover:gap-3 hover:shadow-lg hover:shadow-green-600/30"
                   >
-                    Start Get Found Refresh
+                    Start Get Found
                     <span aria-hidden="true">-&gt;</span>
                   </Link>
                   <Link
@@ -459,7 +417,7 @@ export default function PricingPage() {
 
         <CtaBlock
           headline="Not sure where to start?"
-          subline="Start with the Get Found Refresh. It gives the business a clear visibility baseline before you add monthly upkeep, review requests, or AI reply drafts."
+          subline="Start with Get Found. It gives the business a clear visibility baseline before you add monthly upkeep, review requests, AI reply drafts, or voice readiness."
         />
       </PageBody>
       <BackToTopButton />

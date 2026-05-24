@@ -1,4 +1,4 @@
-import { CLIENT_HUBS, getClientHub, type ClientHubProfile } from "@/lib/client-hub";
+import { CLIENT_HUBS, getClientHub, normalizeClientHubPlan, type ClientHubProfile } from "@/lib/client-hub";
 import { hasSupabaseConfig, supabaseRest } from "@/lib/supabase-rest";
 
 const CLIENT_PROFILES_TABLE = "client_profiles";
@@ -115,7 +115,7 @@ function profileFromRow(row: ClientProfileRow): ClientHubProfile {
     slug: row.slug,
     businessName: row.business_name || profile.businessName || fallback.businessName,
     ownerName: row.owner_name || profile.ownerName || fallback.ownerName,
-    plan: normalizePlan(row.plan) ?? profile.plan ?? fallback.plan,
+    plan: normalizeClientHubPlan(row.plan) ?? normalizeClientHubPlan(profile.plan) ?? fallback.plan,
     statusLabel: row.status_label || profile.statusLabel || fallback.statusLabel,
     website: row.website || profile.website || fallback.website,
     phone: row.phone || profile.phone || fallback.phone,
@@ -130,19 +130,6 @@ function profileFromRow(row: ClientProfileRow): ClientHubProfile {
     monthlyRecap: profile.monthlyRecap ?? fallback.monthlyRecap,
     aiVisibilityPreview: profile.aiVisibilityPreview ?? fallback.aiVisibilityPreview,
   };
-}
-
-function normalizePlan(plan: string | undefined) {
-  if (
-    plan === "Get Found Refresh" ||
-    plan === "Stay Found" ||
-    plan === "Review Engine" ||
-    plan === "Review Voice" ||
-    plan === "Client Setup"
-  ) {
-    return plan;
-  }
-  return undefined;
 }
 
 function cleanClientSlug(value: string) {

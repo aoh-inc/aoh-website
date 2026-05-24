@@ -17,7 +17,7 @@ import { faqPageSchema } from "@/lib/faq";
 export const metadata: Metadata = {
   title: "Google Visibility Services for Local Businesses",
   description:
-    "Done-for-you Google visibility for local businesses. Get Found Refresh, Stay Found, Review Engine, and review replies in your voice.",
+    "Done-for-you Google visibility for local businesses. Get Found, Stay Found, Review Power, and AI Ready Bundle.",
   alternates: { canonical: "/" },
 };
 
@@ -31,19 +31,19 @@ type TeaserCard = {
   cta: string;
   iconPaths: readonly string[];
   highlight?: boolean;
-  jobLabel: "Get Found" | "Stay Found" | "Build Trust";
+  jobLabel: "Get Found" | "Stay Found" | "Review Power" | "AI Ready";
 };
 
 const teaserCards: TeaserCard[] = [
   {
-    name: "Get Found Refresh",
+    name: "Get Found",
     tagline: "A one-time cleanup for the new Google search.",
     price: "$149",
     cadence: "one-time",
     bullets: [
-      "Google Business Profile check",
-      "Services, categories, and review link tightened",
-      "Simple before/after findings",
+      "Google Business Profile audit",
+      "Services, categories, schema, and review path tightened",
+      "AI search visibility baseline report",
     ],
     href: "/pricing#get-found-refresh",
     cta: "See the refresh",
@@ -53,12 +53,12 @@ const teaserCards: TeaserCard[] = [
   {
     name: "Stay Found",
     tagline: "Monthly upkeep so your profile does not go stale.",
-    price: "$49",
+    price: "$59",
     cadence: "/month",
     bullets: [
-      "Monthly Google visibility check",
-      "Review/profile drift monitoring",
-      "Short monthly note with next steps",
+      "Weekly client list upload path",
+      "Email review requests and GBP post",
+      "Monthly one-page visibility report",
     ],
     href: "/pricing#stay-found",
     cta: "Stay visible",
@@ -67,19 +67,34 @@ const teaserCards: TeaserCard[] = [
     jobLabel: "Stay Found",
   },
   {
-    name: "Review Engine",
-    tagline: "Email review requests for current and future customers.",
+    name: "Review Power",
+    tagline: "SMS, email, and AI-drafted replies.",
     price: "$149",
     cadence: "/month",
     bullets: [
-      "Customer upload or POS-ready path",
-      "Email review requests and private feedback",
-      "Monthly review summary",
+      "SMS and email after A2P readiness",
+      "AI reply drafts in the client's voice",
+      "Monthly sentiment and citation check",
     ],
-    href: "/pricing#review-engine",
-    cta: "Build review flow",
+    href: "/pricing#review-power",
+    cta: "Build review power",
     iconPaths: ICON_PATHS.star,
-    jobLabel: "Build Trust",
+    jobLabel: "Review Power",
+  },
+  {
+    name: "AI Ready Bundle",
+    tagline: "Reputation, content, and voice readiness together.",
+    price: "$299",
+    cadence: "/month",
+    bullets: [
+      "Everything in Review Power",
+      "AI voice agent readiness",
+      "Monthly strategy call and AEO check",
+    ],
+    href: "/pricing#ai-ready-bundle",
+    cta: "Get AI ready",
+    iconPaths: ICON_PATHS.phone,
+    jobLabel: "AI Ready",
   },
 ];
 
@@ -112,7 +127,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
               {teaserCards.map((p, i) => (
                 <Reveal key={p.name} delay={i * 0.08}>
                   <div
@@ -187,7 +202,7 @@ export default function Home() {
                 href="/pricing"
                 className="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-accent)] hover:text-[var(--color-accent-hover)] hover:gap-2.5 transition-all"
               >
-                See all 6 services
+                See all plans
                 <span aria-hidden="true">→</span>
               </Link>
             </div>

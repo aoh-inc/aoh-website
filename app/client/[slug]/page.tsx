@@ -115,7 +115,7 @@ export default async function ClientHubPage({ params }: PageProps) {
           <div className="max-w-xl">
           <SectionHeader
             eyebrow="Standard"
-            title="Review Engine"
+            title="Review Power"
             sub="What your review request system is doing this week."
           />
           </div>
@@ -334,11 +334,11 @@ export default async function ClientHubPage({ params }: PageProps) {
               Custom upgrade
             </p>
             <h2 className="mt-3 text-3xl font-semibold leading-tight md:text-4xl">
-              Stay Found and Review Voice preview
+              Stay Found and AI Ready preview
             </h2>
             <p className="mt-4 max-w-xl text-base leading-7 text-slate-300">
               Every client hub can show locked next steps so owners understand what they get if they upgrade:
-              review replies, local visibility checks, Google profile upkeep, and competitor movement.
+              review replies, local visibility checks, Google profile upkeep, AI voice readiness, and competitor movement.
             </p>
             <Link
               href="/pricing#stay-found"

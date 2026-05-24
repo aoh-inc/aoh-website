@@ -24,7 +24,7 @@ const DOCS = [
   {
     title: "Stay Found Monthly Recap Template",
     path: "docs/STAY_FOUND_MONTHLY_RECAP_TEMPLATE.md",
-    purpose: "The client-safe monthly note format for the $49/mo Stay Found service.",
+    purpose: "The client-safe monthly note format for the $59/mo Stay Found service.",
   },
   {
     title: "Legacy Operations Index",
@@ -47,19 +47,19 @@ const DOCS = [
     purpose: "Current GMF agent operating model and handoff rules.",
   },
   {
-    title: "Review Engine Onboarding",
+    title: "Review Power Onboarding",
     path: "docs/CLIENT_REVIEW_AUTOMATION_ONBOARDING.md",
     purpose: "Client-side setup flow for review requests and review-ready data.",
   },
   {
     title: "Client Hub Runbook",
     path: "docs/client-ops-ledger/client-hub-runbook.md",
-    purpose: "Client-facing status page for setup, Review Engine, and locked next-step previews.",
+    purpose: "Client-facing status page for setup, Review Power, and locked next-step previews.",
   },
   {
-    title: "Review Engine Skills",
+    title: "Review Power Skills",
     path: "docs/REVIEW_AUTOMATION_AGENT_SKILLS.md",
-    purpose: "Review Engine agent skills, boundaries, and first-service operating rules.",
+    purpose: "Review Power agent skills, boundaries, and first-service operating rules.",
   },
   {
     title: "Profile Knowledge",

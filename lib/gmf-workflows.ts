@@ -40,10 +40,10 @@ export type GmfWorkflow = {
 export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
   {
     slug: "get-found-refresh",
-    name: "Launch 01: Get Found Refresh",
+    name: "Launch 01: Get Found",
     oneLine: "Runs the one-time visibility cleanup that makes a business easier for Google and customers to understand.",
     description:
-      "This is GMF's entry service. Profile Manager checks the public Google-facing footprint, records what is missing, drafts safe fixes, and gives the client a simple before/after.",
+      "This is GMF's entry service. Profile Manager checks the public Google-facing footprint, records what is missing, drafts safe fixes, sets the first review-request path, and gives the client a simple baseline.",
     status: "working",
     weeklyCheckAgent: "Profile Manager",
     auditAgent: "Auditor",
@@ -54,7 +54,7 @@ export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
     clientEmailApproval:
       "Profile Manager drafts any GBP access or profile-update request. Manager asks Mike to approve the exact message before it is sent.",
     coachTraining:
-      "Coach keeps the Refresh checklist, client-safe explanation, and sample before/after language current.",
+      "Coach keeps the Get Found checklist, client-safe explanation, and sample baseline language current.",
     readyCriteria: [
       "Correct business/profile is confirmed.",
       "Access state or verification blocker is recorded.",
@@ -113,33 +113,33 @@ export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
     ],
   },
   {
-    slug: "review-engine",
-    name: "Serve 02: Review Engine",
-    oneLine: "Sends email review requests to completed customers and keeps feedback, suppressions, and proof visible.",
+    slug: "review-power",
+    name: "Serve 02: Review Power",
+    oneLine: "Sends review requests through email and compliant SMS, then keeps feedback, suppressions, reply drafts, and proof visible.",
     description:
-      "This is GMF's core recurring review service. It handles uploaded customers, POS-ready events, proof previews, email sends, private feedback, follow-ups, and monthly review reporting.",
+      "This is GMF's core performance review tier. It handles uploaded customers, POS-ready events, proof previews, email/SMS sends after compliance, private feedback, follow-ups, AI reply drafts, and monthly reporting.",
     status: "ready",
     weeklyCheckAgent: "Reviews Manager",
     auditAgent: "Auditor",
     stalledProtocol:
       "If send candidates stop moving, Auditor checks storage, sender health, review link, suppressions, and held rows before Manager escalates.",
     mikeEscalation:
-      "Manager asks Mike only when a live send approval, client list question, or sender-risk decision is needed.",
+      "Manager asks Mike only when a live send approval, client list question, SMS compliance issue, or sender-risk decision is needed.",
     clientEmailApproval:
-      "Reviews Manager drafts requests for missing customer lists, review links, or POS exports. Manager asks Mike to approve the exact email.",
+      "Reviews Manager drafts requests for missing customer lists, review links, POS exports, or SMS compliance details. Manager asks Mike to approve the exact email.",
     coachTraining:
-      "Coach keeps customer-upload instructions, review request language, and the client explanation for email-first review requests current.",
+      "Coach keeps customer-upload instructions, review request language, A2P/SMS explanation, and AI reply approval language current.",
     readyCriteria: [
       "Verified Google review link exists.",
       "Customer list is checked for duplicates, missing emails, and suppressions.",
       "Proof page preview is reviewed before live send.",
-      "Sender and Supabase logging are healthy.",
+      "Sender, SMS compliance when applicable, and Supabase logging are healthy.",
       "Follow-up and recap paths stay protected by internal approval.",
     ],
     agents: [
       { agent: "Reviews Manager", role: "Workflow owner", does: "Builds send candidates, checks proof, and controls live-send readiness.", proof: "Proof page shows sendable rows and preview." },
       { agent: "Sorter", role: "List readiness", does: "Cleans customer lists and holds duplicates, missing emails, and suppressions.", proof: "Upload summary shows clean/held rows." },
-      { agent: "Systems Director", role: "Sender/storage safety", does: "Checks storage, sender, and protected endpoint health.", proof: "Health endpoints return ok." },
+      { agent: "Systems Director", role: "Sender/storage safety", does: "Checks storage, sender, SMS readiness, and protected endpoint health.", proof: "Health endpoints return ok." },
       { agent: "Auditor", role: "Launch QA", does: "Verifies no accidental sends and all live sends are logged.", proof: "Send log and proof checks match." },
       { agent: "Manager", role: "Status owner", does: "Reports ready, blocked, or needs-client-help status.", proof: "Client hub status is updated." },
     ],
@@ -150,11 +150,11 @@ export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
     ],
   },
   {
-    slug: "review-voice",
-    name: "Serve 03: Review Voice",
+    slug: "review-replies",
+    name: "Serve 03: Review Replies",
     oneLine: "Drafts review replies in the client's voice while keeping risky replies human-reviewed.",
     description:
-      "This add-on replaces risky auto-reply behavior with GMF-controlled drafts, safety flags, approval decisions, and audit history.",
+      "This Review Power lane replaces risky auto-reply behavior with GMF-controlled drafts, safety flags, approval decisions, and audit history.",
     status: "working",
     weeklyCheckAgent: "Reply Writer",
     auditAgent: "Auditor",
@@ -220,32 +220,35 @@ export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
     ],
   },
   {
-    slug: "call-protection",
-    name: "Future 01: Call Protection",
-    oneLine: "Future add-on for answering or routing calls when Google/customers call and the business cannot pick up.",
+    slug: "ai-ready-bundle",
+    name: "Growth 01: AI Ready Bundle",
+    oneLine: "Builds the full reputation, content, AI voice readiness, strategy, and AEO lane for higher-touch clients.",
     description:
-      "This workflow is intentionally planned, not active. It becomes useful when demand proves that missed calls or Google's local calling features are hurting conversion.",
-    status: "planned",
+      "This workflow is the $299/mo tier. It includes Review Power, plus voice readiness, business fact training, GBP content management, schema/content recommendations, strategy calls, and AEO checks.",
+    status: "working",
     weeklyCheckAgent: "Manager",
     auditAgent: "Auditor",
     stalledProtocol:
-      "Manager keeps this parked until there is buyer demand, pricing approval, and a safe phone workflow.",
+      "Manager keeps live voice behavior parked until client facts, provider safety, billing, and Auditor approval are ready.",
     mikeEscalation:
-      "Manager asks Mike before pricing, selling, or wiring any phone/voice workflow.",
+      "Manager asks Mike before pricing changes, selling beyond the approved scope, or wiring any live phone/voice workflow.",
     clientEmailApproval:
-      "No client email goes out until the add-on is activated and priced.",
+      "Manager asks Mike to approve any client request for services, pricing, FAQs, voice samples, or phone/voice access.",
     coachTraining:
-      "Coach keeps this framed as future/contact-for-pricing, not part of the base GMF promise.",
+      "Coach keeps AI Ready framed as the full-service tier, with voice automation approval-gated.",
     readyCriteria: [
-      "Pricing is approved.",
-      "Phone provider and compliance are approved.",
-      "Call scripts and handoff rules are tested.",
+      "Client facts, services, pricing, hours, and FAQs are confirmed.",
+      "Voice/phone provider and billing safety are approved before live behavior.",
+      "Content/schema recommendations are factual and client-safe.",
+      "Monthly strategy recap and AEO check exist.",
       "Auditor approves no-surprise billing and failover.",
     ],
     agents: [
-      { agent: "Manager", role: "Future owner", does: "Tracks demand and waits for Mike's go-ahead.", proof: "Demand notes and pricing decision are recorded." },
-      { agent: "Systems Director", role: "Future safety", does: "Defines provider, billing, failover, and compliance risks.", proof: "Safety checklist exists before launch." },
-      { agent: "Auditor", role: "Future gate", does: "Blocks launch until call behavior and costs are safe.", proof: "Auditor approval is recorded." },
+      { agent: "Manager", role: "Bundle owner", does: "Confirms fit, scope, and approval gates.", proof: "Scope and next action are recorded." },
+      { agent: "Profile Manager", role: "Content owner", does: "Builds GBP content and local visibility recommendations.", proof: "Content plan and AEO notes are saved." },
+      { agent: "Reply Writer", role: "Voice owner", does: "Captures voice, FAQs, services, pricing, hours, and escalation language.", proof: "Voice/fact training source is saved." },
+      { agent: "Systems Director", role: "Voice safety", does: "Defines provider, billing, failover, and compliance risks.", proof: "Safety checklist exists before launch." },
+      { agent: "Auditor", role: "Gate", does: "Blocks live voice behavior until facts, costs, and failover are safe.", proof: "Auditor approval is recorded." },
     ],
     links: [
       { label: "Ops Index", href: "/mike-mc/ops" },
@@ -289,7 +292,7 @@ async function countersForWorkflow(slug: string): Promise<WorkflowCounter[]> {
     ];
   }
 
-  if (slug === "review-engine") {
+  if (slug === "review-power") {
     const records = await listReviewAutomationRecords({ clientSlug: "ai-outsource-hub", limit: 300 });
     if (!records.ok) return [{ label: "storage", value: "issue", tone: "danger" }];
     return [
@@ -299,7 +302,7 @@ async function countersForWorkflow(slug: string): Promise<WorkflowCounter[]> {
     ];
   }
 
-  if (slug === "review-voice") {
+  if (slug === "review-replies") {
     const digest = await getReviewReplyDigest({ clientSlug: "ai-outsource-hub", days: 30 });
     if (!digest.ok) return [{ label: "storage", value: "issue", tone: "danger" }];
     return [
@@ -320,11 +323,11 @@ async function countersForWorkflow(slug: string): Promise<WorkflowCounter[]> {
     ];
   }
 
-  if (slug === "call-protection") {
+  if (slug === "ai-ready-bundle") {
     return [
-      { label: "status", value: "future", tone: "muted" },
-      { label: "live", value: "no", tone: "muted" },
-      { label: "pricing", value: "TBD", tone: "warm" },
+      { label: "status", value: "building", tone: "warm" },
+      { label: "live voice", value: "no", tone: "muted" },
+      { label: "price", value: "$299", tone: "accent" },
     ];
   }
 

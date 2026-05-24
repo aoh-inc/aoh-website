@@ -13,9 +13,9 @@ const GREEN = "#7CE7B7";
 
 // Picked by Mike: motto + service list format
 const MOTTO_LINES = ["Get found.", "Stay found.", "Build trust."];
-const SERVICES = "Review Automation · AI Visibility · Reach · Studio · Relay · Full Service";
+const SERVICES = "Get Found · Stay Found · Review Power · AI Ready Bundle";
 
-const SERVICE_LABEL = "Get Found Refresh - Stay Found - Review Engine - Review Voice - Call Protection later";
+const SERVICE_LABEL = "Get Found - Stay Found - Review Power - AI Ready Bundle";
 const SERVICES_TO_RENDER = SERVICE_LABEL || SERVICES;
 
 type SurfaceConfig = {
@@ -177,7 +177,7 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
                 fontSize: Math.max(9, urlSize - 2),
               }}
             >
-              From $49/mo · No contract
+              From $59/mo · No contract
             </div>
           </div>
 

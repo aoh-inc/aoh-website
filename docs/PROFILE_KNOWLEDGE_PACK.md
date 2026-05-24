@@ -3,26 +3,26 @@
 Status: draft v1
 Last researched: 2026-05-16
 Owner agent: Profile
-Service focus: Review Automation, AI Visibility, Publishing
+Service focus: Get Found, Stay Found, Review Power, AI Ready Bundle
 
 ## Job
 
 Profile owns Google Business Profile access, readiness, and local profile health.
 
-Profile does not own HighLevel automation setup. Profile hands off to GHL Expert after GMF has the correct GBP access or after a clear access blocker is recorded.
+Profile does not own sender, SMS, or POS automation setup. Profile hands off to Reviews Manager and Systems Director after GMF has the correct GBP access or after a clear access blocker is recorded.
 
 ## Core Mental Model
 
-Google Business Profile access and HighLevel connection are different steps.
+Google Business Profile access and tool connection are different steps.
 
-GBP Manager access lets GMF manage the client's Google profile. It does not automatically connect the profile to HighLevel.
+GBP Manager access lets GMF manage the client's Google profile. It does not automatically connect the profile to sender, CRM, POS, SMS, or voice tools.
 
-The correct Review Automation flow is:
+The correct review request flow is:
 
 1. Client invites GMF as GBP Manager or invites the GMF agency/business group.
 2. Profile accepts and verifies the correct location.
 3. Profile confirms the profile is verified/usable or records the blocker.
-4. GHL Expert connects that profile inside HighLevel using an GMF Google account with access.
+4. Reviews Manager uses the review link and Systems Director confirms the GMF-owned sender/storage path.
 
 ## Access Options
 
@@ -54,7 +54,7 @@ Google says Owners have full control, including adding/removing users and removi
 
 Google says Managers have mostly the same profile access as Owners, but cannot add/remove users or remove the profile.
 
-For GMF Review Automation, Manager is usually enough because GMF needs to:
+For GMF review services, Manager is usually enough because GMF needs to:
 
 - edit profile info
 - manage the profile on Search/Maps
@@ -75,7 +75,7 @@ Profile "done" for access means:
 - GMF account/business group can see the business
 - correct business/location confirmed
 - pending/wrong invites resolved or assigned to Manager
-- GHL Expert told which Google account should be used for HighLevel connection
+- Reviews Manager and Systems Director are told which Google account/profile is verified
 
 ## Verification Checklist
 
@@ -96,7 +96,7 @@ If not verified:
 - record blocker
 - send client verification instructions
 - Manager follows up until complete
-- GHL Expert can continue non-dependent setup, but review launch may be blocked
+- Systems Director can continue non-dependent setup, but review launch may be blocked
 
 ## Review Link Checklist
 
@@ -142,11 +142,11 @@ Profile should capture:
 - last review date
 - number of unreplied reviews
 
-Hand review link to Reviews Manager for GMF-owned Review Automation. Hand it to GHL Expert only if GHL still needs a temporary bridge value.
+Hand review link to Reviews Manager for GMF-owned review requests. Hand it to Systems Director if a temporary GHL bridge still needs the value.
 
 ## Profile Health Checklist
 
-For Review Automation baseline:
+For Get Found / Stay Found baseline:
 
 - name
 - address/service area
@@ -160,7 +160,7 @@ For Review Automation baseline:
 - unanswered reviews
 - Q&A
 
-For AI Visibility:
+For AI Ready / AEO checks:
 
 - citations/NAP consistency
 - review velocity
@@ -174,16 +174,16 @@ For AI Visibility:
 
 Press can publish approved content to GBP through HighLevel/Social Planner when connected.
 
-Profile owns whether the GBP is healthy and correctly connected. Press owns approved publishing cadence/content proof.
+Profile owns whether the GBP is healthy and correctly connected. Profile Manager/Coach own approved publishing cadence/content proof.
 
-## HighLevel Awareness
+## Tool Awareness
 
-Profile should understand enough HighLevel to know the handoff:
+Profile should understand enough of the current tool stack to know the handoff:
 
-- HighLevel connects GBP through Settings > Integrations.
-- HighLevel GBP integration can sync reviews/messages/reputation data.
-- HighLevel Reputation is where GHL Expert confirms reviews, review requests, Reviews AI, and widgets.
-- If the connected GBP token expires or shows action required, Profile and GHL Expert coordinate: Profile confirms Google access; GHL Expert reconnects in HighLevel.
+- GHL may still be a temporary bridge for legacy exports or review data while GMF exits it.
+- GMF-owned review requests use Supabase, Resend, protected proof pages, and client hubs.
+- SMS belongs to Review Power and waits for A2P, opt-in, STOP handling, and sample approval.
+- If a connected token expires or shows action required, Profile confirms Google access and Systems Director handles the tool-side fix.
 
 ## Common Blockers
 
@@ -218,7 +218,7 @@ Multiple locations:
 Wrong Google account:
 
 - GMF may have access under a different account
-- GHL Expert must use the same account that has manager access
+- Systems Director must use the same account that has manager access when a tool connection is needed
 
 ## Source Links
 
