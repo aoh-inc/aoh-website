@@ -7,7 +7,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: "Will automated replies sound fake and hurt me with Google?",
-    a: "Generic, templated responses can make a business look careless. Review Power includes AI-drafted replies in your business voice, but they start approval-first. Sensitive reviews always stay human-reviewed.",
+    a: "Generic, templated responses can make a business look careless. Get Chosen includes AI-drafted replies in your business voice, but they start approval-first. Sensitive reviews always stay human-reviewed.",
   },
   {
     q: "How much of my time does this take?",
@@ -27,7 +27,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   },
   {
     q: "What if I get a bad review?",
-    a: "A professional, calm reply in your voice does more for your reputation than ignoring it. Review Power drafts suggested responses and flags sensitive issues before anything is posted.",
+    a: "A professional, calm reply in your voice does more for your reputation than ignoring it. Get Chosen drafts suggested responses and flags sensitive issues before anything is posted.",
   },
   {
     q: "You're a new company - why should I trust you?",

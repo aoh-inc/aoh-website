@@ -233,9 +233,9 @@ export function ReviewAutomationIntakeForm({ inviteEmail }: { inviteEmail: strin
         onChange={(event) => update("serviceIntent", event.target.value as ServiceIntent)}
         className="mt-2 w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition focus:border-emerald-700 focus:ring-2 focus:ring-emerald-700/20"
       >
-        <option value="review_automation">Review Power</option>
+        <option value="review_automation">Get Chosen</option>
         <option value="gbp_update">Google profile update</option>
-        <option value="ai_visibility">AI Ready Bundle</option>
+        <option value="ai_visibility">Always Ready</option>
         <option value="not_sure">Not sure</option>
       </select>
 

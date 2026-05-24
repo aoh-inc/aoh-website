@@ -13,7 +13,7 @@ import { pageBreadcrumbs } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Done-for-you Google visibility for local businesses. Get Found, Stay Found, Review Power, and AI Ready Bundle.",
+    "Done-for-you Google visibility for local businesses. Get Found, Stay Found, Get Chosen, and Always Ready.",
   alternates: { canonical: "/pricing" },
 };
 
@@ -69,7 +69,7 @@ const products: ProductDetailData[] = [
     name: "Stay Found",
     outcome: "Keep your local visibility from going stale again.",
     story:
-      "Stay Found keeps the profile, review path, and local visibility signals moving without making the owner learn another platform. It is email-only at this tier, with SMS saved for Review Power.",
+      "Stay Found keeps the profile, review path, and local visibility signals moving without making the owner learn another platform. It is email-only at this tier, with SMS saved for Get Chosen.",
     stats: [
       { label: "Channel", value: "Email" },
       { label: "GBP post", value: "Weekly" },
@@ -94,7 +94,7 @@ const products: ProductDetailData[] = [
       { title: "Owner recap", sub: "You get the short monthly update and any recommended fix." },
     ],
     cadence: "Weekly light upkeep with a monthly owner recap. Urgent profile issues escalate to Manager.",
-    crossSell: { label: "Review Power - add SMS and AI reply drafts", href: "#review-power" },
+    crossSell: { label: "Get Chosen - add SMS and AI reply drafts", href: "#get-chosen" },
     price: "$59",
     cadenceLabel: "/mo",
     setup: "No contract",
@@ -107,12 +107,12 @@ const products: ProductDetailData[] = [
     variant: "dark",
   },
   {
-    slug: "review-power",
+    slug: "get-chosen",
     number: "03",
-    name: "Review Power",
+    name: "Get Chosen",
     outcome: "Add SMS, email, and AI-drafted review replies without a heavy CRM.",
     story:
-      "Review Power is the performance tier. We handle the review request system, SMS readiness, email, approval-first AI replies, negative-review alerts, and monthly review proof.",
+      "Get Chosen is the performance tier. We handle the review request system, SMS readiness, email, approval-first AI replies, negative-review alerts, and monthly review proof.",
     stats: [
       { label: "Channel", value: "SMS + email" },
       { label: "Replies", value: "Drafted" },
@@ -137,31 +137,31 @@ const products: ProductDetailData[] = [
       { title: "Send and reply", sub: "Requests go out and AI replies are drafted for approval." },
     ],
     cadence: "Requests send after the review-ready event, with monthly proof and sentiment reporting.",
-    crossSell: { label: "AI Ready Bundle - add voice readiness", href: "#ai-ready-bundle" },
+    crossSell: { label: "Always Ready - add voice readiness", href: "#always-ready" },
     price: "$149",
     cadenceLabel: "/mo",
     setup: "No contract",
     promoNote: "SMS starts only after compliance checks are ready.",
-    ctaLabel: "Start Review Power",
+    ctaLabel: "Start Get Chosen",
     ctaHref: "/contact",
     secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.star,
     mock: <MockReviewPanel />,
   },
   {
-    slug: "ai-ready-bundle",
+    slug: "always-ready",
     number: "04",
-    name: "AI Ready Bundle",
+    name: "Always Ready",
     outcome: "Prepare the business for AI search, AI calls, and deeper local visibility.",
     story:
-      "AI Ready Bundle is the full-service tier for owners who want GMF to manage reputation, visibility, content, and voice readiness together. Voice automation stays approval-gated until the workflow is safe.",
+      "Always Ready is the full-service tier for owners who want GMF to manage reputation, visibility, content, and voice readiness together. Voice automation stays approval-gated until the workflow is safe.",
     stats: [
-      { label: "Includes", value: "Review Power" },
+      { label: "Includes", value: "Get Chosen" },
       { label: "Voice", value: "Ready" },
       { label: "Call", value: "Monthly" },
     ],
     whatYouGet: [
-      "Everything in Review Power",
+      "Everything in Get Chosen",
       "AI voice agent trained on services, pricing, hours, and FAQs",
       "Voice/phone readiness for AI and customer inquiries",
       "Full GBP content management and local content planning",
@@ -183,7 +183,7 @@ const products: ProductDetailData[] = [
     cadenceLabel: "/mo",
     setup: "No contract",
     promoNote: "Best fit after the owner wants more than review requests.",
-    ctaLabel: "Start AI Ready",
+    ctaLabel: "Start Always Ready",
     ctaHref: "/contact",
     secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.phone,
@@ -197,13 +197,13 @@ const chips = products.map((product) => ({
   label: product.name,
 }));
 
-type JobKey = "get-found" | "stay-found" | "review-power" | "ai-ready";
+type JobKey = "get-found" | "stay-found" | "get-chosen" | "always-ready";
 
 const jobBySlug: Record<string, JobKey> = {
   "get-found-refresh": "get-found",
   "stay-found": "stay-found",
-  "review-power": "review-power",
-  "ai-ready-bundle": "ai-ready",
+  "get-chosen": "get-chosen",
+  "always-ready": "always-ready",
 };
 
 const jobGroupCopy: Record<JobKey, { index: string; label: string; intro: string }> = {
@@ -219,17 +219,17 @@ const jobGroupCopy: Record<JobKey, { index: string; label: string; intro: string
     intro:
       "Monthly upkeep keeps the profile, review path, and local trust signals from going stale.",
   },
-  "review-power": {
+  "get-chosen": {
     index: "Step 3 of 4",
-    label: "Build review power.",
+    label: "Get chosen.",
     intro:
-      "Email, compliant SMS, and approval-first AI replies help turn happy customers into stronger review proof.",
+      "Email, compliant SMS, and approval-first AI replies help turn happy customers into the business customers choose.",
   },
-  "ai-ready": {
+  "always-ready": {
     index: "Step 4 of 4",
-    label: "Be AI ready.",
+    label: "Always ready.",
     intro:
-      "Voice readiness, GBP content, schema, and AEO checks prepare the business for where local search is heading next.",
+      "Voice readiness, GBP content, schema, and AEO checks keep the business ready for calls, searches, and AI recommendations.",
   },
 };
 
@@ -296,8 +296,8 @@ export default function PricingPage() {
                 {[
                   { value: "$149", label: "Get Found setup", border: "border-t-green-500", text: "text-green-500" },
                   { value: "$59/mo", label: "Stay Found", border: "border-t-amber-500", text: "text-amber-500" },
-                  { value: "$149/mo", label: "Review Power", border: "border-t-gray-900", text: "text-gray-900" },
-                  { value: "$299/mo", label: "AI Ready Bundle", border: "border-t-sky-500", text: "text-sky-600" },
+                  { value: "$149/mo", label: "Get Chosen", border: "border-t-gray-900", text: "text-gray-900" },
+                  { value: "$299/mo", label: "Always Ready", border: "border-t-sky-500", text: "text-sky-600" },
                 ].map((stat) => (
                   <div
                     key={stat.label}
@@ -333,7 +333,7 @@ export default function PricingPage() {
                 </div>
 
                 <p className="text-base md:text-lg text-white/80 leading-relaxed mb-7 max-w-2xl">
-                  We clean up the obvious visibility issues first. If Stay Found or Review Power makes sense after that, you will know why.
+                  We clean up the obvious visibility issues first. If Stay Found or Get Chosen makes sense after that, you will know why.
                 </p>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                   <Link

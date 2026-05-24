@@ -31,7 +31,7 @@ type TeaserCard = {
   cta: string;
   iconPaths: readonly string[];
   highlight?: boolean;
-  jobLabel: "Get Found" | "Stay Found" | "Review Power" | "AI Ready";
+  jobLabel: "Get Found" | "Stay Found" | "Get Chosen" | "Always Ready";
 };
 
 const teaserCards: TeaserCard[] = [
@@ -67,7 +67,7 @@ const teaserCards: TeaserCard[] = [
     jobLabel: "Stay Found",
   },
   {
-    name: "Review Power",
+    name: "Get Chosen",
     tagline: "SMS and email review requests plus AI-drafted replies.",
     price: "$149",
     cadence: "/month",
@@ -76,25 +76,25 @@ const teaserCards: TeaserCard[] = [
       "AI reply drafts in your voice, you approve before posting",
       "Monthly review sentiment and citation check",
     ],
-    href: "/pricing#review-power",
-    cta: "Build review power",
+    href: "/pricing#get-chosen",
+    cta: "Get chosen",
     iconPaths: ICON_PATHS.star,
-    jobLabel: "Review Power",
+    jobLabel: "Get Chosen",
   },
   {
-    name: "AI Ready Bundle",
+    name: "Always Ready",
     tagline: "Reviews, content, and AI voice readiness in one plan.",
     price: "$299",
     cadence: "/month",
     bullets: [
-      "Everything in Review Power",
+      "Everything in Get Chosen",
       "AI voice agent ready for Google's calling feature",
       "Monthly strategy call and AI search citation check",
     ],
-    href: "/pricing#ai-ready-bundle",
-    cta: "Get AI ready",
+    href: "/pricing#always-ready",
+    cta: "Always ready",
     iconPaths: ICON_PATHS.phone,
-    jobLabel: "AI Ready",
+    jobLabel: "Always Ready",
   },
 ];
 

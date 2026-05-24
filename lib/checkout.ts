@@ -48,8 +48,8 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
     stripeMode: "subscription",
   },
   {
-    slug: "review-power",
-    name: "Review Power",
+    slug: "get-chosen",
+    name: "Get Chosen",
     price: "$149",
     cadence: "/month",
     setup: "No contract",
@@ -66,15 +66,15 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
     stripeMode: "subscription",
   },
   {
-    slug: "ai-ready-bundle",
-    name: "AI Ready Bundle",
+    slug: "always-ready",
+    name: "Always Ready",
     price: "$299",
     cadence: "/month",
     setup: "No contract",
     summary:
       "Full-service reputation, visibility, content, and voice-readiness management.",
     whatYouGet: [
-      "Everything in Review Power",
+      "Everything in Get Chosen",
       "AI voice agent trained on services, pricing, hours, and FAQs",
       "Voice/phone readiness for AI and customer inquiries",
       "Full GBP content management and local content planning",

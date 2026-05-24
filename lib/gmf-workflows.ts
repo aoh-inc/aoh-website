@@ -113,8 +113,8 @@ export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
     ],
   },
   {
-    slug: "review-power",
-    name: "Serve 02: Review Power",
+    slug: "get-chosen",
+    name: "Serve 02: Get Chosen",
     oneLine: "Sends review requests through email and compliant SMS, then keeps feedback, suppressions, reply drafts, and proof visible.",
     description:
       "This is GMF's core performance review tier. It handles uploaded customers, POS-ready events, proof previews, email/SMS sends after compliance, private feedback, follow-ups, AI reply drafts, and monthly reporting.",
@@ -154,7 +154,7 @@ export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
     name: "Serve 03: Review Replies",
     oneLine: "Drafts review replies in the client's voice while keeping risky replies human-reviewed.",
     description:
-      "This Review Power lane replaces risky auto-reply behavior with GMF-controlled drafts, safety flags, approval decisions, and audit history.",
+      "This Get Chosen lane replaces risky auto-reply behavior with GMF-controlled drafts, safety flags, approval decisions, and audit history.",
     status: "working",
     weeklyCheckAgent: "Reply Writer",
     auditAgent: "Auditor",
@@ -220,11 +220,11 @@ export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
     ],
   },
   {
-    slug: "ai-ready-bundle",
-    name: "Growth 01: AI Ready Bundle",
+    slug: "always-ready",
+    name: "Growth 01: Always Ready",
     oneLine: "Builds the full reputation, content, AI voice readiness, strategy, and AEO lane for higher-touch clients.",
     description:
-      "This workflow is the $299/mo tier. It includes Review Power, plus voice readiness, business fact training, GBP content management, schema/content recommendations, strategy calls, and AEO checks.",
+      "This workflow is the $299/mo tier. It includes Get Chosen, plus voice readiness, business fact training, GBP content management, schema/content recommendations, strategy calls, and AEO checks.",
     status: "working",
     weeklyCheckAgent: "Manager",
     auditAgent: "Auditor",
@@ -292,7 +292,7 @@ async function countersForWorkflow(slug: string): Promise<WorkflowCounter[]> {
     ];
   }
 
-  if (slug === "review-power") {
+  if (slug === "get-chosen") {
     const records = await listReviewAutomationRecords({ clientSlug: "ai-outsource-hub", limit: 300 });
     if (!records.ok) return [{ label: "storage", value: "issue", tone: "danger" }];
     return [
@@ -323,7 +323,7 @@ async function countersForWorkflow(slug: string): Promise<WorkflowCounter[]> {
     ];
   }
 
-  if (slug === "ai-ready-bundle") {
+  if (slug === "always-ready") {
     return [
       { label: "status", value: "building", tone: "warm" },
       { label: "live voice", value: "no", tone: "muted" },

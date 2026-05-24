@@ -69,7 +69,7 @@ export default function AboutPage() {
               <dl className="space-y-4 text-sm">
                 <div>
                   <dt className="font-semibold text-[var(--color-hero-text)]">Primary offer</dt>
-                  <dd className="mt-1 text-[var(--color-hero-subtext)]">Get Found, Stay Found, Review Power, and AI Ready</dd>
+                  <dd className="mt-1 text-[var(--color-hero-subtext)]">Get Found, Stay Found, Get Chosen, and Always Ready</dd>
                 </div>
                 <div>
                   <dt className="font-semibold text-[var(--color-hero-text)]">Best fit</dt>

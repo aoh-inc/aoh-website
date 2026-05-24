@@ -7,8 +7,8 @@ import { usePathname } from "next/navigation";
 const services = [
   { href: "/pricing#get-found-refresh", label: "Get Found" },
   { href: "/pricing#stay-found", label: "Stay Found" },
-  { href: "/pricing#review-power", label: "Review Power" },
-  { href: "/pricing#ai-ready-bundle", label: "AI Ready Bundle" },
+  { href: "/pricing#get-chosen", label: "Get Chosen" },
+  { href: "/pricing#always-ready", label: "Always Ready" },
 ];
 
 const company = [

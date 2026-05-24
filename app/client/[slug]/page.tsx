@@ -115,7 +115,7 @@ export default async function ClientHubPage({ params }: PageProps) {
           <div className="max-w-xl">
           <SectionHeader
             eyebrow="Standard"
-            title="Review Power"
+            title="Get Chosen"
             sub="What your review request system is doing this week."
           />
           </div>

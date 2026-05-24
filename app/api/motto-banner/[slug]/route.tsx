@@ -57,9 +57,9 @@ export const MOTTOS: Motto[] = [
   },
 ];
 
-const SERVICES = "Get Found · Stay Found · Review Power · AI Ready Bundle";
+const SERVICES = "Get Found · Stay Found · Get Chosen · Always Ready";
 
-const SERVICE_LABEL = "Get Found - Stay Found - Review Power - AI Ready Bundle";
+const SERVICE_LABEL = "Get Found - Stay Found - Get Chosen - Always Ready";
 const SERVICES_TO_RENDER = SERVICE_LABEL || SERVICES;
 
 export function generateStaticParams() {

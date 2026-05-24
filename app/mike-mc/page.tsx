@@ -128,7 +128,7 @@ const AGENTS: {
   },
   {
     name: "Reviews Manager",
-    role: "Review Power owner",
+    role: "Get Chosen owner",
     status: "manual",
     cadence: "per client",
     activity: {
@@ -136,7 +136,7 @@ const AGENTS: {
       upNext: "Move proof into Supabase-backed client records as GHL is replaced.",
     },
     rows: [
-      { primary: "Review Power", secondary: "SMS/email requests, suppressions, review link, AI reply drafts, and proof report.", badge: { tone: "accent", label: "$149/mo" } },
+      { primary: "Get Chosen", secondary: "SMS/email requests, suppressions, review link, AI reply drafts, and proof report.", badge: { tone: "accent", label: "$149/mo" } },
       { primary: "POS path", secondary: "Manual upload first, export/API later when ready.", badge: { tone: "warm", label: "staged" } },
       { primary: "SMS rule", secondary: "Do not rely on SMS until compliance is approved.", badge: { tone: "warn", label: "hold" } },
     ],
@@ -151,7 +151,7 @@ const AGENTS: {
       upNext: "Graduate safe reply types only after Manager and Auditor approval.",
     },
     rows: [
-      { primary: "Review Replies", secondary: "Included in Review Power; draft-only first, approval before posting.", badge: { tone: "warm", label: "included" } },
+      { primary: "Review Replies", secondary: "Included in Get Chosen; draft-only first, approval before posting.", badge: { tone: "warm", label: "included" } },
       { primary: "Escalations", secondary: "Refunds, safety, legal, staff accusations, and regulated topics hold for human review.", badge: { tone: "danger", label: "hold" } },
       { primary: "Voice profile", secondary: "Tone, phrases, banned phrases, and examples.", badge: { tone: "accent", label: "trained" } },
     ],
@@ -222,7 +222,7 @@ const AGENTS: {
     cadence: "monthly",
     activity: {
       doingNow: "Turns agent work into simple client-facing recaps.",
-      upNext: "Test the Stay Found recap template and finish the Review Power report format.",
+      upNext: "Test the Stay Found recap template and finish the Get Chosen report format.",
     },
     rows: [
       { primary: "Client recap", secondary: "What changed, what happened, what is next.", badge: { tone: "accent", label: "plain" } },
@@ -326,7 +326,7 @@ function OwnerCommandSection() {
             Manager is the right hand. Agents do the work. Mike approves exceptions.
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-zinc-400">
-            GMF sells a simple ladder: Get Found, Stay Found, Review Power, and AI Ready Bundle. Review replies and voice automation stay approval-gated. Reach/prospecting work is outside GMF and belongs to a future separate company.
+            GMF sells a simple ladder: Get Found, Stay Found, Get Chosen, and Always Ready. Review replies and voice automation stay approval-gated. Reach/prospecting work is outside GMF and belongs to a future separate company.
           </p>
         </div>
         <div className="grid gap-3 sm:grid-cols-2">
