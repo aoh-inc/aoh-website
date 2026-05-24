@@ -81,7 +81,7 @@ export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
     oneLine: "Runs the monthly visibility check so the client's Google-facing footprint does not go stale.",
     description:
       "This is the lightweight monthly maintenance plan. Profile Manager checks drift, Client Success turns it into a short recap, and Auditor verifies that claims stay factual.",
-    status: "planned",
+    status: "working",
     weeklyCheckAgent: "Profile Manager",
     auditAgent: "Auditor",
     stalledProtocol:
@@ -106,9 +106,10 @@ export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
       { agent: "Auditor", role: "Truth check", does: "Checks that numbers, claims, and recommendations are supportable.", proof: "Auditor pass or correction is recorded." },
     ],
     links: [
-      { label: "Client Hub", href: "/client/ai-outsource-hub" },
+      { label: "Client Hub", href: "/client/getmefound" },
       { label: "Clients", href: "/mike-mc/clients" },
       { label: "Workflows", href: "/mike-mc/workflows" },
+      { label: "Ops Docs", href: "/mike-mc/ops" },
     ],
   },
   {
@@ -329,4 +330,3 @@ async function countersForWorkflow(slug: string): Promise<WorkflowCounter[]> {
 
   return [{ label: "status", value: "manual", tone: "muted" }];
 }
-

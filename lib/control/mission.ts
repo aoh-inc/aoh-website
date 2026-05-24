@@ -70,7 +70,7 @@ export const SERVICES: ServiceWork[] = [
     agents: ["Profile Manager", "Client Success", "Reviews Manager", "Auditor"],
     skills: ["monthly-visibility-check", "profile-drift", "review-status", "client-recap"],
     activeClients: 0,
-    openTasks: 2,
+    openTasks: 1,
     blocked: 0,
   },
   {
@@ -190,7 +190,7 @@ export const AGENT_SKILLS: AgentSkillProfile[] = [
     role: "Knowledge, SOP, and sales clarity owner",
     skills: ["offer-truth", "agent-training", "client-safe-language", "monthly-recap-template"],
     serviceOwners: ["All GMF workflows"],
-    sourceDocs: ["docs/GMF_COMPANY_OPERATING_SYSTEM.md", "content/coach/AOH_COACH_KNOWLEDGE_PACK.md"],
+    sourceDocs: ["docs/GMF_COMPANY_OPERATING_SYSTEM.md", "docs/STAY_FOUND_MONTHLY_RECAP_TEMPLATE.md", "content/coach/AOH_COACH_KNOWLEDGE_PACK.md"],
   },
   {
     agent: "Scout",
@@ -204,7 +204,7 @@ export const AGENT_SKILLS: AgentSkillProfile[] = [
     role: "Retention and client communication",
     skills: ["monthly-recap", "client-check-in", "upgrade-signal", "at-risk-client-note"],
     serviceOwners: ["Stay Found", "Review Engine", "Review Voice"],
-    sourceDocs: ["docs/GMF_COMPANY_OPERATING_SYSTEM.md", "docs/GMF_AGENT_TRAINING_PACK.md"],
+    sourceDocs: ["docs/GMF_COMPANY_OPERATING_SYSTEM.md", "docs/GMF_AGENT_TRAINING_PACK.md", "docs/STAY_FOUND_MONTHLY_RECAP_TEMPLATE.md"],
   },
 ];
 
@@ -277,9 +277,9 @@ export const BOARD_TASKS: BoardTask[] = [
     service: "Stay Found",
     agent: "Client Success",
     reviewer: "Auditor",
-    status: "Assigned",
+    status: "Done",
     priority: "P1",
-    due: "Before first paid Stay Found client",
+    due: "Template created; test on first paid Stay Found client",
     tags: ["monthly", "recap", "retention"],
     reviewChecks: [
       "What changed",
@@ -392,4 +392,3 @@ export const SCHEDULED_WORK: ScheduledWork[] = [
     reason: "Keeps GMF recoverable as client count grows.",
   },
 ];
-

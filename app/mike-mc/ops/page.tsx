@@ -22,6 +22,11 @@ const DOCS = [
     purpose: "Agent roster, responsibilities, workflow rules, escalation rules, and weekly checks.",
   },
   {
+    title: "Stay Found Monthly Recap Template",
+    path: "docs/STAY_FOUND_MONTHLY_RECAP_TEMPLATE.md",
+    purpose: "The client-safe monthly note format for the $49/mo Stay Found service.",
+  },
+  {
     title: "Legacy Operations Index",
     path: "docs/AOH_OPERATIONS_INDEX.md",
     purpose: "Older operating map retained for recovery and migration context.",

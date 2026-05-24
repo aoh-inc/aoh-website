@@ -172,6 +172,7 @@ Responsibilities:
 - upgrade opportunities
 - at-risk client notes
 - client-facing check-ins
+- use `docs/STAY_FOUND_MONTHLY_RECAP_TEMPLATE.md` for Stay Found monthly updates
 
 Proof owed:
 
@@ -268,4 +269,3 @@ Premium:
 - `docs/PROFILE_KNOWLEDGE_PACK.md`
 - `docs/REVIEW_AUTOMATION_AGENT_SKILLS.md`
 - `docs/CLIENT_REVIEW_AUTOMATION_ONBOARDING.md`
-

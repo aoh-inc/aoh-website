@@ -86,7 +86,7 @@ export const AGENT_TEAM: AgentTeamMember[] = [
       "Owns monthly recaps, at-risk client notes, upgrade signals, and client check-ins.",
     owns: ["monthly recap", "client check-ins", "upgrade notes", "at-risk flags"],
     proof: ["recap drafted", "next recommendation", "client ask approved", "risk noted"],
-    currentFocus: "Build the Stay Found monthly recap template.",
+    currentFocus: "Use the Stay Found recap template and test it on the first paid monthly client.",
     color: "sky",
   },
   {
@@ -165,4 +165,3 @@ export const AGENT_TEAM: AgentTeamMember[] = [
     color: "zinc",
   },
 ];
-

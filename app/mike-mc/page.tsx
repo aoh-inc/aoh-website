@@ -203,11 +203,11 @@ const AGENTS: {
   {
     name: "Client Success",
     role: "Client communication and reports",
-    status: "planned",
+    status: "building",
     cadence: "monthly",
     activity: {
       doingNow: "Turns agent work into simple client-facing recaps.",
-      upNext: "Build the monthly Stay Found and Review Engine report format.",
+      upNext: "Test the Stay Found recap template and finish the Review Engine report format.",
     },
     rows: [
       { primary: "Client recap", secondary: "What changed, what happened, what is next.", badge: { tone: "accent", label: "plain" } },
