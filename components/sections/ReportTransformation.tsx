@@ -9,6 +9,16 @@ type Finding = {
   detail: string;
 };
 
+type TransformationCard = {
+  title: string;
+  before: string;
+  after: string;
+  proof?: {
+    text: string;
+    href: string;
+  };
+};
+
 const BEFORE_FINDINGS: Finding[] = [
   {
     title: "Business hours missing",
@@ -45,6 +55,40 @@ const AFTER_FINDINGS: Finding[] = [
     title: "AI-ready presence live",
     detail: "Search tools have a clearer reason to recommend you.",
   },
+];
+
+const TRANSFORMATION_CARDS: TransformationCard[] = [
+  {
+    title: "Google Profile",
+    before: "Wrong hours, thin services, old photos, weak categories.",
+    after: "Clean profile, clear services, stronger trust signals.",
+  },
+  {
+    title: "Reviews",
+    before: "Happy customers leave without being asked.",
+    after: "Text and email requests go out every week.",
+    proof: {
+      text: "Twilio reports 98% SMS open rates.",
+      href: "https://www.twilio.com/en-us/solutions/text-marketing",
+    },
+  },
+  {
+    title: "Website + AI Facts",
+    before: "Website, Google, and business info do not match.",
+    after: "Google, ChatGPT, Claude, and customers see the same facts.",
+  },
+];
+
+const SAVINGS_BEFORE = [
+  "Separate website hosting bill",
+  "Separate texting or review tool",
+  "Owner chasing small updates",
+];
+
+const SAVINGS_AFTER = [
+  "Hosting included in Stay Found",
+  "Review requests included",
+  "GMF keeps the system moving",
 ];
 
 function StatusIcon({ tone }: { tone: "bad" | "good" }) {
@@ -335,6 +379,113 @@ export function ReportTransformation() {
             >
               Request an audit
             </Link>
+          </div>
+        </div>
+      </div>
+
+      <div className="mx-auto mt-14 w-full max-w-6xl px-6 md:mt-16">
+        <div className="mb-7 max-w-3xl">
+          <p className="mb-3 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
+            What actually changes
+          </p>
+          <h3 className="text-2xl font-bold leading-tight text-[var(--color-text-body)] md:text-4xl">
+            From scattered online presence to a system that keeps you found.
+          </h3>
+          <p className="mt-4 text-base leading-relaxed text-[var(--color-text-muted)] md:text-lg">
+            Most local businesses do not need another dashboard. They need their Google profile, reviews, website, and business facts cleaned up, connected, and maintained.
+          </p>
+        </div>
+
+        <div className="grid gap-4 md:grid-cols-3">
+          {TRANSFORMATION_CARDS.map((card) => (
+            <div
+              key={card.title}
+              className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-page)] p-5 shadow-sm"
+            >
+              <h4 className="text-lg font-bold text-[var(--color-text-body)]">
+                {card.title}
+              </h4>
+
+              <div className="mt-5 grid gap-3">
+                <div className="rounded-xl border border-[var(--color-error)]/20 bg-[var(--color-error)]/[0.04] p-4">
+                  <p className="mb-3 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-error)]">
+                    Before
+                  </p>
+                  <div className="flex gap-3">
+                    <StatusIcon tone="bad" />
+                    <p className="text-sm leading-relaxed text-[var(--color-text-body)]">
+                      {card.before}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="rounded-xl border border-[var(--color-accent)]/25 bg-[var(--color-accent)]/[0.06] p-4">
+                  <p className="mb-3 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-accent)]">
+                    After
+                  </p>
+                  <div className="flex gap-3">
+                    <StatusIcon tone="good" />
+                    <div>
+                      <p className="text-sm leading-relaxed text-[var(--color-text-body)]">
+                        {card.after}
+                      </p>
+                      {card.proof && (
+                        <a
+                          href={card.proof.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-3 inline-flex text-xs font-semibold leading-5 text-[var(--color-accent)] underline decoration-[var(--color-accent)]/35 underline-offset-4 transition hover:text-[var(--color-accent-hover)]"
+                        >
+                          {card.proof.text}
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-5 grid gap-4 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-dark-card)] p-5 text-[var(--color-hero-text)] md:grid-cols-3 md:p-6">
+          <div className="md:pr-4">
+            <p className="mb-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
+              Stay Found savings
+            </p>
+            <h4 className="text-xl font-bold leading-tight">
+              The $99/mo plan should remove friction, not add it.
+            </h4>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-white/[0.04] p-4">
+            <p className="mb-3 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-red-200">
+              Before
+            </p>
+            <ul className="space-y-2">
+              {SAVINGS_BEFORE.map((item) => (
+                <li key={item} className="flex gap-2 text-sm leading-relaxed text-white/72">
+                  <span aria-hidden="true" className="mt-0.5 text-red-200">x</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="rounded-xl border border-[var(--color-accent)]/35 bg-[var(--color-accent)]/[0.10] p-4">
+            <p className="mb-3 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-[var(--color-accent)]">
+              After
+            </p>
+            <ul className="space-y-2">
+              {SAVINGS_AFTER.map((item) => (
+                <li key={item} className="flex gap-2 text-sm leading-relaxed text-white/82">
+                  <span aria-hidden="true" className="mt-0.5 text-[var(--color-accent)]">✓</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-4 border-t border-white/10 pt-3 text-xs leading-5 text-white/58">
+              Hosting can replace a separate website bill after the GMF-hosted site is live and checked.
+            </p>
           </div>
         </div>
       </div>
