@@ -7,6 +7,7 @@ export type CheckoutProduct = {
   summary: string;
   whatYouGet: string[];
   stripePriceId: string;
+  setupPriceId?: string;
   stripeMode: "payment" | "subscription";
 };
 
@@ -34,36 +35,23 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
     name: "Stay Found",
     price: "$99",
     cadence: "/month",
-    setup: "No contract",
+    setup: "$199 setup",
     summary:
-      "Monthly visibility upkeep with free website hosting so the business does not go stale after the first setup.",
+      "Monthly visibility upkeep with review requests, AI reply drafts, and free website hosting so the business does not go stale after the first setup.",
     whatYouGet: [
-      "Weekly client list upload path for email review requests",
-      "Automated email review requests after approval",
-      "One weekly Google Business Profile post",
-      "Free website hosting for your GMF-managed site",
-      "Review monitoring across platforms where available",
-      "Monthly one-page visibility report",
-    ],
-    stripePriceId: "price_1Tb0VDLyThSzGsL4BAWAI6sD",
-    stripeMode: "subscription",
-  },
-  {
-    slug: "get-chosen",
-    name: "Get Chosen",
-    price: "$149",
-    cadence: "/month",
-    setup: "No contract",
-    summary:
-      "SMS plus email review requests, approval-first AI reply drafts, alerts, and monthly review proof.",
-    whatYouGet: [
-      "Everything in Stay Found",
+      "Everything in Get Found - free",
+      "Weekly client list upload path for review requests",
       "SMS and email review request campaigns after A2P readiness",
       "A2P setup handled by GMF when SMS is approved",
       "AI response drafts in the client's brand voice",
-      "Monthly sentiment and AI citation check",
+      "Negative review alert and suggested response target within 4 business hours",
+      "One weekly Google Business Profile post",
+      "Free website hosting for your GMF-managed site",
+      "Review monitoring across platforms where available",
+      "Monthly sentiment, citation, and visibility report",
     ],
-    stripePriceId: "price_1TakBsLyThSzGsL4OgkjOATQ",
+    stripePriceId: "price_1Tb0VDLyThSzGsL4BAWAI6sD",
+    setupPriceId: "price_1Tb109LyThSzGsL4V9x9Iy0E",
     stripeMode: "subscription",
   },
   {
@@ -75,7 +63,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
     summary:
       "Full-service reputation, visibility, content, and voice-readiness management.",
     whatYouGet: [
-      "Everything in Get Chosen",
+      "Everything in Stay Found",
       "AI voice agent trained on services, pricing, hours, and FAQs",
       "Voice/phone readiness for AI and customer inquiries",
       "Full GBP content management and local content planning",

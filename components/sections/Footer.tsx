@@ -7,7 +7,6 @@ import { usePathname } from "next/navigation";
 const services = [
   { href: "/pricing#get-found-refresh", label: "Get Found" },
   { href: "/pricing#stay-found", label: "Stay Found" },
-  { href: "/pricing#get-chosen", label: "Get Chosen" },
   { href: "/pricing#always-ready", label: "Always Ready" },
 ];
 

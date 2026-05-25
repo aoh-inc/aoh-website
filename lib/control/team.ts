@@ -26,7 +26,7 @@ export const AGENT_TEAM: AgentTeamMember[] = [
       "Runs GMF day to day, assigns the next owner, names the reviewer, and keeps Mission Control current.",
     owns: ["Mission Control", "workflow routing", "approval gates", "blocked work"],
     proof: ["owner assigned", "reviewer assigned", "blocker visible", "next action visible"],
-    currentFocus: "Keep the GMF offer narrowed to Get Found, Stay Found, Get Chosen, and Always Ready.",
+    currentFocus: "Keep the GMF offer narrowed to Get Found, Stay Found, and Always Ready.",
     color: "sky",
   },
   {
@@ -48,15 +48,15 @@ export const AGENT_TEAM: AgentTeamMember[] = [
     agent: "Reviews Manager",
     displayName: "Reviews Manager",
     codename: "Engine",
-    title: "Get Chosen Owner",
+    title: "Stay Found Review Owner",
     status: "active",
     archetype: "Delivery operator",
     archetypeNote: "Keeps customer lists, proof pages, review requests, and feedback moving without accidental sends.",
     responsibility:
-      "Owns Get Chosen sends, customer upload readiness, SMS/A2P readiness, private feedback, suppressions, and monthly review summary inputs.",
+      "Owns Stay Found sends, customer upload readiness, SMS/A2P readiness, private feedback, suppressions, and monthly review summary inputs.",
     owns: ["customer uploads", "send candidates", "proof page", "feedback events"],
     proof: ["clean/held counts", "proof preview", "send log", "feedback log"],
-    currentFocus: "Keep Get Chosen approval-gated before live sends, especially SMS.",
+    currentFocus: "Keep Stay Found review sends approval-gated before live sends, especially SMS.",
     color: "amber",
   },
   {
@@ -116,7 +116,7 @@ export const AGENT_TEAM: AgentTeamMember[] = [
       "Verifies proof, checks client-facing claims, blocks risky live actions, and flags stuck workflows.",
     owns: ["proof before done", "claim checks", "live-action gates", "stalled workflow review"],
     proof: ["pass/fail note", "reason for block", "next owner", "QA complete"],
-    currentFocus: "Review Get Found, Get Chosen, and Always Ready before client-facing use.",
+    currentFocus: "Review Get Found, Stay Found, and Always Ready before client-facing use.",
     color: "zinc",
   },
   {

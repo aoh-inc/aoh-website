@@ -22,10 +22,14 @@ export async function POST(req: NextRequest) {
   }
 
   const origin = req.headers.get("origin") ?? "https://getmefound.ai";
+  const lineItems = [
+    { price: product.stripePriceId, quantity: 1 },
+    ...(product.setupPriceId ? [{ price: product.setupPriceId, quantity: 1 }] : []),
+  ];
 
-  const sessionParams: Stripe.Checkout.SessionCreateParams = {
+  const sessionParams: Parameters<typeof stripe.checkout.sessions.create>[0] = {
     mode: product.stripeMode,
-    line_items: [{ price: product.stripePriceId, quantity: 1 }],
+    line_items: lineItems,
     success_url: `${origin}/checkout/success?product=${product.slug}&session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${origin}/checkout/${product.slug}`,
     metadata: { product_slug: product.slug, product_name: product.name },

@@ -48,7 +48,6 @@ export type ClientVoiceProfile = {
 export type ClientHubPlan =
   | "Get Found"
   | "Stay Found"
-  | "Get Chosen"
   | "Always Ready"
   | "Client Setup";
 
@@ -83,7 +82,7 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
     slug: "abc-business",
     businessName: "ABC Business",
     ownerName: "Business Owner",
-    plan: "Get Chosen",
+    plan: "Stay Found",
     statusLabel: "Setup in progress",
     website: "https://abcbusiness.com",
     phone: "(555) 010-0199",
@@ -211,7 +210,7 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
     slug: "ai-outsource-hub",
     businessName: "GetMeFound",
     ownerName: "Mike Egidio",
-    plan: "Get Chosen",
+    plan: "Stay Found",
     statusLabel: "Setting up",
     website: "https://getmefound.ai",
     phone: "(877) 521-2224",
@@ -223,7 +222,7 @@ export const CLIENT_HUBS: ClientHubProfile[] = [
     brandNote: "GMF logo is already available from the website assets.",
     protection: "Not enabled",
     statusSummary:
-      "Get Chosen is being set up so recent happy customers can be asked for Google reviews.",
+      "Stay Found is being set up so recent happy customers can be asked for Google reviews.",
     nextClientAction: "Upload recent completed jobs or customers.",
     checklist: [
       {
@@ -346,14 +345,13 @@ export function normalizeClientHubPlan(plan: string | undefined): ClientHubPlan 
   if (
     plan === "Get Found" ||
     plan === "Stay Found" ||
-    plan === "Get Chosen" ||
     plan === "Always Ready" ||
     plan === "Client Setup"
   ) {
     return plan;
   }
   if (plan === "Get Found Refresh") return "Get Found";
-  if (plan === "Review Engine" || plan === "Review Voice") return "Get Chosen";
+  if (plan === "Review Engine" || plan === "Review Voice") return "Stay Found";
   if (plan === "Call Protection") return "Always Ready";
   return undefined;
 }

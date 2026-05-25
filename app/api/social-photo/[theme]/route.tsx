@@ -61,8 +61,8 @@ const PHOTOS: Record<string, PhotoOverlay> = {
     imagePath: "/social/ai-gen/diy-vs-dfy.jpg",
     topEyebrow: "DIY vs DONE-FOR-YOU",
     hook: "$30 software isn't cheaper if no one runs it.",
-    ctaLabel: "Get Chosen - $149/mo",
-    ctaUrl: "getmefound.ai/pricing#get-chosen",
+    ctaLabel: "Stay Found - $99/mo",
+    ctaUrl: "getmefound.ai/pricing#stay-found",
     accent: "amber",
   },
   "software-vs-work": {

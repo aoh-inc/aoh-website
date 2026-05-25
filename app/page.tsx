@@ -32,8 +32,11 @@ type TeaserCard = {
   cta: string;
   iconPaths: readonly string[];
   highlight?: boolean;
-  jobLabel: "Get Found" | "Stay Found" | "Get Chosen" | "Always Ready";
+  jobLabel: "Get Found" | "Stay Found" | "Always Ready";
 };
+
+const GOOGLE_AI_CALLING_URL =
+  "https://blog.google/products-and-platforms/products/search/deep-search-business-calling-google-search/";
 
 const teaserCards: TeaserCard[] = [
   {
@@ -53,14 +56,14 @@ const teaserCards: TeaserCard[] = [
   },
   {
     name: "Stay Found",
-    tagline: "Monthly upkeep plus free website hosting.",
+    tagline: "Preferred monthly plan with hosting included.",
     price: "$99",
     cadence: "/month",
     bullets: [
-      "Weekly review request emails to your customers",
-      "Weekly Google Business Profile post",
+      "Everything in Get Found - free",
+      "$199 setup, then $99/mo",
+      "SMS and email review requests with AI reply drafts",
       "Free website hosting for your GMF-managed site",
-      "Monthly one-page visibility report",
     ],
     href: "/pricing#stay-found",
     cta: "Stay visible",
@@ -69,27 +72,12 @@ const teaserCards: TeaserCard[] = [
     jobLabel: "Stay Found",
   },
   {
-    name: "Get Chosen",
-    tagline: "SMS and email review requests plus AI-drafted replies.",
-    price: "$149",
-    cadence: "/month",
-    bullets: [
-      "SMS review requests — 3–5× the response rate of email",
-      "AI reply drafts in your voice, you approve before posting",
-      "Monthly review sentiment and citation check",
-    ],
-    href: "/pricing#get-chosen",
-    cta: "Get chosen",
-    iconPaths: ICON_PATHS.star,
-    jobLabel: "Get Chosen",
-  },
-  {
     name: "Always Ready",
     tagline: "Reviews, content, and AI voice readiness in one plan.",
     price: "$299",
     cadence: "/month",
     bullets: [
-      "Everything in Get Chosen",
+      "Everything in Stay Found",
       "AI voice agent ready for Google's calling feature",
       "Monthly strategy call and AI search citation check",
     ],
@@ -99,6 +87,11 @@ const teaserCards: TeaserCard[] = [
     jobLabel: "Always Ready",
   },
 ];
+
+const primaryTeaserCards = teaserCards.filter(
+  (card) => card.name === "Get Found" || card.name === "Stay Found",
+);
+const alwaysReadyCard = teaserCards.find((card) => card.name === "Always Ready")!;
 
 export default function Home() {
   return (
@@ -215,8 +208,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-              {teaserCards.map((p, i) => (
+            <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 md:grid-cols-2">
+              {primaryTeaserCards.map((p, i) => (
                 <Reveal key={p.name} delay={i * 0.08}>
                   <div
                     className={`group relative flex h-full flex-col overflow-hidden rounded-2xl bg-[var(--color-bg-dark-card)] ring-1 transition-all hover:-translate-y-1 hover:shadow-2xl ${
@@ -284,6 +277,61 @@ export default function Home() {
                 </Reveal>
               ))}
             </div>
+
+            <Reveal delay={0.18}>
+              <div className="mx-auto mt-7 grid max-w-5xl gap-5 rounded-[2rem] bg-[#0f2430] p-6 text-white ring-1 ring-white/10 md:grid-cols-[1.1fr_0.9fr] md:p-8">
+                <div>
+                  <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-sky-300">
+                    {alwaysReadyCard.jobLabel}
+                  </p>
+                  <h3 className="text-3xl font-bold leading-tight">Are you ready?</h3>
+                  <p className="mt-3 max-w-xl text-sm leading-7 text-white/72 md:text-base">
+                    Google is already turning Search into an AI action layer. Always Ready prepares your facts, content, and phone readiness before AI systems recommend or call your business.
+                  </p>
+                  <a
+                    href={GOOGLE_AI_CALLING_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 inline-flex text-sm font-semibold leading-6 text-sky-200 underline decoration-sky-200/45 underline-offset-4 transition hover:text-white"
+                  >
+                    Google says Search can &quot;call businesses to get pricing and availability information on your behalf.&quot;
+                  </a>
+
+                  <ul className="mt-5 grid gap-2 text-sm text-white/74 sm:grid-cols-2">
+                    {alwaysReadyCard.bullets.map((item) => (
+                      <li key={item} className="flex gap-2">
+                        <span aria-hidden="true" className="text-sky-300">+</span>
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="rounded-[1.75rem] bg-amber-300 p-5 text-slate-950 shadow-2xl shadow-black/25 md:-rotate-1">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-slate-700">
+                        AI readiness plan
+                      </p>
+                      <h4 className="mt-2 text-2xl font-black">{alwaysReadyCard.name}</h4>
+                    </div>
+                    <span className="rounded-full bg-slate-950 px-3 py-1 text-[10px] font-bold uppercase tracking-[0.16em] text-amber-200">
+                      Advanced
+                    </span>
+                  </div>
+                  <div className="mt-5 flex items-end gap-1">
+                    <span className="text-5xl font-black">{alwaysReadyCard.price}</span>
+                    <span className="pb-1 text-base font-semibold text-slate-700">{alwaysReadyCard.cadence}</span>
+                  </div>
+                  <Link
+                    href={alwaysReadyCard.href}
+                    className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
+                  >
+                    {alwaysReadyCard.cta}
+                  </Link>
+                </div>
+              </div>
+            </Reveal>
 
             <div className="mt-8 text-center">
               <Link

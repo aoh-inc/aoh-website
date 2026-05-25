@@ -281,7 +281,6 @@ function ClientForm({ record }: { record?: ClientAdminRecord }) {
           options={[
             "Get Found",
             "Stay Found",
-            "Get Chosen",
             "Always Ready",
             "Client Setup",
           ]}

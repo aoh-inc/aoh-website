@@ -113,11 +113,11 @@ export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
     ],
   },
   {
-    slug: "get-chosen",
-    name: "Serve 02: Get Chosen",
+    slug: "stay-found-review-system",
+    name: "Serve 02: Stay Found Review System",
     oneLine: "Sends review requests through email and compliant SMS, then keeps feedback, suppressions, reply drafts, and proof visible.",
     description:
-      "This is GMF's core performance review tier. It handles uploaded customers, POS-ready events, proof previews, email/SMS sends after compliance, private feedback, follow-ups, AI reply drafts, and monthly reporting.",
+      "This is the review system inside Stay Found. It handles uploaded customers, POS-ready events, proof previews, email/SMS sends after compliance, private feedback, follow-ups, AI reply drafts, and monthly reporting.",
     status: "ready",
     weeklyCheckAgent: "Reviews Manager",
     auditAgent: "Auditor",
@@ -154,7 +154,7 @@ export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
     name: "Serve 03: Review Replies",
     oneLine: "Drafts review replies in the client's voice while keeping risky replies human-reviewed.",
     description:
-      "This Get Chosen lane replaces risky auto-reply behavior with GMF-controlled drafts, safety flags, approval decisions, and audit history.",
+      "This Stay Found lane replaces risky auto-reply behavior with GMF-controlled drafts, safety flags, approval decisions, and audit history.",
     status: "working",
     weeklyCheckAgent: "Reply Writer",
     auditAgent: "Auditor",
@@ -224,7 +224,7 @@ export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
     name: "Growth 01: Always Ready",
     oneLine: "Builds the full reputation, content, AI voice readiness, strategy, and AEO lane for higher-touch clients.",
     description:
-      "This workflow is the $299/mo tier. It includes Get Chosen, plus voice readiness, business fact training, GBP content management, schema/content recommendations, strategy calls, and AEO checks.",
+      "This workflow is the $299/mo tier. It includes Stay Found, plus voice readiness, business fact training, GBP content management, schema/content recommendations, strategy calls, and AEO checks.",
     status: "working",
     weeklyCheckAgent: "Manager",
     auditAgent: "Auditor",
@@ -292,7 +292,7 @@ async function countersForWorkflow(slug: string): Promise<WorkflowCounter[]> {
     ];
   }
 
-  if (slug === "get-chosen") {
+  if (slug === "stay-found-review-system") {
     const records = await listReviewAutomationRecords({ clientSlug: "ai-outsource-hub", limit: 300 });
     if (!records.ok) return [{ label: "storage", value: "issue", tone: "danger" }];
     return [

@@ -50,7 +50,7 @@ const SERVICE_FORMATS = [
   {
     id: "full",
     label: "Full names",
-    text: "Get Found · Stay Found · Get Chosen · Always Ready",
+    text: "Get Found - Stay Found - Always Ready",
   },
   {
     id: "short",

@@ -47,19 +47,19 @@ const DOCS = [
     purpose: "Current GMF agent operating model and handoff rules.",
   },
   {
-    title: "Review Power Onboarding",
+    title: "Stay Found Onboarding",
     path: "docs/CLIENT_REVIEW_AUTOMATION_ONBOARDING.md",
     purpose: "Client-side setup flow for review requests and review-ready data.",
   },
   {
     title: "Client Hub Runbook",
     path: "docs/client-ops-ledger/client-hub-runbook.md",
-    purpose: "Client-facing status page for setup, Review Power, and locked next-step previews.",
+    purpose: "Client-facing status page for setup, Stay Found, and locked next-step previews.",
   },
   {
-    title: "Review Power Skills",
+    title: "Stay Found Review Skills",
     path: "docs/REVIEW_AUTOMATION_AGENT_SKILLS.md",
-    purpose: "Review Power agent skills, boundaries, and first-service operating rules.",
+    purpose: "Stay Found review agent skills, boundaries, and first-service operating rules.",
   },
   {
     title: "Profile Knowledge",

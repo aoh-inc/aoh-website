@@ -186,7 +186,7 @@ async function forwardToSlack(payload: CleanIntake) {
 
 function buildTaskPacket(payload: CleanIntake) {
   return {
-    job: "Get Chosen intake",
+    job: "Stay Found intake",
     managerSummary: `${payload.businessName} submitted setup intake. GBP access status: ${statusLabel(payload.accessStatus)}. Role selected: ${roleLabel(payload.accessRole)}.`,
     owners: {
       manager: "route and brief",
@@ -203,7 +203,7 @@ function buildTaskPacket(payload: CleanIntake) {
 }
 
 function buildSlackMessage(payload: CleanIntake) {
-  return `*Client intake received - Get Chosen*
+  return `*Client intake received - Stay Found*
 
 *Business:* ${payload.businessName}
 *Contact:* ${payload.contactName} - ${payload.email}${payload.phone ? ` - ${payload.phone}` : ""}
@@ -241,7 +241,7 @@ function roleLabel(role: string) {
 
 function serviceLabel(intent: string) {
   if (intent === "gbp_update") return "Google profile update";
-  if (intent === "ai_visibility") return "Stay Found";
+  if (intent === "ai_visibility") return "Always Ready";
   if (intent === "not_sure") return "Not sure";
-  return "Get Chosen";
+  return "Stay Found";
 }

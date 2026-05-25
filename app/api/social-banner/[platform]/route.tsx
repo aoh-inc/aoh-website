@@ -20,7 +20,7 @@ const BANNERS: Record<string, Banner> = {
     height: 191,
     variant: "brand",
     headline: "You run the business. We run the rest.",
-    subhead: "Get Found · Stay Found · Get Chosen · Always Ready.",
+    subhead: "Get Found · Stay Found · Always Ready.",
   },
   "facebook": {
     width: 820,

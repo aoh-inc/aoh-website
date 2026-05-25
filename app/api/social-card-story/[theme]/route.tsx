@@ -34,7 +34,7 @@ const STORIES: Record<string, StoryData> = {
     ],
     punchline: "$200 cut + $1,800 seasonal contract. Booked over dinner.",
     ctaLine1: "9 of 10 after-hours calls go to your competitor",
-    ctaLine2: "Relay catches them. $299/mo. getmefound.ai/pricing#relay",
+    ctaLine2: "Relay catches them. $299/mo. getmefound.ai/pricing#always-ready",
   },
 };
 

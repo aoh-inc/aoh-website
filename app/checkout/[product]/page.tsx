@@ -47,7 +47,7 @@ export default async function CheckoutPage({
   const buttonLabel =
     p.stripeMode === "payment"
       ? `Pay ${p.price} — Get Started`
-      : `Subscribe — ${p.price}${p.cadence}`;
+      : `Subscribe — ${p.price}${p.cadence}${p.setupPriceId ? ` + ${p.setup}` : ""}`;
 
   return (
     <>

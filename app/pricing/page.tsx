@@ -13,12 +13,14 @@ import { pageBreadcrumbs } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Done-for-you Google visibility for local businesses. Get Found, Stay Found, Get Chosen, and Always Ready.",
+    "Done-for-you Google visibility for local businesses. Get Found, Stay Found, and Always Ready.",
   alternates: { canonical: "/pricing" },
 };
 
 const breadcrumb = pageBreadcrumbs("Pricing", "/pricing");
 const BOOKING_HREF = "/contact";
+const GOOGLE_AI_CALLING_URL =
+  "https://blog.google/products-and-platforms/products/search/deep-search-business-calling-google-search/";
 
 const products: ProductDetailData[] = [
   {
@@ -58,7 +60,7 @@ const products: ProductDetailData[] = [
     setup: "No contract",
     promoNote: "Best first step for a business that wants proof before a monthly plan.",
     ctaLabel: "Start Get Found",
-    ctaHref: "/contact",
+    ctaHref: "/checkout/get-found-refresh",
     secondaryCtaHref: BOOKING_HREF,
     iconPaths: ICON_PATHS.search,
     mock: <MockAIVisibilityPanel />,
@@ -67,171 +69,80 @@ const products: ProductDetailData[] = [
     slug: "stay-found",
     number: "02",
     name: "Stay Found",
-    outcome: "Keep your local visibility from going stale again.",
+    outcome: "Keep your listing, reviews, hosted site, and AI visibility moving every month.",
     story:
-      "Stay Found keeps the profile, review path, website, and local visibility signals moving without making the owner learn another platform. It includes free website hosting for GMF-managed sites so updates stay easier to maintain.",
+      "Stay Found is the preferred monthly plan. Everything in Get Found is included free, then GMF keeps the review request system, Google profile, website hosting, and visibility signals current without making the owner learn another platform.",
     stats: [
-      { label: "Channel", value: "Email" },
-      { label: "GBP post", value: "Weekly" },
+      { label: "Setup", value: "$199" },
+      { label: "Channel", value: "SMS + email" },
       { label: "Hosting", value: "Included" },
     ],
     whatYouGet: [
-      "Weekly client list upload path for email review requests",
-      "Automated email review requests after approval",
-      "One weekly Google Business Profile post",
-      "Free website hosting for your GMF-managed site",
-      "Review monitoring across platforms where available",
-      "Monthly one-page visibility report",
-      "No SMS or A2P setup at this tier",
-    ],
-    useThisIf: [
-      "You do not want your Google profile to decay after the first cleanup.",
-      "You want a simple monthly visibility report without logging into a platform.",
-      "You want GMF to host the site so public updates do not depend on another vendor.",
-      "You need an affordable maintenance plan before adding SMS review requests.",
-    ],
-    setupSteps: [
-      { title: "Baseline", sub: "We start from Get Found or a fresh audit." },
-      { title: "Weekly upkeep", sub: "Profile content, website updates, and email review requests keep moving." },
-      { title: "Owner recap", sub: "You get the short monthly update and any recommended fix." },
-    ],
-    cadence: "Weekly light upkeep with included website hosting and a monthly owner recap. Urgent profile issues escalate to Manager.",
-    crossSell: { label: "Get Chosen - add SMS and AI reply drafts", href: "#get-chosen" },
-    price: "$99",
-    cadenceLabel: "/mo",
-    setup: "No contract",
-    promoNote: "Includes free website hosting when GMF maintains the site.",
-    ctaLabel: "Stay Found monthly",
-    ctaHref: "/contact",
-    secondaryCtaHref: BOOKING_HREF,
-    iconPaths: ICON_PATHS.dashboard,
-    mock: <MockAIVisibilityPanel />,
-    variant: "dark",
-  },
-  {
-    slug: "get-chosen",
-    number: "03",
-    name: "Get Chosen",
-    outcome: "Add SMS, email, and AI-drafted review replies without a heavy CRM.",
-    story:
-      "Get Chosen is the performance tier. We handle the review request system, SMS readiness, email, approval-first AI replies, negative-review alerts, and monthly review proof.",
-    stats: [
-      { label: "Channel", value: "SMS + email" },
-      { label: "Replies", value: "Drafted" },
-      { label: "Contract", value: "None" },
-    ],
-    whatYouGet: [
-      "Everything in Stay Found",
+      "Everything in Get Found - free",
+      "Weekly client list upload path for review requests",
       "SMS and email review request campaigns after A2P readiness",
       "A2P setup handled by GMF when SMS is approved",
       "AI response drafts in the client's brand voice",
       "Negative review alert and suggested response target within 4 business hours",
-      "Monthly sentiment and AI citation check",
+      "One weekly Google Business Profile post",
+      "Free website hosting for your GMF-managed site",
+      "Review monitoring across platforms where available",
+      "Monthly sentiment, citation, and visibility report",
     ],
     useThisIf: [
+      "You do not want your Google profile to decay after the first cleanup.",
       "You have happy customers but do not ask consistently.",
-      "You want stronger review conversion than email alone.",
-      "You want reply help without risky auto-posting.",
+      "You want stronger review conversion from SMS plus email.",
+      "You want AI reply drafts without risky auto-posting.",
+      "You want GMF to host the site so public updates do not depend on another vendor.",
     ],
     setupSteps: [
-      { title: "Map the trigger", sub: "We define what counts as review-ready." },
+      { title: "Baseline", sub: "We start from Get Found or a fresh audit." },
       { title: "Clear compliance", sub: "SMS waits for opt-in, STOP handling, and A2P readiness." },
-      { title: "Send and reply", sub: "Requests go out and AI replies are drafted for approval." },
+      { title: "Keep moving", sub: "Requests, profile content, hosted-site updates, and owner recaps stay active." },
     ],
-    cadence: "Requests send after the review-ready event, with monthly proof and sentiment reporting.",
-    crossSell: { label: "Always Ready - add voice readiness", href: "#always-ready" },
-    price: "$149",
+    cadence: "Weekly upkeep with included website hosting, review request campaigns, and a monthly owner recap. Urgent profile issues escalate to Manager.",
+    crossSell: { label: "Always Ready - add AI voice readiness", href: "#always-ready" },
+    price: "$99",
     cadenceLabel: "/mo",
-    setup: "No contract",
-    promoNote: "SMS starts only after compliance checks are ready.",
-    ctaLabel: "Start Get Chosen",
-    ctaHref: "/contact",
+    setup: "$199 setup",
+    promoNote: "Website hosting included for GMF-managed sites.",
+    ctaLabel: "Start Stay Found",
+    ctaHref: "/checkout/stay-found",
     secondaryCtaHref: BOOKING_HREF,
-    iconPaths: ICON_PATHS.star,
+    iconPaths: ICON_PATHS.dashboard,
     mock: <MockReviewPanel />,
-  },
-  {
-    slug: "always-ready",
-    number: "04",
-    name: "Always Ready",
-    outcome: "Prepare the business for AI search, AI calls, and deeper local visibility.",
-    story:
-      "Always Ready is the full-service tier for owners who want GMF to manage reputation, visibility, content, and voice readiness together. Voice automation stays approval-gated until the workflow is safe.",
-    stats: [
-      { label: "Includes", value: "Get Chosen" },
-      { label: "Voice", value: "Ready" },
-      { label: "Call", value: "Monthly" },
-    ],
-    whatYouGet: [
-      "Everything in Get Chosen",
-      "AI voice agent trained on services, pricing, hours, and FAQs",
-      "Voice/phone readiness for AI and customer inquiries",
-      "Full GBP content management and local content planning",
-      "FAQ schema and location-page recommendations",
-      "Monthly 30-minute strategy call and AEO check",
-    ],
-    useThisIf: [
-      "You want the full visibility and reputation lane handled.",
-      "Your business gets calls or questions that need consistent answers.",
-      "You want AI-readiness without building the system yourself.",
-    ],
-    setupSteps: [
-      { title: "Train", sub: "We capture services, prices, FAQs, hours, voice, and escalation rules." },
-      { title: "Build", sub: "Content, schema, GBP, and voice readiness are staged." },
-      { title: "Review", sub: "Monthly strategy call reviews what changed and what is next." },
-    ],
-    cadence: "Monthly full-service management. No voice automation goes live without explicit approval.",
-    price: "$299",
-    cadenceLabel: "/mo",
-    setup: "No contract",
-    promoNote: "Best fit after the owner wants more than review requests.",
-    ctaLabel: "Start Always Ready",
-    ctaHref: "/contact",
-    secondaryCtaHref: BOOKING_HREF,
-    iconPaths: ICON_PATHS.phone,
-    mock: <MockRelayPanel />,
     variant: "dark",
   },
 ];
 
-const chips = products.map((product) => ({
-  href: `#${product.slug}`,
-  label: product.name,
-}));
+const chips = [
+  ...products.map((product) => ({
+    href: `#${product.slug}`,
+    label: product.name,
+  })),
+  { href: "#always-ready", label: "Always Ready" },
+];
 
-type JobKey = "get-found" | "stay-found" | "get-chosen" | "always-ready";
+type JobKey = "get-found" | "stay-found";
 
 const jobBySlug: Record<string, JobKey> = {
   "get-found-refresh": "get-found",
   "stay-found": "stay-found",
-  "get-chosen": "get-chosen",
-  "always-ready": "always-ready",
 };
 
 const jobGroupCopy: Record<JobKey, { index: string; label: string; intro: string }> = {
   "get-found": {
-    index: "Step 1 of 4",
+    index: "Step 1 of 3",
     label: "Get found.",
     intro:
       "Google Search is changing. We clean up the public footprint first so customers and search systems see the right business.",
   },
   "stay-found": {
-    index: "Step 2 of 4",
+    index: "Step 2 of 3",
     label: "Stay found.",
     intro:
-      "Monthly upkeep keeps the profile, review path, and local trust signals from going stale.",
-  },
-  "get-chosen": {
-    index: "Step 3 of 4",
-    label: "Get chosen.",
-    intro:
-      "Email, compliant SMS, and approval-first AI replies help turn happy customers into the business customers choose.",
-  },
-  "always-ready": {
-    index: "Step 4 of 4",
-    label: "Always ready.",
-    intro:
-      "Voice readiness, GBP content, schema, and AEO checks keep the business ready for calls, searches, and AI recommendations.",
+      "Monthly upkeep keeps the profile, review path, website hosting, and local trust signals from going stale.",
   },
 };
 
@@ -300,11 +211,10 @@ export default function PricingPage() {
             </Reveal>
 
             <Reveal delay={0.07}>
-              <div className="mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
                   { value: "$149", label: "Get Found setup", border: "border-t-green-500", text: "text-green-500" },
-                  { value: "$99/mo", label: "Stay Found", border: "border-t-amber-500", text: "text-amber-500" },
-                  { value: "$149/mo", label: "Get Chosen", border: "border-t-gray-900", text: "text-gray-900" },
+                  { value: "$99/mo", label: "Stay Found + hosting", border: "border-t-amber-500", text: "text-amber-500" },
                   { value: "$299/mo", label: "Always Ready", border: "border-t-sky-500", text: "text-sky-600" },
                 ].map((stat) => (
                   <div
@@ -341,7 +251,7 @@ export default function PricingPage() {
                 </div>
 
                 <p className="text-base md:text-lg text-white/80 leading-relaxed mb-7 max-w-2xl">
-                  We clean up the obvious visibility issues first. If Stay Found or Get Chosen makes sense after that, you will know why.
+                  We clean up the obvious visibility issues first. If Stay Found or Always Ready makes sense after that, you will know why.
                 </p>
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                   <Link
@@ -387,7 +297,7 @@ export default function PricingPage() {
           const nextProduct = products[index + 1];
           const next = nextProduct
             ? { label: nextProduct.name, href: `#${nextProduct.slug}` }
-            : undefined;
+            : { label: "Always Ready", href: "#always-ready" };
           const sectionData: ProductDetailData = {
             ...product,
             variant: product.variant ?? (index % 2 === 1 ? "dark" : "light"),
@@ -423,9 +333,135 @@ export default function PricingPage() {
           );
         })}
 
+        <section
+          id="job-always-ready"
+          className="bg-[var(--color-hero-bg)] text-white scroll-mt-32"
+        >
+          <div className="mx-auto max-w-6xl px-6 py-12 md:py-16 text-center">
+            <p className="mb-3 font-mono text-xs uppercase tracking-[0.25em] text-[var(--color-accent)]">
+              Step 3 of 3
+            </p>
+            <h2 className="text-3xl md:text-5xl font-bold leading-tight mb-4">
+              Always ready.
+            </h2>
+            <p className="text-base md:text-lg text-white/75 leading-relaxed max-w-2xl mx-auto">
+              Voice readiness, GBP content, schema, and AEO checks keep the business ready for calls, searches, and AI recommendations.
+            </p>
+          </div>
+        </section>
+
+        <section
+          id="always-ready"
+          className="relative scroll-mt-32 overflow-hidden bg-[#0f2430] py-14 text-white md:py-20"
+        >
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_10%,rgba(56,189,248,0.2),transparent_32%),radial-gradient(circle_at_85%_20%,rgba(245,158,11,0.2),transparent_28%)]" />
+          <div className="relative z-10 mx-auto grid max-w-6xl gap-8 px-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+            <Reveal delay={0.05}>
+              <div className="max-w-2xl">
+                <p className="mb-3 font-mono text-xs uppercase tracking-[0.25em] text-sky-300">
+                  03 - Always Ready
+                </p>
+                <h2 className="text-3xl font-bold leading-tight md:text-5xl">
+                  Are you ready?
+                </h2>
+                <p className="mt-5 text-base leading-relaxed text-white/75 md:text-lg">
+                  Google is moving from search results to agentic actions. Always Ready prepares the business facts, content, phone readiness, and escalation rules AI systems need before they recommend or call on behalf of a customer.
+                </p>
+
+                <blockquote className="mt-6 rounded-3xl border border-sky-300/25 bg-sky-300/10 p-5 text-sm leading-7 text-white/85">
+                  <a
+                    href={GOOGLE_AI_CALLING_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold text-sky-200 underline decoration-sky-200/45 underline-offset-4 transition hover:text-white"
+                  >
+                    Google says Search can &quot;call businesses to get pricing and availability information on your behalf.&quot;
+                  </a>
+                </blockquote>
+
+                <ul className="mt-7 grid gap-3 text-sm text-white/78 sm:grid-cols-2">
+                  {[
+                    "Everything in Stay Found",
+                    "AI voice agent trained on services, pricing, hours, and FAQs",
+                    "Voice and phone readiness for AI and customer inquiries",
+                    "Full GBP content management and local content planning",
+                    "FAQ schema and location-page recommendations",
+                    "Monthly 30-minute strategy call and AEO check",
+                  ].map((item) => (
+                    <li key={item} className="flex gap-2 leading-relaxed">
+                      <span aria-hidden="true" className="mt-1 text-sky-300">+</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <p className="mt-6 text-xs leading-6 text-white/55">
+                  AI voice automation stays approval-gated. Nothing goes live without explicit authorization.
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.12}>
+              <div className="space-y-5 lg:sticky lg:top-32">
+                <div className="rounded-[2rem] bg-amber-300 p-6 text-slate-950 shadow-2xl shadow-black/35 ring-1 ring-amber-100/70 lg:-rotate-1">
+                  <div className="mb-5 flex items-start justify-between gap-4">
+                    <div>
+                      <p className="font-mono text-xs font-bold uppercase tracking-[0.2em] text-slate-700">
+                        AI readiness plan
+                      </p>
+                      <h3 className="mt-2 text-2xl font-black">Always Ready</h3>
+                    </div>
+                    <span className="rounded-full bg-slate-950 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-amber-200">
+                      Advanced
+                    </span>
+                  </div>
+
+                  <div className="mb-5 flex items-end gap-1">
+                    <span className="text-5xl font-black">$299</span>
+                    <span className="pb-1 text-base font-semibold text-slate-700">/mo</span>
+                    <span className="ml-auto pb-1 text-sm font-semibold text-slate-700">No contract</span>
+                  </div>
+
+                  <p className="mb-5 text-sm leading-6 text-slate-700">
+                    For owners who want GMF to manage reputation, visibility, content, and AI call readiness together.
+                  </p>
+
+                  <div className="grid gap-2 text-sm">
+                    {["Everything in Stay Found", "Voice readiness buildout", "Monthly strategy call"].map((item) => (
+                      <div key={item} className="flex items-center gap-2 rounded-2xl bg-white/55 px-3 py-2 font-semibold">
+                        <span aria-hidden="true">✓</span>
+                        <span>{item}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-6 grid gap-2">
+                    <Link
+                      href="/checkout/always-ready"
+                      className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
+                    >
+                      Start Always Ready
+                    </Link>
+                    <Link
+                      href={BOOKING_HREF}
+                      className="inline-flex items-center justify-center rounded-2xl border border-slate-950/20 px-5 py-3 text-sm font-bold text-slate-800 transition hover:bg-white/50"
+                    >
+                      Book a Call
+                    </Link>
+                  </div>
+                </div>
+
+                <div className="rounded-3xl bg-white/[0.05] p-5 ring-1 ring-white/10">
+                  <MockRelayPanel />
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+
         <CtaBlock
           headline="Not sure where to start?"
-          subline="Start with Get Found. It gives the business a clear visibility baseline before you add monthly upkeep, review requests, AI reply drafts, or voice readiness."
+          subline="Start with Get Found. It gives the business a clear visibility baseline before you add monthly upkeep, review requests, AI reply drafts, website hosting, or voice readiness."
         />
       </PageBody>
       <BackToTopButton />
