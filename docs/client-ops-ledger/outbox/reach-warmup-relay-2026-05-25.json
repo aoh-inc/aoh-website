@@ -1,0 +1,99 @@
+{
+  "date": "2026-05-25",
+  "lane": "relay",
+  "label": "Relay",
+  "execute": "import",
+  "warmupDay": 6,
+  "quota": {
+    "name": "days_4_6",
+    "from_day": 4,
+    "to_day": 6,
+    "min": 40,
+    "target": 50,
+    "max": 50
+  },
+  "status": "blocked",
+  "selectedCount": 11,
+  "selectedCsv": "tmp-reach-warmup-relay-2026-05-25-selected-qa.csv",
+  "blockers": [
+    "Only 11 OK rows found; minimum is 40.",
+    "Selected rows below minimum 40."
+  ],
+  "attempts": [
+    {
+      "attempt": "cache",
+      "industry": "paid scrape inventory",
+      "area": "26 saved QA files",
+      "state": "",
+      "scrapeLimit": 0,
+      "qaRows": 108,
+      "okRows": 19,
+      "added": 9,
+      "poolSize": 9,
+      "qaCsv": "cached relay QA inventory",
+      "error": "reused_paid_scrape_inventory"
+    },
+    {
+      "attempt": 22,
+      "industry": "roofing contractor",
+      "area": "Connecticut",
+      "state": "Connecticut",
+      "scrapeLimit": 20,
+      "qaRows": 13,
+      "okRows": 1,
+      "added": 1,
+      "poolSize": 10,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-25-a22-qa.csv"
+    },
+    {
+      "attempt": 23,
+      "industry": "veterinary",
+      "area": "Westchester County NY",
+      "state": "New York",
+      "scrapeLimit": 20,
+      "qaRows": 8,
+      "okRows": 1,
+      "added": 1,
+      "poolSize": 11,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-25-a23-qa.csv"
+    },
+    {
+      "attempt": 24,
+      "industry": "HVAC contractor",
+      "area": "Massachusetts",
+      "state": "Massachusetts",
+      "scrapeLimit": 20,
+      "qaRows": 8,
+      "okRows": 3,
+      "added": 0,
+      "poolSize": 11,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-25-a24-qa.csv"
+    },
+    {
+      "attempt": 25,
+      "industry": "veterinary",
+      "area": "Connecticut",
+      "state": "Connecticut",
+      "scrapeLimit": 20,
+      "qaRows": 8,
+      "okRows": 0,
+      "added": 0,
+      "poolSize": 11,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-25-a25-qa.csv"
+    },
+    {
+      "attempt": 26,
+      "industry": "emergency veterinary",
+      "area": "Connecticut",
+      "state": "Connecticut",
+      "scrapeLimit": 20,
+      "qaRows": 13,
+      "okRows": 0,
+      "added": 0,
+      "poolSize": 11,
+      "qaCsv": "tmp-reach-warmup-relay-2026-05-25-a26-qa.csv"
+    }
+  ],
+  "verification": null,
+  "actionResults": []
+}

@@ -1,0 +1,2 @@
+name,email,phone,website,address,city,state,niche,rating,reviewCount,lastReviewDate,reviewsLink,competitorName,competitorReviewCount,lane,sourceQuery,removal_reason
+Connecticut Veterinary Center,r.perez@ctvetcenter.com,+1 860-233-8564,http://ctvetcenter.com/,"470 Oakwood Ave, West Hartford, CT 06110",West Hartford,Connecticut,Emergency veterinarian service,3.7,478,,https://search.google.com/local/reviews?placeid=ChIJR7bFd9es54kRDYzVFmLF-YY&q=*&authuser=0&hl=en&gl=US,,,relay,"emergency veterinary, Connecticut, USA",already_imported
