@@ -189,7 +189,7 @@ function ComparisonSlider() {
 
   return (
     <div className="relative min-w-0">
-      <div className="relative aspect-[4/5] w-full max-w-[calc(100vw-3rem)] overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] shadow-2xl shadow-[var(--color-bg-dark-card)]/15 sm:aspect-[16/11] sm:max-w-none">
+      <div className="relative aspect-[4/5] w-full max-w-[21.5rem] overflow-hidden rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] shadow-2xl shadow-[var(--color-bg-dark-card)]/15 sm:aspect-[16/11] sm:max-w-none">
         <div className="flex items-center justify-between border-b border-[var(--color-border)] bg-[var(--color-bg-dark-card)] px-4 py-3 text-[var(--color-hero-subtext)]">
           <div className="flex items-center gap-2" aria-hidden="true">
             <span className="h-2.5 w-2.5 rounded-full bg-[var(--color-error)]/80" />

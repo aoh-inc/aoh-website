@@ -117,11 +117,16 @@ export default function Home() {
           aria-label="Hero"
           className="overflow-hidden bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]"
         >
-          <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
-            <div className="grid min-w-0 grid-cols-1 gap-10 md:grid-cols-2 md:gap-16 md:items-center">
+          <div className="mx-auto max-w-6xl px-6 py-8 sm:py-10 md:py-12 lg:py-14">
+            <div className="grid min-w-0 grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] md:items-center md:gap-10 lg:gap-12">
               <div className="flex min-w-0 flex-col">
-                <h1 className="font-semibold leading-[1.05] tracking-tight text-[clamp(2rem,8vw,3.5rem)] md:text-[clamp(2.5rem,5vw,4rem)]">
-                  <span className="block">
+                <h1 className="max-w-[21.5rem] font-semibold leading-[1.05] tracking-tight text-[clamp(1.85rem,6vw,2.55rem)] sm:max-w-none sm:text-[clamp(2.05rem,5vw,3rem)] md:text-[clamp(2.25rem,3.8vw,3.2rem)]">
+                  <span className="block md:hidden">
+                    Your competitor is being
+                  </span>
+                  <span className="block md:hidden">recommended by</span>
+                  <span className="block md:hidden">Google&apos;s AI.</span>
+                  <span className="hidden md:block">
                     Your competitor is being recommended by Google&apos;s AI.
                   </span>
                   <span className="mt-2 block text-[var(--color-accent)]">
@@ -129,51 +134,66 @@ export default function Home() {
                   </span>
                 </h1>
 
-                <p className="mt-6 max-w-xl text-lg text-[var(--color-hero-subtext)] md:text-xl leading-relaxed">
+                <p className="mt-5 w-full max-w-[21.5rem] text-base leading-relaxed text-[var(--color-hero-subtext)] sm:max-w-xl md:text-lg">
                   Google just changed how customers find local businesses — and most haven&apos;t caught up. We fix your listing, reviews, and AI visibility in 48 hours, then keep it working every month.
                 </p>
 
-                <ul className="mt-8 flex flex-wrap gap-3">
-                  {[
-                    "More calls from Google",
-                    "We handle everything",
-                    "No contract — cancel anytime",
-                  ].map((pill) => (
-                    <li
-                      key={pill}
-                      className="inline-flex items-center gap-2 rounded-full border border-[var(--color-hero-border)] bg-white/5 px-4 py-1.5 text-sm text-[var(--color-hero-subtext)]"
-                    >
-                      <span className="text-[var(--color-accent)]" aria-hidden="true">✓</span>
-                      {pill}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-10 flex flex-wrap gap-4">
+                <div className="mt-7 flex flex-wrap gap-3">
                   <Link
                     href="/pricing"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-7 py-4 text-base font-semibold text-[var(--color-accent-text)] transition hover:bg-[var(--color-accent-hover)] hover:-translate-y-0.5 hover:shadow-lg hover:shadow-[var(--color-accent)]/30"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-6 py-3.5 text-base font-semibold text-[var(--color-accent-text)] transition hover:-translate-y-0.5 hover:bg-[var(--color-accent-hover)] hover:shadow-lg hover:shadow-[var(--color-accent)]/30"
                   >
                     See our plans
                     <span aria-hidden="true">→</span>
                   </Link>
                   <Link
                     href="/contact"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/[0.06] px-7 py-4 text-base font-semibold text-[var(--color-hero-text)] ring-1 ring-white/[0.10] transition hover:bg-white/[0.10] hover:ring-white/20"
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/[0.06] px-6 py-3.5 text-base font-semibold text-[var(--color-hero-text)] ring-1 ring-white/[0.10] transition hover:bg-white/[0.10] hover:ring-white/20"
                   >
                     Talk to us
                   </Link>
                 </div>
 
-                <p className="mt-4 font-mono text-xs text-[var(--color-hero-subtext)]/60">
+                <p className="mt-3 font-mono text-xs text-[var(--color-hero-subtext)]/60">
                   Plans from $59/mo · no contract · cancel anytime
                 </p>
               </div>
 
-              <div className="h-full min-w-0">
+              <div className="hidden h-full min-w-0 md:block">
                 <HeroVisualAI />
               </div>
             </div>
+          </div>
+        </section>
+
+        <section
+          aria-label="GetMeFound proof points"
+          className="border-y border-[var(--color-hero-border)] bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]"
+        >
+          <div className="mx-auto max-w-6xl px-6 py-3.5">
+            <ul className="grid gap-2 text-sm text-[var(--color-hero-subtext)] sm:grid-cols-3 sm:gap-4">
+              {[
+                "More calls from Google",
+                "We handle everything",
+                "No contract - cancel anytime",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-2 sm:justify-center">
+                  <svg
+                    aria-hidden="true"
+                    viewBox="0 0 24 24"
+                    className="h-4 w-4 shrink-0 text-[var(--color-accent)]"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2.5"
+                  >
+                    <path d="M20 6 9 17l-5-5" />
+                  </svg>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
