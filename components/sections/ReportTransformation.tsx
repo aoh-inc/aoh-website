@@ -244,9 +244,12 @@ const browserChrome = (
     <p className="min-w-0 flex-1 truncate px-3 text-center font-mono text-[10px] uppercase tracking-[0.18em]">
       getmefound.ai/sample
     </p>
-    <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent">
-      AI ops stack
-    </p>
+    <a
+      href="#free-audit"
+      className="font-mono text-[10px] uppercase tracking-[0.18em] text-accent transition-opacity hover:opacity-80"
+    >
+      Get yours free →
+    </a>
   </div>
 );
 
@@ -380,7 +383,7 @@ export function ReportTransformation() {
           <ComparisonSlider />
         </div>
 
-        <div className="min-w-0 md:pl-2">
+        <div id="free-audit" className="min-w-0 md:pl-2">
           <AuditRequestForm />
         </div>
       </div>
