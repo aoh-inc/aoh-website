@@ -292,25 +292,17 @@ export function VisibilityCheck() {
             style={{ background: "#16202f", border: "1px solid #2a3647", borderRadius: "22px" }}
           >
             {/* Card top row */}
-            <div className="mb-5 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <span
-                  className="h-2 w-2 rounded-full"
-                  style={{ background: "#3fae7e", boxShadow: "0 0 6px #3fae7e80" }}
-                />
-                <span
-                  className="font-mono text-[10px] font-bold uppercase tracking-[0.2em]"
-                  style={{ color: "#3fae7e" }}
-                >
-                  Your visibility check
-                </span>
-              </div>
+            <div className="mb-4 flex items-center justify-between">
+              <span
+                className="h-2 w-2 rounded-full shrink-0"
+                style={{ background: "#3fae7e", boxShadow: "0 0 6px #3fae7e80" }}
+              />
               <span className="font-mono text-[11px]" style={{ color: "#6b7f9a" }}>
                 {String(current + 1).padStart(2, "0")} / {String(SLIDES.length).padStart(2, "0")}
               </span>
             </div>
 
-            <p className="truncate text-xs mb-1.5" style={{ color: "#6b7f9a" }}>
+            <p className="mb-1.5 text-xl font-bold leading-snug" style={{ color: "#f0f6ff" }}>
               Miss any of these and AI skips you.
             </p>
 
