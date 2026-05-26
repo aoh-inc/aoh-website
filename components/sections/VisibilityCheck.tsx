@@ -246,26 +246,26 @@ export function VisibilityCheck() {
   return (
     <section
       aria-labelledby="vc-title"
-      className="border-y border-[var(--color-border)] bg-[var(--color-bg-page)] py-14 md:py-20"
+      className="border-y border-white/10 bg-(--color-hero-bg) py-14 md:py-20"
     >
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-[2fr_3fr] md:items-center md:gap-14">
 
           {/* ── Left column ── */}
           <div>
-            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-[var(--color-text-muted)]">
+            <p className="font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-hero-subtext">
               The new rules of getting found
             </p>
             <h2
               id="vc-title"
-              className="mt-3 text-3xl font-bold leading-tight text-[var(--color-text-body)] md:text-4xl"
+              className="mt-3 text-3xl font-bold leading-tight text-hero-text md:text-4xl"
             >
               What Google &amp; AI check
             </h2>
-            <p className="mt-4 max-w-sm text-base leading-relaxed text-[var(--color-text-muted)]">
+            <p className="mt-4 max-w-sm text-base leading-relaxed text-hero-subtext">
               Google's AI decides who to recommend before anyone clicks. Most local businesses fail the basics — and never know it.
             </p>
-            <p className="mt-2 max-w-sm text-sm leading-relaxed text-[var(--color-text-muted)]">
+            <p className="mt-2 max-w-sm text-sm leading-relaxed text-hero-subtext">
               The businesses AI picks aren't the biggest. They're the most complete.
             </p>
             <Link
@@ -275,13 +275,13 @@ export function VisibilityCheck() {
               See if AI recommends you
               <span aria-hidden="true">→</span>
             </Link>
-            <p className="mt-3 text-xs text-[var(--color-text-muted)]">
+            <p className="mt-3 text-xs text-hero-subtext">
               Based on{" "}
               <a
                 href="https://support.google.com/business/answer/7091"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="underline decoration-[var(--color-text-muted)]/40 underline-offset-2 transition hover:text-[var(--color-text-body)]"
+                className="underline decoration-white/30 underline-offset-2 transition hover:text-hero-text"
               >
                 Google's own guidance
               </a>{" "}
