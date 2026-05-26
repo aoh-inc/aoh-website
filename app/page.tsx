@@ -361,15 +361,12 @@ export default function Home() {
                       className="absolute bg-white/10 py-1 text-center font-mono text-[8px] font-bold uppercase tracking-[0.14em] text-hero-subtext/80"
                       style={{ width: "90px", right: "-18px", top: "18px", transform: "rotate(45deg)" }}
                     >
-                      Advanced
+                      Most Complete
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <div>
-                      <p className="font-mono text-xs font-bold uppercase tracking-[0.18em] text-hero-subtext/60">
-                        AI readiness plan
-                      </p>
-                      <h4 className="mt-2 text-2xl font-black text-hero-text">{alwaysReadyCard.name}</h4>
+                      <h4 className="text-2xl font-black text-hero-text">{alwaysReadyCard.name}</h4>
                     </div>
                   </div>
                   <div className="mt-5 flex items-end gap-1">
