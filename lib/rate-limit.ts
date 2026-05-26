@@ -89,3 +89,9 @@ export async function checkReportDedupe(email: string, businessName: string): Pr
   const key = `dedupe:report:${emailNorm}:${businessNorm}`;
   return checkRate({ key, limit: 1, windowSec: 24 * 60 * 60 });
 }
+
+export async function checkIpRate(ip: string, limit: number, windowSec: number): Promise<RateResult> {
+  const sanitized = ip.replace(/[^a-zA-Z0-9.:_-]/g, "").slice(0, 64) || "unknown";
+  const key = `ratelimit:ip:${sanitized}`;
+  return checkRate({ key, limit, windowSec });
+}

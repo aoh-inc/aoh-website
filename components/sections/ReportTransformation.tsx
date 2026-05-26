@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { AuditRequestForm } from "@/components/sections/AuditRequestForm";
 
 type Finding = {
   title: string;
@@ -143,7 +143,7 @@ function ReportLayer({
 
   return (
     <div
-      className={`absolute inset-0 ${
+      className={`absolute inset-0 overflow-hidden ${
         isAfter
           ? "bg-[linear-gradient(135deg,#f8f6f1_0%,#eef7f2_100%)]"
           : "bg-[linear-gradient(135deg,#fff7f4_0%,#f8f6f1_100%)]"
@@ -251,8 +251,8 @@ function ComparisonSlider() {
         <div className="relative h-[calc(100%-45px)]">
           <ReportLayer
             mode="before"
-            score={24}
-            label="Leaking calls"
+            score={23}
+            label="INVISIBLE"
             findings={BEFORE_FINDINGS}
           />
 
@@ -265,7 +265,7 @@ function ComparisonSlider() {
             <ReportLayer
               mode="after"
               score={84}
-              label="Ready to win"
+              label="AI-READY"
               findings={AFTER_FINDINGS}
             />
           </motion.div>
@@ -322,7 +322,7 @@ function ComparisonSlider() {
 export function ReportTransformation() {
   return (
     <section
-      aria-labelledby="report-transformation-title"
+      aria-label="See how your local visibility changes before and after GetMeFound"
       className="overflow-hidden border-y border-[var(--color-border)] bg-[var(--color-bg-elevated)] py-14 md:py-20"
     >
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-10 px-6 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] md:items-center md:gap-14">
@@ -331,55 +331,7 @@ export function ReportTransformation() {
         </div>
 
         <div className="min-w-0 md:pl-2">
-          <p className="mb-3 font-mono text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
-            The better promise
-          </p>
-          <h2
-            id="report-transformation-title"
-            className="break-words text-[clamp(2rem,8vw,2.75rem)] font-bold leading-tight text-[var(--color-text-body)] md:text-5xl"
-          >
-            Skip the black-box score. Show the before and after.
-          </h2>
-          <p className="mt-5 text-base leading-relaxed text-[var(--color-text-muted)] md:text-lg">
-            A sample bad report makes the problem obvious. A sample good report
-            makes the outcome feel real. We use modern AI workflows to find the
-            gaps, then we clean up the public signals that Google, Maps, and AI
-            answers use to choose who gets recommended.
-          </p>
-
-          <div className="mt-7 grid gap-3">
-            {[
-              "Plain-English findings, not fake precision.",
-              "Done-for-you fixes across profile, website, reviews, and listings.",
-              "Ongoing AI-assisted monitoring so the cleanup does not drift.",
-            ].map((item) => (
-              <div
-                key={item}
-                className="flex items-start gap-3 rounded-xl border border-[var(--color-border)] bg-[var(--color-bg-page)] p-4"
-              >
-                <StatusIcon tone="good" />
-                <p className="text-sm font-medium leading-relaxed text-[var(--color-text-body)]">
-                  {item}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/pricing"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-6 py-3.5 text-base font-semibold text-[var(--color-accent-text)] transition hover:-translate-y-0.5 hover:bg-[var(--color-accent-hover)] hover:shadow-lg hover:shadow-[var(--color-accent)]/25"
-            >
-              See plans
-              <span aria-hidden="true">-&gt;</span>
-            </Link>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center rounded-xl border border-[var(--color-border)] bg-white px-6 py-3.5 text-base font-semibold text-[var(--color-text-body)] transition hover:-translate-y-0.5 hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] hover:shadow-lg"
-            >
-              Request an audit
-            </Link>
-          </div>
+          <AuditRequestForm />
         </div>
       </div>
 
