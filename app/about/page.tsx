@@ -42,12 +42,14 @@ const companyRows = [
 const teamMembers = [
   {
     initials: "KL",
+    photo: "/team/kip.jpg",
     name: "Kip Leathers",
     title: "Business Development",
     bio: "Thirty years of closing. Kip has spent his career in commission-only sales — the kind where you either find the right people and open the right conversations, or you don't eat. He brings that same discipline to finding local businesses that are losing ground to competitors who just showed up first.",
   },
   {
     initials: "TE",
+    photo: "/team/teri.jpg",
     name: "Teri Blackburn",
     title: "Client Success",
     bio: "When something comes up, a real person answers. Teri comes from staffing — an industry where keeping clients and candidates both happy, at the same time, is the whole job. She manages onboarding and makes sure nothing falls through the cracks after you sign up.",
@@ -256,13 +258,20 @@ export default function AboutPage() {
               </h2>
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                {teamMembers.map(({ initials, name, title, bio }) => (
+                {teamMembers.map(({ initials, photo, name, title, bio }) => (
                   <div
                     key={name}
                     className="rounded-2xl border border-border bg-(--color-bg-elevated) p-6"
                   >
-                    <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-(--color-bg-dark-card) text-sm font-bold text-hero-text ring-1 ring-(--color-hero-border)">
-                      {initials}
+                    <div className="mb-4 h-14 w-14 overflow-hidden rounded-full ring-1 ring-border">
+                      {photo ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={photo} alt={name} className="h-full w-full object-cover object-top" />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-(--color-bg-dark-card) text-sm font-bold text-hero-text">
+                          {initials}
+                        </div>
+                      )}
                     </div>
                     <p className="font-bold text-text-body">{name}</p>
                     <p className="mb-3 text-[11px] font-bold uppercase tracking-wider text-accent">
