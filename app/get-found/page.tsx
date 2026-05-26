@@ -95,7 +95,7 @@ export default function GetFoundPage() {
             <p className="text-sm text-hero-subtext/70 leading-relaxed">
               <strong className="text-hero-text">What happens after?</strong>{" "}
               You can stay on Get Found alone, or move to{" "}
-              <Link href="/stay-found" className="text-accent underline underline-offset-2 hover:no-underline">
+              <Link href="/checkout/stay-found" className="text-accent underline underline-offset-2 hover:no-underline">
                 Stay Found ($99/mo)
               </Link>{" "}
               to keep your listing, reviews, and AI presence moving every month.

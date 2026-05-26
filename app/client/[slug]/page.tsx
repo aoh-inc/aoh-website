@@ -341,7 +341,7 @@ export default async function ClientHubPage({ params }: PageProps) {
               review replies, local visibility checks, Google profile upkeep, AI voice readiness, and competitor movement.
             </p>
             <Link
-              href="/pricing#stay-found"
+              href="/checkout/stay-found"
               className="mt-6 inline-flex rounded-lg bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-emerald-100"
             >
               Unlock Stay Found

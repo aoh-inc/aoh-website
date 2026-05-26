@@ -95,7 +95,7 @@ export default function AlwaysReadyPage() {
             <p className="text-sm text-hero-subtext/70 leading-relaxed">
               <strong className="text-hero-text">Not sure this is the right level?</strong>{" "}
               Start with{" "}
-              <Link href="/get-found" className="text-accent underline underline-offset-2 hover:no-underline">
+              <Link href="/checkout/get-found-refresh" className="text-accent underline underline-offset-2 hover:no-underline">
                 Get Found ($149 one-time)
               </Link>{" "}
               to fix the basics first, then upgrade when you&apos;re ready.

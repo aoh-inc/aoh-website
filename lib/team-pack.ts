@@ -246,10 +246,10 @@ Done-for-you growth Â· from $49/mo`,
       },
       {
         label: "Native bio links (Instagram supports 5 since 2023 â€” Edit profile â†’ Links â†’ Add external link)",
-        text: `1. Review Automation pricing  â†’  https://getmefound.ai/pricing#stay-found
-2. AI Visibility pricing      â†’  https://getmefound.ai/pricing#always-ready
+        text: `1. Review Automation pricing  â†’  https://getmefound.ai/checkout/stay-found
+2. AI Visibility pricing      â†’  https://getmefound.ai/checkout/always-ready
 3. Reach pricing              â†’  https://getmefound.ai/pricing#reach
-4. Relay pricing              â†’  https://getmefound.ai/pricing#always-ready
+4. Relay pricing              â†’  https://getmefound.ai/checkout/always-ready
 5. Lost-Revenue Calculator    â†’  https://getmefound.ai/#calculator`,
       },
     ],
@@ -376,7 +376,7 @@ If that's a conversation you want to have, message me.
       },
       {
         label: "Featured links (pin 3)",
-        text: "1. Free audit â€” https://getmefound.ai\n2. Reviews service â€” https://getmefound.ai/pricing#stay-found\n3. About GMF â€” https://getmefound.ai/about",
+        text: "1. Free audit â€” https://getmefound.ai\n2. Reviews service â€” https://getmefound.ai/checkout/stay-found\n3. About GMF â€” https://getmefound.ai/about",
       },
     ],
     fields: [

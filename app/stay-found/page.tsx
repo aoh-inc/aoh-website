@@ -96,7 +96,7 @@ export default function StayFoundPage() {
           <div className="mt-10 rounded-xl border border-white/10 bg-white/[0.04] p-6">
             <p className="text-sm text-hero-subtext/70 leading-relaxed">
               <strong className="text-hero-text">Need more?</strong>{" "}
-              <Link href="/always-ready" className="text-accent underline underline-offset-2 hover:no-underline">
+              <Link href="/checkout/always-ready" className="text-accent underline underline-offset-2 hover:no-underline">
                 Always Ready ($299/mo)
               </Link>{" "}
               adds an AI voice agent, full content management, and a monthly strategy call —

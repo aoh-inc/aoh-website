@@ -3,8 +3,6 @@ import Stripe from "stripe";
 import { getCheckoutProduct } from "@/lib/checkout";
 import { supabaseRest } from "@/lib/supabase-rest";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
-
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null);
   if (!body || typeof body !== "object") {
@@ -21,17 +19,23 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: "Product not found." }, { status: 404 });
   }
 
+  const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
+  if (!stripeSecretKey) {
+    return NextResponse.json({ ok: false, error: "Checkout is not configured." }, { status: 500 });
+  }
+
+  const stripe = new Stripe(stripeSecretKey);
   const origin = req.headers.get("origin") ?? "https://getmefound.ai";
   const lineItems = [
     { price: product.stripePriceId, quantity: 1 },
     ...(product.setupPriceId ? [{ price: product.setupPriceId, quantity: 1 }] : []),
   ];
 
-  const sessionParams: Parameters<typeof stripe.checkout.sessions.create>[0] = {
+  const sessionParams: Stripe.Checkout.SessionCreateParams = {
     mode: product.stripeMode,
     line_items: lineItems,
     success_url: `${origin}/checkout/success?product=${product.slug}&session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origin}/checkout/${product.slug}`,
+    cancel_url: `${origin}/pricing`,
     metadata: { product_slug: product.slug, product_name: product.name },
     billing_address_collection: "required",
     allow_promotion_codes: false,

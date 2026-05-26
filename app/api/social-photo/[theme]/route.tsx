@@ -22,7 +22,7 @@ const PHOTOS: Record<string, PhotoOverlay> = {
     topEyebrow: "AFTER-HOURS CALLS",
     hook: "9 of 10 calls go to your competitor.",
     ctaLabel: "Always Ready - $299/mo",
-    ctaUrl: "getmefound.ai/pricing#always-ready",
+    ctaUrl: "getmefound.ai/checkout/always-ready",
     accent: "green",
   },
   "star-sweet-spot": {
@@ -30,7 +30,7 @@ const PHOTOS: Record<string, PhotoOverlay> = {
     topEyebrow: "REVIEWS · STAR MATH",
     hook: "Customers don't trust 5.0.",
     ctaLabel: "Stay Found - $99/mo",
-    ctaUrl: "getmefound.ai/pricing#stay-found",
+    ctaUrl: "getmefound.ai/checkout/stay-found",
     accent: "amber",
   },
   "cost-of-dormant-profile": {
@@ -38,7 +38,7 @@ const PHOTOS: Record<string, PhotoOverlay> = {
     topEyebrow: "THE COST OF DOING NOTHING",
     hook: "$38,400/year walking out.",
     ctaLabel: "Stay Found - $99/mo",
-    ctaUrl: "getmefound.ai/pricing#stay-found",
+    ctaUrl: "getmefound.ai/checkout/stay-found",
     accent: "red",
   },
   "review-velocity-90-day": {
@@ -46,7 +46,7 @@ const PHOTOS: Record<string, PhotoOverlay> = {
     topEyebrow: "THE 90-DAY RULE",
     hook: "60 fresh reviews beat 200 old ones.",
     ctaLabel: "Stay Found - $99/mo",
-    ctaUrl: "getmefound.ai/pricing#stay-found",
+    ctaUrl: "getmefound.ai/checkout/stay-found",
     accent: "green",
   },
   "ai-recommendation-vs-rank": {
@@ -54,7 +54,7 @@ const PHOTOS: Record<string, PhotoOverlay> = {
     topEyebrow: "AI VISIBILITY",
     hook: "AI names 1 of 3. Google lists 10.",
     ctaLabel: "Always Ready - $299/mo",
-    ctaUrl: "getmefound.ai/pricing#always-ready",
+    ctaUrl: "getmefound.ai/checkout/always-ready",
     accent: "blue",
   },
   "diy-vs-dfy": {
@@ -62,7 +62,7 @@ const PHOTOS: Record<string, PhotoOverlay> = {
     topEyebrow: "DIY vs DONE-FOR-YOU",
     hook: "$30 software isn't cheaper if no one runs it.",
     ctaLabel: "Stay Found - $99/mo",
-    ctaUrl: "getmefound.ai/pricing#stay-found",
+    ctaUrl: "getmefound.ai/checkout/stay-found",
     accent: "amber",
   },
   "software-vs-work": {
@@ -78,7 +78,7 @@ const PHOTOS: Record<string, PhotoOverlay> = {
     topEyebrow: "REVIEWS COMPOUND",
     hook: "Ads stop. Reviews still pay you in 2036.",
     ctaLabel: "Stay Found - $99/mo",
-    ctaUrl: "getmefound.ai/pricing#stay-found",
+    ctaUrl: "getmefound.ai/checkout/stay-found",
     accent: "green",
   },
   "med-spa-math": {
@@ -86,7 +86,7 @@ const PHOTOS: Record<string, PhotoOverlay> = {
     topEyebrow: "MED SPA MATH",
     hook: "1 missed review = 4 lost bookings.",
     ctaLabel: "Stay Found - $99/mo",
-    ctaUrl: "getmefound.ai/pricing#stay-found",
+    ctaUrl: "getmefound.ai/checkout/stay-found",
     accent: "amber",
   },
   "groomer-trust": {
@@ -94,7 +94,7 @@ const PHOTOS: Record<string, PhotoOverlay> = {
     topEyebrow: "PET GROOMERS",
     hook: "Pet parents don't book under 20 reviews.",
     ctaLabel: "Stay Found - $99/mo",
-    ctaUrl: "getmefound.ai/pricing#stay-found",
+    ctaUrl: "getmefound.ai/checkout/stay-found",
     accent: "blue",
   },
 };
