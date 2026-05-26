@@ -20,7 +20,7 @@ import { faqPageSchema } from "@/lib/faq";
 export const metadata: Metadata = {
   title: "GetMeFound - Google Visibility for Local Businesses",
   description:
-    "Done-for-you Google visibility, reviews, website hosting, and AI search presence for local businesses. No contracts. Live in 48 hours.",
+    "Done-for-you Google visibility, reviews, and AI search presence for local businesses. No contracts. Live in 48 hours.",
   alternates: { canonical: "/" },
 };
 
@@ -58,13 +58,14 @@ const teaserCards: TeaserCard[] = [
   },
   {
     name: "Stay Found",
-    tagline: "Preferred monthly plan with hosting included.",
+    tagline: "Preferred monthly plan for staying visible.",
     price: "$99",
     cadence: "/month",
     bullets: [
       "Everything in Get Found - free",
       "$199 setup, then $99/mo",
       "Text and email review requests with AI reply drafts",
+      "Monthly visibility report showing your progress.",
     ],
     href: "/pricing#stay-found",
     cta: "Stay visible",
@@ -242,7 +243,7 @@ export default function Home() {
                 Pick the level that fits where you are.
               </h2>
               <p className="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
-                We run the Google profile, review path, website hosting, and AI visibility basics. You stay focused on your business.
+                We run the Google profile, review path, and AI visibility basics. You stay focused on your business.
               </p>
             </div>
 
@@ -300,14 +301,6 @@ export default function Home() {
                           ))}
                         </ul>
 
-                        {p.highlight && (
-                          <div className="my-3 rounded-lg border-l-2 border-accent/60 bg-accent/10 px-3 py-2.5">
-                            <p className="text-sm font-bold text-hero-text">Website hosting included</p>
-                            <p className="mt-0.5 text-xs text-hero-subtext">
-                              Replaces your current $15–$50/mo hosting bill — most clients pay less overall.
-                            </p>
-                          </div>
-                        )}
 
                         <div className="mt-auto">
                           <Link

@@ -50,7 +50,7 @@ const variants: Record<Variant, VariantConfig> = {
       { text: "Your turn.", speed: 110 },
     ],
     subheadline: "Email-first review requests and visibility upkeep, done for you.",
-    priceLine: "Stay Found starts at $99/mo · hosting included · cancel anytime",
+    priceLine: "Stay Found starts at $99/mo · cancel anytime",
     formHeadline: "See how your reviews stack up.",
     formDescription: "We audit your Google reviews, response rate, and star rating. Your free report lands in your inbox in about 10 minutes. No card needed.",
     buttonText: "Get My Free Review Audit",
@@ -87,7 +87,7 @@ const variants: Record<Variant, VariantConfig> = {
     ],
     subheadline:
       "We handle your reviews, rankings, and online presence — so more customers find you, and choose you.",
-    priceLine: "Plans from $99/mo · hosting included · cancel anytime",
+    priceLine: "Plans from $99/mo · cancel anytime",
     formHeadline: "Get your free Google visibility check.",
     formDescription: "We check your reviews, Google profile, website signals, and obvious local visibility gaps. Free, no card needed.",
     buttonText: "Get My Free Visibility Check",

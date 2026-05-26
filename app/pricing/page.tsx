@@ -13,7 +13,7 @@ import { pageBreadcrumbs } from "@/lib/seo";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Done-for-you Google visibility, reviews, website hosting, and AI search presence for local businesses. Get Found, Stay Found, and Always Ready.",
+    "Done-for-you Google visibility, reviews, and AI search presence for local businesses. Get Found, Stay Found, and Always Ready.",
   alternates: { canonical: "/pricing" },
 };
 
@@ -69,13 +69,13 @@ const products: ProductDetailData[] = [
     slug: "stay-found",
     number: "02",
     name: "Stay Found",
-    outcome: "Keep your listing, reviews, hosted site, and AI-ready business facts moving every month.",
+    outcome: "Keep your listing, reviews, and AI-ready business facts moving every month.",
     story:
-      "Stay Found is the preferred monthly plan. Everything in Get Found is included free, then GMF keeps the review request system, Google profile, website hosting, and business facts current so Google, ChatGPT, Claude, and customers see the same clear story.",
+      "Stay Found is the preferred monthly plan. Everything in Get Found is included free, then GMF keeps the review request system, Google profile, and business facts current so Google, ChatGPT, Claude, and customers see the same clear story.",
     stats: [
       { label: "Setup", value: "$199" },
       { label: "Reviews", value: "Text + email" },
-      { label: "Hosting", value: "Included" },
+      { label: "Report", value: "Monthly" },
     ],
     whatYouGet: [
       "Everything in Get Found - free",
@@ -85,7 +85,6 @@ const products: ProductDetailData[] = [
       "AI response drafts in the client's brand voice",
       "Negative review alert and suggested response target within 4 business hours",
       "One weekly Google Business Profile post",
-      "Website hosting included for your GMF-managed site",
       "Review monitoring across platforms where available",
       "Monthly sentiment, citation, and visibility report",
     ],
@@ -94,19 +93,18 @@ const products: ProductDetailData[] = [
       "You have happy customers but do not ask consistently.",
       "You want stronger review conversion from text plus email.",
       "You want AI reply drafts without risky auto-posting.",
-      "You want GMF to host the site so public updates do not depend on another vendor.",
     ],
     setupSteps: [
       { title: "Baseline", sub: "We start from Get Found or a fresh audit." },
       { title: "Texting setup", sub: "We handle phone-number approval, opt-out language, and the customer-list workflow before texts go live." },
-      { title: "Keep moving", sub: "Requests, profile content, hosted-site updates, and owner recaps stay active." },
+      { title: "Keep moving", sub: "Requests, profile content, and owner recaps stay active." },
     ],
-    cadence: "Weekly upkeep with included website hosting, review request campaigns, and a monthly owner recap. Urgent profile issues escalate to the GMF team.",
+    cadence: "Weekly upkeep with review request campaigns and a monthly owner recap. Urgent profile issues escalate to the GMF team.",
     crossSell: { label: "Always Ready - add AI voice readiness", href: "#always-ready" },
     price: "$99",
     cadenceLabel: "/mo",
     setup: "$199 setup",
-    promoNote: "Hosting included. Many owners can cancel a separate hosting bill after the GMF-hosted site is live.",
+    promoNote: "No contract. Cancel anytime.",
     ctaLabel: "Start Stay Found",
     ctaHref: "/checkout/stay-found",
     secondaryCtaHref: BOOKING_HREF,
@@ -116,8 +114,8 @@ const products: ProductDetailData[] = [
     quickMath: {
       label: "Built-in savings",
       formula:
-        "Possible savings: $15-$50/mo in separate website hosting plus $24-$39+/mo for a starter texting tool. Text-message setup is included in Stay Found, so there is no extra setup project just to request reviews.",
-      note: "Keep your current host until GMF confirms the GMF-hosted site is live and checked.",
+        "Possible savings: $24–$39+/mo for a standalone review-text tool. Text-message setup is included in Stay Found, so there is no extra setup project just to request reviews.",
+      note: "",
     },
   },
 ];
@@ -148,7 +146,7 @@ const jobGroupCopy: Record<JobKey, { index: string; label: string; intro: string
     index: "Step 2 of 3",
     label: "Stay found.",
     intro:
-      "Monthly upkeep keeps the profile, review path, website hosting, and local trust signals from going stale.",
+      "Monthly upkeep keeps the profile, review path, and local trust signals from going stale.",
   },
 };
 
@@ -220,7 +218,7 @@ export default function PricingPage() {
               <div className="mb-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
                   { value: "$149", label: "Get Found setup", border: "border-t-green-500", text: "text-green-500" },
-                  { value: "$99/mo", label: "Stay Found + hosting", border: "border-t-amber-500", text: "text-amber-500" },
+                  { value: "$99/mo", label: "Stay Found", border: "border-t-amber-500", text: "text-amber-500" },
                   { value: "$299/mo", label: "Always Ready", border: "border-t-sky-500", text: "text-sky-600" },
                 ].map((stat) => (
                   <div
@@ -467,7 +465,7 @@ export default function PricingPage() {
 
         <CtaBlock
           headline="Not sure where to start?"
-          subline="Start with Get Found. It gives the business a clear visibility baseline before you add monthly upkeep, review requests, AI reply drafts, included website hosting, or voice readiness."
+          subline="Start with Get Found. It gives the business a clear visibility baseline before you add monthly upkeep, review requests, AI reply drafts, or voice readiness."
         />
       </PageBody>
       <BackToTopButton />

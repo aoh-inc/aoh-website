@@ -10,14 +10,6 @@ const ITEMS = [
     a: "No — and this is the first thing we check. Your email and your website are two completely separate things, like your phone number and your mailing address. Before we touch anything, we check exactly where your email lives. If it's on Google Workspace, Microsoft 365, or similar — which most businesses are — moving or updating your website does nothing to your email. We've never broken a client's email and we verify this upfront before any work starts.",
   },
   {
-    q: "What happens to my website?",
-    a: "We update your existing website to match your Google listing — same phone number, same address, same business name, same hours. We don't redesign it or move it unless you ask us to. If you're on Stay Found, we host your website as part of the plan — which for most clients replaces a $15–$50/mo hosting bill they're already paying. If you cancel Stay Found, your site comes with you. No hostage situations.",
-  },
-  {
-    q: "What if I cancel Stay Found — do I lose my website?",
-    a: "No. Your website is yours. If you cancel, we give you everything you need to move your site to any host you choose. We don't hold your site hostage — that's not how we operate. The only thing that stops is the monthly work: the weekly Google posts, review campaigns, monitoring, and updates. Your site stays intact and you keep full ownership.",
-  },
-  {
     q: "Do I need to give you my passwords?",
     a: "We need access to two things: your Google Business listing and your website backend. For Google, you add us as a manager on your listing — you stay the owner, we just get permission to make updates. For your website, you give us a login. You can remove our access any time. We never store passwords or share access with anyone outside our team.",
   },
@@ -32,10 +24,6 @@ const ITEMS = [
   {
     q: "How long before I see results?",
     a: "The fixes from Get Found go live within 48 hours. Google typically takes 1–2 weeks to fully register the changes across its systems. Review velocity builds over 30–60 days as your first review campaign gets responses. Most clients see meaningful movement in their visibility within the first month. We show you the before/after report so you can see exactly what changed from day one.",
-  },
-  {
-    q: "What if I'm already on Wix or Squarespace?",
-    a: "That's fine. We work with whatever platform your site is on. For Get Found, we update your existing site regardless of platform. If you move to Stay Found and want us to host your site, we'll discuss the best migration path — some platforms export cleanly, others need a rebuild. We'll be straight with you about what's involved before any migration happens.",
   },
   {
     q: "Do you guarantee results?",
@@ -55,32 +43,32 @@ export function HomepageFAQ() {
         <div className="mb-10 text-center">
           <h2
             id="faq-home-title"
-            className="text-3xl font-bold text-(--color-text-body) md:text-4xl"
+            className="text-3xl font-bold text-text-body md:text-4xl"
           >
             Questions we actually get asked
           </h2>
-          <p className="mt-2 text-sm text-(--color-text-muted)">
+          <p className="mt-2 text-sm text-text-muted">
             No fine print. No runaround.
           </p>
         </div>
 
-        <div className="divide-y divide-(--color-border) border-y border-(--color-border)">
+        <div className="divide-y divide-border border-y border-border">
           {ITEMS.map((item, i) => (
             <details
               key={item.q}
               open={i === 0}
               className="group py-5"
             >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-(--color-text-body) focus:outline-none focus-visible:ring-2 focus-visible:ring-(--color-accent) focus-visible:ring-offset-2 focus-visible:ring-offset-(--color-bg-page)">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-text-body focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-(--color-bg-page)">
                 <span>{item.q}</span>
                 <span
                   aria-hidden="true"
-                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-(--color-border) text-(--color-text-muted) transition-transform group-open:rotate-45"
+                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-border text-text-muted transition-transform group-open:rotate-45"
                 >
                   +
                 </span>
               </summary>
-              <p className="mt-4 text-sm leading-relaxed text-(--color-text-muted)">
+              <p className="mt-4 text-sm leading-relaxed text-text-muted">
                 {item.a}
               </p>
             </details>

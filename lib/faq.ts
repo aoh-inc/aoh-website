@@ -6,10 +6,6 @@ export const FAQ_ITEMS: FaqItem[] = [
     a: "No contract, cancel anytime. We keep the work practical: clean up the Google profile, improve the review path, keep the website and business facts current, and show owners what changed in plain English.",
   },
   {
-    q: "How does the included website hosting work?",
-    a: "Stay Found includes hosting for your GMF-managed site. After the GMF-hosted site is live and checked, many owners can cancel a separate $15-$50/mo hosting or website-builder bill. You keep ownership of your domain, email, and business accounts; we only change website settings with approval.",
-  },
-  {
     q: "How does Stay Found roll out?",
     a: "First we confirm your business details, access, website path, and customer-list process. Then we clean up the profile, launch the hosted site if needed, start approved email review requests, and turn on text review requests after phone-number approval. After launch, you send or upload customers weekly and get a monthly owner recap.",
   },

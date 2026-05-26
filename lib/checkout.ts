@@ -37,7 +37,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
     cadence: "/month",
     setup: "$199 setup",
     summary:
-      "Monthly visibility upkeep with review requests, AI reply drafts, and included website hosting so the business does not go stale after the first setup.",
+      "Monthly visibility upkeep with review requests, AI reply drafts, and a monthly report so the business does not go stale after the first setup.",
     whatYouGet: [
       "Everything in Get Found - free",
       "Weekly client list upload path for review requests",
@@ -46,7 +46,6 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
       "AI response drafts in the client's brand voice",
       "Negative review alert and suggested response target within 4 business hours",
       "One weekly Google Business Profile post",
-      "Website hosting included for your GMF-managed site",
       "Review monitoring across platforms where available",
       "Monthly sentiment, citation, and visibility report",
     ],
