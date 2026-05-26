@@ -9,7 +9,7 @@ const earlyAccessCard = {
   ctaHref: "/report/ai-visibility",
 } as const;
 
-function ShieldCheckIcon() {
+function AwardIcon() {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -21,8 +21,9 @@ function ShieldCheckIcon() {
       strokeLinejoin="round"
       aria-hidden="true"
     >
-      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      <circle cx="12" cy="8" r="6" />
       <path d="M9 12l2 2 4-4" />
+      <path d="M8.21 13.89 7 23l5-3 5 3-1.21-9.12" />
     </svg>
   );
 }
@@ -50,8 +51,7 @@ export function TrustCards() {
             <p className="mt-1.5 text-xs italic text-text-muted">
               BrightLocal Consumer Survey, 2026
             </p>
-            <div className="my-5 border-t border-border" />
-            <p className="mt-auto text-sm leading-relaxed text-text-muted">
+            <p className="mt-3 text-sm leading-relaxed text-text-muted">
               If AI doesn&apos;t know your business exists, nearly half your potential customers never find you — before anyone clicks anything.
             </p>
           </div>
@@ -62,7 +62,7 @@ export function TrustCards() {
               Our Foundation
             </p>
             <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent ring-1 ring-accent/25">
-              <ShieldCheckIcon />
+              <AwardIcon />
             </div>
             <p className="text-base font-semibold text-text-body">
               Built on Google&apos;s own published guidance
@@ -97,6 +97,9 @@ export function TrustCards() {
             </div>
             <p className="flex-1 text-sm leading-relaxed text-text-muted">
               {earlyAccessCard.body}
+            </p>
+            <p className="mt-4 text-sm leading-relaxed text-text-muted">
+              No long-term commitment. Cancel after the first month if you don&apos;t see movement.
             </p>
             <a
               href={earlyAccessCard.ctaHref}
