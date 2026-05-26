@@ -28,7 +28,7 @@ const SLIDES: Slide[] = [
     brand: BRANDS.google,
     query: "best plumber Austin",
     before: "",
-    after: " — #1 result · 200+ reviews",
+    after: " · Recommended · 4.9 ★ · 200+ reviews",
     meta: "Google Search",
   },
   {

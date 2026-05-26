@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export function GameChanged() {
   return (
     <section
@@ -18,6 +20,14 @@ export function GameChanged() {
         <p className="mt-6 text-lg leading-relaxed text-hero-subtext/75 md:text-xl">
           Google used to reward the biggest budget. Now it rewards the most complete listing. That&apos;s a game any local business can win.
         </p>
+
+        <Link
+          href="/report/ai-visibility"
+          className="mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-(--color-accent) px-7 py-3.5 text-base font-semibold text-(--color-accent-text) transition-all hover:-translate-y-0.5 hover:bg-(--color-accent-hover) hover:shadow-2xl hover:shadow-(--color-accent)/30"
+        >
+          See if AI recommends you
+          <span aria-hidden="true">→</span>
+        </Link>
 
       </div>
     </section>

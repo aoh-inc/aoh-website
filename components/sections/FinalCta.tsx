@@ -59,14 +59,16 @@ export function FinalCta() {
           <p className="mt-4 text-xs text-hero-subtext/35">
             Based on{" "}
             <a
-              href="https://blog.google/products-and-platforms/products/search/deep-search-business-calling-google-search/"
+              href="https://support.google.com/business/answer/7091"
               target="_blank"
               rel="noopener noreferrer"
+              aria-label="Google's local business visibility guidance"
+              title="Google's local business visibility guidance"
               className="underline underline-offset-2 hover:text-hero-subtext/60 transition-colors"
             >
-              Google&apos;s local search ranking factors
-            </a>{" "}
-            and AI search behavior.
+              Google&apos;s published guidance for local business visibility
+            </a>
+            .
           </p>
         </motion.div>
       </div>

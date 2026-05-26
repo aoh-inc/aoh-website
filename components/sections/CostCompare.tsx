@@ -125,7 +125,7 @@ function ScanLine() {
 
 export function CostCompare() {
   return (
-    <section className="relative py-14 md:py-20 bg-[var(--color-bg-page)] overflow-hidden">
+    <section className="relative pt-8 pb-14 md:pt-10 md:pb-20 bg-[var(--color-bg-page)] overflow-hidden">
       <GridBackground />
 
       <div className="relative mx-auto max-w-5xl px-6">
@@ -137,14 +137,14 @@ export function CostCompare() {
           <h2 className="text-3xl md:text-5xl font-bold text-[var(--color-text-body)] mb-4 leading-tight">
             Build it yourself:{" "}
             <span className="text-[var(--color-text-body)]">
-              $<AnimatedNumber value={1487} duration={2600} />+/mo
+              $1,487+/mo
             </span>
             .
             <br className="hidden md:block" />
             <span className="hidden md:inline"> </span>
             Run it with us:{" "}
             <span className="text-[var(--color-accent)]">
-              $<AnimatedNumber value={299} duration={2600} />/mo
+              $299/mo
             </span>
             .
           </h2>
@@ -386,7 +386,7 @@ export function CostCompare() {
           <p className="text-base text-[var(--color-text-body)] leading-relaxed">
             <strong className="font-bold">The tools are the cheap part.</strong>{" "}
             <span className="text-[var(--color-text-muted)]">
-              Even the $37/mo ones need someone who knows how to use them — listings strategy, schema markup, AI search rules, response timing. GetMeFound brings the tools AND the people who run them.
+              Even the $37/mo ones need someone who knows how to use them — listings strategy, AI search signals, response timing. GetMeFound brings the tools AND the people who run them.
             </span>
           </p>
         </div>

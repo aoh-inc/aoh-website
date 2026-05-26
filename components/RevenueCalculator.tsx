@@ -44,6 +44,14 @@ const industries: Record<
     valueStep: number;
   }
 > = {
+  lawncare:      { defaultValue: 350,   vol: 85,  velocityTarget: 12, valueLabel: "per job",        label: "lawn care and landscaping businesses", valueMin: 75,    valueMax: 2000,   valueStep: 25 },
+  plumbing:      { defaultValue: 650,   vol: 80,  velocityTarget: 14, valueLabel: "per job",        label: "plumbing companies",       valueMin: 100,   valueMax: 5000,   valueStep: 50 },
+  hvac:          { defaultValue: 900,   vol: 65,  velocityTarget: 12, valueLabel: "per job",        label: "HVAC companies",           valueMin: 150,   valueMax: 8000,   valueStep: 50 },
+  electrician:   { defaultValue: 550,   vol: 70,  velocityTarget: 10, valueLabel: "per job",        label: "electricians",             valueMin: 100,   valueMax: 5000,   valueStep: 50 },
+  contractor:    { defaultValue: 6500,  vol: 10,  velocityTarget: 6,  valueLabel: "per project",    label: "general contractors",      valueMin: 1000,  valueMax: 30000,  valueStep: 250 },
+  roofer:        { defaultValue: 9500,  vol: 8,   velocityTarget: 6,  valueLabel: "per project",    label: "roofers",                  valueMin: 1500,  valueMax: 40000,  valueStep: 250 },
+  painter:       { defaultValue: 3200,  vol: 18,  velocityTarget: 8,  valueLabel: "per project",    label: "painters",                 valueMin: 500,   valueMax: 15000,  valueStep: 100 },
+  cleaning:      { defaultValue: 180,   vol: 140, velocityTarget: 12, valueLabel: "per job",        label: "cleaning services",        valueMin: 50,    valueMax: 1000,   valueStep: 25 },
   petgroomer:    { defaultValue: 70,    vol: 180, velocityTarget: 12, valueLabel: "per groom",      label: "pet groomers",            valueMin: 25,    valueMax: 250,    valueStep: 5 },
   vet:           { defaultValue: 290,   vol: 220, velocityTarget: 18, valueLabel: "per visit",      label: "vet practices",           valueMin: 50,    valueMax: 800,    valueStep: 10 },
   autoshop:      { defaultValue: 480,   vol: 160, velocityTarget: 15, valueLabel: "per service",    label: "auto repair shops",       valueMin: 100,   valueMax: 1500,   valueStep: 25 },
@@ -236,7 +244,7 @@ function RevenueCalculatorInner() {
             </h2>
             <p className="text-[var(--color-text-muted)] text-sm md:text-lg leading-relaxed max-w-2xl mx-auto">
               Enter your business details. We&apos;ll show you the customers and revenue your
-              reviews, ranking, AI presence, and after-hours phone are leaving on the table.
+              reviews, AI visibility, and after-hours phone are leaving on the table.
             </p>
           </div>
 
@@ -260,6 +268,14 @@ function RevenueCalculatorInner() {
                   }}
                 >
                   <option value="">— Select your industry —</option>
+                  <option value="lawncare">Lawn Care / Landscaping</option>
+                  <option value="plumbing">Plumbing</option>
+                  <option value="hvac">HVAC</option>
+                  <option value="electrician">Electrician</option>
+                  <option value="contractor">General Contractor</option>
+                  <option value="roofer">Roofer</option>
+                  <option value="painter">Painter</option>
+                  <option value="cleaning">Cleaning Service</option>
                   <option value="petgroomer">Pet Grooming</option>
                   <option value="vet">Veterinary Practice</option>
                   <option value="autoshop">Auto Repair Shop</option>
@@ -333,9 +349,8 @@ function RevenueCalculatorInner() {
                   </p>
                 )}
                 <p className="mt-2 text-xs text-[var(--color-text-muted)]">
-                  Velocity matters more than total — Google&apos;s algorithm decays old reviews
-                  fast. <strong className="text-[var(--color-text-body)]">Not sure?</strong>{" "}
-                  Open your Google Business Profile, sort reviews by &quot;Most recent,&quot; count
+                  Fresh reviews matter more than your total count — Google treats old reviews as
+                  stale. If you&apos;re not sure, open your Google profile and count reviews from
                   the last 30 days.
                 </p>
               </div>

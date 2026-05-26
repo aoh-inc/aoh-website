@@ -70,7 +70,7 @@ export function ReportTransformation() {
     >
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-10 px-6 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] md:items-center md:gap-14">
         {/* Left: sample report card */}
-        <div className="min-w-0">
+        <div className="order-2 min-w-0 md:order-1">
 
         {/* Browser chrome card */}
         <div className="overflow-hidden rounded-2xl border border-border shadow-2xl">
@@ -232,7 +232,7 @@ export function ReportTransformation() {
         </div>{/* end left column */}
 
         {/* Right: audit request form */}
-        <div id="free-audit" className="min-w-0 md:pl-2">
+        <div id="free-audit" className="order-1 min-w-0 md:order-2 md:pl-2">
           <AuditRequestForm />
         </div>
       </div>

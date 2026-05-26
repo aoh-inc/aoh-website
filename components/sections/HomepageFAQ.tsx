@@ -27,7 +27,7 @@ const ITEMS = [
   },
   {
     q: "Do you guarantee results?",
-    a: "We don't guarantee a specific ranking or a specific number of reviews — nobody can honestly do that. What we guarantee is that every fix in your report gets done, done correctly, and done within 48 hours. We also guarantee that if something isn't right, we fix it. No arguing, no tickets, no runaround. If you don't see movement within 30 days on Stay Found, tell us and we'll dig into why.",
+    a: "We don't guarantee a specific position in search results or a specific number of reviews — nobody can honestly do that. What we guarantee is that every fix in your report gets done, done correctly, and done within 48 hours. We also guarantee that if something isn't right, we fix it. No arguing, no tickets, no runaround. If you don't see movement within 30 days on Stay Found, tell us and we'll dig into why.",
   },
 ] as const;
 

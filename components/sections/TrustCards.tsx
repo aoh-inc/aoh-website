@@ -4,7 +4,7 @@
 const earlyAccessCard = {
   label: "RIGHT NOW",
   heading: "Accepting first clients",
-  body: "We're building this alongside our first clients. Early clients get direct access — not a support queue. Every business we work with sharpens the results.",
+  body: "We work directly with every client — no support tickets, no queue. You get us, not a bot. No long-term commitment. Cancel after the first month if you don't see movement.",
   ctaText: "Become an early client",
   ctaHref: "/report/ai-visibility",
 } as const;
@@ -98,8 +98,8 @@ export function TrustCards() {
             <p className="flex-1 text-sm leading-relaxed text-text-muted">
               {earlyAccessCard.body}
             </p>
-            <p className="mt-4 text-sm leading-relaxed text-text-muted">
-              No long-term commitment. Cancel after the first month if you don&apos;t see movement.
+            <p className="mt-4 text-xs font-semibold uppercase tracking-[0.14em] text-text-muted">
+              Starting at $149 one-time.
             </p>
             <a
               href={earlyAccessCard.ctaHref}

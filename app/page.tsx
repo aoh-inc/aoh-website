@@ -19,7 +19,7 @@ import { ICON_PATHS } from "@/lib/icon-paths";
 import { faqPageSchema } from "@/lib/faq";
 
 export const metadata: Metadata = {
-  title: "GetMeFound - Google Visibility for Local Businesses",
+  title: "GetMeFound — Be the Business AI Recommends",
   description:
     "Done-for-you Google visibility, reviews, and AI search presence for local businesses. No contracts. Live in 48 hours.",
   alternates: { canonical: "/" },
@@ -67,7 +67,7 @@ const teaserCards: TeaserCard[] = [
       "Monthly review requests sent to your customers — replies drafted for you.",
       "Monthly visibility report showing your progress.",
     ],
-    href: "/pricing#stay-found",
+    href: "/stay-found",
     cta: "Stay visible",
     iconPaths: ICON_PATHS.dashboard,
     highlight: true,
@@ -115,28 +115,34 @@ export default function Home() {
         >
           <div className="mx-auto max-w-6xl px-6 py-8 sm:py-10 md:py-12 lg:py-14">
             <div className="grid min-w-0 grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] md:items-center md:gap-10 lg:gap-12">
-              <div className="flex min-w-0 flex-col">
+              <div
+                className="flex min-w-0 w-full flex-col"
+                style={{ maxWidth: "calc(100vw - 3rem)" }}
+              >
                 {/* Alert badge */}
-                <div className="mb-5 inline-flex w-fit items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-3 py-1.5">
+                <div className="mb-5 inline-flex max-w-full w-fit items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-3 py-1.5">
                   <span className="relative flex h-2 w-2 shrink-0">
                     <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-70" />
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
                   </span>
-                  <span className="font-mono text-[11px] font-semibold text-red-400">
+                  <span className="min-w-0 whitespace-normal font-mono text-[11px] font-semibold leading-snug text-red-400">
                     Google IO 2026 — biggest search change in 25 years
                   </span>
                 </div>
 
-                <h1 className="font-semibold leading-[1.05] tracking-tight text-[clamp(1.85rem,6vw,2.55rem)] sm:text-[clamp(2.05rem,5vw,3rem)] md:text-[clamp(2.25rem,3.8vw,3.2rem)]">
+                <h1 className="font-semibold leading-[1.05] tracking-tight text-[clamp(1.7rem,7.2vw,2.25rem)] sm:text-[clamp(2.05rem,5vw,3rem)] md:text-[clamp(2.25rem,3.8vw,3.2rem)]">
                   <span className="hero-line-mask">
-                    <span className="hero-roll block" style={{ animationDelay: "0ms" }}>
+                    <span
+                      className="hero-roll block"
+                      style={{ animationDelay: "0ms", display: "block", overflowWrap: "anywhere" }}
+                    >
                       Your competitor is being recommended by Google&apos;s AI.
                     </span>
                   </span>
                   <span className="hero-line-mask mt-2 block">
                     <span
                       className="hero-roll block text-[var(--color-accent)]"
-                      style={{ animationDelay: "400ms" }}
+                      style={{ animationDelay: "400ms", display: "block", overflowWrap: "anywhere" }}
                     >
                       You&apos;re not.
                     </span>
@@ -144,7 +150,7 @@ export default function Home() {
                 </h1>
 
                 <p className="mt-5 w-full max-w-xl text-base leading-relaxed text-[var(--color-hero-subtext)] md:text-lg">
-                  Google just changed how customers find local businesses — and most haven&apos;t caught up. We fix your listing, reviews, and AI visibility in 48 hours, then keep it working every month.
+                  Google just changed how customers find local businesses — and most haven&apos;t caught up. We fix your Google profile, reviews, and AI visibility in 48 hours, then keep it working every month.
                 </p>
 
                 {/* Pills */}
@@ -178,14 +184,14 @@ export default function Home() {
                 <div className="mt-7 flex flex-wrap gap-3">
                   <Link
                     href="/report/ai-visibility"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-6 py-3.5 text-base font-semibold text-[var(--color-accent-text)] transition hover:-translate-y-0.5 hover:bg-[var(--color-accent-hover)] hover:shadow-lg hover:shadow-[var(--color-accent)]/30"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-6 py-3.5 text-base font-semibold text-[var(--color-accent-text)] transition hover:-translate-y-0.5 hover:bg-[var(--color-accent-hover)] hover:shadow-lg hover:shadow-[var(--color-accent)]/30 sm:w-auto"
                   >
                     See my free score
                     <span aria-hidden="true">→</span>
                   </Link>
                   <a
                     href="#how-it-works"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/[0.06] px-6 py-3.5 text-base font-semibold text-[var(--color-hero-text)] ring-1 ring-white/[0.10] transition hover:bg-white/[0.10] hover:ring-white/20"
+                    className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-white/[0.06] px-6 py-3.5 text-base font-semibold text-[var(--color-hero-text)] ring-1 ring-white/[0.10] transition hover:bg-white/[0.10] hover:ring-white/20 sm:w-auto"
                   >
                     How it works
                   </a>
@@ -235,7 +241,7 @@ export default function Home() {
         <GameChanged />
 
         {/* Service tiers */}
-        <section className="py-14 md:py-20 bg-[var(--color-bg-page)]">
+        <section className="pt-14 pb-8 md:pt-20 md:pb-10 bg-[var(--color-bg-page)]">
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-8 text-center">
               <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
@@ -327,7 +333,12 @@ export default function Home() {
             </div>
 
             <Reveal delay={0.18}>
-              <div className="mx-auto mt-7 grid max-w-261 gap-5 rounded-4xl bg-[#0f2430] p-6 text-white ring-1 ring-white/10 md:grid-cols-[1.1fr_0.9fr] md:p-8">
+              <div className="mx-auto mt-7 max-w-261 text-center">
+                <span className="inline-flex rounded-full border border-border bg-(--color-bg-elevated) px-4 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-text-muted">
+                  Most Complete Plan
+                </span>
+              </div>
+              <div className="mx-auto mt-3 grid max-w-261 gap-5 rounded-4xl bg-[#0f2430] p-6 text-white ring-1 ring-white/10 md:grid-cols-[1.1fr_0.9fr] md:p-8">
                 <div>
                   <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-sky-300">
                     {alwaysReadyCard.jobLabel}

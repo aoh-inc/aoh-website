@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
 
@@ -108,6 +109,16 @@ export function SocialProof() {
               </a>
             </motion.div>
           ))}
+        </div>
+
+        <div className="mt-10 text-center">
+          <Link
+            href="/report/ai-visibility"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-white/[0.06] px-6 py-3.5 text-sm font-semibold text-[var(--color-hero-text)] ring-1 ring-white/[0.10] transition-all hover:-translate-y-0.5 hover:bg-white/[0.10] hover:ring-white/20"
+          >
+            See if AI recommends you
+            <span aria-hidden="true">→</span>
+          </Link>
         </div>
       </div>
     </section>
