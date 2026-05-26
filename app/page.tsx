@@ -43,13 +43,13 @@ const GOOGLE_AI_CALLING_URL =
 const teaserCards: TeaserCard[] = [
   {
     name: "Get Found",
-    tagline: "One-time setup for the new Google search.",
+    tagline: "We fix your Google presence in 48 hours — done for you.",
     price: "$149",
     cadence: "one-time",
     bullets: [
-      "Google Business Profile audit and cleanup",
-      "Profile details, categories, and review path set up",
-      "Before-and-after visibility snapshot",
+      "We fix your Google listing — hours, services, photos, everything",
+      "We make your website match your Google listing exactly",
+      "Your first review requests go out to past customers automatically",
     ],
     href: "/checkout/get-found-refresh",
     cta: "Get Found for $149",
@@ -58,13 +58,12 @@ const teaserCards: TeaserCard[] = [
   },
   {
     name: "Stay Found",
-    tagline: "Preferred monthly plan for staying visible.",
+    tagline: "Everything keeps working — every month, automatically.",
     price: "$99",
     cadence: "/month",
     bullets: [
-      "Everything in Get Found - free",
-      "$199 setup, then $99/mo",
-      "Text and email review requests with AI reply drafts",
+      "Includes everything in Get Found.",
+      "Monthly review requests sent to your customers — replies drafted for you.",
       "Monthly visibility report showing your progress.",
     ],
     href: "/pricing#stay-found",
@@ -288,9 +287,15 @@ export default function Home() {
                         <h3 className="text-2xl font-bold text-[var(--color-hero-text)] mb-2">
                           {p.name}
                         </h3>
-                        <p className="text-base text-[var(--color-accent)] font-medium mb-5">
+                        <p className="text-base text-[var(--color-accent)] font-medium mb-3">
                           {p.tagline}
                         </p>
+
+                        {p.highlight && (
+                          <p className="mb-4 text-[12px] text-[var(--color-hero-subtext)]/60">
+                            One-time $49 setup fee
+                          </p>
+                        )}
 
                         <ul className="mb-3 space-y-2">
                           {p.bullets.map((b) => (
