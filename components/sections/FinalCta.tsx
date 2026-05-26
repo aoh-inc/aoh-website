@@ -57,16 +57,14 @@ export function FinalCta() {
           </p>
 
           <p className="mt-4 text-xs text-hero-subtext/35">
-            Based on{" "}
+            Based on Google&apos;s published guidance for local business visibility. Source:{" "}
             <a
               href="https://support.google.com/business/answer/7091"
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Google's local business visibility guidance"
-              title="Google's local business visibility guidance"
               className="underline underline-offset-2 hover:text-hero-subtext/60 transition-colors"
             >
-              Google&apos;s published guidance for local business visibility
+              Google&apos;s local business visibility guidance
             </a>
             .
           </p>

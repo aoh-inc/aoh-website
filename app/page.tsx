@@ -335,7 +335,7 @@ export default function Home() {
             <Reveal delay={0.18}>
               <div className="mx-auto mt-7 max-w-261 text-center">
                 <span className="inline-flex rounded-full border border-border bg-(--color-bg-elevated) px-4 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-text-muted">
-                  Most Complete Plan
+                  MOST COMPLETE PLAN
                 </span>
               </div>
               <div className="mx-auto mt-3 grid max-w-261 gap-5 rounded-4xl bg-[#0f2430] p-6 text-white ring-1 ring-white/10 md:grid-cols-[1.1fr_0.9fr] md:p-8">
