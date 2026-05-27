@@ -162,25 +162,25 @@ export default function PricingPage() {
         className="bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]"
       >
         <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-amber-400 bg-gray-800 px-3 py-1 text-xs font-semibold text-white">
-            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />
-            $149 one-time · No contract
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-red-500/20 bg-red-500/10 px-3 py-1 text-xs font-semibold text-white">
+            <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse" />
+            The rules just changed
           </div>
 
           <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-[var(--color-accent)]">
             Pricing
           </p>
           <h1 className="max-w-[21.5rem] font-semibold leading-[1.05] tracking-tight text-[clamp(2.1rem,8vw,2.55rem)] sm:max-w-4xl sm:text-5xl md:text-6xl">
-            <span className="block sm:hidden">Google Search is changing.</span>
+            <span className="block sm:hidden">Google&apos;s AI picks who gets found.</span>
             <span className="block sm:hidden">
-              Staying visible should not be complicated.
+              Here&apos;s what it costs to be ready.
             </span>
             <span className="hidden sm:block">
-              Google Search is changing. Staying visible should not be complicated.
+              Google&apos;s AI picks who gets found. Here&apos;s what it costs to be ready.
             </span>
           </h1>
           <p className="mt-5 max-w-[21.5rem] text-lg leading-relaxed text-[var(--color-hero-subtext)] sm:max-w-2xl md:text-xl">
-            GetMeFound helps local businesses get found on Google, stay current for AI assistants like ChatGPT and Claude, and turn happy customers into stronger review proof. Start small. Add only what is worth keeping.
+            No pages. Just one recommendation. The businesses AI picks aren&apos;t the biggest — they&apos;re the most complete. Start at $149.
           </p>
 
           <div className="mt-6 flex flex-wrap items-center gap-3">
@@ -188,7 +188,7 @@ export default function PricingPage() {
               href="/checkout/get-found-refresh"
               className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/10 hover:border-white/30 transition-colors"
             >
-              Start with a refresh
+              Start with Get Found — $149
               <span aria-hidden="true">-&gt;</span>
             </Link>
             <span className="inline-flex items-center gap-1.5 text-xs text-gray-400">

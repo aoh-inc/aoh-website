@@ -126,7 +126,7 @@ export default function Home() {
                     <span className="relative inline-flex h-2 w-2 rounded-full bg-red-500" />
                   </span>
                   <span className="min-w-0 whitespace-normal font-mono text-[11px] font-semibold leading-snug text-red-400">
-                    Google IO 2026 — biggest search change in 25 years
+                    May 2026 — Google replaced Search with AI
                   </span>
                 </div>
 
@@ -136,7 +136,7 @@ export default function Home() {
                       className="hero-roll block"
                       style={{ animationDelay: "0ms", display: "block", overflowWrap: "anywhere" }}
                     >
-                      Your competitor is being recommended by Google&apos;s AI.
+                      Google doesn&apos;t rank you anymore.
                     </span>
                   </span>
                   <span className="hero-line-mask mt-2 block">
@@ -144,21 +144,21 @@ export default function Home() {
                       className="hero-roll block text-[var(--color-accent)]"
                       style={{ animationDelay: "400ms", display: "block", overflowWrap: "anywhere" }}
                     >
-                      You&apos;re not.
+                      It picks you — or it doesn&apos;t.
                     </span>
                   </span>
                 </h1>
 
                 <p className="mt-5 w-full max-w-xl text-base leading-relaxed text-[var(--color-hero-subtext)] md:text-lg">
-                  Google just changed how customers find local businesses — and most haven&apos;t caught up. We fix your Google profile, reviews, and AI visibility in 48 hours, then keep it working every month.
+                  AI now recommends one or two local businesses — not ten pages. We make sure it finds yours. Done in 48 hours.
                 </p>
 
                 {/* Pills */}
                 <div className="mt-5 flex flex-wrap gap-2">
                   {[
-                    "Done for you completely",
-                    "No contract — cancel anytime",
-                    "Results in 48 hours",
+                    "Done for you",
+                    "No contract",
+                    "48 hours",
                   ].map((pill) => (
                     <span
                       key={pill}
@@ -186,7 +186,7 @@ export default function Home() {
                     href="/report/ai-visibility"
                     className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-6 py-3.5 text-base font-semibold text-[var(--color-accent-text)] transition hover:-translate-y-0.5 hover:bg-[var(--color-accent-hover)] hover:shadow-lg hover:shadow-[var(--color-accent)]/30 sm:w-auto"
                   >
-                    See my free score
+                    Check if AI can find you
                     <span aria-hidden="true">→</span>
                   </Link>
                   <a
