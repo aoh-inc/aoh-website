@@ -21,14 +21,16 @@ export function FinalCta() {
           </p>
 
           <h2 className="text-[clamp(2.2rem,6.5vw,3.8rem)] font-bold leading-[1.05] tracking-tight text-text-body">
-            Your competitor is being recommended.
+            One business gets recommended in your area.
             <br />
-            <span className="text-accent">Fix that today.</span>
+            <span className="text-accent">Make sure it&apos;s yours.</span>
           </h2>
 
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link
               href="/checkout/get-found-refresh"
+              target="_blank"
+              rel="noopener noreferrer"
               className="group inline-flex items-center justify-center gap-2 rounded-xl bg-(--color-accent) px-8 py-4 text-base font-semibold text-(--color-accent-text) transition-all hover:-translate-y-0.5 hover:bg-(--color-accent-hover) hover:shadow-2xl hover:shadow-(--color-accent)/30"
             >
               Get Found for $149

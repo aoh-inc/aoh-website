@@ -290,6 +290,8 @@ export default function Home() {
                         <div className="mt-auto">
                           <Link
                             href={p.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[var(--color-accent)] px-5 py-3 text-sm font-semibold text-[var(--color-accent-text)] transition-all hover:bg-[var(--color-accent-hover)] hover:gap-3 hover:shadow-lg hover:shadow-[var(--color-accent)]/30"
                           >
                             {p.cta}
@@ -353,6 +355,8 @@ export default function Home() {
                   </div>
                   <Link
                     href={alwaysReadyCard.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="mt-6 inline-flex w-full items-center justify-center rounded-2xl bg-accent px-5 py-3 text-sm font-bold text-(--color-accent-text) transition hover:bg-(--color-accent-hover)"
                   >
                     {alwaysReadyCard.cta}

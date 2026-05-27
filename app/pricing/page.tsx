@@ -187,6 +187,8 @@ export default function PricingPage() {
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Link
               href="/checkout/get-found-refresh"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/10 hover:border-white/30 transition-colors"
             >
               Start with Get Found — $149
@@ -260,6 +262,8 @@ export default function PricingPage() {
                 <div className="flex flex-col sm:flex-row sm:items-center gap-4">
                   <Link
                     href="/checkout/get-found-refresh"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-green-600 hover:bg-green-500 text-white px-6 py-3.5 text-sm font-semibold transition-all hover:gap-3 hover:shadow-lg hover:shadow-green-600/30"
                   >
                     Start Get Found
@@ -442,6 +446,8 @@ export default function PricingPage() {
                   <div className="mt-6 grid gap-2">
                     <Link
                       href="/checkout/always-ready"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="inline-flex items-center justify-center rounded-2xl bg-slate-950 px-5 py-3 text-sm font-bold text-white transition hover:bg-slate-800"
                     >
                       Start Always Ready
@@ -462,6 +468,8 @@ export default function PricingPage() {
                   Not ready for Always Ready?{" "}
                   <Link
                     href="/checkout/get-found-refresh"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="font-semibold text-sky-200 underline decoration-sky-200/45 underline-offset-4 transition hover:text-white"
                   >
                     Start with Get Found for $149 -&gt;

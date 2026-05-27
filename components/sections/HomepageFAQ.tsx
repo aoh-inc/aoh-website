@@ -3,7 +3,7 @@ import Link from "next/link";
 const ITEMS = [
   {
     q: "What exactly do you do for $149?",
-    a: "We fix everything Google and AI look at before recommending a local business. That means correcting your Google listing: hours, services, photos, service area, and business description. We update your website so it matches your Google listing exactly. We submit your business to the top directories so your information is consistent everywhere. And we send your first review request campaign to your past customers. You give us access, we handle everything. You get a before/after report showing exactly what changed.",
+    a: "We fix everything Google and AI check before picking a local business to recommend. That means correcting your Google listing: hours, services, photos, service area, and business description. We update your website so it matches your Google listing exactly. We submit your business to the top directories so your information is consistent everywhere. And we send your first review request campaign to your past customers. Everything is done within 48 hours. You get a before/after report showing exactly what changed.",
   },
   {
     q: "Will you break my email?",
@@ -74,15 +74,6 @@ export function HomepageFAQ() {
           ))}
         </div>
 
-        <div className="mt-8 text-center">
-          <Link
-            href="/faq"
-            className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent transition-all hover:gap-2.5 hover:text-(--color-accent-hover)"
-          >
-            More questions? See the full FAQ
-            <span aria-hidden="true">-&gt;</span>
-          </Link>
-        </div>
       </div>
     </section>
   );

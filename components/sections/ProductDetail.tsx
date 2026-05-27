@@ -48,7 +48,9 @@ export function ProductDetail({
   next?: NextRef;
 }) {
   const isExternalCta =
-    data.ctaHref.startsWith("http://") || data.ctaHref.startsWith("https://");
+    data.ctaHref.startsWith("http://") ||
+    data.ctaHref.startsWith("https://") ||
+    data.ctaHref.startsWith("/checkout/");
   const dark = data.variant === "dark";
 
   const sectionBg = dark
