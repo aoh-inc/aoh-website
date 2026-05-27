@@ -44,7 +44,8 @@
     "agent:eval": "node scripts/manager-agent-eval.mjs",
     "agent:slack-candidates": "node scripts/manager-slack-training-candidates.mjs",
     "agent:slack": "node scripts/agent-command-center.mjs --post-slack",
-    "audit:security": "node scripts/auditor-security-sweep.mjs"
+    "audit:security": "node scripts/auditor-security-sweep.mjs",
+    "systems:readiness": "node scripts/systems-director-readiness.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",

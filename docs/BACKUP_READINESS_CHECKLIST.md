@@ -1,20 +1,25 @@
 # Backup Readiness Checklist
 
 Status: active
-Purpose: quick recurring check that AOH can survive laptop loss.
+Purpose: quick recurring check that GetMeFound can survive laptop loss, account lockout, or agent-runtime failure.
+
+Owner agent: Systems Director
+Reviewer: Auditor
+Implementer: Codex/Website
+Human approver: Mike
 
 ## Current Known Backup Map
 
 | Area | Source of truth | Current recovery confidence |
 |---|---|---|
-| Website code | GitHub `aoh-inc/aoh-website` | High if changes are pushed |
-| Live website | Vercel | High |
+| Website code | GitHub `mje-gmf/website` | High if changes are pushed |
+| Live website | Vercel project `aoh-inc/getmefound` | High |
 | Production env vars | Vercel project settings | Medium until manually confirmed |
 | Client/training docs | Google Drive + Obsidian | Medium until sync is confirmed |
 | Agent architecture notes | Repo docs + Obsidian sync | Medium |
 | OpenClaw/Atlantis | VPS | Medium until access is tested |
-| VPS operations docs copy | VPS `/root/aoh-docs` | Medium; synced 2026-05-17 |
-| Mission Control | Vercel at `mc.aioutsourcehub.com` | Medium until auth is added |
+| VPS operations docs copy | VPS `/root/gmf-docs` | Medium; checked 2026-05-27 |
+| Mission Control | Vercel at `mc.getmefound.ai` with legacy fallback hosts | Medium |
 | OpenClaw gateway token | Vercel env var `OPENCLAW_TOKEN` + VPS `/docker/openclaw-dntw/.env` | Medium; rotated 2026-05-17, keep in password manager |
 | OpenClaw login password | Vercel env vars `OPENCLAW_LOGIN_USER` + `OPENCLAW_LOGIN_PASSWORD` | Medium; route fails closed if password is missing |
 | OpenClaw login wrapper patch | VPS `/docker/openclaw-dntw/server.mjs` mounted by compose | Medium; bootstraps dashboard auth without browser URL token exposure |
@@ -32,6 +37,7 @@ Purpose: quick recurring check that AOH can survive laptop loss.
 - password manager includes all critical accounts.
 - VPS/OpenClaw can be reached without relying on cached laptop-only credentials.
 - `npm run audit:security` passes before operator/security-sensitive deploys.
+- `npm run systems:readiness` produces a current report.
 - OpenClaw gateway token is stored in Vercel env vars and not in source code.
 - OpenClaw gateway token in Vercel matches the VPS `OPENCLAW_GATEWAY_TOKEN`.
 - `/api/openclaw/login` requires Basic Auth and returns locked/unauthorized before showing the OpenClaw form.
@@ -52,7 +58,7 @@ Purpose: quick recurring check that AOH can survive laptop loss.
 
 1. Open GitHub repo in browser.
 2. Open Vercel project and confirm latest deployment.
-3. Open Google Drive AOH folder.
+3. Run or review `npm run systems:readiness`.
 4. Open Obsidian on another synced device or web/sync target if available.
 5. Open GHL/Hub360AI.
 6. Open Stripe.
@@ -66,3 +72,13 @@ Purpose: quick recurring check that AOH can survive laptop loss.
 Ask: "What work exists only on the laptop?"
 
 If the answer is "none," the recovery is annoying but not dangerous.
+
+## Agent Ownership
+
+Systems Director owns recurring monitoring and status summaries.
+
+Auditor verifies backup proof and restore readiness.
+
+Codex/Website implements scripts, workflows, and non-destructive fixes.
+
+Mike approves paid, destructive, account, domain, token-rotation, and production-restore actions.

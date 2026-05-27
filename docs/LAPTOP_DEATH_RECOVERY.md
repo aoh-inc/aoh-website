@@ -1,13 +1,13 @@
 # Laptop Death Recovery Runbook
 
 Status: active
-Owner: Mike / AOH
+Owner: Systems Director / Mike
 Use this when the laptop is lost, dead, stolen, or wiped.
 
 ## What Should Still Work
 
 - Public website stays live on Vercel.
-- Website source code is recoverable from GitHub: `https://github.com/aoh-inc/aoh-website`.
+- Website source code is recoverable from GitHub: `https://github.com/mje-gmf/website`.
 - Google Drive files remain available through Google.
 - Vercel production environment variables remain in Vercel.
 - Stripe/GHL/Google accounts remain available through their own logins.
@@ -31,7 +31,7 @@ Log into the password manager first.
 Confirm access to:
 
 - Google account
-- GitHub `aoh-inc`
+- GitHub `mje-gmf`
 - Vercel
 - Stripe
 - GoHighLevel / Hub360AI
@@ -61,7 +61,7 @@ Install:
 ```powershell
 mkdir C:\Users\micha\Documents
 cd C:\Users\micha\Documents
-git clone https://github.com/aoh-inc/aoh-website.git
+git clone https://github.com/mje-gmf/website.git aoh-website
 cd aoh-website
 npm install
 npm run build
@@ -127,9 +127,9 @@ If SSH keys were only on the dead laptop, use the VPS provider console to add a 
 
 Check:
 
-- `https://aioutsourcehub.com`
-- `https://aioutsourcehub.com/pricing`
-- `https://aioutsourcehub.com/mike-mc`
+- `https://getmefound.ai`
+- `https://getmefound.ai/pricing`
+- `https://getmefound.ai/mike-mc`
 - Vercel latest deployment
 - GitHub latest commit
 
@@ -155,6 +155,7 @@ If the branch is behind, pull first. If local files are dirty unexpectedly, stop
 Every Friday:
 
 - commit/push finished website changes
+- run `npm run systems:readiness`
 - confirm Obsidian sync is current
 - confirm Google Drive has latest working docs
 - confirm Vercel env vars are still present

@@ -1,0 +1,80 @@
+name: Systems Director Readiness
+
+on:
+  schedule:
+    # 8:30 AM Eastern on Fridays. GitHub cron is UTC, so run both DST/non-DST slots and gate by New York time.
+    - cron: "30 12 * * 5"
+    - cron: "30 13 * * 5"
+  workflow_dispatch:
+    inputs:
+      deep:
+        description: "Run the deeper local security sweep"
+        required: false
+        default: "false"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: systems-director-readiness
+  cancel-in-progress: false
+
+jobs:
+  readiness:
+    name: Generate backup/security readiness report
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      TZ: America/New_York
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+
+    steps:
+      - name: Check local delivery time
+        id: delivery_time
+        shell: bash
+        run: |
+          LOCAL_HOUR="$(TZ=America/New_York date +%H)"
+          SHOULD_RUN="true"
+          if [[ "${{ github.event_name }}" == "schedule" && "$LOCAL_HOUR" != "08" ]]; then
+            SHOULD_RUN="false"
+          fi
+          echo "should_run=$SHOULD_RUN" >> "$GITHUB_OUTPUT"
+          echo "Local hour: ${LOCAL_HOUR}; should_run=${SHOULD_RUN}"
+
+      - name: Checkout
+        if: steps.delivery_time.outputs.should_run == 'true'
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        if: steps.delivery_time.outputs.should_run == 'true'
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+
+      - name: Generate readiness report
+        if: steps.delivery_time.outputs.should_run == 'true'
+        shell: bash
+        run: |
+          ARGS=(--soft-fail)
+          if [[ "${{ github.event.inputs.deep || 'false' }}" =~ ^(1|true|yes|y)$ ]]; then
+            ARGS+=(--deep)
+          fi
+          node scripts/systems-director-readiness.mjs "${ARGS[@]}"
+
+      - name: Commit readiness report
+        if: steps.delivery_time.outputs.should_run == 'true'
+        shell: bash
+        run: |
+          git config user.name "GMF Systems Director"
+          git config user.email "actions@github.com"
+          git add docs/client-ops-ledger/systems-director-readiness-current.md
+          git add -f docs/client-ops-ledger/outbox/systems-director-readiness-*.md
+          if git diff --cached --quiet; then
+            echo "No Systems Director readiness changes to commit."
+          else
+            git commit -m "Record Systems Director readiness"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

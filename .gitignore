@@ -75,6 +75,7 @@ tmp-getmefound-*
 !/scripts/manager-agent-eval.mjs
 !/scripts/manager-slack-training-candidates.mjs
 !/scripts/auditor-security-sweep.mjs
+!/scripts/systems-director-readiness.mjs
 !/scripts/sync-coach-obsidian.ps1
 /data/
 

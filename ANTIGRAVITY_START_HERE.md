@@ -11,8 +11,8 @@ Antigravity is not the boss yet. It is a workbench for low-risk agent tasks whil
 - Source of truth: GitHub
 - Website deploy target: Vercel
 - Knowledge library: Obsidian + Google Drive + repo docs
-- VPS docs copy: `/root/aoh-docs`
-- Mission Control: `https://mc.aioutsourcehub.com`
+- VPS docs copy: `/root/gmf-docs`
+- Mission Control: `https://mc.getmefound.ai`
 
 ## First Files To Read
 
