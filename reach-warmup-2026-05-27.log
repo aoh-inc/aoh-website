@@ -1,0 +1,5 @@
+
+> getmefound-website@0.1.0 reach:warmup
+> node scripts/reach-warmup-autopilot.mjs --lane all --execute auto --allow-scrape-spend
+
+Reach warmup autopilot config is not enabled.
