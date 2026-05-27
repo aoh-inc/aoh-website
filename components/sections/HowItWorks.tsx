@@ -5,18 +5,18 @@ import Link from "next/link";
 const STEPS = [
   {
     number: "01",
-    title: "You hand us the keys",
-    body: "Share access to your Google Business listing and your website backend. Takes 5 minutes; we walk you through it. You also send us your past customer list so we can kick off your first review campaign. We check your email setup first so nothing gets touched that should not be.",
+    title: "We check what AI sees",
+    body: "We review your Google Business listing, your website, and every directory where your business appears. We see exactly what Google, ChatGPT, and Claude see when someone searches for your type of business — and what’s missing or wrong.",
   },
   {
     number: "02",
-    title: "We fix everything",
-    body: "Our team corrects your Google listing: hours, services, photos, service area, and business description. We update your website to match exactly. We submit your business to the top directories so your information is consistent everywhere Google and AI cross-check.",
+    title: "We fix what’s keeping you invisible",
+    body: "We correct your Google listing — hours, services, photos, description — and make your website match exactly. We submit your business to the directories AI cross-checks so your information is consistent everywhere. We also set up your first review requests to past customers.",
   },
   {
     number: "03",
-    title: "You see exactly what changed",
-    body: "Within 48 hours you get a before/after report showing your likelihood of being found before we started and after. You see how you compare to local competitors and what is still worth improving over time.",
+    title: "You see the difference",
+    body: "Within 48 hours you get a before/after report showing how visible you were and how visible you are now. You see how you compare to local competitors and what’s worth improving next.",
   },
 ] as const;
 
@@ -44,7 +44,7 @@ export function HowItWorks() {
               Done in 48 hours.
             </h2>
             <p className="mt-4 max-w-sm text-base leading-relaxed text-text-muted">
-              You give us access. We fix everything Google and AI look at. You get a before/after report showing exactly what changed.
+              We check what Google and AI see when someone searches for your type of business. Then we fix everything that's holding you back.
             </p>
 
             <div className="mt-5 flex flex-wrap gap-2">
