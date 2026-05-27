@@ -71,6 +71,7 @@ tmp-getmefound-*
 !/scripts/smartlead-create-campaign-draft.mjs
 !/scripts/smartlead-readiness.mjs
 !/scripts/smartlead-warmup-report.mjs
+!/scripts/prospecting-smartlead-preflight.mjs
 !/scripts/agent-command-center.mjs
 !/scripts/manager-agent-eval.mjs
 !/scripts/manager-slack-training-candidates.mjs
