@@ -349,6 +349,9 @@ export function ProductDetail({
                   {data.ctaLabel}
                   <span aria-hidden="true">→</span>
                 </Link>
+                <p className={`text-center text-[11px] ${dark ? "text-[var(--color-accent-text)]/50" : "text-[var(--color-hero-subtext)]/50"}`}>
+                  No contract · Cancel anytime
+                </p>
                 <Link
                   href={data.secondaryCtaHref ?? "/contact"}
                   target={data.secondaryCtaHref?.startsWith("http") ? "_blank" : undefined}

@@ -89,7 +89,7 @@ const products: ProductDetailData[] = [
       "Monthly report showing your reviews, directory listings, and visibility progress",
     ],
     useThisIf: [
-      "You do not want your Google profile to decay after the first cleanup.",
+      "You want what Get Found fixed to stay fixed.",
       "You have happy customers but do not ask consistently.",
       "You want stronger review conversion from text plus email.",
       "You want AI reply drafts without risky auto-posting.",
@@ -140,13 +140,13 @@ const jobGroupCopy: Record<JobKey, { index: string; label: string; intro: string
     index: "Step 1 of 3",
     label: "Get found.",
     intro:
-      "Google Search is changing. We fix the public details first so customers, Google, and AI assistants see the right business.",
+      "Google replaced Search with AI. We fix the public details first so customers, Google, and AI assistants all see the same credible business.",
   },
   "stay-found": {
     index: "Step 2 of 3",
     label: "Stay found.",
     intro:
-      "Monthly upkeep keeps the profile, review path, and local trust signals from going stale.",
+      "Your profile, reviews, and AI signals keep moving every month — so when AI looks, it sees an active, credible business worth recommending.",
   },
 };
 
@@ -373,7 +373,7 @@ export default function PricingPage() {
                   Be the business AI finds, recommends, and calls.
                 </h2>
                 <p className="mt-5 text-base leading-relaxed text-white/75 md:text-lg">
-                  Google is moving from search results to AI-assisted actions. Always Ready prepares the business facts, content, phone readiness, and escalation rules Google, ChatGPT, Claude, and other AI systems need before they recommend or call on behalf of a customer.
+                  Google replaced search results with AI-assisted actions. Always Ready prepares your business facts, content, phone readiness, and escalation rules so Google, ChatGPT, Claude, and other AI systems can recommend or call on your behalf.
                 </p>
 
                 <blockquote className="mt-6 rounded-3xl border border-sky-300/25 bg-sky-300/10 p-5 text-sm leading-7 text-white/85">
@@ -487,7 +487,7 @@ export default function PricingPage() {
 
         <CtaBlock
           headline="Not sure where to start?"
-          subline="Start with Get Found. It gives the business a clear visibility baseline before you add monthly upkeep, review requests, AI reply drafts, or voice readiness."
+          subline="Start with Get Found. It gives your business a clear visibility baseline before you add monthly upkeep, review requests, AI reply drafts, or voice readiness."
           buttonHref="/report/ai-visibility"
         />
       </PageBody>
