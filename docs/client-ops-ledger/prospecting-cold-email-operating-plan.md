@@ -34,7 +34,7 @@ The first Monday-visible human job is:
 Refresh Smartlead API access so agents can run read-only warmup/readiness checks.
 ```
 
-Current live Monday status: queued locally as a Monday-ready record. Direct Monday write is not available yet because no Monday connector or `MONDAY_API_TOKEN` is configured in this workspace.
+Current live Monday status: created on board `Agents Jobs`, board ID `18415045648`, item ID `12115656169`.
 
 ## First Campaign Goal
 

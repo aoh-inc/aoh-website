@@ -1,12 +1,16 @@
 # Monday Prospecting Core Setup
 
-Status: Monday-ready local setup
+Status: live Monday board connected
 Owner: Manager
 Recorded: 2026-05-27
 
 ## Board
 
 Board name: GMF Prospecting Jobs
+
+Live board name: Agents Jobs
+
+Live board ID: `18415045648`
 
 Purpose: owner-visible work board for prospecting jobs, approvals, blockers, due dates, and proof links.
 
@@ -37,6 +41,8 @@ Purpose: owner-visible work board for prospecting jobs, approvals, blockers, due
 
 Item: Refresh Smartlead API access
 
+Live item ID: `12115656169`
+
 Group: Human Needed
 
 Status: Human Needed
@@ -59,4 +65,8 @@ Notes: This is the first prospecting job because live Smartlead sends must not r
 
 ## Current Integration Status
 
-No Monday connector or `MONDAY_API_TOKEN` is available in this workspace yet, so the live Monday item has not been created through API. The import-ready row is saved in `docs/client-ops-ledger/monday-prospecting-core-setup-import.csv`.
+`MONDAY_API_TOKEN` is configured locally in `.env.local` and was used to create the live `Agents Jobs` board and the first human-needed job.
+
+The token is not committed to git. Agents should use an approved local script or internal endpoint to write to Monday rather than carrying the raw token in prompts or notes.
+
+The import-ready row remains saved in `docs/client-ops-ledger/monday-prospecting-core-setup-import.csv` as fallback documentation.

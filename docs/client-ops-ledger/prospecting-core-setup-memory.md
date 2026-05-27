@@ -22,8 +22,8 @@ Do not treat chat history as the only source of truth. This file, the prospectin
 
 ## Core Setup Order
 
-1. Create/confirm Monday structure for prospecting jobs.
-2. Add the first human-needed job: refresh Smartlead API access.
+1. Create/confirm Monday structure for prospecting jobs. Done: live board `Agents Jobs`, board ID `18415045648`.
+2. Add the first human-needed job: refresh Smartlead API access. Done: item ID `12115656169`.
 3. Store Smartlead API access locally and in production only after Mike provides/authorizes it.
 4. Re-run `npm run prospecting:preflight`.
 5. If preflight passes, let agents proceed to target/list/copy/seed-test planning.
@@ -56,9 +56,22 @@ Proof required before done:
 
 ## Live Monday Status
 
-Live Monday write is not connected yet in this workspace. The first item is queued in:
+Live Monday write is connected locally through `MONDAY_API_TOKEN` in `.env.local`.
+
+Live board:
+
+- Name: Agents Jobs
+- Board ID: `18415045648`
+
+First live item:
+
+- Name: Refresh Smartlead API access
+- Item ID: `12115656169`
+- Group: Human Needed
+
+Fallback records:
 
 - `docs/client-ops-ledger/monday-prospecting-core-setup-import.csv`
 - `docs/client-ops-ledger/agent-jobs.csv`
 
-When Monday access exists, this job should be item #1 on the prospecting board.
+Do not expose the raw Monday token to agents. Manager, Systems Director, and Reporter may write to Monday only through an approved script or internal endpoint.
