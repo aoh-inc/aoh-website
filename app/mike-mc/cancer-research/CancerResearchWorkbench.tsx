@@ -280,27 +280,56 @@ export function CancerResearchWorkbench({
     setShareStatus("Opened print dialog.");
   }
 
-  function sendChat(raw: string) {
+  async function sendChat(raw: string) {
     const text = raw.trim();
     if (!text) return;
 
+    const userId = `user-${Date.now()}`;
+    const pendingId = `cbc-${Date.now()}`;
+    const fallbackReply = generateCbcReply({
+      question: text,
+      profile: activeCase,
+      missing,
+      detectedMarkers,
+      doctorQuestions,
+      query,
+    });
+
     setMessages((current) => [
       ...current,
-      { id: `user-${current.length}`, role: "user", text },
+      { id: userId, role: "user", text },
       {
-        id: `cbc-${current.length + 1}`,
+        id: pendingId,
         role: "cbc",
-        text: generateCbcReply({
-          question: text,
-          profile: activeCase,
-          missing,
-          detectedMarkers,
-          doctorQuestions,
-          query,
-        }),
+        text: "Reading Mark's case fields and uploaded-file excerpts...",
       },
     ]);
     setChatInput("");
+
+    try {
+      const response = await fetch("/api/cbc/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: text, profile: activeCase }),
+      });
+      const body = (await response.json().catch(() => null)) as { answer?: string; error?: string } | null;
+      if (!response.ok || !body?.answer) throw new Error(body?.error ?? "CBC AI could not answer.");
+
+      setMessages((current) =>
+        current.map((message) => (message.id === pendingId ? { ...message, text: body.answer ?? fallbackReply } : message)),
+      );
+    } catch {
+      setMessages((current) =>
+        current.map((message) =>
+          message.id === pendingId
+            ? {
+                ...message,
+                text: `${fallbackReply}\n\nCBC could not reach the live AI answer route, so this answer used the local case helper.`,
+              }
+            : message,
+        ),
+      );
+    }
   }
 
   function openSelectedResearch() {
@@ -983,7 +1012,7 @@ function ChatDeck({
         <div>
           <div className="flex flex-wrap items-center gap-2">
             <p className="text-xs font-black uppercase tracking-[0.18em] text-teal-800">CBC conversation</p>
-            <AiLevelBadge level="Deep reasoning" detail="GPT-5.1 Thinking/high for recommendations when connected" />
+            <AiLevelBadge level="Deep reasoning" detail="GPT-5.5/high for recommendations when connected" />
           </div>
           <h2 className="mt-1 text-3xl font-black tracking-tight text-slate-950">Ask it like you would ask a person.</h2>
         </div>

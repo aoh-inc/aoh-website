@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { hasCbcSession } from "@/lib/cbc-auth";
-import cbcExtraction from "../../../../.cbc/mark-egidio-extraction.json";
+import { readCbcUploadedRecords } from "@/lib/cbc-record-reader";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -8,13 +8,13 @@ export const maxDuration = 300;
 
 export async function POST(request: Request) {
   if (!(await hasCbcSession())) return cbcUnauthorized();
-  await request.json().catch(() => null);
-  return NextResponse.json(cbcExtraction);
+  const body = (await request.json().catch(() => null)) as { force?: boolean } | null;
+  return NextResponse.json(await readCbcUploadedRecords(Boolean(body?.force)));
 }
 
 export async function GET() {
   if (!(await hasCbcSession())) return cbcUnauthorized();
-  return NextResponse.json(cbcExtraction);
+  return NextResponse.json(await readCbcUploadedRecords(false));
 }
 
 function cbcUnauthorized() {

@@ -9,6 +9,7 @@ type UploadResult = {
   skipped: string[];
   rejected: string[];
   error?: string;
+  message?: string;
 };
 
 export function CbcFileLibrary({ files }: { files: CbcUploadedFile[] }) {
@@ -64,7 +65,7 @@ export function CbcFileLibrary({ files }: { files: CbcUploadedFile[] }) {
           </div>
           <h2 className="mt-1 text-2xl font-black tracking-tight text-slate-950">Upload to CBC</h2>
           <p className="mt-3 text-sm leading-6 text-slate-700">
-            On this live page, CBC keeps raw medical files off the website. Add files locally, then redeploy CBC&apos;s extracted summary and file inventory.
+            Add Mark&apos;s PDFs or report screenshots here. CBC stores new files privately, lists them below, and reads them into the case summary and chat context.
           </p>
           <label className="mt-5 block rounded-2xl border-2 border-dashed border-blue-300 bg-white/80 p-5 text-center shadow-inner">
             <span className="block text-sm font-bold text-blue-900">Choose files</span>
@@ -92,6 +93,7 @@ export function CbcFileLibrary({ files }: { files: CbcUploadedFile[] }) {
               <p><strong>Uploaded:</strong> {result.uploaded.length || 0}</p>
               <p><strong>Duplicates skipped:</strong> {result.skipped.length || 0}</p>
               <p><strong>Rejected:</strong> {result.rejected.length || 0}</p>
+              {result.message && <p className="mt-2 font-semibold text-blue-900">{result.message}</p>}
             </div>
           )}
         </section>
@@ -174,7 +176,7 @@ export function CbcFileLibrary({ files }: { files: CbcUploadedFile[] }) {
                   </a>
                 ) : (
                   <p className="mt-4 rounded-xl border border-blue-100 bg-blue-50 px-4 py-2 text-sm font-bold text-blue-900">
-                    Indexed for CBC. Raw file stays local.
+                    Protected in CBC. Used for case updates.
                   </p>
                 )}
               </div>

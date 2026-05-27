@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CBC_UPLOADED_FILES } from "@/lib/cbc-files";
+import { getCbcFileLibrary } from "@/lib/cbc-files";
 import { CbcNav } from "../CbcNav";
 import { CbcFileLibrary } from "./CbcFileLibrary";
 
@@ -12,7 +12,9 @@ export const metadata: Metadata = {
 
 export const dynamic = "force-dynamic";
 
-export default function CbcFilesPage() {
+export default async function CbcFilesPage() {
+  const files = await getCbcFileLibrary();
+
   return (
     <main className="min-h-screen bg-[radial-gradient(circle_at_top_left,#bae6fd_0,#ecfeff_24rem,transparent_42rem),linear-gradient(135deg,#fff7ed_0%,#ecfeff_48%,#fdf2f8_100%)] text-slate-900">
       <div className="mx-auto w-full max-w-[92rem] px-4 py-6 md:px-8 md:py-10">
@@ -38,13 +40,13 @@ export default function CbcFilesPage() {
               </p>
             </div>
             <div className="rounded-full bg-blue-900 px-4 py-2 text-sm font-bold text-white shadow-lg shadow-blue-200">
-              {CBC_UPLOADED_FILES.length} files
+              {files.length} files
             </div>
           </div>
         </header>
 
         <CbcNav active="Files" />
-        <CbcFileLibrary files={CBC_UPLOADED_FILES} />
+        <CbcFileLibrary files={files} />
       </div>
     </main>
   );

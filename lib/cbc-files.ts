@@ -1,3 +1,5 @@
+import { listCbcStoredFiles } from "@/lib/cbc-storage";
+
 export type CbcUploadedFile = {
   id: string;
   name: string;
@@ -76,4 +78,30 @@ export function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+export async function getCbcFileLibrary() {
+  const liveFiles = await listCbcStoredFiles().catch((error) => {
+    console.error("CBC file library could not read live uploads.", error);
+    return [];
+  });
+  const names = new Set(CBC_UPLOADED_FILES.map((file) => file.name.toLowerCase()));
+  const liveLibraryFiles: CbcUploadedFile[] = liveFiles
+    .filter((file) => !names.has(file.name.toLowerCase()))
+    .map((file) => ({
+      id: `live-${file.id}`,
+      name: file.name,
+      href: protectedCbcFileHref(file.name),
+      type: file.type,
+      group: file.type === "pdf" ? "Imaging / report" : "Lab screenshots",
+      source: "Live private upload",
+      uploadedAt: file.uploadedAt.slice(0, 10),
+      sizeBytes: file.sizeBytes,
+      note:
+        file.type === "pdf"
+          ? "Live private upload. CBC reads this PDF when updating the case and answering questions."
+          : "Live private upload. CBC indexes this image and includes it in the case context.",
+    }));
+
+  return [...CBC_UPLOADED_FILES, ...liveLibraryFiles];
 }

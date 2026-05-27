@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { CbcFileLibrary } from "@/app/mike-mc/cancer-research/files/CbcFileLibrary";
-import { CBC_UPLOADED_FILES } from "@/lib/cbc-files";
+import { getCbcFileLibrary } from "@/lib/cbc-files";
 import { CbcGate } from "../CbcGate";
 import { CbcPageShell } from "../CbcPageShell";
 
@@ -18,6 +18,7 @@ type PageProps = {
 
 export default async function CbcFilesPage({ searchParams }: PageProps) {
   const params = await searchParams;
+  const files = await getCbcFileLibrary();
 
   return (
     <CbcGate error={params.error} nextPath="/cbc/files">
@@ -26,7 +27,7 @@ export default async function CbcFilesPage({ searchParams }: PageProps) {
         title="Reports & Uploads"
         subtitle="A protected inventory of PDFs, lab screenshots, and report images already loaded into CBC."
       >
-        <CbcFileLibrary files={CBC_UPLOADED_FILES} />
+        <CbcFileLibrary files={files} />
       </CbcPageShell>
     </CbcGate>
   );
