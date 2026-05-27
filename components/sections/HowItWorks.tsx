@@ -16,12 +16,14 @@ const STEPS = [
         <path d="m21 21-4.3-4.3" />
       </svg>
     ),
-    accentColor: "text-amber-500",
-    iconBg: "bg-amber-500/15",
-    iconRing: "ring-amber-500/30",
-    borderColor: "#f59e0b",
-    cardBg: "bg-amber-50/60",
-    numberColor: "text-amber-400/20",
+    accentColor: "text-amber-900",
+    iconBg: "bg-white/30",
+    iconRing: "ring-white/40",
+    borderColor: "#d97706",
+    cardBg: "bg-amber-300",
+    numberColor: "text-amber-400/30",
+    textColor: "text-amber-950",
+    mutedColor: "text-amber-900/70",
   },
   {
     number: "02",
@@ -32,12 +34,14 @@ const STEPS = [
         <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
       </svg>
     ),
-    accentColor: "text-[var(--color-accent)]",
-    iconBg: "bg-accent/15",
-    iconRing: "ring-accent/30",
-    borderColor: "var(--color-accent)",
-    cardBg: "bg-green-50/60",
-    numberColor: "text-green-400/20",
+    accentColor: "text-green-900",
+    iconBg: "bg-white/30",
+    iconRing: "ring-white/40",
+    borderColor: "#15803d",
+    cardBg: "bg-green-400",
+    numberColor: "text-green-500/30",
+    textColor: "text-green-950",
+    mutedColor: "text-green-900/70",
   },
   {
     number: "03",
@@ -48,12 +52,14 @@ const STEPS = [
         <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
       </svg>
     ),
-    accentColor: "text-emerald-500",
-    iconBg: "bg-emerald-500/15",
-    iconRing: "ring-emerald-500/30",
-    borderColor: "#10b981",
-    cardBg: "bg-emerald-50/60",
-    numberColor: "text-emerald-400/20",
+    accentColor: "text-teal-900",
+    iconBg: "bg-white/30",
+    iconRing: "ring-white/40",
+    borderColor: "#0d9488",
+    cardBg: "bg-teal-300",
+    numberColor: "text-teal-400/30",
+    textColor: "text-teal-950",
+    mutedColor: "text-teal-900/70",
   },
 ];
 
@@ -77,7 +83,7 @@ function StepCard({
         delay: index * 0.15,
         ease: [0.2, 0.8, 0.2, 1],
       }}
-      className={`group relative flex flex-col rounded-2xl border border-border/60 ${step.cardBg} overflow-hidden shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5 h-full`}
+      className={`group relative flex flex-col rounded-2xl ${step.cardBg} overflow-hidden shadow-md transition-all hover:shadow-lg hover:-translate-y-0.5 h-full`}
     >
       {/* Top accent border */}
       <motion.div
@@ -111,34 +117,34 @@ function StepCard({
         </div>
 
         {/* Title */}
-        <h3 className="text-base font-bold text-text-body mb-1.5">
+        <h3 className={`text-base font-bold ${step.textColor} mb-1.5`}>
           {step.title}
         </h3>
 
         {/* Body or visual */}
         {step.body ? (
-          <p className="text-sm leading-relaxed text-text-muted">
+          <p className={`text-sm leading-relaxed ${step.mutedColor}`}>
             {step.body}
           </p>
         ) : (
           <div className="flex-1 flex flex-col">
-            <p className="text-sm text-text-muted mb-2">
+            <p className={`text-sm ${step.mutedColor} mb-2`}>
               Before/after report in 48 hours:
             </p>
-            <div className="flex items-center gap-3 rounded-lg bg-white/80 border border-border/50 px-3 py-2">
+            <div className="flex items-center gap-3 rounded-lg bg-white/40 px-3 py-2">
               <div className="text-center">
-                <span className="block text-[10px] text-text-muted/70 mb-0.5">Before</span>
-                <span className="block text-xl font-black text-red-400/80">
+                <span className="block text-[10px] text-teal-900/60 mb-0.5">Before</span>
+                <span className="block text-xl font-black text-red-600/80">
                   <AnimatedNumber value={12} suffix="%" duration={800} />
                 </span>
               </div>
-              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-text-muted/40 shrink-0">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4 text-teal-900/40 shrink-0">
                 <path d="M5 12h14" />
                 <path d="m12 5 7 7-7 7" />
               </svg>
               <div className="text-center">
-                <span className="block text-[10px] text-text-muted/70 mb-0.5">After</span>
-                <span className="block text-xl font-black text-emerald-500">
+                <span className="block text-[10px] text-teal-900/60 mb-0.5">After</span>
+                <span className="block text-xl font-black text-teal-900">
                   <AnimatedNumber value={89} suffix="%" duration={1200} />
                 </span>
               </div>
