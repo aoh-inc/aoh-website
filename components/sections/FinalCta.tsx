@@ -7,7 +7,7 @@ export function FinalCta() {
   return (
     <section
       aria-label="Final call to action"
-      className="bg-(--color-bg-page) py-20 text-text-body md:py-28"
+      className="bg-(--color-bg-page) py-12 text-text-body md:py-16"
     >
       <div className="mx-auto max-w-3xl px-6 text-center">
         <motion.div

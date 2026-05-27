@@ -150,7 +150,7 @@ export function HowItWorks() {
     <section
       id="how-it-works"
       aria-labelledby="hiw-title"
-      className="scroll-mt-20 border-y border-border bg-(--color-bg-page) py-16 md:py-20"
+      className="scroll-mt-20 border-y border-border bg-(--color-bg-page) py-10 md:py-14"
     >
       <div className="mx-auto max-w-6xl px-6">
         {/* Header */}

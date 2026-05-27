@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PageBody, PageSection, CtaBlock } from "@/components/PageBody";
 import { Reveal } from "@/components/Reveal";
 import { ProductDetail, type ProductDetailData } from "@/components/sections/ProductDetail";
+import { CostCompare } from "@/components/sections/CostCompare";
 import { BackToTopButton } from "@/components/BackToTopButton";
 import { ICON_PATHS } from "@/lib/icon-paths";
 import { MockReviewPanel } from "@/components/ui/MockReviewPanel";
@@ -470,6 +471,8 @@ export default function PricingPage() {
             </Reveal>
           </div>
         </section>
+
+        <CostCompare />
 
         <CtaBlock
           headline="Not sure where to start?"

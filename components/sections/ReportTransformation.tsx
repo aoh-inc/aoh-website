@@ -76,7 +76,7 @@ export function ReportTransformation() {
   return (
     <section
       aria-label="Sample visibility report"
-      className="overflow-hidden border-y border-border bg-(--color-bg-elevated) py-14 md:py-20"
+      className="overflow-hidden border-y border-border bg-(--color-bg-elevated) py-10 md:py-14"
     >
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-10 px-6 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] md:items-center md:gap-14">
         {/* Left: sample report card */}

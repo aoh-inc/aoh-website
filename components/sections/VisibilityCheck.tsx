@@ -249,7 +249,7 @@ export function VisibilityCheck() {
   return (
     <section
       aria-labelledby="vc-title"
-      className="border-y border-white/10 bg-(--color-hero-bg) py-14 md:py-20"
+      className="border-y border-white/10 bg-(--color-hero-bg) py-10 md:py-14"
     >
       <div className="mx-auto max-w-6xl px-6">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-[2fr_3fr] md:items-center md:gap-14">

@@ -1,15 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { RevenueCalculator } from "@/components/RevenueCalculator";
-import { SocialProof } from "@/components/sections/SocialProof";
-import { CostCompare } from "@/components/sections/CostCompare";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { HomepageFAQ } from "@/components/sections/HomepageFAQ";
 import { ReportTransformation } from "@/components/sections/ReportTransformation";
-import { TrustCards } from "@/components/sections/TrustCards";
 import { VisibilityCheck } from "@/components/sections/VisibilityCheck";
-import { GameChanged } from "@/components/sections/GameChanged";
 import { Reveal } from "@/components/Reveal";
 import { Spotlight } from "@/components/ui/Spotlight";
 import { BackgroundBeams } from "@/components/ui/BackgroundBeams";
@@ -207,26 +202,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Stats row */}
-            <div className="mt-10 grid grid-cols-1 gap-4 border-t border-white/[0.07] pt-8 sm:grid-cols-3">
-              {[
-                { stat: "45%", label: "of customers now use AI to find local businesses" },
-                { stat: "650%", label: "increase in AI-driven local searches — one year" },
-                { stat: "$149", label: "one-time fix · no contract ever" },
-              ].map((item, i) => (
-                <div
-                  key={item.stat}
-                  className={`flex flex-col gap-1 ${i > 0 ? "sm:border-l sm:border-white/[0.07] sm:pl-6" : ""}`}
-                >
-                  <span className="text-3xl font-bold text-[var(--color-hero-text)]">
-                    {item.stat}
-                  </span>
-                  <span className="text-sm text-[var(--color-hero-subtext)]/70">
-                    {item.label}
-                  </span>
-                </div>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -234,14 +209,10 @@ export default function Home() {
 
         <HowItWorks />
 
-        <TrustCards />
-
         <VisibilityCheck />
 
-        <GameChanged />
-
         {/* Service tiers */}
-        <section className="pt-14 pb-8 md:pt-20 md:pb-10 bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]">
+        <section className="pt-10 pb-8 md:pt-14 md:pb-10 bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]">
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-8 text-center">
               <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
@@ -412,15 +383,7 @@ export default function Home() {
           </div>
         </section>
 
-        <CostCompare />
-
         <HomepageFAQ />
-
-        <section id="calculator" className="scroll-mt-24">
-          <RevenueCalculator />
-        </section>
-
-        <SocialProof />
 
         <FinalCta />
       </main>

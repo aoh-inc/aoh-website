@@ -36,38 +36,38 @@ export function HomepageFAQ() {
     <section
       id="faq-home"
       aria-labelledby="faq-home-title"
-      className="bg-(--color-hero-bg) py-15 text-hero-text md:py-25"
+      className="bg-(--color-bg-page) py-10 text-text-body md:py-14"
     >
       <div className="mx-auto max-w-3xl px-6">
-        <div className="mb-10 text-center">
+        <div className="mb-8 text-center">
           <h2
             id="faq-home-title"
-            className="text-3xl font-bold text-hero-text md:text-4xl"
+            className="text-3xl font-bold text-text-body md:text-4xl"
           >
             Questions we actually get asked
           </h2>
-          <p className="mt-2 text-sm text-hero-subtext/65">
+          <p className="mt-2 text-sm text-text-muted">
             No fine print. No runaround.
           </p>
         </div>
 
-        <div className="divide-y divide-white/10 border-y border-white/10">
+        <div className="divide-y divide-border border-y border-border">
           {ITEMS.map((item, i) => (
             <details
               key={item.q}
               open={i === 0}
               className="group py-5"
             >
-              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-hero-text focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-(--color-hero-bg)">
+              <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold text-text-body focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-(--color-bg-page)">
                 <span>{item.q}</span>
                 <span
                   aria-hidden="true"
-                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-white/10 text-hero-subtext/65 transition-transform group-open:rotate-45"
+                  className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-border text-text-muted transition-transform group-open:rotate-45"
                 >
                   +
                 </span>
               </summary>
-              <p className="mt-4 text-sm leading-relaxed text-hero-subtext/75">
+              <p className="mt-4 text-sm leading-relaxed text-text-muted">
                 {item.a}
               </p>
             </details>
