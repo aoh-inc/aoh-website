@@ -241,16 +241,16 @@ export default function Home() {
         <GameChanged />
 
         {/* Service tiers */}
-        <section className="pt-14 pb-8 md:pt-20 md:pb-10 bg-[var(--color-bg-page)]">
+        <section className="pt-14 pb-8 md:pt-20 md:pb-10 bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]">
           <div className="mx-auto max-w-6xl px-6">
             <div className="mb-8 text-center">
               <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[var(--color-accent)]">
                 Get found. Stay found. Build trust.
               </p>
-              <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-text-body)] mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-[var(--color-hero-text)] mb-4">
                 Pick the level that fits where you are.
               </h2>
-              <p className="text-lg text-[var(--color-text-muted)] max-w-2xl mx-auto">
+              <p className="text-lg text-[var(--color-hero-subtext)]/75 max-w-2xl mx-auto">
                 We run the Google profile, review path, and AI visibility basics. You stay focused on your business.
               </p>
             </div>
@@ -334,7 +334,7 @@ export default function Home() {
 
             <Reveal delay={0.18}>
               <div className="mx-auto mt-7 max-w-261 text-center">
-                <span className="inline-flex rounded-full border border-border bg-(--color-bg-elevated) px-4 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-text-muted">
+                <span className="inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-hero-subtext/65">
                   MOST COMPLETE PLAN
                 </span>
               </div>
@@ -399,7 +399,7 @@ export default function Home() {
                 See full plan details
                 <span aria-hidden="true">→</span>
               </Link>
-              <p className="mt-2 text-xs text-[var(--color-text-muted)]">
+              <p className="mt-2 text-xs text-[var(--color-hero-subtext)]/65">
                 Not sure what invisibility is costing you?{" "}
                 <Link
                   href="/calculator"
