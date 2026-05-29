@@ -22,7 +22,6 @@ export default function PrivacyPage() {
               Privacy Policy
             </h1>
             <div className="space-y-1 text-sm text-[var(--color-text-muted)]">
-              {/* CONFIRM: verify "June 1, 2026" is the correct effective date */}
               <p>Last updated: June 1, 2026</p>
               <p>Effective date: June 1, 2026</p>
             </div>
@@ -102,43 +101,21 @@ export default function PrivacyPage() {
           </PolicySection>
 
           <PolicySection title="Third-party processors (subprocessors)">
-            {/*
-              CONFIRM: review this list and confirm vendor names before considering it final.
-              Add or remove vendors as needed to match actual tools in use.
-            */}
             <p>
               We may share data with the following service providers to operate the business.
               Each is bound by its own privacy policy and processes data only as needed to
               perform services for us:
             </p>
             <ul className="mt-3 list-disc space-y-2 pl-6">
-              <li>
-                <strong>Stripe</strong> — payment processing.
-              </li>
-              <li>
-                <strong>Supabase</strong> — database and data storage.
-              </li>
-              <li>
-                <strong>Vercel</strong> — website hosting and edge delivery.
-              </li>
-              <li>
-                <strong>Cloudflare</strong> — bot protection (Turnstile) on forms.
-              </li>
-              <li>
-                {/* CONFIRM: email sending/marketing platform name — e.g. Resend, SendGrid, Mailchimp */}
-                <strong>[CONFIRM: email platform]</strong> — transactional and marketing email
-                delivery.
-              </li>
-              <li>
-                {/* CONFIRM: business-data provider name — e.g. Outscraper, DataForSEO, or similar */}
-                <strong>[CONFIRM: business-data provider]</strong> — publicly available business
-                data used for the free visibility check.
-              </li>
-              <li>
-                {/* CONFIRM: email-verification provider name — e.g. NeverBounce, ZeroBounce */}
-                <strong>[CONFIRM: email-verification provider]</strong> — email address
-                verification to reduce bounces.
-              </li>
+              <li><strong>Stripe</strong> — payment processing.</li>
+              <li><strong>SmartLead</strong> — cold email outreach and marketing.</li>
+              <li><strong>Resend</strong> — transactional email delivery (e.g. visibility-check reports).</li>
+              <li><strong>Outscraper</strong> — publicly available business data used for the free visibility check.</li>
+              <li><strong>NeverBounce</strong> — email address verification to reduce bounces.</li>
+              <li><strong>Supabase</strong> — database and data storage.</li>
+              <li><strong>Vercel</strong> — website hosting, edge delivery, and anonymous analytics.</li>
+              <li><strong>Cloudflare</strong> — CDN, security, and bot protection (Turnstile) on forms.</li>
+              <li><strong>Google Analytics (GA4)</strong> — anonymous page-view analytics.</li>
             </ul>
           </PolicySection>
 
@@ -222,8 +199,7 @@ export default function PrivacyPage() {
                 Policy updates will be posted here with a new effective date. Material changes will
                 be communicated to active clients.
               </li>
-              {/* CONFIRM: legal entity — confirm "AI Outsource Hub LLC" is correct registered name */}
-              <li>Company: AI Outsource Hub LLC d/b/a GetMeFound, Connecticut, United States.</li>
+              <li>Company: GetMeFound, a service of AI Outsource Hub LLC, Connecticut, United States.</li>
               <li>
                 Questions:{" "}
                 <a className="text-[var(--color-accent)] hover:underline" href="mailto:support@getmefound.ai">

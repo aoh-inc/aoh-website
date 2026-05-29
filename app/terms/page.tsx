@@ -22,10 +22,8 @@ export default function TermsPage() {
               Terms of Service
             </h1>
             <div className="space-y-1 text-sm text-[var(--color-text-muted)]">
-              {/* CONFIRM: verify "June 1, 2026" is the correct effective date */}
               <p>Last updated: June 1, 2026</p>
               <p>Effective date: June 1, 2026</p>
-              {/* CONFIRM: state — currently set to Connecticut. Verify this is correct governing law. */}
               <p>Governing law: State of Connecticut</p>
             </div>
           </div>
@@ -41,9 +39,8 @@ export default function TermsPage() {
         <div className="space-y-10 rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-6 md:p-10">
 
           <TermsSection title="Who we are">
-            {/* CONFIRM: legal entity name — currently "AI Outsource Hub LLC." Verify the exact registered name and confirm "doing business as GetMeFound" is accurate. */}
             <p>
-              GetMeFound is operated by AI Outsource Hub LLC, doing business as GetMeFound. Contact:{" "}
+              GetMeFound is a service of AI Outsource Hub LLC. Contact:{" "}
               <a className="text-[var(--color-accent)] hover:underline" href="mailto:support@getmefound.ai">
                 support@getmefound.ai
               </a>
@@ -219,7 +216,6 @@ export default function TermsPage() {
           </TermsSection>
 
           <TermsSection title="Disputes and governing law">
-            {/* CONFIRM: governing law — currently set to State of Connecticut. Verify this is correct. */}
             <p>
               Disputes should be raised by email first at{" "}
               <a className="text-[var(--color-accent)] hover:underline" href="mailto:support@getmefound.ai">
