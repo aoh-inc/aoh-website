@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Get Found on Google & AI Search — GetMeFound",
-  description: "Fix your Google visibility foundation. One-time $149 setup. No subscription, no contract.",
+  description: "Get your AI visibility signals right. One-time $149 setup. No subscription, no contract.",
   robots: { index: false },
 };
 
@@ -50,7 +50,7 @@ export default async function ReferralLandingPage({
           </h1>
 
           <p className="text-lg md:text-xl text-[var(--color-hero-subtext)]/70 max-w-2xl mx-auto leading-relaxed mb-10">
-            If your Google profile isn&apos;t complete and current, search engines have less confidence in your business. GetMeFound fixes that foundation for you, no subscription required.
+            If your Google profile isn&apos;t complete and current, AI has less confidence in your business. GetMeFound engineers the signals that change that — no subscription required.
           </p>
 
           {/* What you get */}

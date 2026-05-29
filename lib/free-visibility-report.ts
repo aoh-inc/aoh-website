@@ -38,7 +38,7 @@ export async function processFreeVisibilityReport(input: FreeVisibilityReportJob
       runId: input.runId,
       reportStatus: "building",
       leadStatus: "free_check_processing",
-      nextAction: "Automated enrichment and report email are running.",
+      nextAction: "Automated Visibility Engine enrichment and report email are running. Target delivery is under five minutes.",
       blocker: "",
       metadata: {
         automation: "free_visibility_report",
@@ -264,21 +264,23 @@ export function buildFreeVisibilityReportEmail(input: {
   const checkoutUrl = `${origin}/checkout/get-found-refresh?runId=${encodeURIComponent(input.runId)}&source=free_visibility_report`;
   const clickUrl = `${origin}/api/report-click?runId=${encodeURIComponent(input.runId)}&target=get_found`;
   const unsubscribeUrl = `${origin}/unsubscribe?runId=${encodeURIComponent(input.runId)}&email=${encodeURIComponent(input.email)}`;
-  const subject = `${input.businessName}: your free visibility check`;
+  const subject = `${input.businessName}: your Visibility Engine report`;
   const lines = buildReportLines(input.businessName, input.enrichment);
 
   const text = [
     `Hi,`,
     ``,
-    `I ran the free visibility check for ${input.businessName}. Here is what stood out:`,
+    `I ran ${input.businessName} through the Visibility Engine. It checks the public signals Google AI, ChatGPT, Claude, and Gemini use when deciding which local business looks safest to recommend.`,
+    ``,
+    `Here is what stood out:`,
     ``,
     ...lines.map((line) => `- ${line}`),
     ``,
-    `Why this matters: when Google and AI search compare local options, review depth, complete hours/photos, and clear category signals help decide which business looks safest to recommend. Thin or missing signals can cost visibility even when the business itself is good.`,
+    `Why this matters: AI search is starting to pick one or two local businesses instead of showing people a long list. Once a competitor becomes the cleanest, most complete answer, they are harder to displace. Getting picked is not one simple fix; it is dozens of trust signals working together.`,
     ``,
-    `GetMeFound can clean up the basics for $149: Google profile facts, visibility gaps, website trust signals, and the review path. No contract. Fixed in 48 hours. Satisfaction guarantee.`,
+    `GetMeFound can set up your Visibility Engine for $149: Google profile facts, obvious visibility gaps, website trust signals, and the first review path. No contract. Done in 48 hours. Satisfaction guarantee.`,
     ``,
-    `Get Found for $149: ${clickUrl}`,
+    `Get Found for $149 - your Visibility Engine setup, done in 48 hours: ${clickUrl}`,
     ``,
     `GetMeFound`,
     POSTAL_ADDRESS,
@@ -360,7 +362,7 @@ export async function recordFreeVisibilityPurchase(input: {
         runId,
         reportStatus: "closed",
         leadStatus,
-        nextAction: "Stop nurture and start paid onboarding.",
+        nextAction: "Stop nurture, start paid onboarding, and trigger Stay Found upsell only after the 48-hour before/after proof is delivered.",
         blocker: "",
       }),
       logVisibilityReportEvent({
@@ -381,7 +383,7 @@ export async function recordFreeVisibilityPurchase(input: {
         email,
         reportStatus: "closed",
         leadStatus,
-        nextAction: "Stop nurture and start paid onboarding.",
+        nextAction: "Stop nurture, start paid onboarding, and trigger Stay Found upsell only after the 48-hour before/after proof is delivered.",
         blocker: "",
       }),
     );
@@ -397,13 +399,13 @@ async function sendWithRetry(input: {
   replyTo: string;
 }): Promise<{ ok: true; id: string; attempts: number } | { ok: false; error: string; attempts: number }> {
   let lastError = "Unknown send failure.";
-  for (let attempt = 1; attempt <= 2; attempt++) {
+  for (let attempt = 1; attempt <= 3; attempt++) {
     const result = await sendGetMeFoundEmail(input);
     if (result.ok) return { ok: true, id: result.id, attempts: attempt };
     lastError = result.error;
-    if (attempt < 2) await new Promise((resolve) => setTimeout(resolve, 800));
+    if (attempt < 3) await new Promise((resolve) => setTimeout(resolve, attempt === 1 ? 800 : 2_000));
   }
-  return { ok: false, error: lastError, attempts: 2 };
+  return { ok: false, error: lastError, attempts: 3 };
 }
 
 async function isProspectSuppressed(email: string) {
@@ -411,7 +413,7 @@ async function isProspectSuppressed(email: string) {
   const query = new URLSearchParams({
     select: "id",
     to_email: `eq.${email.trim().toLowerCase()}`,
-    event_type: "eq.unsubscribe",
+    event_type: "in.(unsubscribe,do_not_contact,hard_bounce,complaint)",
     limit: "1",
   });
   const result = await supabaseRest<Array<{ id: string }>>("email_events", { query: query.toString() });
@@ -477,32 +479,32 @@ function buildReportLines(businessName: string, enrichment: FreeVisibilityEnrich
 
   if (!prospect) {
     lines.push("I could not safely confirm a live Google Business Profile match from the public lookup, so I am not guessing at review counts or ratings.");
-    lines.push("The first fix is making sure Google can clearly connect the business name, category, hours, website, and review path.");
+    lines.push("The first fix is making sure AI can connect the business name, category, hours, website, and review path without conflicting signals.");
     return lines;
   }
 
   if (prospect.reviewCount != null) {
-    lines.push(`Google reviews: ${formatNumber(prospect.reviewCount)} visible review${prospect.reviewCount === 1 ? "" : "s"}.`);
+    lines.push(`Review depth: ${formatNumber(prospect.reviewCount)} Google review${prospect.reviewCount === 1 ? "" : "s"} were visible in the public profile data.`);
   }
   if (prospect.rating != null) {
-    lines.push(`Google rating: ${prospect.rating.toFixed(1)} stars.`);
+    lines.push(`Rating signal: ${prospect.rating.toFixed(1)} stars were visible in the public profile data.`);
   }
   if (prospect.primaryCategory) {
-    lines.push(`Primary category found: ${prospect.primaryCategory}.`);
+    lines.push(`Category signal: Google appears to classify the business as ${prospect.primaryCategory}.`);
   }
   if (prospect.photosCount != null) {
-    lines.push(prospect.photosCount > 0 ? `Photos: ${formatNumber(prospect.photosCount)} public photo signal${prospect.photosCount === 1 ? "" : "s"} found.` : "Photos: no public photo signal was confirmed.");
+    lines.push(prospect.photosCount > 0 ? `Photo signal: ${formatNumber(prospect.photosCount)} public photo signal${prospect.photosCount === 1 ? "" : "s"} were found.` : "Photo signal: no public photo signal was confirmed.");
   }
   if (prospect.hoursPresent != null) {
-    lines.push(prospect.hoursPresent ? "Hours: public hours were found." : "Hours: public hours were not confirmed in the lookup.");
+    lines.push(prospect.hoursPresent ? "Hours signal: public hours were found." : "Hours signal: public hours were not confirmed in the lookup.");
   }
   if (competitor?.reviewCount != null && competitor.name) {
-    const plus = prospect.reviewCount != null && competitor.reviewCount > prospect.reviewCount ? "+" : "";
-    lines.push(`Nearby comparison: ${competitor.name} shows ${formatNumber(competitor.reviewCount)}${plus} Google reviews.`);
+    lines.push(`Nearby comparison: ${competitor.name} shows ${formatNumber(competitor.reviewCount)} Google reviews in the same public data source.`);
   }
 
   if (!lines.length) {
     lines.push(`I found a likely Google profile for ${businessName}, but the public data was too thin to quote exact stats safely.`);
+    lines.push("That thin-data signal is itself worth fixing because AI systems need clear, corroborated facts before they recommend a local business.");
   }
 
   return lines;

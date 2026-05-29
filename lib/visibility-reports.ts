@@ -241,6 +241,48 @@ export async function updateVisibilityReportsByEmail(input: {
   });
 }
 
+export async function findRecentVisibilityReportRequest(input: {
+  email: string;
+  businessName: string;
+  context: VisibilityReportContext;
+  sinceIso: string;
+}) {
+  if (!hasSupabaseConfig()) {
+    return {
+      ok: false as const,
+      configured: false as const,
+      error: "Supabase environment variables are missing.",
+    };
+  }
+
+  const query = new URLSearchParams({
+    select: "run_id,created_at,report_status,lead_status,audit_url",
+    contact_email: `eq.${input.email.trim().toLowerCase()}`,
+    business_name: `eq.${cleanText(input.businessName, 180)}`,
+    report_context: `eq.${input.context}`,
+    created_at: `gte.${input.sinceIso}`,
+    order: "created_at.desc",
+    limit: "1",
+  });
+
+  const result = await supabaseRest<
+    Array<Pick<VisibilityReportRow, "run_id" | "created_at" | "report_status" | "lead_status" | "audit_url">>
+  >(REPORTS_TABLE, {
+    query: query.toString(),
+  });
+
+  if (!result.ok) {
+    return {
+      ok: false as const,
+      configured: true as const,
+      status: result.status,
+      error: result.error,
+    };
+  }
+
+  return { ok: true as const, configured: true as const, report: result.data[0] ?? null };
+}
+
 export async function logVisibilityReportEvent(input: {
   runId: string;
   eventType: string;

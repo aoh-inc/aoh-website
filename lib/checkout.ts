@@ -19,7 +19,7 @@ export const CHECKOUT_PRODUCTS: CheckoutProduct[] = [
     cadence: "one-time",
     setup: "No contract",
     summary:
-      "Get Found — complete AI-visibility foundation, delivered in 48 hours. We map, align, and amplify every signal Google AI, ChatGPT, and Claude check before recommending a business.",
+      "Get Found — complete AI-visibility setup, delivered in 48 hours. We map, align, and amplify every signal Google AI, ChatGPT, and Claude check before recommending a business.",
     whatYouGet: [
       "We fix your Google listing — hours, services, photos, everything",
       "We make your website match your Google listing exactly",

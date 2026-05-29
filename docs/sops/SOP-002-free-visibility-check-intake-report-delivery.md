@@ -1,7 +1,7 @@
 # SOP 002 - Free Visibility Check Intake To Report Delivery
 
 Status: Drafted
-Version: 0.3
+Version: 0.4
 Owner: Systems Director
 Reviewer: Auditor / Sales Manager
 Approver: Manager
@@ -23,7 +23,7 @@ Turn a homepage free visibility check request into an automated, claim-safe pros
 
 ## Scope
 
-Covers prospect-facing homepage form intake, NeverBounce verification, dedupe, public GBP/Outscraper enrichment, safe fallback copy, report email delivery, click/opt-out logging, and handoff to nurture.
+Covers prospect-facing homepage form intake, NoBounce/NeverBounce verification, dedupe, public GBP/Outscraper enrichment, safe fallback copy, report email delivery, click/opt-out logging, and handoff to nurture.
 
 Does not cover client onboarding, full client baseline reports, recurring monthly reports, or abandoned checkout recovery.
 
@@ -38,7 +38,7 @@ Does not cover client onboarding, full client baseline reports, recurring monthl
 
 | Role | Responsibility |
 |---|---|
-| Systems Director | Maintains endpoint, NeverBounce, Outscraper, Resend, Supabase logs, and failure recovery |
+| Systems Director | Maintains endpoint, NoBounce/NeverBounce, Outscraper, Resend, Supabase logs, and failure recovery |
 | Automation | Verifies email, enriches public facts, sends report, logs events, and enrolls nurture |
 | Sales Rep | Owns replies, nurture, and buyer handoff after the automated report |
 | Scout | Performs manual public research only when automation cannot safely enrich |
@@ -53,8 +53,8 @@ Does not cover client onboarding, full client baseline reports, recurring monthl
 - Do not show the full client-only scoring rubric or full competitor audit.
 - Homepage free visibility reports are automated once the template and guardrails are approved.
 - Never email a blank, guessed, or low-confidence stat. Omit that line or use safe generic phrasing.
-- Verify the email with NeverBounce before storing/sending an accepted homepage request.
-- Dedupe repeat same-email/same-business requests.
+- Verify the email with NoBounce or the existing NeverBounce verifier before storing/sending an accepted homepage request.
+- Dedupe repeat same-email/same-business requests through rate limiting and recent Supabase visibility-report lookup.
 - Use Resend from the authenticated GMF sender domain with physical address and opt-out.
 - Do not promise rankings, reviews, revenue, Google placement, AI Overview inclusion, AI Mode visibility, or timelines.
 - Sales Rep does not manually touch normal homepage report delivery.
@@ -64,7 +64,8 @@ Does not cover client onboarding, full client baseline reports, recurring monthl
 1. Intake the homepage request.
    - Capture business name and email.
    - Apply honeypot, Turnstile if configured, IP rate limit, email rate limit, and same-email/same-business dedupe.
-   - Verify email with NeverBounce. If invalid/risky, do not send.
+   - Check recent `visibility_reports` rows before sending so a repeat request does not create a duplicate report email.
+   - Verify email with NoBounce or the existing NeverBounce verifier. If invalid/risky, do not send.
 
 2. Store the accepted request.
    - Use `prospect_free_check` for website CTA reports.
@@ -74,6 +75,7 @@ Does not cover client onboarding, full client baseline reports, recurring monthl
 3. Run fast automation.
    - Route runs `processFreeVisibilityReport` through Next/Vercel `after()`.
    - Set `report_status = building` and `lead_status = free_check_processing`.
+   - Target end-to-end delivery is under five minutes. If enrichment is slow or unavailable, send the fallback report from safe available fields instead of waiting.
    - Do not create a manual agent task unless delivery fails.
 
 4. Enrich public GBP facts.
@@ -83,6 +85,7 @@ Does not cover client onboarding, full client baseline reports, recurring monthl
 
 5. Send report email.
    - Send plain-text-leaning email from the authenticated GMF Resend sender.
+   - Use the Visibility Engine voice: opportunity, first-mover urgency, and a clear note that Google AI, ChatGPT, Claude, and Gemini check many signals together.
    - Include only safe facts, Get Found $149 CTA, 48 hours, no contract, satisfaction guarantee, physical mailing address, and opt-out link.
    - CTA points to `/checkout/get-found-refresh` through click tracker `/api/report-click`.
 
@@ -107,7 +110,15 @@ Does not cover client onboarding, full client baseline reports, recurring monthl
 
 ## Communication Rule
 
-Free report emails should be short, useful, and plain-English. Position Get Found as the next step using authority, specificity, and the guarantee. Do not use testimonials until GMF has real customers and approved proof.
+Free report emails should be short, useful, and plain-English. Position Get Found as the next step using authority, specificity, the Visibility Engine, and the guarantee. Do not use testimonials until GMF has real customers and approved proof.
+
+## Required Credentials / APIs
+
+- `OUTSCRAPER_API_KEY` for public Google Business Profile enrichment.
+- `NOBOUNCE_API_KEY` or `NEVERBOUNCE_API_KEY` for email verification.
+- `RESEND_API_KEY` and `RESEND_FROM_EMAIL` from an authenticated GMF sending domain.
+- `GMF_PUBLIC_SITE_URL` or `NEXT_PUBLIC_SITE_URL` for trusted email/checkout links.
+- Supabase URL/public key/secret key for request, event, suppression, and purchase logging.
 
 ## Failure Or Blocker Handling
 
@@ -124,6 +135,7 @@ Free report emails should be short, useful, and plain-English. Position Get Foun
 | 0.1 | 2026-05-27 | Initial controlled scaffold from SOP master map | Coach |
 | 0.2 | 2026-05-27 | Expanded intake-to-report-delivery workflow and prospect/client separation rules | Coach |
 | 0.3 | 2026-05-29 | Converted homepage free visibility check to automated NeverBounce, Outscraper, Resend, click/opt-out, and Stripe stop-flow path | Systems Director / Elon |
+| 0.4 | 2026-05-29 | Added NoBounce alias, under-five-minute delivery target, Visibility Engine copy rules, and required credential list | Systems Director / Elon |
 
 ## Source Documents
 

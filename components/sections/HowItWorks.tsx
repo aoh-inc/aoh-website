@@ -7,8 +7,9 @@ import { useRef } from "react";
 const STEPS = [
   {
     number: "01",
-    title: "We check what AI sees",
-    body: "Your Google profile, website, and directories — reviewed against what AI actually looks for.",
+    step: "Map",
+    title: "We map what AI sees",
+    body: "We check your business against everything AI looks at before it picks who to recommend.",
     icon: (
       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
         <circle cx="11" cy="11" r="8" />
@@ -26,8 +27,9 @@ const STEPS = [
   },
   {
     number: "02",
-    title: "We fix what's invisible",
-    body: "Listings corrected, website matched, directories synced, first review requests sent.",
+    step: "Align",
+    title: "We fix what AI distrusts",
+    body: "We add the code that makes AI read your business the right way — and fix the conflicting details that make it skip you.",
     icon: (
       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="h-6 w-6">
         <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
@@ -44,6 +46,7 @@ const STEPS = [
   },
   {
     number: "03",
+    step: "Amplify",
     title: "You see the difference",
     body: null,
     icon: (
@@ -110,9 +113,14 @@ function StepCard({
           >
             {step.icon}
           </motion.div>
-          <span className={`font-mono text-4xl font-black ${step.numberColor} select-none`}>
-            {step.number}
-          </span>
+          <div className="flex items-center gap-1.5">
+            <span className={`font-mono text-xs font-bold uppercase tracking-[0.18em] ${step.accentColor}`}>
+              {step.step}
+            </span>
+            <span className={`font-mono text-4xl font-black ${step.numberColor} select-none`}>
+              {step.number}
+            </span>
+          </div>
         </div>
 
         {/* Title */}
@@ -178,7 +186,7 @@ export function HowItWorks() {
             Done for you. Done in 48 hours.
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-text-muted max-w-lg mx-auto md:text-base">
-            We check what Google and AI see. We fix what&apos;s holding you back. You get the proof.
+            We run your business through the Visibility Engine — mapping what AI sees, fixing what it distrusts, and proving the lift. In 48 hours.
           </p>
         </motion.div>
 

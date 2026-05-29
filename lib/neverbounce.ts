@@ -27,7 +27,7 @@ export async function verifyEmailWithNeverBounce(email: string): Promise<NeverBo
       provider: "neverbounce",
       result: "not_configured",
       flags: [],
-      error: "NeverBounce API key is not configured.",
+      error: "NoBounce/NeverBounce API key is not configured.",
     };
   }
 

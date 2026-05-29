@@ -19,7 +19,7 @@ const companyRows = [
   {
     label: "WHAT",
     value:
-      "GetMeFound fixes your Google listing, reviews, and AI visibility — done for you, starting with a one-time foundation fix.",
+      "GetMeFound engineers your AI visibility signals — done for you, starting with a one-time setup that runs your business through the Visibility Engine.",
   },
   {
     label: "HOW",

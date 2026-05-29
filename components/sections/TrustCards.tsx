@@ -55,7 +55,7 @@ export function TrustCards() {
 
           <div className="flex flex-col rounded-2xl border border-white/10 bg-(--color-bg-dark-card) p-7 shadow-2xl shadow-black/20">
             <p className="mb-5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-hero-subtext/60">
-              Our Foundation
+              Our Method
             </p>
             <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-accent/10 text-accent ring-1 ring-accent/25">
               <AwardIcon />

@@ -101,7 +101,7 @@ export function AuditRequestForm() {
           Your free visibility check is on its way.
         </p>
         <p className="mt-2 text-sm leading-relaxed text-white/55">
-          We received your request for <span className="font-semibold text-white/80">{businessName}</span>. Your personalized visibility report is being sent to <span className="font-semibold text-white/80">{email}</span> now - usually within a few minutes.
+          We received your request for <span className="font-semibold text-white/80">{businessName}</span>. Your personalized Visibility Engine report is being sent to <span className="font-semibold text-white/80">{email}</span> now - usually within 5 minutes.
         </p>
         <p className="mt-4 text-xs text-white/35">
           Check spam if you don&apos;t see it. Questions? Email{" "}
@@ -119,7 +119,7 @@ export function AuditRequestForm() {
         See where your business actually stands.
       </h2>
       <p className="mt-1.5 text-sm text-white/55">
-        Free. We&apos;ll email your personalized report in a few minutes.
+        Free. We&apos;ll email your personalized Visibility Engine report in under 5 minutes.
       </p>
 
       <form onSubmit={handleSubmit} className="mt-6 space-y-4" noValidate>
@@ -192,7 +192,7 @@ export function AuditRequestForm() {
 
         <p className="text-[11px] leading-relaxed text-white/35 text-center">
           No password needed. We never touch your email hosting.{" "}
-          <span className="text-white/50">Google access is manager-only — you stay the owner.</span>
+          <span className="text-white/50">Google access is manager-only - you stay the owner.</span>
         </p>
 
         {TURNSTILE_SITE_KEY && (

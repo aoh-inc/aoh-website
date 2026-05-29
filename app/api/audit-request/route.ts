@@ -1,12 +1,18 @@
 import { after, NextRequest, NextResponse } from "next/server";
 import { validateEmail } from "@/lib/email-validation";
+import { envValueAny } from "@/lib/getmefound-env";
 import { processFreeVisibilityReport } from "@/lib/free-visibility-report";
 import { verifyEmailWithNeverBounce } from "@/lib/neverbounce";
 import { checkEmailRate, checkIpRate, checkReportDedupe } from "@/lib/rate-limit";
-import { createVisibilityReportRequest, logVisibilityReportEvent } from "@/lib/visibility-reports";
+import {
+  createVisibilityReportRequest,
+  findRecentVisibilityReportRequest,
+  logVisibilityReportEvent,
+} from "@/lib/visibility-reports";
 
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
+export const maxDuration = 60;
 
 const TURNSTILE_VERIFY_URL =
   "https://challenges.cloudflare.com/turnstile/v0/siteverify";
@@ -95,6 +101,32 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true, duplicate: true });
   }
 
+  const recentDuplicate = await findRecentVisibilityReportRequest({
+    email: normalizedEmail,
+    businessName: normalizedName,
+    context: "prospect_free_check",
+    sinceIso: hoursAgoIso(24),
+  });
+  if (recentDuplicate.ok && recentDuplicate.report) {
+    await logVisibilityReportEvent({
+      runId: recentDuplicate.report.run_id,
+      eventType: "duplicate_suppressed",
+      actorRole: "Automation",
+      note: "Duplicate homepage free visibility check request suppressed for the same email and business within 24 hours.",
+      payload: {
+        email: normalizedEmail,
+        businessName: normalizedName,
+        existingStatus: recentDuplicate.report.report_status,
+      },
+    });
+    return NextResponse.json({
+      ok: true,
+      duplicate: true,
+      runId: recentDuplicate.report.run_id,
+      estimatedEmailMinutes: 5,
+    });
+  }
+
   const verification = await verifyEmailWithNeverBounce(normalizedEmail);
   if (!verification.ok) {
     const transient =
@@ -111,8 +143,7 @@ export async function POST(req: NextRequest) {
   }
 
   const runId = crypto.randomUUID();
-  const origin = req.headers.get("origin") ?? "https://getmefound.ai";
-  const cleanOrigin = origin.replace(/\/+$/, "") || "https://getmefound.ai";
+  const cleanOrigin = resolveReportOrigin(req);
   const submittedAt = new Date().toISOString();
   const checkoutUrl = `${cleanOrigin}/checkout/get-found-refresh?runId=${encodeURIComponent(runId)}&source=free_visibility_report`;
 
@@ -141,7 +172,7 @@ export async function POST(req: NextRequest) {
     runId,
     eventType: "email_verified",
     actorRole: "Automation",
-    note: "NeverBounce verified the address before report automation.",
+    note: "NoBounce/NeverBounce verified the address before report automation.",
     payload: verification,
   });
 
@@ -158,4 +189,29 @@ export async function POST(req: NextRequest) {
   });
 
   return NextResponse.json({ ok: true, runId, estimatedEmailMinutes: 5 });
+}
+
+function resolveReportOrigin(req: NextRequest) {
+  const configured =
+    envValueAny("GMF_PUBLIC_SITE_URL", "NEXT_PUBLIC_SITE_URL", "VERCEL_PROJECT_PRODUCTION_URL") ||
+    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "");
+  const candidate = configured || req.headers.get("origin") || "https://getmefound.ai";
+
+  try {
+    const url = new URL(candidate.startsWith("http") ? candidate : `https://${candidate}`);
+    const localDev = url.hostname === "localhost" || url.hostname === "127.0.0.1";
+    const trustedHost =
+      url.hostname === "getmefound.ai" ||
+      url.hostname.endsWith(".getmefound.ai") ||
+      (process.env.NODE_ENV !== "production" && localDev);
+    if (trustedHost) return url.origin.replace(/\/+$/, "");
+  } catch {
+    // Fall through to the production public origin.
+  }
+
+  return "https://getmefound.ai";
+}
+
+function hoursAgoIso(hours: number) {
+  return new Date(Date.now() - hours * 60 * 60 * 1000).toISOString();
 }

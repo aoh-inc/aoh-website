@@ -73,6 +73,9 @@ tmp-getmefound-*
 !/scripts/smartlead-schedule-seed-launch.mjs
 !/scripts/smartlead-warmup-report.mjs
 !/scripts/prospecting-smartlead-preflight.mjs
+!/scripts/gmf-prospecting-engine.mjs
+!/scripts/gmf-smartlead-draft-builder.mjs
+!/scripts/gmf-prospecting-guardrails.mjs
 !/scripts/monday-agent-jobs.mjs
 !/scripts/agent-command-center.mjs
 !/scripts/manager-agent-eval.mjs

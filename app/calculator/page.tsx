@@ -53,8 +53,8 @@ export default function CalculatorPage() {
               Let&apos;s fix it for you.
             </h2>
             <p className="text-base md:text-lg text-[var(--color-text-muted)] leading-relaxed max-w-2xl mx-auto mb-8">
-              Most businesses fix the foundation in one shot. Get Found covers
-              every signal Google and AI check — done in 48 hours, no subscription required.
+              Get Found runs your business through the Visibility Engine in one shot —
+              every signal Google and AI check, done in 48 hours, no subscription required.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">

@@ -29,9 +29,9 @@ const products: ProductDetailData[] = [
     slug: "get-found-refresh",
     number: "01",
     name: "Get Found",
-    outcome: "The complete AI-visibility foundation, run through our Visibility Engine.",
+    outcome: "Your complete AI-visibility setup, run through the Visibility Engine.",
     story:
-      "We map every signal Google AI, ChatGPT, and Claude check before recommending a business — your profile, structured business data, cross-web consistency, and first review-velocity path — and fix the conflicts that make them distrust you. Done in 48 hours.",
+      "We map every signal Google AI, ChatGPT, and Claude check before recommending a business — your profile, your business facts across the web, and your first review path — and fix the conflicts that make them distrust you. Done in 48 hours.",
     stats: [
       { label: "Type", value: "One-time" },
       { label: "Typical turn", value: "48–72h" },
@@ -60,7 +60,7 @@ const products: ProductDetailData[] = [
     price: "$149",
     cadenceLabel: " one-time",
     setup: "No contract",
-    promoNote: "Build the foundation first. AI can't pick you until the signals are right.",
+    promoNote: "Get your signals right first. AI can't pick you until they are.",
     ctaLabel: "Start Get Found",
     ctaHref: "/checkout/get-found-refresh",
     secondaryCtaHref: BOOKING_HREF,
@@ -241,7 +241,7 @@ export default function PricingPage() {
                   Step 1 - Start here
                 </p>
                 <h3 className="text-2xl md:text-3xl font-bold text-white mb-5">
-                  Start with Get Found — build the foundation AI checks.
+                  Start with Get Found — get your signals right first.
                 </h3>
 
                 <div className="mb-6 flex flex-wrap gap-2">

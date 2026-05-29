@@ -53,12 +53,17 @@ export async function POST(req: NextRequest) {
     allow_promotion_codes: false,
     customer_creation: product.stripeMode === "payment" ? "always" : undefined,
     payment_method_types: ["card", "link", "us_bank_account"],
+    consent_collection: {
+      terms_of_service: "required",
+    },
     custom_text: {
       submit: {
         message:
-          "Delivered in 48 hours · No contract · If any fix isn't right, we fix it.",
+          "Delivered in 48 hours · No contract · If any fix isn't right, we fix it. Questions: support@getmefound.ai",
       },
-      terms_of_service_acceptance: undefined,
+      terms_of_service_acceptance: {
+        message: `By completing this purchase you agree to GetMeFound's [Terms of Service](${origin}/terms) and [Privacy Policy](${origin}/privacy). Our guarantee: if any fix in your report isn't done correctly, we fix it at no charge.`,
+      },
     },
   };
 

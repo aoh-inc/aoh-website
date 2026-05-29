@@ -95,7 +95,7 @@ export function buildProspectVisibilityArtifact(report: AIVisibilityReport): Pro
       : "The clearest gap is still being verified.",
     quickRead:
       score >= 70
-        ? "Google and AI can understand the basics, but the foundation still needs to stay fresh."
+        ? "Google and AI can understand the basics, but your signals need to stay fresh to stay recommended."
         : "Google and AI can understand part of the business, but not enough to confidently recommend it over cleaner competitors.",
     signals,
     lockedNow: PROSPECT_UNLOCKS,

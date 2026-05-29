@@ -108,6 +108,52 @@ The first gate passes only when:
 - each inbox has at least 10 warmup sent
 - spam count is 0
 
+## GMF Prospecting Engine
+
+The current build command for the 2026-06-01 GetMeFound launch packet is:
+
+```bash
+npm run gmf:prospecting -- --fixture
+```
+
+Real list prep uses:
+
+```bash
+npm run gmf:prospecting -- --input <csv> --verify
+```
+
+Paid Outscraper sourcing remains spend-gated:
+
+```bash
+npm run gmf:prospecting -- --allow-spend --verify
+```
+
+This engine does not send email, upload leads, create campaigns, or mutate Smartlead. It prepares the ready CSV, held CSV, sequence packet, nurture packet, metrics template, and current proof report for Auditor review.
+
+Build the paused Smartlead draft packet:
+
+```bash
+npm run gmf:smartlead-draft
+```
+
+This is dry-run by default. It validates the ready CSV, sequence copy, footer, opt-out, one-link rule, sender domains, daily cap, schedule, and Smartlead payloads. It never activates a campaign.
+
+Review metrics guardrails:
+
+```bash
+npm run gmf:guardrails
+```
+
+This reads the metrics CSV, calculates bounce/spam/opt-out/reply-quality rates by subdomain, niche, and segment, and creates a pause recommendation when thresholds are breached.
+
+Reply and stop events route through:
+
+```text
+/api/prospecting/events
+```
+
+The route is token-protected, logs Smartlead/prospecting events, suppresses opt-outs, not-interested replies, bounces, and complaints, stops nurture/cold-sequence state for form fills and purchases, and creates Sales Rep tasks for interested, OOO, and unclear replies.
+
 ## Deliverability Gate
 
 Before any Smartlead campaign can be activated or restarted, Sender must run:

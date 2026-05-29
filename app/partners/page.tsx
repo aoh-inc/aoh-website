@@ -196,7 +196,7 @@ export default function PartnersPage() {
             style={{ opacity: 0.7 }}
           >
             There are over 30 million local businesses in the US. Most are not ready for AI-driven Google
-            search, maps, and local recommendations. GetMeFound fixes the foundation &mdash; $149 to start.
+            search, maps, and local recommendations. GetMeFound fixes that &mdash; $149 to start.
             You earn $50 every time someone buys through your link.
           </p>
           <a
@@ -396,7 +396,7 @@ export default function PartnersPage() {
                   &ldquo;Real talk &mdash; if someone searches for your type of business right now,
                   is AI recommending you? Probably not, and it&apos;s not your fault. Google Search
                   is becoming more AI-driven and most local businesses have no idea. There&apos;s a service
-                  called GetMeFound &mdash; $149, they clean up your Google profile and AI visibility foundation,
+                  called GetMeFound &mdash; $149, they clean up your Google profile and fix your AI visibility signals,
                   and they help set up the first safe review request path.
                   No monthly fee. Link is below.&rdquo;
                 </p>

@@ -3,19 +3,19 @@
 import { motion } from "framer-motion";
 
 const SIGNALS = [
-  { label: "Entity consistency", detail: "Your business name, address, phone, and category match exactly across Google, Apple Maps, Bing, Yelp, and 50+ directories." },
-  { label: "NAP feeding the knowledge graph", detail: "Google's knowledge graph builds its understanding of your business from consistent Name / Address / Phone data. Inconsistencies make it distrust the entity." },
-  { label: "Structured data AI can parse", detail: "LocalBusiness schema markup on your website tells AI crawlers exactly who you are, what you do, and where you serve — in machine-readable format." },
-  { label: "Google Business Profile completeness", detail: "Category selection, service areas, opening hours, attributes, Q&A, and photos are all signals AI uses for disambiguation and trust scoring." },
-  { label: "Review velocity and recency", detail: "AI systems weight recent review activity heavily. A business with steady new reviews signals active, trustworthy operation — stale reviews signal risk." },
-  { label: "Website ↔ profile fact alignment", detail: "AI cross-checks your website against your Google listing. Mismatches in hours, address, services, or description reduce trust on both." },
-  { label: "Cross-web citation authority", detail: "The number, quality, and consistency of citations across directories, news, and third-party sites contributes to how confidently AI identifies and recommends you." },
-  { label: "Review sentiment signal stack", detail: "Not just star ratings — AI reads review content for service-specific keyword clusters. Specific reviews mentioning your services outperform generic praise." },
-  { label: "AI-answer citation readiness", detail: "When Google AI, ChatGPT, or Gemini generate a local recommendation, they prefer businesses with structured, verifiable, machine-readable proof. We build that." },
-  { label: "Profile activity signals", detail: "Regular posts, photo updates, Q&A responses, and profile edits signal an active business. AI search systems infer reliability from activity recency." },
-  { label: "Reply voice and brand consistency", detail: "Consistent, professional responses to reviews — especially negative ones — contribute to the trust picture AI reads before recommending you." },
-  { label: "Business category and attribute alignment", detail: "Selecting the right primary and secondary categories, plus all relevant attributes (parking, payment methods, accessibility), improves disambiguation accuracy." },
-  { label: "GEO / AEO signal readiness", detail: "Generative Engine Optimization and Answer Engine Optimization signals: AI systems increasingly pull from structured entity data and authoritative, unambiguous business profiles when generating local answers." },
+  { label: "Your business facts matching everywhere AI looks", detail: "Name, address, phone, and services need to say the same thing on Google, Apple Maps, Bing, Yelp, and dozens of other places AI reads. One mismatch creates doubt." },
+  { label: "Whether AI can read and understand your site", detail: "We add the code in the background that tells AI exactly who you are, what you do, and where you serve it — without changing how your site looks to customers." },
+  { label: "Your Google profile being complete, not just claimed", detail: "Hours, service categories, photos, Q&A, and the right business attributes all tell AI you're a real, active business. A half-filled profile tells it the opposite." },
+  { label: "Review freshness and pace", detail: "AI pays attention to how recently and how consistently you get reviews — not just your star rating. Stale reviews tell it the business may not be active." },
+  { label: "Your website saying the same thing as your Google listing", detail: "AI cross-checks. If your website says Tuesday–Saturday but your Google listing says Monday–Friday, AI sees a conflict and trusts you less." },
+  { label: "Being seen across the web consistently", detail: "The more places AI finds the same accurate information about you — in directories, local sites, and listings — the more confident it is recommending you." },
+  { label: "What your reviews actually say", detail: "AI reads the words in reviews, not just the stars. Reviews that mention specific services and outcomes carry more weight than generic five-star praise." },
+  { label: "Being ready to show up when AI generates an answer", detail: "When Google AI, ChatGPT, or Gemini write a local recommendation, they pull from businesses with clean, verifiable, consistent facts. We build that readiness." },
+  { label: "Staying active, not just set-and-forgotten", detail: "Regular posts, photo updates, and profile activity tell AI your business is running. A profile that hasn't changed in a year looks like it might be closed." },
+  { label: "How you respond to reviews", detail: "Consistent, professional responses — especially to negative reviews — show AI (and customers) that a real, engaged person is running the business." },
+  { label: "Being listed in the right category", detail: "AI uses your primary business category as one of its first filters. Being in the wrong category — or missing secondary ones — can cut you out before anything else is checked." },
+  { label: "Your review path actually working", detail: "Having a clear, frictionless way for happy customers to leave reviews is how you build the velocity AI looks for. Most businesses have this broken." },
+  { label: "GEO and AEO readiness (for researchers)", detail: "Generative Engine Optimization and Answer Engine Optimization: the 2026 practice of engineering the signals AI uses when generating local recommendations — rather than optimizing for ten blue links." },
 ];
 
 export function SignalStack() {

@@ -43,13 +43,13 @@ const GOOGLE_AI_CALLING_URL =
 const teaserCards: TeaserCard[] = [
   {
     name: "Get Found",
-    tagline: "The complete AI-visibility foundation — run through our Visibility Engine in 48 hours.",
+    tagline: "Your complete AI-visibility setup, run through the Visibility Engine in 48 hours.",
     price: "$149",
     cadence: "one-time",
     bullets: [
-      "Every signal Google AI, ChatGPT, and Claude check — mapped, aligned, and fixed",
-      "Profile, structured data, cross-web consistency, and first review-velocity path",
-      "Conflicts that make AI distrust you: resolved. Done in 48 hours.",
+      "We map every signal Google AI, ChatGPT, and Claude check before recommending a business",
+      "Profile, business facts across the web, and first review path — mapped and fixed",
+      "Conflicts that make them distrust you: resolved. Done in 48 hours.",
     ],
     href: "/checkout/get-found-refresh",
     cta: "Get Found for $149",

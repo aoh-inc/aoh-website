@@ -41,7 +41,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What if AI still doesn't recommend me after?",
-    a: "If any fix in your report isn't done correctly, we fix it — at no charge. AI visibility builds over weeks as signals propagate, but the foundation we build is solid from day one.",
+    a: "If any fix in your report isn't done correctly, we fix it — at no charge. AI visibility builds over weeks as signals propagate, but every signal we set up is done right from day one.",
   },
 ];
 

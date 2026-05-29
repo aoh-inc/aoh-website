@@ -111,6 +111,7 @@
     "maxSpamCount": 0,
     "minWarmupSent": 10,
     "earlyLaunchMaxNewProspectsPerDay": 30,
+    "minTimeBetweenEmailsMinutesRange": [18, 32],
     "respectAccountMaxPerDay": true,
     "rotateSenders": true,
     "sendAsPlainText": true,
@@ -145,6 +146,8 @@
   "reporting": {
     "outbox": "docs/client-ops-ledger/outbox",
     "currentReport": "docs/client-ops-ledger/gmf-prospecting-engine-current.md",
+    "currentSmartleadDraftReport": "docs/client-ops-ledger/gmf-smartlead-draft-current.md",
+    "currentGuardrailReport": "docs/client-ops-ledger/gmf-prospecting-guardrails-current.md",
     "metrics": ["sends", "clicks", "replies", "form_fills", "purchases", "bounces", "spam_complaints", "opt_outs"]
   }
 }

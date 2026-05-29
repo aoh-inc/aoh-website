@@ -1,6 +1,6 @@
 # GMF 2026-06-01 Prospecting Agent Launch Plan
 
-Status: inspection complete; build in progress
+Status: engine built; fixture proof passed; live sends still blocked pending Auditor/Mike approval
 Owner: Manager / Elon
 Reviewer: Auditor
 Created: 2026-05-29
@@ -146,17 +146,19 @@ export const gmfProspectingConfig = {
 
 | Module | Purpose | Status |
 |---|---|---|
-| `gmf-prospecting.config` | Niches, geos, Outscraper filters, suppression, Smartlead capacity | New module needed |
-| `lead-source-outscraper` | Base Google Maps scrape only, cost capped, no per-review bulk scrape | Existing Reach script to adapt |
-| `lead-normalize-qa` | Normalize fields, keep website/email only, exclude closed/no-fit, review count threshold | Partial existing scripts |
-| `email-verify-nobounce` | Verify every email, drop invalid/risky | Missing; NeverBounce fallback exists |
-| `lead-segment-worst-gap` | Pick one pain per lead | Missing |
-| `copy-generate-sequence` | 4-email sequence, subject variants, no testimonials | Missing |
-| `smartlead-campaign-builder` | Draft paused campaign, rotate inboxes, respect warmup/account caps | Partial hardcoded script exists |
-| `reply-event-router` | Smartlead webhooks, reply class, OOO, opt-out, bounce, form-fill/purchase stop | Partial GHL-centric router exists |
-| `nurture-engine` | Post-form/report nurture and Get Found to Stay Found upsell | SOP exists, code incomplete |
-| `metrics-guardrail-reporter` | Segment/niche/subdomain reporting and auto-pause trigger | Partial reports exist |
+| `gmf-prospecting.config` | Niches, geos, Outscraper filters, suppression, Smartlead capacity | Built in `config/gmf-prospecting.config.json` |
+| `lead-source-outscraper` | Base Google Maps scrape only, cost capped, no per-review bulk scrape | Built in `scripts/gmf-prospecting-engine.mjs`; spend gated |
+| `lead-normalize-qa` | Normalize fields, keep website/email only, exclude closed/no-fit, review count threshold | Built in engine; held CSV emitted |
+| `email-verify-nobounce` | Verify every email, drop invalid/risky | Built using `NOBOUNCE_API_KEY` or existing `NEVERBOUNCE_API_KEY` |
+| `lead-segment-worst-gap` | Pick one pain per lead | Built: few reviews, competitor gap, hours/photos, weak AI/search readiness |
+| `copy-generate-sequence` | 4-email sequence, subject variants, no testimonials | Built: lead-level copy fields plus sequence packet |
+| `smartlead-campaign-builder` | Draft paused campaign, rotate inboxes, respect warmup/account caps | Built: `scripts/gmf-smartlead-draft-builder.mjs`; dry-run default, never activates |
+| `reply-event-router` | Smartlead webhooks, reply class, OOO, opt-out, bounce, form-fill/purchase stop | Built: GMF lane, reply classes, and guarded `/api/prospecting/events`; Smartlead dashboard webhook mapping still next |
+| `nurture-engine` | Post-form/report nurture and Get Found to Stay Found upsell | Nurture packet built; event-driven send wiring still next |
+| `metrics-guardrail-reporter` | Segment/niche/subdomain reporting and auto-pause trigger | Built: `scripts/gmf-prospecting-guardrails.mjs`; recommends subdomain pauses from metrics |
 | `smartlead-deliverability-audit` | Read current Smartlead campaign settings and block launch if anti-spam guardrails drift | Added 2026-05-29 |
+
+Fixture proof: `npm run gmf:prospecting -- --fixture` passed on 2026-05-29 with 4 synthetic leads, 3 Smartlead-ready rows, 1 ICP-held row, no live sends, and 30/day capacity read from the current Smartlead warmup snapshot.
 
 ## Testing Strategy
 
