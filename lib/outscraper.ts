@@ -16,6 +16,7 @@ export type OutscraperBusiness = {
   state: string;
   googleMapsUrl: string;
   sourceQuery: string;
+  latestReviewDate: string | null;
 };
 
 type OutscraperRow = Record<string, unknown>;
@@ -81,6 +82,7 @@ function normalizeOutscraperBusiness(row: OutscraperRow, sourceQuery: string): O
     state,
     googleMapsUrl: pick(row, ["link", "google_maps_url", "location_link", "reviews_link"]),
     sourceQuery,
+    latestReviewDate: pick(row, ["latest_review_date", "last_review_date", "latest_review_time_ago"]) || null,
   };
 }
 
