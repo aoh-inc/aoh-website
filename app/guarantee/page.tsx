@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   description:
     "GetMeFound's plain-English work guarantee and refund policy. If any fix in your report isn't right, we fix it.",
   alternates: { canonical: "/guarantee" },
+  // TEMPORARY: noindex pending Mike's review of wording. Remove robots line when approved.
+  robots: { index: false, follow: true },
 };
 
 function PolicySection({ title, children }: { title: string; children: React.ReactNode }) {
