@@ -70,7 +70,13 @@ export function GetFoundCloseBlock({ variant = "dark", showCta = true }: GetFoun
           : "border-[var(--color-accent)]/20 bg-[var(--color-accent)]/[0.04] text-[var(--color-text-muted)]"
       }`}>
         <span className={`font-semibold ${isDark ? "text-white/80" : "text-[var(--color-text-body)]"}`}>Guarantee: </span>
-        If any fix in your report isn&apos;t done correctly, we fix it. No questions, no fee.
+        If any fix in your report isn&apos;t done correctly, we fix it. No questions, no fee.{" "}
+        <Link
+          href="/guarantee"
+          className={`underline underline-offset-2 transition-opacity hover:opacity-80 ${isDark ? "text-white/50" : "text-[var(--color-text-muted)]"}`}
+        >
+          Full policy →
+        </Link>
       </div>
 
       {showCta && (

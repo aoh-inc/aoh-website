@@ -42,6 +42,7 @@ Mike's 2026-05-29 instruction supersedes the older med-spa/dental/home-services 
 
 Current launch source of truth:
 
+- `docs/GMF_SALES_MANAGER_ACQUISITION_PLAYBOOK.md`
 - `docs/client-ops-ledger/gmf-2026-06-01-prospecting-agent-launch-plan.md`
 - `docs/client-ops-ledger/prospecting-smartlead-preflight-current.md`
 - `docs/client-ops-ledger/smartlead-warmup-current.csv`
@@ -55,6 +56,25 @@ Do not launch the paused CT med-spa campaign as-is. The 6/1 target lanes are:
 - Test bucket: tutoring/music/swim schools, specialty auto, event vendors
 
 Excluded for this launch: home services, dental, legal, realtors.
+
+## Sales Manager Acquisition Doctrine
+
+Sales Manager owns acquisition strategy across channels. Cold email is the primary validation channel, but the growth plan also includes cold calling/SMS, Instagram/Facebook DMs, local owner Facebook groups, and partner/affiliate recruiting. LinkedIn outbound is intentionally excluded for this ICP.
+
+Positioning is consistent across every channel:
+
+- The Visibility Engine
+- Map -> Align -> Amplify
+- Signal Stack
+- opportunity plus first-mover urgency
+- dozens of interdependent signals, not a simple fix
+- no testimonials until GMF has real approved customers
+- no ranking guarantees
+- name Google AI, ChatGPT, Claude, and Gemini where useful
+
+The first validation motion is small scale: pet care, one metro, a few hundred verified leads, then scale only if deliverability, reply quality, form fills, purchases, and 48-hour fulfillment capacity support it.
+
+Sales Manager reports weekly on pipeline by channel/niche, message winners, deliverability health, Get Found sales, Stay Found upgrades, churn risk, fulfillment capacity, and the recommendation to scale, keep testing, cut, or pause.
 
 ## First Campaign Goal
 
@@ -73,7 +93,7 @@ The first campaign should prove:
 | Agent | Owns | Escalates To Mike When |
 |---|---|---|
 | Manager | Job queue, approval gates, status routing | A human approval, access fix, spend increase, or blocker is needed |
-| Sales Manager | Target niche, offer, go/no-go call | Audience or offer needs business judgment |
+| Sales Manager | Acquisition strategy, target niche, offer, channel mix, scale/cut recommendation | Final live-send approval, capacity risk, or business judgment is needed |
 | Scout | Prospect collection and fit notes | Source quality is unclear or spend is needed |
 | Sender | Email verification, Smartlead readiness, upload prep | API access, deliverability, bounce, or unsubscribe risk appears |
 | Coach | Cold email copy and claims | Copy needs a risky promise or positioning decision |
@@ -220,3 +240,4 @@ Mission Control should summarize:
 - Prospecting Pipeline: found, verified, uploaded, sent, replied, booked
 - Agent Work: jobs completed, blockers, owners, approvals needed
 - Growth/ROI: spend, reply rate, booked calls, clients won
+- Sales Manager Scorecard: channel/niche performance, message winner, deliverability, fulfillment capacity, scale/cut recommendation

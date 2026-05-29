@@ -772,6 +772,7 @@ Still not live-send complete: Smartlead draft setup should remain paused until \
 - Config: \`${DEFAULT_CONFIG_PATH}\`
 - CTA path: \`${config.brand?.ctaPath ?? "/lp/get-found"}\`
 - Full CTA URL: ${ctaUrl(config)}
+- Sales Manager first validation: ${config.salesManager?.validationStrategy?.firstNiche ?? "configured ICP"} in ${(config.salesManager?.validationStrategy?.firstGeoIds ?? []).join(", ") || "configured launch geos"}
 - Outscraper mode: base Google Maps scrape only
 - Bulk reviews scraper: blocked for full-list use
 - Estimated plan queries: ${estimatedQueries}
@@ -834,11 +835,13 @@ ${heldReasons.map((item) => `- ${item.reason}: ${item.count}`).join("\n") || "- 
 
 - No live prospect send ran.
 - No Smartlead campaign was created, changed, activated, or uploaded.
+- LinkedIn outbound is excluded for this ICP.
 - No HighLevel AI feature was enabled.
 - No per-review Outscraper scraper ran across the full list.
 - Records missing safe personalization are held before send.
 - Cold emails use outreach domains only; \`getmefound.ai\` is blocked for cold prospecting senders.
 - Every generated body has one CTA link, clear opt-out language, and the physical mailing address.
+- Volume must stay below 48-hour Get Found fulfillment capacity before scale.
 
 ## Credentials/APIs Needed
 
@@ -848,11 +851,12 @@ ${heldReasons.map((item) => `- ${item.reason}: ${item.count}`).join("\n") || "- 
 
 ## Next Agent Actions
 
-1. Scout runs this engine with \`--allow-spend --verify\` only after the spend gate is approved or already documented.
-2. Sender runs \`npm run gmf:smartlead-draft -- --csv ${basename(paths.readyCsv)}\` to build the paused Smartlead draft packet.
-3. Reporter runs \`npm run gmf:guardrails\` after metrics exist.
-4. Auditor reviews sequence, footer, one-link rule, suppression, sender capacity, and deliverability audit.
-5. Manager asks Mike by Slack DM for final live-send approval only after the approval packet is complete.
+1. Sales Manager confirms this batch matches the acquisition playbook: pet-care-first validation, channel fit, and capacity gate.
+2. Scout runs this engine with \`--allow-spend --verify\` only after the spend gate is approved or already documented.
+3. Sender runs \`npm run gmf:smartlead-draft -- --csv ${basename(paths.readyCsv)}\` to build the paused Smartlead draft packet.
+4. Reporter runs \`npm run gmf:guardrails\` after metrics exist.
+5. Auditor reviews sequence, footer, one-link rule, suppression, sender capacity, deliverability audit, and fulfillment-capacity risk.
+6. Manager asks Mike by Slack DM for final live-send approval only after the approval packet is complete.
 `;
 }
 

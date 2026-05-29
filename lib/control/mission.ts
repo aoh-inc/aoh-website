@@ -52,6 +52,17 @@ export type ScheduledWork = {
 
 export const SERVICES: ServiceWork[] = [
   {
+    slug: "prospecting",
+    name: "Client Acquisition",
+    job: "Find buyers",
+    outcome: "Sales Manager-led acquisition across cold email, cold calling/SMS, Instagram/Facebook, and partners, with fulfillment capacity gates before scale.",
+    agents: ["Sales Manager", "Scout", "Sender", "Coach", "Auditor", "Sorter", "Sales Rep"],
+    skills: ["icp-selection", "list-quality", "message-tests", "deliverability", "reply-routing", "capacity-gating"],
+    activeClients: 0,
+    openTasks: 1,
+    blocked: 0,
+  },
+  {
     slug: "get-found-refresh",
     name: "Get Found",
     job: "Get found",
@@ -132,6 +143,26 @@ export const AGENT_SKILLS: AgentSkillProfile[] = [
     sourceDocs: ["docs/PROFILE_KNOWLEDGE_PACK.md", "docs/PROFILE_LOCAL_VISIBILITY_PACK.md"],
   },
   {
+    agent: "Sales Manager",
+    role: "Owns GMF acquisition strategy and channel performance",
+    skills: [
+      "icp-selection",
+      "channel-prioritization",
+      "message-validation",
+      "cold-email-go-no-go",
+      "cold-call-sms-briefs",
+      "partner-pipeline",
+      "fulfillment-capacity-gate",
+      "scale-or-cut-recommendations",
+    ],
+    serviceOwners: ["Get Found", "Stay Found", "Prospecting"],
+    sourceDocs: [
+      "docs/GMF_SALES_MANAGER_ACQUISITION_PLAYBOOK.md",
+      "docs/GMF_PROSPECTING_ENGINE_README.md",
+      "docs/client-ops-ledger/prospecting-cold-email-operating-plan.md",
+    ],
+  },
+  {
     agent: "Reviews Manager",
     role: "Stay Found review owner",
     skills: [
@@ -208,6 +239,24 @@ export const BOARD_COLUMNS: BoardStatus[] = [
 ];
 
 export const BOARD_TASKS: BoardTask[] = [
+  {
+    title: "Run GMF acquisition validation loop",
+    client: "GMF",
+    service: "Prospecting",
+    agent: "Sales Manager",
+    reviewer: "Auditor",
+    status: "In Progress",
+    priority: "P0",
+    due: "Before 2026-06-01 launch",
+    tags: ["sales-manager", "prospecting", "pet-care", "smartlead", "capacity"],
+    reviewChecks: [
+      "Pet care one-metro validation is first",
+      "Cold email, cold calling/SMS, Instagram/Facebook, and partners are assigned",
+      "LinkedIn outbound is excluded",
+      "Copy uses The Visibility Engine, Signal Stack, and no ranking guarantees",
+      "Volume does not outrun 48-hour Get Found fulfillment capacity",
+    ],
+  },
   {
     title: "Finish Get Found client-zero",
     client: "GMF",
@@ -337,6 +386,21 @@ export const SCHEDULED_WORK: ScheduledWork[] = [
     owner: "Manager",
     checks: ["Blocked workflows", "Mike approvals", "failed health checks", "client-risk items"],
     reason: "Mike should see decisions and exceptions, not every agent note.",
+  },
+  {
+    cadence: "Weekly",
+    title: "Sales Manager acquisition scorecard",
+    owner: "Sales Manager",
+    checks: [
+      "pipeline by channel and niche",
+      "message winner",
+      "deliverability by subdomain",
+      "Get Found purchases",
+      "Stay Found upgrades",
+      "fulfillment capacity",
+      "scale/cut recommendation",
+    ],
+    reason: "Acquisition should scale winners without burning domains or creating delivery backlog.",
   },
   {
     cadence: "Weekly",

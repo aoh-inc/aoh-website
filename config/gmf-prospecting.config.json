@@ -2,6 +2,8 @@
   "brand": {
     "company": "GetMeFound",
     "positioning": "The Visibility Engine",
+    "method": "Map -> Align -> Amplify",
+    "supportingPhrase": "Signal Stack",
     "baseUrl": "https://getmefound.ai",
     "ctaPath": "/lp/get-found",
     "offer": "Get Found for $149",
@@ -15,6 +17,7 @@
       "Create first-mover urgency without doom or guarantees.",
       "Name Google AI, ChatGPT, Claude, and Gemini where useful.",
       "Never use testimonials or customer proof until GMF has real approved customers.",
+      "Never guarantee rankings, AI placement, revenue, reviews, or search inclusion.",
       "Describe AI visibility as dozens of public signals that GMF engineers, not a one-click fix."
     ]
   },
@@ -25,6 +28,68 @@
       "start": "10:00",
       "end": "12:00"
     }
+  },
+  "salesManager": {
+    "owner": "Sales Manager",
+    "role": "Owns client acquisition strategy, channel coordination, test prioritization, and scale/cut recommendations without outrunning fulfillment.",
+    "primaryGoal": "Ramp Get Found to 20/month from cold email and toward about 40/month total across channels by month 12.",
+    "validationStrategy": {
+      "firstNiche": "Pet care",
+      "firstGeoIds": ["ct-shoreline-new-haven"],
+      "smallScaleFirst": true,
+      "initialSendWindow": "a few hundred verified leads before scaling",
+      "scaleRule": "Scale only when deliverability is healthy, reply/form-fill quality is present, and 48-hour fulfillment capacity can absorb demand."
+    },
+    "economics": {
+      "footInDoorOffer": "Get Found $149 one-time",
+      "recurringBaseOffers": ["Stay Found $99/mo + $49 setup", "Always Ready $299/mo"],
+      "yearOneContext": {
+        "netRevenueForecast": 95000,
+        "exitMrrForecast": 8500,
+        "getFoundToStayFoundUpgradeTarget": 0.25,
+        "monthlyChurnContext": {
+          "stayFound": 0.07,
+          "alwaysReady": 0.04
+        }
+      }
+    },
+    "channels": [
+      {
+        "id": "cold_email",
+        "priority": 1,
+        "status": "primary",
+        "ownerAgents": ["Scout", "Sender", "Coach", "Auditor", "Sorter", "Sales Rep"],
+        "source": "Outscraper base Google Maps data, NoBounce/NeverBounce verification, SmartLead warmup-paced send",
+        "ctaPath": "/lp/get-found",
+        "notes": "Validate message in pet care and one metro before scaling."
+      },
+      {
+        "id": "cold_call_sms",
+        "priority": 2,
+        "status": "second_channel",
+        "ownerAgents": ["Scout", "Sales Rep", "Sorter", "Auditor"],
+        "source": "Outscraper phone fields and the same verified GBP personalization facts",
+        "notes": "Call script is 30 seconds and references one safe profile fact. SMS requires compliant opt-in/STOP handling before live automated texting."
+      },
+      {
+        "id": "instagram_facebook_dm",
+        "priority": 3,
+        "status": "owner-community_channel",
+        "ownerAgents": ["Scout", "Sales Rep", "Coach", "Auditor"],
+        "source": "Instagram/Facebook business pages and local owner Facebook groups",
+        "notes": "LinkedIn is intentionally excluded for this ICP."
+      },
+      {
+        "id": "partner_affiliate",
+        "priority": 4,
+        "status": "relationship_channel",
+        "ownerAgents": ["Partnerships", "Sales Manager", "Coach", "Auditor"],
+        "source": "Web designers, bookkeepers, VAs, coaches, content creators",
+        "notes": "$50 per Get Found sale. Partners must not promise rankings."
+      }
+    ],
+    "excludedChannels": ["linkedin_outbound"],
+    "weeklyReportMetrics": ["pipeline_by_channel", "pipeline_by_niche", "message_winner", "deliverability_health", "fulfillment_capacity", "get_found_sales", "stay_found_upgrades", "churn_risk", "scale_or_cut_recommendation"]
   },
   "geos": [
     {
@@ -105,6 +170,15 @@
   "smartlead": {
     "useBrandDomainForColdEmail": false,
     "forbiddenSenderDomains": ["getmefound.ai"],
+    "senderDomainPool": [
+      { "domain": "getmefoundlocal.com", "stage": "active_warmup", "coldEmailAllowed": true },
+      { "domain": "getmefoundnow.com", "stage": "active_warmup", "coldEmailAllowed": true },
+      { "domain": "trygetmefound.com", "stage": "active_warmup", "coldEmailAllowed": true },
+      { "domain": "getmefoundhq.com", "stage": "planned_or_warming", "coldEmailAllowed": true },
+      { "domain": "hellogetmefound.com", "stage": "planned_or_warming", "coldEmailAllowed": true },
+      { "domain": "joingetmefound.com", "stage": "planned_or_warming", "coldEmailAllowed": true },
+      { "domain": "getmefoundpro.com", "stage": "planned_or_warming", "coldEmailAllowed": true }
+    ],
     "warmupSnapshot": "docs/client-ops-ledger/smartlead-warmup-current.csv",
     "requireWarmupStatus": "ACTIVE",
     "minReputation": 95,

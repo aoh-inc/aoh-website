@@ -173,6 +173,14 @@ export function Footer() {
                   {isSpanish ? "Términos" : "Terms"}
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/guarantee"
+                  className="hover:text-[var(--color-hero-text)] transition-colors"
+                >
+                  Guarantee
+                </Link>
+              </li>
             </ul>
             <p className="mt-6 text-xs text-[var(--color-hero-subtext)]/60">
               © {year} GetMeFound. All rights reserved.

@@ -345,6 +345,8 @@ ${renderCounts(bySender)}
 - Stop on reply: ${payloads.settings.stop_lead_settings === "REPLY_TO_AN_EMAIL" ? "yes" : "no"}
 - Suppression import rules: global blocklist, unsubscribe list, duplicate leads, and community bounce list are honored.
 - Activation: blocked by this script.
+- Sales Manager capacity gate: campaign activation still requires confirmation that Get Found delivery can stay inside 48 hours.
+- Channel doctrine: cold email validates the message first; LinkedIn outbound is excluded.
 
 ## Actions
 

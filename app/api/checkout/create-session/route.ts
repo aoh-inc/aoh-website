@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
           "Delivered in 48 hours · No contract · If any fix isn't right, we fix it. Questions: support@getmefound.ai",
       },
       terms_of_service_acceptance: {
-        message: `By completing this purchase you agree to GetMeFound's [Terms of Service](${origin}/terms) and [Privacy Policy](${origin}/privacy). Our guarantee: if any fix in your report isn't done correctly, we fix it at no charge.`,
+        message: `By completing this purchase you agree to GetMeFound's [Terms of Service](${origin}/terms) and [Privacy Policy](${origin}/privacy). Work guarantee: if any fix isn't done correctly, we fix it — see [Guarantee Policy](${origin}/guarantee).`,
       },
     },
   };

@@ -10,6 +10,8 @@ This engine prepares cold-email prospecting and nurture for GetMeFound, position
 
 It does not send live email. It builds the safe packet agents need before SmartLead upload: target config, low-cost sourcing rules, email verification, one-gap segmentation, copy, sender-capacity checks, nurture plan, and proof reports.
 
+The broader Sales Manager acquisition doctrine lives in `docs/GMF_SALES_MANAGER_ACQUISITION_PLAYBOOK.md`. Cold email is the first validation channel, not the whole acquisition system.
+
 ## What Exists
 
 - Outscraper base Google Maps discovery exists in `scripts/reach-discovery-first.mjs`.
@@ -80,6 +82,7 @@ npm run gmf:guardrails
 11. Live send still requires Mike approval for the exact campaign, list count, inboxes, cap, send window, and copy packet.
 12. SmartLead events post to `/api/prospecting/events` with `GMF_PROSPECTING_EVENTS_TOKEN`; replies and stop events are logged, suppressed where needed, and routed to Sales Rep tasks.
 13. Guardrail reports review sends, clicks, replies, form fills, purchases, bounces, complaints, and opt-outs by niche, segment, and subdomain.
+14. Sales Manager reviews the weekly acquisition scorecard before scaling: channel, niche, message, deliverability, fulfillment capacity, and upgrade/churn signals.
 
 ## Outputs
 
@@ -112,6 +115,15 @@ Do not send unless all are true:
 - SmartLead campaign stays paused/drafted until the final approval packet is complete.
 - `npm run smartlead:deliverability-audit -- --campaign-id <id>` returns PASS or Auditor explicitly clears a WATCH.
 - Mike gives final live-send approval.
+- Sales Manager confirms the send will not outrun 48-hour Get Found fulfillment capacity.
+
+## Channel Doctrine
+
+- Cold email: primary validation channel through SmartLead and cold domains only.
+- Cold calling/SMS: second channel using Outscraper phone fields and one safe profile fact; automated SMS requires compliance proof before live use.
+- Instagram/Facebook DMs and local owner groups: ICP-native outreach channel.
+- Partner/affiliate: recruit web designers, bookkeepers, VAs, coaches, and content creators at $50 per Get Found sale.
+- LinkedIn outbound: intentionally excluded for this ICP.
 
 ## Nurture
 

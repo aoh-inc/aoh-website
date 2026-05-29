@@ -14,6 +14,10 @@ Do not launch the paused med-spa seed as-is. The 6/1 prospecting plan targets lo
 
 Saturated or excluded for this launch: home services, dental, legal, realtors.
 
+Sales Manager acquisition doctrine is now the owner for channel strategy. Cold email remains the first validation channel, but the full growth system also includes cold calling/SMS, Instagram/Facebook DMs and local owner groups, and partner/affiliate recruiting. LinkedIn outbound is intentionally excluded for this ICP.
+
+Persistent doctrine: `docs/GMF_SALES_MANAGER_ACQUISITION_PLAYBOOK.md`.
+
 ## Inspection Report: Exists Vs Missing
 
 This inspection was completed before writing new prospecting code.
@@ -56,6 +60,13 @@ Default launch geography, unless Mike overrides: Connecticut first, using Greate
 ```js
 export const gmfProspectingConfig = {
   launchDate: "2026-06-01",
+  salesManager: {
+    firstNiche: "Pet care",
+    firstGeoIds: ["ct-shoreline-new-haven"],
+    channels: ["cold_email", "cold_call_sms", "instagram_facebook_dm", "partner_affiliate"],
+    excludedChannels: ["linkedin_outbound"],
+    scaleRule: "Scale only after deliverability, reply/form-fill quality, purchase signal, and 48-hour fulfillment capacity are healthy.",
+  },
   geos: [
     { id: "ct-shoreline-new-haven", label: "CT shoreline / Greater New Haven", country: "US" },
     { id: "ct-greater-hartford", label: "Greater Hartford / central CT", country: "US" },
@@ -95,7 +106,8 @@ export const gmfProspectingConfig = {
   },
   smartlead: {
     useBrandDomain: false,
-    inboxes: ["mike@getmefoundnow.com", "mike@trygetmefound.com", "mike@getmefoundlocal.com"],
+    activeInboxes: ["mike@getmefoundnow.com", "mike@trygetmefound.com", "mike@getmefoundlocal.com"],
+    senderDomainPool: ["getmefoundlocal.com", "getmefoundnow.com", "trygetmefound.com", "getmefoundhq.com", "hellogetmefound.com", "joingetmefound.com", "getmefoundpro.com"],
     respectAccountMaxPerDay: true,
     sendWindow: { timezone: "America/New_York", preferredStart: "10:00", preferredEnd: "12:00" },
     oneLinkOnly: true,
@@ -157,6 +169,7 @@ export const gmfProspectingConfig = {
 | `nurture-engine` | Post-form/report nurture and Get Found to Stay Found upsell | Nurture packet built; event-driven send wiring still next |
 | `metrics-guardrail-reporter` | Segment/niche/subdomain reporting and auto-pause trigger | Built: `scripts/gmf-prospecting-guardrails.mjs`; recommends subdomain pauses from metrics |
 | `smartlead-deliverability-audit` | Read current Smartlead campaign settings and block launch if anti-spam guardrails drift | Added 2026-05-29 |
+| `sales-manager-acquisition-scorecard` | Weekly channel/niche/message/deliverability/capacity review with scale/cut recommendation | Doctrine created in `docs/GMF_SALES_MANAGER_ACQUISITION_PLAYBOOK.md`; report automation next |
 
 Fixture proof: `npm run gmf:prospecting -- --fixture` passed on 2026-05-29 with 4 synthetic leads, 3 Smartlead-ready rows, 1 ICP-held row, no live sends, and 30/day capacity read from the current Smartlead warmup snapshot.
 
@@ -188,6 +201,15 @@ Still owner-needed later:
 1. Final live send approval: after agents produce the candidate list, copy, suppression proof, and Smartlead paused campaign packet, approve or hold the exact send.
 
 Everything else is agent-owned.
+
+## Channel Expansion Order
+
+1. Cold email: validate pet care in one metro through SmartLead and `/lp/get-found`.
+2. Cold calling: use the same Outscraper phone data and one safe GBP stat; call script stays under 30 seconds.
+3. Instagram/Facebook: find active business pages and local owner groups; no LinkedIn outbound for this ICP.
+4. Partner/affiliate: recruit web designers, bookkeepers, VAs, coaches, and content creators at $50 per Get Found sale.
+
+Sales Manager cannot scale any channel beyond current fulfillment capacity. If Get Found delivery risk appears, acquisition slows before reputation/refunds become a problem.
 
 ## External Source Checks
 
