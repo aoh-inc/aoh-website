@@ -300,7 +300,7 @@ export default function Home() {
                           </p>
                           <div className="mt-3 text-center">
                             <Link
-                              href={`/pricing#${p.name === "Get Found" ? "get-found-refresh" : "stay-found"}`}
+                              href={p.name === "Get Found" ? "/get-found" : "/pricing#stay-found"}
                               className="text-xs font-semibold text-[var(--color-accent)] opacity-70 hover:opacity-100 transition-opacity"
                             >
                               See what&apos;s included →

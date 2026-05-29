@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const services = [
-  { href: "/pricing#get-found", label: "Get Found" },
+  { href: "/get-found", label: "Get Found" },
   { href: "/pricing#stay-found", label: "Stay Found" },
   { href: "/pricing#always-ready", label: "Always Ready" },
   { href: "/calculator", label: "Revenue Potential" },

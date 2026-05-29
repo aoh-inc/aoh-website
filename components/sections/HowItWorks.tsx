@@ -212,6 +212,12 @@ export function HowItWorks() {
             Get Found for $149
             <span aria-hidden="true">-&gt;</span>
           </Link>
+          <Link
+            href="/get-found"
+            className="text-sm text-text-muted underline underline-offset-4 hover:text-text-body transition-colors"
+          >
+            See everything we check →
+          </Link>
           <div className="flex flex-wrap justify-center gap-2">
             {["No contract", "No tech skills needed", "48 hours"].map((pill) => (
               <span
