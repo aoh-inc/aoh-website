@@ -6,6 +6,7 @@ import { HomepageFAQ } from "@/components/sections/HomepageFAQ";
 import { ReportTransformation } from "@/components/sections/ReportTransformation";
 import { FounderNote } from "@/components/sections/FounderNote";
 import { Reveal } from "@/components/Reveal";
+import { CheckIcon } from "@/components/ui/Icons";
 import { Spotlight } from "@/components/ui/Spotlight";
 import { BackgroundBeams } from "@/components/ui/BackgroundBeams";
 import { AnimatedIcon } from "@/components/ui/AnimatedIcon";
@@ -103,10 +104,14 @@ export default function Home() {
         tabIndex={-1}
         className="flex flex-1 flex-col focus:outline-none"
       >
-        {/* §1 — HERO (dark) */}
+        {/* §1 — HERO (dark) — faint dot-grid background for depth */}
         <section
           aria-label="Hero"
           className="overflow-hidden bg-[var(--color-hero-bg)] text-[var(--color-hero-text)]"
+          style={{
+            backgroundImage: "radial-gradient(circle, rgba(255,255,255,0.045) 1px, transparent 1px)",
+            backgroundSize: "28px 28px",
+          }}
         >
           <div className="mx-auto max-w-6xl px-6 py-8 sm:py-10 md:py-12 lg:py-14">
             <div className="grid min-w-0 grid-cols-1 gap-8 md:grid-cols-[minmax(0,1.06fr)_minmax(0,0.94fr)] md:items-center md:gap-10 lg:gap-12">
@@ -282,7 +287,7 @@ export default function Home() {
                         <ul className="mb-3 space-y-2">
                           {p.bullets.map((b) => (
                             <li key={b} className="flex items-start gap-2 text-sm text-[var(--color-hero-subtext)]">
-                              <span className="text-[var(--color-accent)] shrink-0 mt-0.5">✓</span>
+                              <CheckIcon className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[var(--color-accent)]" />
                               <span>{b}</span>
                             </li>
                           ))}

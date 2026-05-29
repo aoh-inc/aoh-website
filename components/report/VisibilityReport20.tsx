@@ -168,7 +168,7 @@ function SignalRow({
   const afterStatus = resolveAfterStatus(signal);
 
   return (
-    <div className={`grid items-start gap-x-4 gap-y-2 py-3 ${
+    <div className={`grid items-start gap-x-4 gap-y-2 py-3 rounded-lg px-2 transition-colors hover:bg-[var(--color-border)]/30 -mx-2 ${
       index > 0 ? "border-t border-[var(--color-border)]" : ""
     } grid-cols-[auto_1fr_auto] md:grid-cols-[24px_1fr_auto_auto]`}>
       {/* Status dot (mobile: leftmost) */}

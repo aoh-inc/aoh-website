@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useInView } from "framer-motion";
+import { useInView, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -23,10 +23,17 @@ export function AnimatedNumber({
 }: Props) {
   const ref = useRef<HTMLSpanElement>(null);
   const inView = useInView(ref, { once: true, amount: 0.1 });
-  const [display, setDisplay] = useState(0);
+  const reduced = useReducedMotion();
+  const [display, setDisplay] = useState(reduced ? value : 0);
 
   useEffect(() => {
+    // Respect prefers-reduced-motion — show final value immediately
+    if (reduced) {
+      setDisplay(value);
+      return;
+    }
     if (!inView) return;
+
     let raf = 0;
     const start = performance.now();
 
@@ -40,13 +47,14 @@ export function AnimatedNumber({
 
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [inView, value, duration]);
+  }, [inView, value, duration, reduced]);
 
-  // Fallback: if InView never fires (e.g. slow mobile, reduced-motion), show value after duration + 500ms
+  // Fallback: show final value after timeout in case InView never fires
   useEffect(() => {
+    if (reduced) return;
     const timer = setTimeout(() => setDisplay(value), duration + 500);
     return () => clearTimeout(timer);
-  }, [value, duration]);
+  }, [value, duration, reduced]);
 
   const formatted = thousandsSeparator
     ? display.toLocaleString("en-US")

@@ -7,6 +7,7 @@ import { FounderNote } from "@/components/sections/FounderNote";
 import { GetFoundCloseBlock } from "@/components/sections/GetFoundCloseBlock";
 import { HowItWorks } from "@/components/sections/HowItWorks";
 import { Reveal } from "@/components/Reveal";
+import { CheckIcon } from "@/components/ui/Icons";
 
 export const metadata: Metadata = {
   title: "Get Found — Your Complete AI-Visibility Setup | GetMeFound",
@@ -162,8 +163,8 @@ export default function GetFoundPage() {
             <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               {DELIVERABLES.map(({ label, detail }) => (
                 <div key={label} className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-bg-elevated)] p-5">
-                  <p className="font-semibold text-[var(--color-text-body)] mb-1.5">
-                    <span className="mr-2 text-[var(--color-accent)]">✓</span>
+                  <p className="flex items-start gap-2 font-semibold text-[var(--color-text-body)] mb-1.5">
+                    <CheckIcon className="h-3.5 w-3.5 shrink-0 mt-0.5 text-[var(--color-accent)]" />
                     {label}
                   </p>
                   <p className="pl-5 text-sm leading-relaxed text-[var(--color-text-muted)]">{detail}</p>
