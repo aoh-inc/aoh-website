@@ -1,0 +1,97 @@
+name: Business Improvement Auditor
+
+on:
+  schedule:
+    # 7:25 AM Eastern. GitHub cron is UTC, so run both DST/non-DST slots and gate by New York time.
+    - cron: "25 11 * * 1-5"
+    - cron: "25 12 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      post_slack:
+        description: "Post the audit report to Mike/owner Slack destination"
+        required: false
+        default: "true"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: business-improvement-audit
+  cancel-in-progress: false
+
+jobs:
+  business-improvement-audit:
+    name: Generate independent business improvement audit
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TZ: America/New_York
+      MONDAY_API_TOKEN: ${{ secrets.MONDAY_API_TOKEN }}
+      MONDAY_AGENT_JOBS_BOARD_ID: ${{ secrets.MONDAY_AGENT_JOBS_BOARD_ID || vars.MONDAY_AGENT_JOBS_BOARD_ID }}
+      SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+      OWNER_DM_SLACK_CHANNEL: ${{ vars.OWNER_DM_SLACK_CHANNEL || vars.MORNING_BRIEF_SLACK_CHANNEL || 'D0ATLRTCP2P' }}
+      MANAGER_NOTIFY_TOKEN: ${{ secrets.MANAGER_NOTIFY_TOKEN || secrets.REPORT_TEST_BYPASS_TOKEN }}
+      MANAGER_NOTIFY_URL: ${{ vars.MANAGER_NOTIFY_URL || 'https://getmefound.ai/api/agent/slack?manager_notify=1' }}
+
+    steps:
+      - name: Check local delivery time
+        id: delivery_time
+        shell: bash
+        run: |
+          LOCAL_HOUR="$(TZ=America/New_York date +%H)"
+          SHOULD_RUN="true"
+          if [[ "${{ github.event_name }}" == "schedule" && "$LOCAL_HOUR" != "07" ]]; then
+            SHOULD_RUN="false"
+          fi
+          echo "should_run=$SHOULD_RUN" >> "$GITHUB_OUTPUT"
+          echo "Local hour: ${LOCAL_HOUR}; should_run=${SHOULD_RUN}"
+
+      - name: Checkout
+        if: steps.delivery_time.outputs.should_run == 'true'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        if: steps.delivery_time.outputs.should_run == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.delivery_time.outputs.should_run == 'true'
+        run: npm ci
+
+      - name: Generate audit
+        if: steps.delivery_time.outputs.should_run == 'true'
+        id: audit
+        shell: bash
+        env:
+          POST_SLACK: ${{ github.event.inputs.post_slack || 'true' }}
+        run: |
+          RUN_DATE="$(TZ=America/New_York date +%F)"
+          echo "run_date=$RUN_DATE" >> "$GITHUB_OUTPUT"
+          ARGS=()
+          if [[ "$POST_SLACK" =~ ^(1|true|yes|y)$ ]]; then
+            ARGS+=(--post-slack)
+          fi
+          npm run agent:business-audit -- --date "$RUN_DATE" "${ARGS[@]}"
+
+      - name: Commit audit ledger
+        if: steps.delivery_time.outputs.should_run == 'true'
+        shell: bash
+        run: |
+          git config user.name "GMF Business Improvement Auditor"
+          git config user.email "actions@github.com"
+          RUN_DATE="${{ steps.audit.outputs.run_date }}"
+          git add docs/client-ops-ledger/business-improvement-audit-current.md
+          git add -f "docs/client-ops-ledger/outbox/business-improvement-audit-${RUN_DATE}-"*.md || true
+          git add -f "docs/client-ops-ledger/outbox/manager-agent-watchdog-"*.md || true
+          if git diff --cached --quiet; then
+            echo "No business improvement audit changes to commit."
+          else
+            git commit -m "Record business improvement audit"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi

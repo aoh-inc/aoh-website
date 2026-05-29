@@ -10,10 +10,13 @@ const INTERNAL_LOGIN_MAX_FAILURES = 8;
 const failedInternalLogins = new Map<string, number[]>();
 
 export async function hasInternalToolSession() {
+  const headerStore = await headers();
+  if (isLocalDashboardRequest(headerStore)) return { ok: true as const };
+
   const expected = expectedInternalToken();
   if (!expected) return { ok: false as const, message: "Internal token is not configured." };
 
-  const bearer = (await headers()).get("authorization")?.replace(/^Bearer\s+/i, "").trim();
+  const bearer = headerStore.get("authorization")?.replace(/^Bearer\s+/i, "").trim();
   if (bearer && bearer === expected) return { ok: true as const };
 
   const token = (await cookies()).get(INTERNAL_TOOL_COOKIE)?.value ?? "";
@@ -50,6 +53,20 @@ export function expectedInternalToken() {
 
 function expectedOwnerPin() {
   return envValueAny("GMF_OWNER_PIN");
+}
+
+function isLocalDashboardRequest(headerStore: Headers) {
+  if (process.env.NODE_ENV === "production") return false;
+  return [headerStore.get("host"), headerStore.get("x-forwarded-host")]
+    .filter(Boolean)
+    .some((value) => isLocalHost(String(value)));
+}
+
+function isLocalHost(value: string) {
+  const host = value.split(",")[0]?.trim().toLowerCase() || "";
+  if (host.startsWith("[::1]")) return true;
+  const withoutPort = host.split(":")[0];
+  return withoutPort === "localhost" || withoutPort === "127.0.0.1" || withoutPort === "::1";
 }
 
 function isValidInternalCredential(credential: string, expected: string) {

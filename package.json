@@ -31,6 +31,7 @@
     "smartlead:check": "node scripts/smartlead-check.mjs",
     "smartlead:create-campaign-draft": "node scripts/smartlead-create-campaign-draft.mjs",
     "smartlead:readiness": "node scripts/smartlead-readiness.mjs",
+    "smartlead:schedule-seed-launch": "node scripts/smartlead-schedule-seed-launch.mjs",
     "smartlead:warmup-report": "node scripts/smartlead-warmup-report.mjs",
     "prospecting:preflight": "node scripts/prospecting-smartlead-preflight.mjs",
     "monday:agent-job": "node scripts/monday-agent-jobs.mjs",
@@ -40,6 +41,9 @@
     "review:recap-smoke": "node scripts/review-recap-smoke.mjs",
     "review:integration-health-smoke": "node scripts/review-integration-health-smoke.mjs",
     "report:ops-smoke": "node scripts/report-flow-smoke.mjs",
+    "gbp:readonly-preflight": "node scripts/gbp-readonly-preflight.mjs",
+    "agent:watchdog": "node scripts/manager-agent-watchdog.mjs",
+    "agent:business-audit": "node scripts/business-improvement-audit.mjs",
     "morning:brief": "node scripts/morning-brief.mjs",
     "agent:brief": "node scripts/agent-command-center.mjs",
     "agent:command": "node scripts/agent-command-center.mjs",
@@ -47,7 +51,10 @@
     "agent:slack-candidates": "node scripts/manager-slack-training-candidates.mjs",
     "agent:slack": "node scripts/agent-command-center.mjs --post-slack",
     "audit:security": "node scripts/auditor-security-sweep.mjs",
-    "systems:readiness": "node scripts/systems-director-readiness.mjs"
+    "systems:readiness": "node scripts/systems-director-readiness.mjs",
+    "systems:key-rotation-smoke": "node scripts/api-key-rotation-smoke.mjs",
+    "systems:slack-key-rotation-smoke": "node scripts/slack-key-rotation-smoke.mjs",
+    "systems:stripe-resend-key-rotation-smoke": "node scripts/stripe-resend-key-rotation-smoke.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.106.2",
@@ -56,7 +63,7 @@
     "framer-motion": "^12.38.0",
     "gray-matter": "^4.0.3",
     "marked": "^18.0.3",
-    "next": "16.2.5",
+    "next": "16.2.6",
     "pdf-parse": "^2.4.5",
     "react": "19.2.4",
     "react-dom": "19.2.4",
@@ -72,7 +79,7 @@
     "@types/react-dom": "^19",
     "@types/three": "^0.184.1",
     "eslint": "^9",
-    "eslint-config-next": "16.2.5",
+    "eslint-config-next": "16.2.6",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

@@ -214,8 +214,8 @@ export const WORKFLOW_DEFINITIONS: Array<Omit<GmfWorkflow, "counters">> = [
       { agent: "Manager", role: "Exception owner", does: "Shows Mike only what needs approval or a business decision.", proof: "Owner decision request is short and specific." },
     ],
     links: [
-      { label: "GHL Exit Ops", href: "/mike-mc/ghl-exit-ops" },
       { label: "Ops Index", href: "/mike-mc/ops" },
+      { label: "Setup Jobs", href: "/mike-mc/setup-jobs" },
       { label: "Integration Health", href: "/api/review-automation/integration-health" },
     ],
   },

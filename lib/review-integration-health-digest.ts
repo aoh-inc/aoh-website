@@ -22,8 +22,8 @@ Stale threshold: ${input.rollup.staleAfterHours} hours
 
 ${lines.join("\n")}
 
-Ops page:
-https://getmefound.ai/mike-mc/ghl-exit-ops
+Client profiles:
+https://getmefound.ai/mike-mc/clients
 
 GetMeFound`;
 
@@ -59,7 +59,7 @@ GetMeFound`;
           <tbody>${rows}</tbody>
         </table>
         <p style="margin:24px 0 0;">
-          <a href="https://getmefound.ai/mike-mc/ghl-exit-ops" style="display:inline-block;border-radius:8px;background:#065f46;color:#ffffff;padding:12px 18px;text-decoration:none;font-weight:700;">Open ops page</a>
+          <a href="https://getmefound.ai/mike-mc/clients" style="display:inline-block;border-radius:8px;background:#065f46;color:#ffffff;padding:12px 18px;text-decoration:none;font-weight:700;">Open client profiles</a>
         </p>
       </div>
     </div>
