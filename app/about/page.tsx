@@ -125,15 +125,18 @@ export default function AboutPage() {
               <div className="grid grid-cols-1 gap-10 md:grid-cols-[auto_1fr] md:items-start">
                 {/* Photo + name */}
                 <div className="flex flex-col items-start gap-3">
-                  <div className="h-44 w-44 overflow-hidden rounded-2xl ring-1 ring-border" style={{ backgroundColor: "var(--color-bg-page)" }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src="/team/mike.jpg"
-                      alt="Mike Egidio"
-                      className="h-full w-full object-cover object-top"
-                      style={{ mixBlendMode: "multiply" }}
-                    />
-                  </div>
+                  <div
+                    className="h-44 w-44 rounded-2xl ring-1 ring-border"
+                    role="img"
+                    aria-label="Mike Egidio"
+                    style={{
+                      backgroundImage: "url('/team/mike.jpg')",
+                      backgroundSize: "cover",
+                      backgroundPosition: "top center",
+                      backgroundBlendMode: "multiply",
+                      backgroundColor: "var(--color-bg-page)",
+                    }}
+                  />
                   <div className="flex flex-col gap-1">
                     <p className="font-bold text-text-body">Mike Egidio</p>
                     <Link
