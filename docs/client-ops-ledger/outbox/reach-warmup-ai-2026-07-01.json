@@ -1,0 +1,16 @@
+{
+  "date": "2026-07-01",
+  "lane": "ai",
+  "label": "AI Visibility",
+  "execute": "auto",
+  "warmupDay": 43,
+  "quota": null,
+  "status": "held",
+  "selectedCount": 0,
+  "selectedCsv": "",
+  "blockers": [
+    "Check warmup status, bounces, spam placement, replies, unsubscribes, complaints, duplicate prevention, and sender-domain health before increasing."
+  ],
+  "attempts": [],
+  "actionResults": []
+}
